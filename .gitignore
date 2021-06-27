@@ -1,3 +1,300 @@
+
+# Created by https://www.toptal.com/developers/gitignore/api/swift,xcode,cocoapods
+# Edit at https://www.toptal.com/developers/gitignore?templates=swift,xcode,cocoapods
+
+### CocoaPods ###
+## CocoaPods GitIgnore Template
+
+# CocoaPods - Only use to conserve bandwidth / Save time on Pushing
+#           - Also handy if you have a large number of dependant pods
+#           - AS PER https://guides.cocoapods.org/using/using-cocoapods.html NEVER IGNORE THE LOCK FILE
+Pods/
+
+### Swift ###
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## User settings
+xcuserdata/
+
+## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+*.xcscmblueprint
+*.xccheckout
+
+## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+build/
+DerivedData/
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+## Obj-C/Swift specific
+*.hmap
+
+## App packaging
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Packages/
+# Package.pins
+# Package.resolved
+# *.xcodeproj
+# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
+# hence it is not needed unless you have added a package configuration file to your project
+# .swiftpm
+
+.build/
+
+# CocoaPods
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+# Pods/
+# Add this line if you want to avoid checking in source code from the Xcode workspace
+# *.xcworkspace
+
+# Carthage
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthage/Checkouts
+
+Carthage/Build/
+
+# Accio dependency management
+Dependencies/
+.accio/
+
+# fastlane
+# It is recommended to not store the screenshots in the git repo.
+# Instead, use fastlane to re-generate the screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/#source-control
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Code Injection
+# After new code Injection tools there's a generated folder /iOSInjectionProject
+# https://github.com/johnno1962/injectionforxcode
+
+iOSInjectionProject/
+*.DS_Store
+### Xcode ###
+# Xcode
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+
+
+
+## Gcc Patch
+/*.gcno
+
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+# End of https://www.toptal.com/developers/gitignore/api/swift,xcode,cocoapods
+(base)  hansol  ~   hansol  ls        
+0428team.ipynb       FLAB                 Postman
+0428team.ipynb.zip   IdeaProjects         Public
+3663200.gpx          KAU                  PycharmProjects
+Applications         Library              SOPT
+ClionProjects        MNIST_data           Zeepy
+Creative Cloud Files Movies               filters
+Desktop              Music                opt
+Documents            PersonalProjects
+Downloads            Pictures
+(base)  hansol  ~   hansol  cd SOPT/28th_BE_SOPT/CAPIN      
+(base)  hansol  ~/SOPT/28th_BE_SOPT/CAPIN   hansol  ls
+(base)  hansol  ~/SOPT/28th_BE_SOPT/CAPIN   hansol  git clone https://github.com/teamCA-PIN/CA-PIN_iOS.git                                         
+Cloning into 'CA-PIN_iOS'...
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (4/4), done.
+(base)  hansol  ~/SOPT/28th_BE_SOPT/CAPIN   hansol  cd ..
+(base)  hansol  ~/SOPT/28th_BE_SOPT   hansol  ls
+26th iOS Git bash.pdf
+28th_BESOPT_1stWeek_Seminar
+3주차세미나_2차완성본.pdf
+CAPIN
+Coinone-iOS
+Coinone-iOS 복사본
+PM 제출용 자기소개.ai
+Seminar
+swift 문법자료.pdf
+아요 엔딩크레딧.jpeg
+기획
+리드미 자료
+디자인
+지훈이 가상배경.png
+자기소개_iOS_노한솔.pdf
+갓지훈의 엔딩크레딧.mp4
+(base)  hansol  ~/SOPT/28th_BE_SOPT   hansol  cd Coinone-iOS
+(base)  hansol  ~/SOPT/28th_BE_SOPT/Coinone-iOS   feature/#31  ls 
+Coinone-iOS README.md
+(base)  hansol  ~/SOPT/28th_BE_SOPT/Coinone-iOS   feature/#31  vi gitignore
+(base)  hansol  ~/SOPT/28th_BE_SOPT/Coinone-iOS   feature/#31  cd Coinone-iOS
+(base)  hansol  ~/SOPT/28th_BE_SOPT/Coinone-iOS/Coinone-iOS   feature/#31  vi gitignore
+(base)  hansol  ~/SOPT/28th_BE_SOPT/Coinone-iOS/Coinone-iOS   feature/#31   cd ..
+(base)  hansol  ~/SOPT/28th_BE_SOPT/Coinone-iOS   feature/#31  vi .gitignore 
+
+ 1 .gitignore                                                           Buffers 
+ 1
+# Created by https://www.toptal.com/developers/gitignore/api/swift,xcode,cocoapods
+# Edit at https://www.toptal.com/developers/gitignore?templates=swift,xcode,cocoapods
+
+### CocoaPods ###
+## CocoaPods GitIgnore Template
+
+# CocoaPods - Only use to conserve bandwidth / Save time on Pushing
+#           - Also handy if you have a large number of dependant pods
+#           - AS PER https://guides.cocoapods.org/using/using-cocoapods.html NEVER IGNORE THE LOCK FILE
+Pods/
+
+### Swift ###
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## User settings
+xcuserdata/
+
+## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+*.xcscmblueprint
+*.xccheckout
+
+## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+build/
+DerivedData/
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+## Obj-C/Swift specific
+*.hmap
+
+## App packaging
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Packages/
+# Package.pins
+# Package.resolved
+# *.xcodeproj
+# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
+# hence it is not needed unless you have added a package configuration file to your project
+# .swiftpm
+
+.build/
+
+# CocoaPods
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+# Pods/
+# Add this line if you want to avoid checking in source code from the Xcode workspace
+# *.xcworkspace
+
+# Carthage
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthage/Checkouts
+
+Carthage/Build/
+
+# Accio dependency management
+Dependencies/
+.accio/
+
+# fastlane
+# It is recommended to not store the screenshots in the git repo.
+# Instead, use fastlane to re-generate the screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/#source-control
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Code Injection
+# After new code Injection tools there's a generated folder /iOSInjectionProject
+# https://github.com/johnno1962/injectionforxcode
+
+iOSInjectionProject/
+
+### Xcode ###
+# Xcode
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+
+
+
+## Gcc Patch
+/*.gcno
+
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+# End of https://www.toptal.com/developers/gitignore/api/swift,xcode,CocoaPods 
+  9 ### Xcode ###
+  8 # Xcode
+  7 # gitignore contributors: remember to update Global/Xcode.gitignore, Objecti
+  6 
+  5 
+  4 
+  3 
+  2 ## Gcc Patch
+  1 /*.gcno
+106 *.DS_Store
+  1 ### Xcode Patch ###
+  2 *.xcodeproj/*
+  3 !*.xcodeproj/project.pbxproj
+  4 !*.xcodeproj/xcshareddata/
+  5 !*.xcworkspace/contents.xcworkspacedata
+  6 **/xcshareddata/WorkspaceSettings.xcsettings
+  7 
+  8 # End of https://www.toptal.com/developers/gitignore/api/swift,cocoapods,xco
+  9 #
+ 10 # gitignore contributors: remember to update Global/Xcode.gitignore, Objecti
+ 1  - 5.2k .gitignore  conf  # s                           unix | utf-8  106:10 
+
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
