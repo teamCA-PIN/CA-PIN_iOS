@@ -65,15 +65,18 @@ extension UIViewController {
 																						 constant: 20).isActive = true
 		backgroundView.bottomAnchor.constraint(equalTo: label.bottomAnchor).isActive = true
 		
-		UIView.animate(withDuration: duration, delay: 0.1, options: .curveEaseOut, animations: {
+		UIView.animate(withDuration: duration,
+                   delay: 0.1,
+                   options: .curveEaseOut,
+                   animations: {
 			label.alpha = 0.0
 			backgroundView.alpha = 0.0
-		}, completion: { _ in
+		},
+                   completion: { _ in
 			label.removeFromSuperview()
 			backgroundView.removeFromSuperview()
 		})
 	}
-	
 	func setupStatusBar(_ color: UIColor) {
 		if #available(iOS 13.0, *) {
 			let margin = view.layoutMarginsGuide
@@ -95,7 +98,6 @@ extension UIViewController {
 			statusBar?.backgroundColor = color
 		}
 	}
-	
 	func setupNavigationBar(_ color: UIColor) {
 		guard let navigationBar = self.navigationController?.navigationBar else { return }
 		
@@ -104,22 +106,25 @@ extension UIViewController {
 		navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 		navigationBar.shadowImage = UIImage()
 	}
-	func pullToRefresh(collectionview : UICollectionView) {
+	func pullToRefresh(collectionview: UICollectionView) {
 		let refreshControl = UIRefreshControl()
 		collectionview.refreshControl = refreshControl
-		refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+		refreshControl.addTarget(self, action: #selector(refresh(_:)),
+                             for: .valueChanged)
 	}
-	func pullToRefresh(tableview : UITableView) {
+	func pullToRefresh(tableview: UITableView) {
 		let refreshControl = UIRefreshControl()
 		tableview.refreshControl = refreshControl
-		refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+		refreshControl.addTarget(self, action: #selector(refresh(_:)),
+                             for: .valueChanged)
 	}
-	func pullToRefresh(scrollview : UIScrollView) {
+	func pullToRefresh(scrollview: UIScrollView) {
 		let refreshControl = UIRefreshControl()
 		scrollview.refreshControl = refreshControl
-		refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+		refreshControl.addTarget(self, action: #selector(refresh(_:)),
+                             for: .valueChanged)
 	}
-	@objc private func refresh(_ sender : UIRefreshControl) {
+	@objc private func refresh(_ sender: UIRefreshControl) {
 		self.viewDidLoad()
 		sender.endRefreshing()
 	}
