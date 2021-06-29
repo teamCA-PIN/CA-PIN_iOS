@@ -1,12 +1,16 @@
 //
 //  UIButton+.swift
-//  Zeepy
+//  CA-PIN_IOS
 //
-//  Created by 김태훈 on 2021/03/06.
+//  Created by 노한솔 on 2021/06/28.
 //
 
 import Foundation
 import UIKit
+
+import SnapKit
+import Then
+
 extension UIButton {
   public typealias UIButtonTargetClosure = (UIButton) -> ()
   private class UIButtonClosureWrapper: NSObject {
@@ -15,6 +19,7 @@ extension UIButton {
       self.closure = closure
     }
   }
+  
   /** 매번 setimage할때 귀찮아서 만듦 (normal 상태)
    - Parameter name: UIImage 이름을 적어주세요
    - Returns: 없음
@@ -22,6 +27,7 @@ extension UIButton {
   func setImageByName(_ name: String){
     self.setImage(UIImage(named: name), for: .normal)
   }
+  
   /** 매번 setimage할때 귀찮아서 만듦 (selected상태)
    - Parameter name: UIImage 이름을 적어주세요
    - parameter selected: selected일 때 이름을 적어주세요
@@ -55,5 +61,17 @@ extension UIButton {
   public func addAction(for event: UIButton.Event, closure: @escaping UIButtonTargetClosure) {
     targetClosure = closure
     addTarget(self, action: #selector(UIButton.closureAction), for: event)
+  }
+  func setupButton(title: String,
+                 color: UIColor,
+                 font: UIFont,
+                 backgroundColor: UIColor,
+                 state: UIControl.State,
+                 radius: CGFloat) {
+    self.setTitle(title, for: state)
+    self.setTitleColor(color, for: state)
+    self.titleLabel?.font = font
+    self.backgroundColor = backgroundColor
+    self.setRounded(radius: radius)
   }
 }
