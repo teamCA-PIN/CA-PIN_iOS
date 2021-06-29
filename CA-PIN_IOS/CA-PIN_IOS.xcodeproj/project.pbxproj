@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		411F7BF12A6685CEA7A9189F /* Pods_CA_PIN_IOS_CA_PIN_IOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D30FA22FBCC69E92AAED0BE /* Pods_CA_PIN_IOS_CA_PIN_IOSUITests.framework */; };
+		7B80170D951C27BD4B4456D6 /* Pods_CA_PIN_IOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 259477F0E447DE04609449E5 /* Pods_CA_PIN_IOS.framework */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -30,6 +32,20 @@
 		CCA85B5F2688F29700C9A32C /* UICollectionReusableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85B542688F29600C9A32C /* UICollectionReusableView+.swift */; };
 		CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85B552688F29600C9A32C /* UICollectionView+.swift */; };
 		CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85B612688F2F800C9A32C /* ReusableView.swift */; };
+		CCF78427268B0774005FDF1D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78426268B0774005FDF1D /* Then */; };
+		CCF7842A268B0781005FDF1D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78429268B0781005FDF1D /* SnapKit */; };
+		CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7842C268B0797005FDF1D /* CGFloatLiteral */; };
+		CCF78430268B07C0005FDF1D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7842F268B07C0005FDF1D /* Kingfisher */; };
+		CCF78433268B07DC005FDF1D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78432268B07DC005FDF1D /* Lottie */; };
+		CCF78436268B082A005FDF1D /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78435268B082A005FDF1D /* Moya */; };
+		CCF78438268B082A005FDF1D /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78437268B082A005FDF1D /* RxMoya */; };
+		CCF7843A268B082A005FDF1D /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78439268B082A005FDF1D /* ReactiveMoya */; };
+		CCF7843D268B08C2005FDF1D /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7843C268B08C2005FDF1D /* SwiftKeychainWrapper */; };
+		CCF78440268B08E4005FDF1D /* SwiftyColor in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7843F268B08E4005FDF1D /* SwiftyColor */; };
+		CCF78446268B197A005FDF1D /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78442268B197A005FDF1D /* UITextField+.swift */; };
+		CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78444268B197A005FDF1D /* UILabel+.swift */; };
+		CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78449268B71CD005FDF1D /* LoginViewController.swift */; };
+		DEAF5909BEA6DABAD94C99B1 /* Pods_CA_PIN_IOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2EB73A4D1A93ECC7CCACCE /* Pods_CA_PIN_IOSTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +66,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04B365EF4941E9A12EE64EA9 /* Pods-CA-PIN_IOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOSTests.debug.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOSTests/Pods-CA-PIN_IOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1D2EB73A4D1A93ECC7CCACCE /* Pods_CA_PIN_IOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CA_PIN_IOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		259477F0E447DE04609449E5 /* Pods_CA_PIN_IOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CA_PIN_IOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C54DEA8F4DE6F401F16C8D9 /* Pods-CA-PIN_IOS-CA-PIN_IOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS-CA-PIN_IOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		6487D4BF3EFFAB9B4F67E2B1 /* Pods-CA-PIN_IOS-CA-PIN_IOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS-CA-PIN_IOSUITests.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests.release.xcconfig"; sourceTree = "<group>"; };
+		7D30FA22FBCC69E92AAED0BE /* Pods_CA_PIN_IOS_CA_PIN_IOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CA_PIN_IOS_CA_PIN_IOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B350E96FA945D43E4A64DD28 /* Pods-CA-PIN_IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS.debug.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS.debug.xcconfig"; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +102,11 @@
 		CCA85B542688F29600C9A32C /* UICollectionReusableView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView+.swift"; sourceTree = "<group>"; };
 		CCA85B552688F29600C9A32C /* UICollectionView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		CCA85B612688F2F800C9A32C /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
+		CCF78442268B197A005FDF1D /* UITextField+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
+		CCF78444268B197A005FDF1D /* UILabel+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		CCF78449268B71CD005FDF1D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DCE275964F750EF1950B1B3F /* Pods-CA-PIN_IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS.release.xcconfig"; sourceTree = "<group>"; };
+		E1713BD6CEA8E864225CCD7B /* Pods-CA-PIN_IOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOSTests.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOSTests/Pods-CA-PIN_IOSTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +114,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCF78433268B07DC005FDF1D /* Lottie in Frameworks */,
+				CCF78430268B07C0005FDF1D /* Kingfisher in Frameworks */,
+				CCF78440268B08E4005FDF1D /* SwiftyColor in Frameworks */,
+				CCF78436268B082A005FDF1D /* Moya in Frameworks */,
+				CCF78427268B0774005FDF1D /* Then in Frameworks */,
+				CCF78438268B082A005FDF1D /* RxMoya in Frameworks */,
+				CCF7843A268B082A005FDF1D /* ReactiveMoya in Frameworks */,
+				CCF7842A268B0781005FDF1D /* SnapKit in Frameworks */,
+				CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */,
+				CCF7843D268B08C2005FDF1D /* SwiftKeychainWrapper in Frameworks */,
+				7B80170D951C27BD4B4456D6 /* Pods_CA_PIN_IOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEAF5909BEA6DABAD94C99B1 /* Pods_CA_PIN_IOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,12 +140,39 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				411F7BF12A6685CEA7A9189F /* Pods_CA_PIN_IOS_CA_PIN_IOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C38EDC277BFADE44C40B2C86 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				259477F0E447DE04609449E5 /* Pods_CA_PIN_IOS.framework */,
+				7D30FA22FBCC69E92AAED0BE /* Pods_CA_PIN_IOS_CA_PIN_IOSUITests.framework */,
+				1D2EB73A4D1A93ECC7CCACCE /* Pods_CA_PIN_IOSTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC6FBC0E268A322800BC299C /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				CC6FBC0F268A322E00BC299C /* ViewControllers */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		CC6FBC0F268A322E00BC299C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CCF78449268B71CD005FDF1D /* LoginViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		CCA85AE82688ED6E00C9A32C = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +180,8 @@
 				CCA85B0A2688ED7300C9A32C /* CA-PIN_IOSTests */,
 				CCA85B152688ED7300C9A32C /* CA-PIN_IOSUITests */,
 				CCA85AF22688ED6F00C9A32C /* Products */,
+				E58742F02CD642743024EBD7 /* Pods */,
+				C38EDC277BFADE44C40B2C86 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -186,6 +255,7 @@
 		CCA85B272688F11200C9A32C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CC6FBC0E268A322800BC299C /* Login */,
 				CCA85AF82688ED6F00C9A32C /* ViewController.swift */,
 				CCA85AFA2688ED6F00C9A32C /* Main.storyboard */,
 			);
@@ -226,6 +296,8 @@
 				CCA85B4D2688F29600C9A32C /* UITableViewCell+.swift */,
 				CCA85B4E2688F29600C9A32C /* UIView+.swift */,
 				CCA85B502688F29600C9A32C /* UIViewController+.swift */,
+				CCF78444268B197A005FDF1D /* UILabel+.swift */,
+				CCF78442268B197A005FDF1D /* UITextField+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -253,6 +325,19 @@
 			path = Base.lproj;
 			sourceTree = "<group>";
 		};
+		E58742F02CD642743024EBD7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B350E96FA945D43E4A64DD28 /* Pods-CA-PIN_IOS.debug.xcconfig */,
+				DCE275964F750EF1950B1B3F /* Pods-CA-PIN_IOS.release.xcconfig */,
+				4C54DEA8F4DE6F401F16C8D9 /* Pods-CA-PIN_IOS-CA-PIN_IOSUITests.debug.xcconfig */,
+				6487D4BF3EFFAB9B4F67E2B1 /* Pods-CA-PIN_IOS-CA-PIN_IOSUITests.release.xcconfig */,
+				04B365EF4941E9A12EE64EA9 /* Pods-CA-PIN_IOSTests.debug.xcconfig */,
+				E1713BD6CEA8E864225CCD7B /* Pods-CA-PIN_IOSTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -260,15 +345,29 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CCA85B1B2688ED7300C9A32C /* Build configuration list for PBXNativeTarget "CA-PIN_IOS" */;
 			buildPhases = (
+				C23B9B62C70C498BDBD7071A /* [CP] Check Pods Manifest.lock */,
 				CCA85AED2688ED6E00C9A32C /* Sources */,
 				CCA85AEE2688ED6E00C9A32C /* Frameworks */,
 				CCA85AEF2688ED6E00C9A32C /* Resources */,
+				1BCB1D18310D1F7ECAF27FB9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "CA-PIN_IOS";
+			packageProductDependencies = (
+				CCF78426268B0774005FDF1D /* Then */,
+				CCF78429268B0781005FDF1D /* SnapKit */,
+				CCF7842C268B0797005FDF1D /* CGFloatLiteral */,
+				CCF7842F268B07C0005FDF1D /* Kingfisher */,
+				CCF78432268B07DC005FDF1D /* Lottie */,
+				CCF78435268B082A005FDF1D /* Moya */,
+				CCF78437268B082A005FDF1D /* RxMoya */,
+				CCF78439268B082A005FDF1D /* ReactiveMoya */,
+				CCF7843C268B08C2005FDF1D /* SwiftKeychainWrapper */,
+				CCF7843F268B08E4005FDF1D /* SwiftyColor */,
+			);
 			productName = "CA-PIN_IOS";
 			productReference = CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */;
 			productType = "com.apple.product-type.application";
@@ -277,6 +376,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CCA85B1E2688ED7300C9A32C /* Build configuration list for PBXNativeTarget "CA-PIN_IOSTests" */;
 			buildPhases = (
+				66B3B99C8EC875605419C3E0 /* [CP] Check Pods Manifest.lock */,
 				CCA85B032688ED7300C9A32C /* Sources */,
 				CCA85B042688ED7300C9A32C /* Frameworks */,
 				CCA85B052688ED7300C9A32C /* Resources */,
@@ -295,9 +395,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CCA85B212688ED7300C9A32C /* Build configuration list for PBXNativeTarget "CA-PIN_IOSUITests" */;
 			buildPhases = (
+				7A221E4E57114AD210A34418 /* [CP] Check Pods Manifest.lock */,
 				CCA85B0E2688ED7300C9A32C /* Sources */,
 				CCA85B0F2688ED7300C9A32C /* Frameworks */,
 				CCA85B102688ED7300C9A32C /* Resources */,
+				AD9441E1D57B7C1EBFF9CFF1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -340,6 +442,16 @@
 				Base,
 			);
 			mainGroup = CCA85AE82688ED6E00C9A32C;
+			packageReferences = (
+				CCF78425268B0774005FDF1D /* XCRemoteSwiftPackageReference "Then" */,
+				CCF78428268B0781005FDF1D /* XCRemoteSwiftPackageReference "SnapKit" */,
+				CCF7842B268B0797005FDF1D /* XCRemoteSwiftPackageReference "CGFloatLiteral" */,
+				CCF7842E268B07C0005FDF1D /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				CCF78431268B07DC005FDF1D /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */,
+				CCF7843B268B08C2005FDF1D /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */,
+			);
 			productRefGroup = CCA85AF22688ED6F00C9A32C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -378,11 +490,115 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1BCB1D18310D1F7ECAF27FB9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		66B3B99C8EC875605419C3E0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CA-PIN_IOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7A221E4E57114AD210A34418 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD9441E1D57B7C1EBFF9CFF1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C23B9B62C70C498BDBD7071A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CA-PIN_IOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CCA85AED2688ED6E00C9A32C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */,
 				CCA85B582688F29700C9A32C /* UITableViewCell+.swift in Sources */,
 				CCA85B5D2688F29700C9A32C /* UIImage+.swift in Sources */,
 				CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */,
@@ -391,8 +607,10 @@
 				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
+				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,
 				CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */,
+				CCF78446268B197A005FDF1D /* UITextField+.swift in Sources */,
 				CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */,
 				CCA85B2A2688F14600C9A32C /* KeyChainStorage.swift in Sources */,
 				CCA85B2C2688F15300C9A32C /* StoryboardStorage.swift in Sources */,
@@ -573,6 +791,7 @@
 		};
 		CCA85B1C2688ED7300C9A32C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B350E96FA945D43E4A64DD28 /* Pods-CA-PIN_IOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -592,6 +811,7 @@
 		};
 		CCA85B1D2688ED7300C9A32C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DCE275964F750EF1950B1B3F /* Pods-CA-PIN_IOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -611,6 +831,7 @@
 		};
 		CCA85B1F2688ED7300C9A32C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04B365EF4941E9A12EE64EA9 /* Pods-CA-PIN_IOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -633,6 +854,7 @@
 		};
 		CCA85B202688ED7300C9A32C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1713BD6CEA8E864225CCD7B /* Pods-CA-PIN_IOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -655,6 +877,7 @@
 		};
 		CCA85B222688ED7300C9A32C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C54DEA8F4DE6F401F16C8D9 /* Pods-CA-PIN_IOS-CA-PIN_IOSUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -675,6 +898,7 @@
 		};
 		CCA85B232688ED7300C9A32C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6487D4BF3EFFAB9B4F67E2B1 /* Pods-CA-PIN_IOS-CA-PIN_IOSUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -733,6 +957,126 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CCF78425268B0774005FDF1D /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.0;
+			};
+		};
+		CCF78428268B0781005FDF1D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+		CCF7842B268B0797005FDF1D /* XCRemoteSwiftPackageReference "CGFloatLiteral" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/CGFloatLiteral";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
+		CCF7842E268B07C0005FDF1D /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.3.0;
+			};
+		};
+		CCF78431268B07DC005FDF1D /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.3;
+			};
+		};
+		CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.0.1;
+			};
+		};
+		CCF7843B268B08C2005FDF1D /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
+		CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/SwiftyColor";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CCF78426268B0774005FDF1D /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF78425268B0774005FDF1D /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		CCF78429268B0781005FDF1D /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF78428268B0781005FDF1D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		CCF7842C268B0797005FDF1D /* CGFloatLiteral */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF7842B268B0797005FDF1D /* XCRemoteSwiftPackageReference "CGFloatLiteral" */;
+			productName = CGFloatLiteral;
+		};
+		CCF7842F268B07C0005FDF1D /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF7842E268B07C0005FDF1D /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		CCF78432268B07DC005FDF1D /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF78431268B07DC005FDF1D /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		CCF78435268B082A005FDF1D /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		CCF78437268B082A005FDF1D /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = RxMoya;
+		};
+		CCF78439268B082A005FDF1D /* ReactiveMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = ReactiveMoya;
+		};
+		CCF7843C268B08C2005FDF1D /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF7843B268B08C2005FDF1D /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
+		};
+		CCF7843F268B08E4005FDF1D /* SwiftyColor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */;
+			productName = SwiftyColor;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CCA85AE92688ED6E00C9A32C /* Project object */;
 }
