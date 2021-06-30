@@ -31,11 +31,11 @@ extension TabbarViewController {
     firstNavigationController.addChild(firstTabController)
     
     let secondNavigationController = UINavigationController()
-    let secondTabController = LoginViewController()
+    let secondTabController = CafeTIViewController()
     secondNavigationController.addChild(secondTabController)
     
     let thirdNavigationController = UINavigationController()
-    let thirdTabController = MypageViewController()
+    let thirdTabController = LoginViewController()
     thirdNavigationController.addChild(thirdTabController)
     
     
