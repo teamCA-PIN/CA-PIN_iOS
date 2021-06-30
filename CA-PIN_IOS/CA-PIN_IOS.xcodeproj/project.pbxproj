@@ -14,6 +14,7 @@
 		CC05E02E268B9D5400269427 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E02D268B9D5400269427 /* MapViewController.swift */; };
 		CC05E030268C4EBF00269427 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E02F268C4EBF00269427 /* TabbarViewController.swift */; };
 		CC05E034268C4F9300269427 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E033268C4F9300269427 /* MypageViewController.swift */; };
+		CC05E038268C595F00269427 /* CafeTIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E037268C595F00269427 /* CafeTIViewController.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -83,6 +84,7 @@
 		CC05E02D268B9D5400269427 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		CC05E02F268C4EBF00269427 /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		CC05E033268C4F9300269427 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
+		CC05E037268C595F00269427 /* CafeTIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTIViewController.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -199,6 +201,22 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		CC05E035268C593D00269427 /* CafeTI */ = {
+			isa = PBXGroup;
+			children = (
+				CC05E036268C594600269427 /* ViewControllers */,
+			);
+			path = CafeTI;
+			sourceTree = "<group>";
+		};
+		CC05E036268C594600269427 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CC05E037268C595F00269427 /* CafeTIViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		CC6FBC0E268A322800BC299C /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -297,6 +315,7 @@
 		CCA85B272688F11200C9A32C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CC05E035268C593D00269427 /* CafeTI */,
 				CC05E031268C4F7700269427 /* Mypage */,
 				CC05E02B268B9D3400269427 /* Map */,
 				CC6FBC0E268A322800BC299C /* Login */,
@@ -663,6 +682,7 @@
 				CC05E02A268B865400269427 /* UIButton+.swift in Sources */,
 				CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */,
 				CCF78446268B197A005FDF1D /* UITextField+.swift in Sources */,
+				CC05E038268C595F00269427 /* CafeTIViewController.swift in Sources */,
 				CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */,
 				CCA85B2A2688F14600C9A32C /* KeyChainStorage.swift in Sources */,
 				CCA85B2C2688F15300C9A32C /* StoryboardStorage.swift in Sources */,
