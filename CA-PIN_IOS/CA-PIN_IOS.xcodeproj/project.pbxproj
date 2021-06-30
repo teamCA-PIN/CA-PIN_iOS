@@ -34,16 +34,16 @@
 		CCA85B5F2688F29700C9A32C /* UICollectionReusableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85B542688F29600C9A32C /* UICollectionReusableView+.swift */; };
 		CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85B552688F29600C9A32C /* UICollectionView+.swift */; };
 		CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85B612688F2F800C9A32C /* ReusableView.swift */; };
-		CCF78427268B0774005FDF1D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78426268B0774005FDF1D /* Then */; };
-		CCF7842A268B0781005FDF1D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78429268B0781005FDF1D /* SnapKit */; };
-		CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7842C268B0797005FDF1D /* CGFloatLiteral */; };
-		CCF78430268B07C0005FDF1D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7842F268B07C0005FDF1D /* Kingfisher */; };
-		CCF78433268B07DC005FDF1D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78432268B07DC005FDF1D /* Lottie */; };
-		CCF78436268B082A005FDF1D /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78435268B082A005FDF1D /* Moya */; };
-		CCF78438268B082A005FDF1D /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78437268B082A005FDF1D /* RxMoya */; };
-		CCF7843A268B082A005FDF1D /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78439268B082A005FDF1D /* ReactiveMoya */; };
-		CCF7843D268B08C2005FDF1D /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7843C268B08C2005FDF1D /* SwiftKeychainWrapper */; };
-		CCF78440268B08E4005FDF1D /* SwiftyColor in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7843F268B08E4005FDF1D /* SwiftyColor */; };
+		CCF78427268B0774005FDF1D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78426268B0774005FDF1D /* SwiftPackageProductDependency */; };
+		CCF7842A268B0781005FDF1D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78429268B0781005FDF1D /* SwiftPackageProductDependency */; };
+		CCF7842D268B0797005FDF1D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7842C268B0797005FDF1D /* SwiftPackageProductDependency */; };
+		CCF78430268B07C0005FDF1D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7842F268B07C0005FDF1D /* SwiftPackageProductDependency */; };
+		CCF78433268B07DC005FDF1D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78432268B07DC005FDF1D /* SwiftPackageProductDependency */; };
+		CCF78436268B082A005FDF1D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78435268B082A005FDF1D /* SwiftPackageProductDependency */; };
+		CCF78438268B082A005FDF1D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78437268B082A005FDF1D /* SwiftPackageProductDependency */; };
+		CCF7843A268B082A005FDF1D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78439268B082A005FDF1D /* SwiftPackageProductDependency */; };
+		CCF7843D268B08C2005FDF1D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7843C268B08C2005FDF1D /* SwiftPackageProductDependency */; };
+		CCF78440268B08E4005FDF1D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7843F268B08E4005FDF1D /* SwiftPackageProductDependency */; };
 		CCF78446268B197A005FDF1D /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78442268B197A005FDF1D /* UITextField+.swift */; };
 		CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78444268B197A005FDF1D /* UILabel+.swift */; };
 		CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78449268B71CD005FDF1D /* LoginViewController.swift */; };
@@ -118,16 +118,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCF78433268B07DC005FDF1D /* Lottie in Frameworks */,
-				CCF78430268B07C0005FDF1D /* Kingfisher in Frameworks */,
-				CCF78440268B08E4005FDF1D /* SwiftyColor in Frameworks */,
-				CCF78436268B082A005FDF1D /* Moya in Frameworks */,
-				CCF78427268B0774005FDF1D /* Then in Frameworks */,
-				CCF78438268B082A005FDF1D /* RxMoya in Frameworks */,
-				CCF7843A268B082A005FDF1D /* ReactiveMoya in Frameworks */,
-				CCF7842A268B0781005FDF1D /* SnapKit in Frameworks */,
-				CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */,
-				CCF7843D268B08C2005FDF1D /* SwiftKeychainWrapper in Frameworks */,
+				CCF78433268B07DC005FDF1D /* BuildFile in Frameworks */,
+				CCF78430268B07C0005FDF1D /* BuildFile in Frameworks */,
+				CCF78440268B08E4005FDF1D /* BuildFile in Frameworks */,
+				CCF78436268B082A005FDF1D /* BuildFile in Frameworks */,
+				CCF78427268B0774005FDF1D /* BuildFile in Frameworks */,
+				CCF78438268B082A005FDF1D /* BuildFile in Frameworks */,
+				CCF7843A268B082A005FDF1D /* BuildFile in Frameworks */,
+				CCF7842A268B0781005FDF1D /* BuildFile in Frameworks */,
+				CCF7842D268B0797005FDF1D /* BuildFile in Frameworks */,
+				CCF7843D268B08C2005FDF1D /* BuildFile in Frameworks */,
 				7B80170D951C27BD4B4456D6 /* Pods_CA_PIN_IOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,7 +355,7 @@
 				CCA85AED2688ED6E00C9A32C /* Sources */,
 				CCA85AEE2688ED6E00C9A32C /* Frameworks */,
 				CCA85AEF2688ED6E00C9A32C /* Resources */,
-				1BCB1D18310D1F7ECAF27FB9 /* [CP] Embed Pods Frameworks */,
+				790EFF3D0598BB0A3D84551E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -363,16 +363,16 @@
 			);
 			name = "CA-PIN_IOS";
 			packageProductDependencies = (
-				CCF78426268B0774005FDF1D /* Then */,
-				CCF78429268B0781005FDF1D /* SnapKit */,
-				CCF7842C268B0797005FDF1D /* CGFloatLiteral */,
-				CCF7842F268B07C0005FDF1D /* Kingfisher */,
-				CCF78432268B07DC005FDF1D /* Lottie */,
-				CCF78435268B082A005FDF1D /* Moya */,
-				CCF78437268B082A005FDF1D /* RxMoya */,
-				CCF78439268B082A005FDF1D /* ReactiveMoya */,
-				CCF7843C268B08C2005FDF1D /* SwiftKeychainWrapper */,
-				CCF7843F268B08E4005FDF1D /* SwiftyColor */,
+				CCF78426268B0774005FDF1D /* SwiftPackageProductDependency */,
+				CCF78429268B0781005FDF1D /* SwiftPackageProductDependency */,
+				CCF7842C268B0797005FDF1D /* SwiftPackageProductDependency */,
+				CCF7842F268B07C0005FDF1D /* SwiftPackageProductDependency */,
+				CCF78432268B07DC005FDF1D /* SwiftPackageProductDependency */,
+				CCF78435268B082A005FDF1D /* SwiftPackageProductDependency */,
+				CCF78437268B082A005FDF1D /* SwiftPackageProductDependency */,
+				CCF78439268B082A005FDF1D /* SwiftPackageProductDependency */,
+				CCF7843C268B08C2005FDF1D /* SwiftPackageProductDependency */,
+				CCF7843F268B08E4005FDF1D /* SwiftPackageProductDependency */,
 			);
 			productName = "CA-PIN_IOS";
 			productReference = CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */;
@@ -405,7 +405,7 @@
 				CCA85B0E2688ED7300C9A32C /* Sources */,
 				CCA85B0F2688ED7300C9A32C /* Frameworks */,
 				CCA85B102688ED7300C9A32C /* Resources */,
-				AD9441E1D57B7C1EBFF9CFF1 /* [CP] Embed Pods Frameworks */,
+				5AA230BD8D72EFA66F96CB62 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -449,14 +449,14 @@
 			);
 			mainGroup = CCA85AE82688ED6E00C9A32C;
 			packageReferences = (
-				CCF78425268B0774005FDF1D /* XCRemoteSwiftPackageReference "Then" */,
-				CCF78428268B0781005FDF1D /* XCRemoteSwiftPackageReference "SnapKit" */,
-				CCF7842B268B0797005FDF1D /* XCRemoteSwiftPackageReference "CGFloatLiteral" */,
-				CCF7842E268B07C0005FDF1D /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				CCF78431268B07DC005FDF1D /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */,
-				CCF7843B268B08C2005FDF1D /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
-				CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */,
+				CCF78425268B0774005FDF1D /* RemoteSwiftPackageReference */,
+				CCF78428268B0781005FDF1D /* RemoteSwiftPackageReference */,
+				CCF7842B268B0797005FDF1D /* RemoteSwiftPackageReference */,
+				CCF7842E268B07C0005FDF1D /* RemoteSwiftPackageReference */,
+				CCF78431268B07DC005FDF1D /* RemoteSwiftPackageReference */,
+				CCF78434268B082A005FDF1D /* RemoteSwiftPackageReference */,
+				CCF7843B268B08C2005FDF1D /* RemoteSwiftPackageReference */,
+				CCF7843E268B08E4005FDF1D /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = CCA85AF22688ED6F00C9A32C /* Products */;
 			projectDirPath = "";
@@ -497,21 +497,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1BCB1D18310D1F7ECAF27FB9 /* [CP] Embed Pods Frameworks */ = {
+		5AA230BD8D72EFA66F96CB62 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		66B3B99C8EC875605419C3E0 /* [CP] Check Pods Manifest.lock */ = {
@@ -536,6 +536,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		790EFF3D0598BB0A3D84551E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7A221E4E57114AD210A34418 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -556,23 +573,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AD9441E1D57B7C1EBFF9CFF1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C23B9B62C70C498BDBD7071A /* [CP] Check Pods Manifest.lock */ = {
@@ -732,7 +732,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -787,7 +787,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -806,6 +806,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				INFOPLIST_FILE = "CA-PIN_IOS/Supports/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -826,6 +827,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				INFOPLIST_FILE = "CA-PIN_IOS/Supports/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -967,7 +969,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CCF78425268B0774005FDF1D /* XCRemoteSwiftPackageReference "Then" */ = {
+		CCF78425268B0774005FDF1D /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then";
 			requirement = {
@@ -975,7 +977,7 @@
 				minimumVersion = 2.7.0;
 			};
 		};
-		CCF78428268B0781005FDF1D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		CCF78428268B0781005FDF1D /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
@@ -983,7 +985,7 @@
 				minimumVersion = 5.0.1;
 			};
 		};
-		CCF7842B268B0797005FDF1D /* XCRemoteSwiftPackageReference "CGFloatLiteral" */ = {
+		CCF7842B268B0797005FDF1D /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/CGFloatLiteral";
 			requirement = {
@@ -991,7 +993,7 @@
 				minimumVersion = 0.5.0;
 			};
 		};
-		CCF7842E268B07C0005FDF1D /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		CCF7842E268B07C0005FDF1D /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
 			requirement = {
@@ -999,7 +1001,7 @@
 				minimumVersion = 6.3.0;
 			};
 		};
-		CCF78431268B07DC005FDF1D /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+		CCF78431268B07DC005FDF1D /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
 			requirement = {
@@ -1007,7 +1009,7 @@
 				minimumVersion = 3.2.3;
 			};
 		};
-		CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */ = {
+		CCF78434268B082A005FDF1D /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya";
 			requirement = {
@@ -1015,7 +1017,7 @@
 				minimumVersion = 14.0.1;
 			};
 		};
-		CCF7843B268B08C2005FDF1D /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+		CCF7843B268B08C2005FDF1D /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
 			requirement = {
@@ -1023,7 +1025,7 @@
 				minimumVersion = 4.0.1;
 			};
 		};
-		CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */ = {
+		CCF7843E268B08E4005FDF1D /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/SwiftyColor";
 			requirement = {
@@ -1034,54 +1036,54 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CCF78426268B0774005FDF1D /* Then */ = {
+		CCF78426268B0774005FDF1D /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CCF78425268B0774005FDF1D /* XCRemoteSwiftPackageReference "Then" */;
+			package = CCF78425268B0774005FDF1D /* RemoteSwiftPackageReference */;
 			productName = Then;
 		};
-		CCF78429268B0781005FDF1D /* SnapKit */ = {
+		CCF78429268B0781005FDF1D /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CCF78428268B0781005FDF1D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = CCF78428268B0781005FDF1D /* RemoteSwiftPackageReference */;
 			productName = SnapKit;
 		};
-		CCF7842C268B0797005FDF1D /* CGFloatLiteral */ = {
+		CCF7842C268B0797005FDF1D /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CCF7842B268B0797005FDF1D /* XCRemoteSwiftPackageReference "CGFloatLiteral" */;
+			package = CCF7842B268B0797005FDF1D /* RemoteSwiftPackageReference */;
 			productName = CGFloatLiteral;
 		};
-		CCF7842F268B07C0005FDF1D /* Kingfisher */ = {
+		CCF7842F268B07C0005FDF1D /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CCF7842E268B07C0005FDF1D /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = CCF7842E268B07C0005FDF1D /* RemoteSwiftPackageReference */;
 			productName = Kingfisher;
 		};
-		CCF78432268B07DC005FDF1D /* Lottie */ = {
+		CCF78432268B07DC005FDF1D /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CCF78431268B07DC005FDF1D /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			package = CCF78431268B07DC005FDF1D /* RemoteSwiftPackageReference */;
 			productName = Lottie;
 		};
-		CCF78435268B082A005FDF1D /* Moya */ = {
+		CCF78435268B082A005FDF1D /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */;
+			package = CCF78434268B082A005FDF1D /* RemoteSwiftPackageReference */;
 			productName = Moya;
 		};
-		CCF78437268B082A005FDF1D /* RxMoya */ = {
+		CCF78437268B082A005FDF1D /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */;
+			package = CCF78434268B082A005FDF1D /* RemoteSwiftPackageReference */;
 			productName = RxMoya;
 		};
-		CCF78439268B082A005FDF1D /* ReactiveMoya */ = {
+		CCF78439268B082A005FDF1D /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */;
+			package = CCF78434268B082A005FDF1D /* RemoteSwiftPackageReference */;
 			productName = ReactiveMoya;
 		};
-		CCF7843C268B08C2005FDF1D /* SwiftKeychainWrapper */ = {
+		CCF7843C268B08C2005FDF1D /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CCF7843B268B08C2005FDF1D /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			package = CCF7843B268B08C2005FDF1D /* RemoteSwiftPackageReference */;
 			productName = SwiftKeychainWrapper;
 		};
-		CCF7843F268B08E4005FDF1D /* SwiftyColor */ = {
+		CCF7843F268B08E4005FDF1D /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */;
+			package = CCF7843E268B08E4005FDF1D /* RemoteSwiftPackageReference */;
 			productName = SwiftyColor;
 		};
 /* End XCSwiftPackageProductDependency section */
