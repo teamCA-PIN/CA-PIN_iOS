@@ -59,6 +59,9 @@
 		CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78444268B197A005FDF1D /* UILabel+.swift */; };
 		CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78449268B71CD005FDF1D /* LoginViewController.swift */; };
 		DEAF5909BEA6DABAD94C99B1 /* Pods_CA_PIN_IOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2EB73A4D1A93ECC7CCACCE /* Pods_CA_PIN_IOSTests.framework */; };
+		E81F0ED4268DC2340042B825 /* CafeTITest1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */; };
+		E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED7268DC9DC0042B825 /* CafeTITest21ViewController.swift */; };
+		E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED9268DCA790042B825 /* CafeTITest22ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +136,9 @@
 		CCF78449268B71CD005FDF1D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DCE275964F750EF1950B1B3F /* Pods-CA-PIN_IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS.release.xcconfig"; sourceTree = "<group>"; };
 		E1713BD6CEA8E864225CCD7B /* Pods-CA-PIN_IOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOSTests.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOSTests/Pods-CA-PIN_IOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest1ViewController.swift; sourceTree = "<group>"; };
+		E81F0ED7268DC9DC0042B825 /* CafeTITest21ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest21ViewController.swift; sourceTree = "<group>"; };
+		E81F0ED9268DCA790042B825 /* CafeTITest22ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest22ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +234,9 @@
 			isa = PBXGroup;
 			children = (
 				CC05E037268C595F00269427 /* CafeTIViewController.swift */,
+				E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */,
+				E81F0ED7268DC9DC0042B825 /* CafeTITest21ViewController.swift */,
+				E81F0ED9268DCA790042B825 /* CafeTITest22ViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -444,7 +453,7 @@
 				CCA85AED2688ED6E00C9A32C /* Sources */,
 				CCA85AEE2688ED6E00C9A32C /* Frameworks */,
 				CCA85AEF2688ED6E00C9A32C /* Resources */,
-				1BCB1D18310D1F7ECAF27FB9 /* [CP] Embed Pods Frameworks */,
+				790EFF3D0598BB0A3D84551E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -494,7 +503,7 @@
 				CCA85B0E2688ED7300C9A32C /* Sources */,
 				CCA85B0F2688ED7300C9A32C /* Frameworks */,
 				CCA85B102688ED7300C9A32C /* Resources */,
-				AD9441E1D57B7C1EBFF9CFF1 /* [CP] Embed Pods Frameworks */,
+				5AA230BD8D72EFA66F96CB62 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -592,21 +601,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1BCB1D18310D1F7ECAF27FB9 /* [CP] Embed Pods Frameworks */ = {
+		5AA230BD8D72EFA66F96CB62 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		66B3B99C8EC875605419C3E0 /* [CP] Check Pods Manifest.lock */ = {
@@ -631,6 +640,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		790EFF3D0598BB0A3D84551E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7A221E4E57114AD210A34418 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -651,23 +677,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AD9441E1D57B7C1EBFF9CFF1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C23B9B62C70C498BDBD7071A /* [CP] Check Pods Manifest.lock */ = {
@@ -713,6 +722,8 @@
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
+				E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */,
+				E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,
 				CC05E02A268B865400269427 /* UIButton+.swift in Sources */,
 				CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */,
@@ -726,6 +737,7 @@
 				CCA85B5C2688F29700C9A32C /* UIDatePicker+.swift in Sources */,
 				CCA85B5F2688F29700C9A32C /* UICollectionReusableView+.swift in Sources */,
 				CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */,
+				E81F0ED4268DC2340042B825 /* CafeTITest1ViewController.swift in Sources */,
 				CCA85B5E2688F29700C9A32C /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -832,7 +844,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -887,7 +899,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
