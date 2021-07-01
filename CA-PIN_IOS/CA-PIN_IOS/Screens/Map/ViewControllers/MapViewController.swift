@@ -76,6 +76,7 @@ extension MapViewController {
   func layoutMenuButton() {
     topView.add(menuButton) {
       $0.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+      $0.addTarget(self, action: #selector(self.clickedMenuButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerY.equalToSuperview()
         $0.trailing.equalTo(self.topView.snp.trailing).offset(-20)
@@ -163,5 +164,9 @@ extension MapViewController {
     self.currentLatitude = coordinates?.latitude
     self.currentLongitude = coordinates?.longitude
     
+  }
+  @objc func clickedMenuButton() {
+    let hamburgerVC = HamburgerViewController()
+    self.navigationController?.pushViewController(hamburgerVC, animated: true)
   }
 }
