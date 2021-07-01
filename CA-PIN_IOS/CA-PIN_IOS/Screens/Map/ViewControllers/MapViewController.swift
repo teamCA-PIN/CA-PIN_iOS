@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 import NMapsMap
 import SnapKit
@@ -23,6 +24,10 @@ class MapViewController: UIViewController {
   let toggleView = UIView()
   let capinMapButton = UIButton()
   let myMapButton = UIButton()
+  
+  var locationManager = CLLocationManager()
+  var currentLatitude: Double?
+  var currentLongitude: Double?
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -92,7 +97,11 @@ extension MapViewController {
     view.add(mapView) {
       $0.showZoomControls = true
       $0.showLocationButton = true
+      self.currentCoordinate()
       $0.mapView.positionMode = .normal
+      $0.mapView.locationOverlay.location =
+        NMGLatLng(lat: self.currentLatitude ?? self.mapView.mapView.latitude,
+                  lng: self.currentLongitude ?? self.mapView.mapView.longitude)
       $0.snp.makeConstraints {
         $0.edges.equalTo(self.view.safeAreaLayoutGuide.snp.edges)
       }
@@ -141,5 +150,18 @@ extension MapViewController {
         $0.bottom.equalTo(self.toggleView.snp.bottom).offset(-2)
       }
     }
+  }
+  
+  // MARK: - General Helpers
+  func currentCoordinate() {
+    let locationManager = self.locationManager
+    locationManager.requestWhenInUseAuthorization()
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    locationManager.startUpdatingLocation()
+    
+    let coordinates = locationManager.location?.coordinate
+    self.currentLatitude = coordinates?.latitude
+    self.currentLongitude = coordinates?.longitude
+    
   }
 }
