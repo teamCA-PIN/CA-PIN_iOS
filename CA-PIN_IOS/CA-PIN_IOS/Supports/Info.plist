@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>&apos;CA:PIN&apos;이 사용자의 위치를 사용하도록 허용하시겠습니까?</string>
+	<string>지도에서 내 위치를 확인하기 위해 위치 사용 권한이 필요합니다.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>&apos;CA:PIN&apos;이 사용자의 위치를 사용하도록 허용하시겠습니까?</string>
+	<string>지도에서 내 위치를 확인하기 위해 위치 사용 권한이 필요합니다.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansKR-Black.otf</string>
