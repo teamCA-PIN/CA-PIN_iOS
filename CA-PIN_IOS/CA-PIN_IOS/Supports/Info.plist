@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationAlwaysUsageDescription</key>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>&apos;CA:PIN&apos;이 사용자의 위치를 사용하도록 허용하시겠습니까?</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>&apos;CA:PIN&apos;이 사용자의 위치를 사용하도록 허용하시겠습니까?</string>

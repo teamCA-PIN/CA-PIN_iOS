@@ -11,16 +11,16 @@
 		7B80170D951C27BD4B4456D6 /* Pods_CA_PIN_IOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 259477F0E447DE04609449E5 /* Pods_CA_PIN_IOS.framework */; };
 		CC05E029268B865400269427 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E027268B865400269427 /* UIFont+.swift */; };
 		CC05E02A268B865400269427 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E028268B865400269427 /* UIButton+.swift */; };
+		CC05E02E268B9D5400269427 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E02D268B9D5400269427 /* MapViewController.swift */; };
+		CC05E030268C4EBF00269427 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E02F268C4EBF00269427 /* TabbarViewController.swift */; };
+		CC05E034268C4F9300269427 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E033268C4F9300269427 /* MypageViewController.swift */; };
+		CC05E038268C595F00269427 /* CafeTIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E037268C595F00269427 /* CafeTIViewController.swift */; };
 		CC05E040268D735A00269427 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03A268D735A00269427 /* NotoSansKR-Regular.otf */; };
 		CC05E041268D735A00269427 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03B268D735A00269427 /* NotoSansKR-Bold.otf */; };
 		CC05E042268D735A00269427 /* NotoSansKR-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03C268D735A00269427 /* NotoSansKR-Black.otf */; };
 		CC05E043268D735A00269427 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03D268D735A00269427 /* NotoSansKR-Light.otf */; };
 		CC05E044268D735A00269427 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03E268D735A00269427 /* NotoSansKR-Medium.otf */; };
 		CC05E045268D735A00269427 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03F268D735A00269427 /* NotoSansKR-Thin.otf */; };
-		CC05E02E268B9D5400269427 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E02D268B9D5400269427 /* MapViewController.swift */; };
-		CC05E030268C4EBF00269427 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E02F268C4EBF00269427 /* TabbarViewController.swift */; };
-		CC05E034268C4F9300269427 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E033268C4F9300269427 /* MypageViewController.swift */; };
-		CC05E038268C595F00269427 /* CafeTIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E037268C595F00269427 /* CafeTIViewController.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -87,16 +87,16 @@
 		B350E96FA945D43E4A64DD28 /* Pods-CA-PIN_IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS.debug.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS.debug.xcconfig"; sourceTree = "<group>"; };
 		CC05E027268B865400269427 /* UIFont+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		CC05E028268B865400269427 /* UIButton+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		CC05E02D268B9D5400269427 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		CC05E02F268C4EBF00269427 /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
+		CC05E033268C4F9300269427 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
+		CC05E037268C595F00269427 /* CafeTIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTIViewController.swift; sourceTree = "<group>"; };
 		CC05E03A268D735A00269427 /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
 		CC05E03B268D735A00269427 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
 		CC05E03C268D735A00269427 /* NotoSansKR-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Black.otf"; sourceTree = "<group>"; };
 		CC05E03D268D735A00269427 /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
 		CC05E03E268D735A00269427 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
 		CC05E03F268D735A00269427 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
-		CC05E02D268B9D5400269427 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		CC05E02F268C4EBF00269427 /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
-		CC05E033268C4F9300269427 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
-		CC05E037268C595F00269427 /* CafeTIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTIViewController.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -181,19 +181,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CC05E039268D733900269427 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				CC05E03C268D735A00269427 /* NotoSansKR-Black.otf */,
-				CC05E03B268D735A00269427 /* NotoSansKR-Bold.otf */,
-				CC05E03D268D735A00269427 /* NotoSansKR-Light.otf */,
-				CC05E03E268D735A00269427 /* NotoSansKR-Medium.otf */,
-				CC05E03A268D735A00269427 /* NotoSansKR-Regular.otf */,
-				CC05E03F268D735A00269427 /* NotoSansKR-Thin.otf */,
-			);
-			path = Fonts;
-			sourceTree = "<group>";
-		};
 		CC05E02B268B9D3400269427 /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +227,19 @@
 				CC05E037268C595F00269427 /* CafeTIViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CC05E039268D733900269427 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CC05E03C268D735A00269427 /* NotoSansKR-Black.otf */,
+				CC05E03B268D735A00269427 /* NotoSansKR-Bold.otf */,
+				CC05E03D268D735A00269427 /* NotoSansKR-Light.otf */,
+				CC05E03E268D735A00269427 /* NotoSansKR-Medium.otf */,
+				CC05E03A268D735A00269427 /* NotoSansKR-Regular.otf */,
+				CC05E03F268D735A00269427 /* NotoSansKR-Thin.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		CC6FBC0E268A322800BC299C /* Login */ = {
@@ -899,7 +899,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				INFOPLIST_FILE = "CA-PIN_IOS/Supports/Info.plist";
@@ -910,7 +910,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ryan.CAPIN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "capin-distribute";
+				PROVISIONING_PROFILE_SPECIFIER = "capin-develop";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
