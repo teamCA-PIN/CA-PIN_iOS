@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>&apos;CA:PIN&apos;이 사용자의 위치를 사용하도록 허용하시겠습니까?</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>&apos;CA:PIN&apos;이 사용자의 위치를 사용하도록 허용하시겠습니까?</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansKR-Black.otf</string>
@@ -38,13 +42,6 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NMFClientId</key>
-	<string>31x2uiu75k</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
