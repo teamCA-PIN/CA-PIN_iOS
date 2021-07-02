@@ -285,6 +285,9 @@ extension MapViewController {
   func layoutInformationAddButton() {
     informationView.add(informationAddButton) {
       $0.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+      $0.addTarget(self,
+                   action: #selector(self.clickedAddCategoryButton),
+                   for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.trailing.equalTo(self.informationStarLabel.snp.trailing)
         $0.bottom.equalTo(self.informationImageView.snp.bottom)
@@ -308,6 +311,11 @@ extension MapViewController {
   @objc func clickedMenuButton() {
     let hamburgerVC = HamburgerViewController()
     self.navigationController?.pushViewController(hamburgerVC, animated: true)
+  }
+  @objc func clickedAddCategoryButton() {
+    let pinPopupVC = PinPopupViewController()
+    pinPopupVC.modalPresentationStyle = .overFullScreen
+    self.present(pinPopupVC, animated: true, completion: nil)
   }
 }
 
