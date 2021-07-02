@@ -47,6 +47,8 @@
 		CCB6C663268DC88E00941E92 /* HamburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C662268DC88E00941E92 /* HamburgerViewController.swift */; };
 		CCB6C665268F044400941E92 /* PinPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C664268F044300941E92 /* PinPopupViewController.swift */; };
 		CCB6C668268F083A00941E92 /* PinPopupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C667268F083A00941E92 /* PinPopupTableViewCell.swift */; };
+		CCB6C66C268F41E800941E92 /* CreateCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C66B268F41E800941E92 /* CreateCategoryViewController.swift */; };
+		CCB6C66E268F498B00941E92 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C66D268F498B00941E92 /* CategoryCollectionViewCell.swift */; };
 		CCF78427268B0774005FDF1D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78426268B0774005FDF1D /* Then */; };
 		CCF7842A268B0781005FDF1D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78429268B0781005FDF1D /* SnapKit */; };
 		CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7842C268B0797005FDF1D /* CGFloatLiteral */; };
@@ -135,6 +137,8 @@
 		CCB6C662268DC88E00941E92 /* HamburgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HamburgerViewController.swift; sourceTree = "<group>"; };
 		CCB6C664268F044300941E92 /* PinPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPopupViewController.swift; sourceTree = "<group>"; };
 		CCB6C667268F083A00941E92 /* PinPopupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPopupTableViewCell.swift; sourceTree = "<group>"; };
+		CCB6C66B268F41E800941E92 /* CreateCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryViewController.swift; sourceTree = "<group>"; };
+		CCB6C66D268F498B00941E92 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCF78442268B197A005FDF1D /* UITextField+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		CCF78444268B197A005FDF1D /* UILabel+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		CCF78449268B71CD005FDF1D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 				CC05E02D268B9D5400269427 /* MapViewController.swift */,
 				CCB6C662268DC88E00941E92 /* HamburgerViewController.swift */,
 				CCB6C664268F044300941E92 /* PinPopupViewController.swift */,
+				CCB6C66B268F41E800941E92 /* CreateCategoryViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -439,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				CCB6C667268F083A00941E92 /* PinPopupTableViewCell.swift */,
+				CCB6C66D268F498B00941E92 /* CategoryCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -732,6 +738,7 @@
 				CCA85B5B2688F29700C9A32C /* UIViewController+.swift in Sources */,
 				CCA85B5A2688F29700C9A32C /* UICollectionViewCell+.swift in Sources */,
 				CC05E02E268B9D5400269427 /* MapViewController.swift in Sources */,
+				CCB6C66C268F41E800941E92 /* CreateCategoryViewController.swift in Sources */,
 				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
@@ -747,6 +754,7 @@
 				CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */,
 				CCB6C663268DC88E00941E92 /* HamburgerViewController.swift in Sources */,
 				CCA85B2A2688F14600C9A32C /* KeyChainStorage.swift in Sources */,
+				CCB6C66E268F498B00941E92 /* CategoryCollectionViewCell.swift in Sources */,
 				CCA85B2C2688F15300C9A32C /* StoryboardStorage.swift in Sources */,
 				CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */,
 				CCB6C668268F083A00941E92 /* PinPopupTableViewCell.swift in Sources */,

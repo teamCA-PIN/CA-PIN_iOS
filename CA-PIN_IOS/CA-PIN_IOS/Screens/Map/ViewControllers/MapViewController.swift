@@ -58,7 +58,6 @@ class MapViewController: UIViewController {
     super.viewWillAppear(animated)
     layout()
   }
-  
 }
 
 // MARK: - Extensions
@@ -313,9 +312,12 @@ extension MapViewController {
     self.navigationController?.pushViewController(hamburgerVC, animated: true)
   }
   @objc func clickedAddCategoryButton() {
+    let pinNavigationController = UINavigationController()
     let pinPopupVC = PinPopupViewController()
-    pinPopupVC.modalPresentationStyle = .overFullScreen
-    self.present(pinPopupVC, animated: true, completion: nil)
+    pinNavigationController.addChild(pinPopupVC)
+    pinNavigationController.view.backgroundColor = .clear
+    pinNavigationController.modalPresentationStyle = .overFullScreen
+    self.present(pinNavigationController, animated: true, completion: nil)
   }
 }
 
