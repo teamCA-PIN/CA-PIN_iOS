@@ -26,6 +26,7 @@ class PinPopupViewController: UIViewController {
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.navigationController?.navigationBar.isHidden = true
     layout()
     register()
     self.categoryTableView.delegate = self
@@ -207,6 +208,14 @@ extension PinPopupViewController: UITableViewDataSource {
     }
     categoryCell.awakeFromNib()
     return categoryCell
+  }
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    if indexPath.row == 0 {
+      print("여기야여기")
+      print(self.navigationController)
+      let categoryVC = CreateCategoryViewController()
+      self.navigationController?.pushViewController(categoryVC, animated: true)
+    }
   }
 }
 
