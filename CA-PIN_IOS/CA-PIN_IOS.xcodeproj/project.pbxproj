@@ -15,6 +15,12 @@
 		CC05E030268C4EBF00269427 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E02F268C4EBF00269427 /* TabbarViewController.swift */; };
 		CC05E034268C4F9300269427 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E033268C4F9300269427 /* MypageViewController.swift */; };
 		CC05E038268C595F00269427 /* CafeTIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E037268C595F00269427 /* CafeTIViewController.swift */; };
+		CC05E040268D735A00269427 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03A268D735A00269427 /* NotoSansKR-Regular.otf */; };
+		CC05E041268D735A00269427 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03B268D735A00269427 /* NotoSansKR-Bold.otf */; };
+		CC05E042268D735A00269427 /* NotoSansKR-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03C268D735A00269427 /* NotoSansKR-Black.otf */; };
+		CC05E043268D735A00269427 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03D268D735A00269427 /* NotoSansKR-Light.otf */; };
+		CC05E044268D735A00269427 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03E268D735A00269427 /* NotoSansKR-Medium.otf */; };
+		CC05E045268D735A00269427 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03F268D735A00269427 /* NotoSansKR-Thin.otf */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -38,6 +44,7 @@
 		CCA85B5F2688F29700C9A32C /* UICollectionReusableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85B542688F29600C9A32C /* UICollectionReusableView+.swift */; };
 		CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85B552688F29600C9A32C /* UICollectionView+.swift */; };
 		CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85B612688F2F800C9A32C /* ReusableView.swift */; };
+		CCB6C663268DC88E00941E92 /* HamburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C662268DC88E00941E92 /* HamburgerViewController.swift */; };
 		CCF78427268B0774005FDF1D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78426268B0774005FDF1D /* Then */; };
 		CCF7842A268B0781005FDF1D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78429268B0781005FDF1D /* SnapKit */; };
 		CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7842C268B0797005FDF1D /* CGFloatLiteral */; };
@@ -52,6 +59,9 @@
 		CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78444268B197A005FDF1D /* UILabel+.swift */; };
 		CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78449268B71CD005FDF1D /* LoginViewController.swift */; };
 		DEAF5909BEA6DABAD94C99B1 /* Pods_CA_PIN_IOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2EB73A4D1A93ECC7CCACCE /* Pods_CA_PIN_IOSTests.framework */; };
+		E81F0ED4268DC2340042B825 /* CafeTITest1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */; };
+		E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED7268DC9DC0042B825 /* CafeTITest21ViewController.swift */; };
+		E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED9268DCA790042B825 /* CafeTITest22ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +95,12 @@
 		CC05E02F268C4EBF00269427 /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		CC05E033268C4F9300269427 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		CC05E037268C595F00269427 /* CafeTIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTIViewController.swift; sourceTree = "<group>"; };
+		CC05E03A268D735A00269427 /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
+		CC05E03B268D735A00269427 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
+		CC05E03C268D735A00269427 /* NotoSansKR-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Black.otf"; sourceTree = "<group>"; };
+		CC05E03D268D735A00269427 /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
+		CC05E03E268D735A00269427 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
+		CC05E03F268D735A00269427 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,11 +130,15 @@
 		CCA85B542688F29600C9A32C /* UICollectionReusableView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView+.swift"; sourceTree = "<group>"; };
 		CCA85B552688F29600C9A32C /* UICollectionView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		CCA85B612688F2F800C9A32C /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
+		CCB6C662268DC88E00941E92 /* HamburgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HamburgerViewController.swift; sourceTree = "<group>"; };
 		CCF78442268B197A005FDF1D /* UITextField+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		CCF78444268B197A005FDF1D /* UILabel+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		CCF78449268B71CD005FDF1D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DCE275964F750EF1950B1B3F /* Pods-CA-PIN_IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS.release.xcconfig"; sourceTree = "<group>"; };
 		E1713BD6CEA8E864225CCD7B /* Pods-CA-PIN_IOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOSTests.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOSTests/Pods-CA-PIN_IOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest1ViewController.swift; sourceTree = "<group>"; };
+		E81F0ED7268DC9DC0042B825 /* CafeTITest21ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest21ViewController.swift; sourceTree = "<group>"; };
+		E81F0ED9268DCA790042B825 /* CafeTITest22ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest22ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				CC05E02D268B9D5400269427 /* MapViewController.swift */,
+				CCB6C662268DC88E00941E92 /* HamburgerViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -213,8 +234,24 @@
 			isa = PBXGroup;
 			children = (
 				CC05E037268C595F00269427 /* CafeTIViewController.swift */,
+				E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */,
+				E81F0ED7268DC9DC0042B825 /* CafeTITest21ViewController.swift */,
+				E81F0ED9268DCA790042B825 /* CafeTITest22ViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CC05E039268D733900269427 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CC05E03C268D735A00269427 /* NotoSansKR-Black.otf */,
+				CC05E03B268D735A00269427 /* NotoSansKR-Bold.otf */,
+				CC05E03D268D735A00269427 /* NotoSansKR-Light.otf */,
+				CC05E03E268D735A00269427 /* NotoSansKR-Medium.otf */,
+				CC05E03A268D735A00269427 /* NotoSansKR-Regular.otf */,
+				CC05E03F268D735A00269427 /* NotoSansKR-Thin.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		CC6FBC0E268A322800BC299C /* Login */ = {
@@ -329,6 +366,7 @@
 		CCA85B282688F11700C9A32C /* Supports */ = {
 			isa = PBXGroup;
 			children = (
+				CC05E039268D733900269427 /* Fonts */,
 				CCA85B632688F43700C9A32C /* Base.lproj */,
 				CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */,
 				CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */,
@@ -415,7 +453,7 @@
 				CCA85AED2688ED6E00C9A32C /* Sources */,
 				CCA85AEE2688ED6E00C9A32C /* Frameworks */,
 				CCA85AEF2688ED6E00C9A32C /* Resources */,
-				1BCB1D18310D1F7ECAF27FB9 /* [CP] Embed Pods Frameworks */,
+				790EFF3D0598BB0A3D84551E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -465,7 +503,7 @@
 				CCA85B0E2688ED7300C9A32C /* Sources */,
 				CCA85B0F2688ED7300C9A32C /* Frameworks */,
 				CCA85B102688ED7300C9A32C /* Resources */,
-				AD9441E1D57B7C1EBFF9CFF1 /* [CP] Embed Pods Frameworks */,
+				5AA230BD8D72EFA66F96CB62 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -534,9 +572,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC05E045268D735A00269427 /* NotoSansKR-Thin.otf in Resources */,
 				CCA85B012688ED7200C9A32C /* LaunchScreen.storyboard in Resources */,
 				CCA85AFE2688ED7200C9A32C /* Assets.xcassets in Resources */,
+				CC05E043268D735A00269427 /* NotoSansKR-Light.otf in Resources */,
+				CC05E040268D735A00269427 /* NotoSansKR-Regular.otf in Resources */,
+				CC05E044268D735A00269427 /* NotoSansKR-Medium.otf in Resources */,
+				CC05E042268D735A00269427 /* NotoSansKR-Black.otf in Resources */,
 				CCA85AFC2688ED6F00C9A32C /* Main.storyboard in Resources */,
+				CC05E041268D735A00269427 /* NotoSansKR-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,21 +601,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1BCB1D18310D1F7ECAF27FB9 /* [CP] Embed Pods Frameworks */ = {
+		5AA230BD8D72EFA66F96CB62 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		66B3B99C8EC875605419C3E0 /* [CP] Check Pods Manifest.lock */ = {
@@ -596,6 +640,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		790EFF3D0598BB0A3D84551E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7A221E4E57114AD210A34418 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -616,23 +677,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AD9441E1D57B7C1EBFF9CFF1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C23B9B62C70C498BDBD7071A /* [CP] Check Pods Manifest.lock */ = {
@@ -678,18 +722,22 @@
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
+				E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */,
+				E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,
 				CC05E02A268B865400269427 /* UIButton+.swift in Sources */,
 				CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */,
 				CCF78446268B197A005FDF1D /* UITextField+.swift in Sources */,
 				CC05E038268C595F00269427 /* CafeTIViewController.swift in Sources */,
 				CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */,
+				CCB6C663268DC88E00941E92 /* HamburgerViewController.swift in Sources */,
 				CCA85B2A2688F14600C9A32C /* KeyChainStorage.swift in Sources */,
 				CCA85B2C2688F15300C9A32C /* StoryboardStorage.swift in Sources */,
 				CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */,
 				CCA85B5C2688F29700C9A32C /* UIDatePicker+.swift in Sources */,
 				CCA85B5F2688F29700C9A32C /* UICollectionReusableView+.swift in Sources */,
 				CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */,
+				E81F0ED4268DC2340042B825 /* CafeTITest1ViewController.swift in Sources */,
 				CCA85B5E2688F29700C9A32C /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -796,7 +844,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -851,7 +899,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -867,7 +915,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				INFOPLIST_FILE = "CA-PIN_IOS/Supports/Info.plist";
@@ -878,7 +926,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ryan.CAPIN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "capin-distribute";
+				PROVISIONING_PROFILE_SPECIFIER = "capin-develop";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
