@@ -45,13 +45,18 @@ class MapViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBar.isHidden = true
-    layout()
     marker.mapView = self.mapView.mapView
     let handler = { (overlay: NMFOverlay) -> Bool in
       self.informationView.isHidden = false
       return true
     }
     marker.touchHandler = handler
+    self.mapView.mapView.touchDelegate = self
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    layout()
   }
   
 }
@@ -306,3 +311,11 @@ extension MapViewController {
   }
 }
 
+extension MapViewController: NMFMapViewTouchDelegate {
+  func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
+    if self.informationView.isHidden == false {
+      self.informationView.isHidden = true
+      self.viewWillAppear(true)
+    }
+  }
+}
