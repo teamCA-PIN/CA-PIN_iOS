@@ -60,8 +60,8 @@
 		CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78449268B71CD005FDF1D /* LoginViewController.swift */; };
 		DEAF5909BEA6DABAD94C99B1 /* Pods_CA_PIN_IOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2EB73A4D1A93ECC7CCACCE /* Pods_CA_PIN_IOSTests.framework */; };
 		E81F0ED4268DC2340042B825 /* CafeTITest1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */; };
-		E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED7268DC9DC0042B825 /* CafeTITest21ViewController.swift */; };
-		E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED9268DCA790042B825 /* CafeTITest22ViewController.swift */; };
+		E81F0EDC268E2CD30042B825 /* CAFETIQuestionDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0EDB268E2CD30042B825 /* CAFETIQuestionDataModel.swift */; };
+		E81F0EE2269203520042B825 /* QuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0EE1269203520042B825 /* QuestionTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,8 +137,8 @@
 		DCE275964F750EF1950B1B3F /* Pods-CA-PIN_IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS.release.xcconfig"; sourceTree = "<group>"; };
 		E1713BD6CEA8E864225CCD7B /* Pods-CA-PIN_IOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOSTests.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOSTests/Pods-CA-PIN_IOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest1ViewController.swift; sourceTree = "<group>"; };
-		E81F0ED7268DC9DC0042B825 /* CafeTITest21ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest21ViewController.swift; sourceTree = "<group>"; };
-		E81F0ED9268DCA790042B825 /* CafeTITest22ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest22ViewController.swift; sourceTree = "<group>"; };
+		E81F0EDB268E2CD30042B825 /* CAFETIQuestionDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CAFETIQuestionDataModel.swift; path = "CA-PIN_IOS/Screens/CafeTI/ViewControllers/CAFETIQuestionDataModel.swift"; sourceTree = SOURCE_ROOT; };
+		E81F0EE1269203520042B825 /* QuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +225,7 @@
 		CC05E035268C593D00269427 /* CafeTI */ = {
 			isa = PBXGroup;
 			children = (
+				E81F0EE02692033F0042B825 /* Cells */,
 				CC05E036268C594600269427 /* ViewControllers */,
 			);
 			path = CafeTI;
@@ -235,8 +236,6 @@
 			children = (
 				CC05E037268C595F00269427 /* CafeTIViewController.swift */,
 				E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */,
-				E81F0ED7268DC9DC0042B825 /* CafeTITest21ViewController.swift */,
-				E81F0ED9268DCA790042B825 /* CafeTITest22ViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -409,6 +408,7 @@
 		CCA85B2F2688F16700C9A32C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E81F0EDB268E2CD30042B825 /* CAFETIQuestionDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -440,6 +440,14 @@
 				E1713BD6CEA8E864225CCD7B /* Pods-CA-PIN_IOSTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E81F0EE02692033F0042B825 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E81F0EE1269203520042B825 /* QuestionTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -708,6 +716,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E81F0EE2269203520042B825 /* QuestionTableViewCell.swift in Sources */,
 				CC05E029268B865400269427 /* UIFont+.swift in Sources */,
 				CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */,
 				CCA85B582688F29700C9A32C /* UITableViewCell+.swift in Sources */,
@@ -715,6 +724,7 @@
 				CC05E030268C4EBF00269427 /* TabbarViewController.swift in Sources */,
 				CCA85B5D2688F29700C9A32C /* UIImage+.swift in Sources */,
 				CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */,
+				E81F0EDC268E2CD30042B825 /* CAFETIQuestionDataModel.swift in Sources */,
 				CCA85B5B2688F29700C9A32C /* UIViewController+.swift in Sources */,
 				CCA85B5A2688F29700C9A32C /* UICollectionViewCell+.swift in Sources */,
 				CC05E02E268B9D5400269427 /* MapViewController.swift in Sources */,
@@ -722,8 +732,6 @@
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
-				E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */,
-				E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,
 				CC05E02A268B865400269427 /* UIButton+.swift in Sources */,
 				CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */,
