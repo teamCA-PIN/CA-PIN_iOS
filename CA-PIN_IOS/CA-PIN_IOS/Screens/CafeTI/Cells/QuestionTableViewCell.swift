@@ -19,13 +19,14 @@ class QuestionTableViewCell: UITableViewCell {
   
   let backview = UIView()
   let questionLabel = UILabel()
-  
+
   // MARK: - LifeCycle
   
   override func awakeFromNib() {
     super.awakeFromNib()
     layout()
   }
+  
   
   func setData(questiontitle :String) {
     questionLabel.text = questiontitle

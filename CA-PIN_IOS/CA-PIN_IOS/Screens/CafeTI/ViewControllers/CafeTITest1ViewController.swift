@@ -113,7 +113,7 @@ extension CafeTITest1ViewController {
       $0.translatesAutoresizingMaskIntoConstraints = false
       $0.separatorStyle = .none
       $0.snp.makeConstraints {
-//        $0.top.equalTo(self.contentLabel.snp.bottom).offset(113)
+        //        $0.top.equalTo(self.contentLabel.snp.bottom).offset(113)
         $0.centerY.equalTo(self.contentLabel.snp.bottom).offset(168)
         $0.leading.equalTo(self.view.snp.leading).offset(20)
         $0.trailing.equalTo(self.view.snp.trailing).offset(-20)
@@ -202,9 +202,8 @@ extension CafeTITest1ViewController: UITableViewDataSource {
   }
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let questionCell = tableView.dequeueReusableCell(withIdentifier: QuestionTableViewCell.reuseIdentifier, for: indexPath) as? QuestionTableViewCell else { return }
-    questionCell.backview.setBorder(borderColor: 0x947d6c.color, borderWidth: 2)
-    tableView.reloadData()
-    print("여기야여기")
+    questionCell.backview.layer.borderColor = UIColor.subcolorBrown3.cgColor
+    questionCell.backview.layer.borderWidth = 100
+    tableView.layoutIfNeeded()
   }
-  
 }

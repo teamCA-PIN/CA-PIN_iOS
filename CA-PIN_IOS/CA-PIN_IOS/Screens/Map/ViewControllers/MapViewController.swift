@@ -118,6 +118,7 @@ extension MapViewController {
   func layoutHashButton() {
     topView.add(hashButton) {
       $0.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+      $0.addTarget(self, action: #selector(self.clickedHashButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerY.equalToSuperview()
         $0.leading.equalTo(self.topView.snp.leading).offset(20)
@@ -309,7 +310,11 @@ extension MapViewController {
   }
   @objc func clickedMenuButton() {
     let hamburgerVC = HamburgerViewController()
-    self.navigationController?.pushViewController(hamburgerVC, animated: true)
+    self.navigationController?.pushViewController(hamburgerVC, animated: false)
+  }
+  @objc func clickedHashButton() {
+    let tagVC = TagViewController()
+    self.navigationController?.pushViewController(tagVC, animated: false)
   }
   @objc func clickedAddCategoryButton() {
     let pinNavigationController = UINavigationController()
@@ -320,6 +325,7 @@ extension MapViewController {
     self.present(pinNavigationController, animated: true, completion: nil)
   }
 }
+
 
 extension MapViewController: NMFMapViewTouchDelegate {
   func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {

@@ -24,6 +24,9 @@
 		CC45A17A2694280800E68817 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1792694280800E68817 /* TermsViewController.swift */; };
 		CC45A17C26942BEA00E68817 /* TermsGeneralTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A17B26942BEA00E68817 /* TermsGeneralTableViewCell.swift */; };
 		CC45A17E26942BF400E68817 /* TermsVersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A17D26942BF400E68817 /* TermsVersionTableViewCell.swift */; };
+		CC45A183269478DA00E68817 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A182269478DA00E68817 /* TagViewController.swift */; };
+		CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1842694D14C00E68817 /* TagTableViewCell.swift */; };
+		CC45A1872694EFFF00E68817 /* ExitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1862694EFFF00E68817 /* ExitViewController.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -111,6 +114,9 @@
 		CC45A1792694280800E68817 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		CC45A17B26942BEA00E68817 /* TermsGeneralTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsGeneralTableViewCell.swift; sourceTree = "<group>"; };
 		CC45A17D26942BF400E68817 /* TermsVersionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsVersionTableViewCell.swift; sourceTree = "<group>"; };
+		CC45A182269478DA00E68817 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
+		CC45A1842694D14C00E68817 /* TagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableViewCell.swift; sourceTree = "<group>"; };
+		CC45A1862694EFFF00E68817 /* ExitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitViewController.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -271,6 +277,32 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		CC45A17F269478AD00E68817 /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				CC45A181269478C200E68817 /* Cells */,
+				CC45A180269478BC00E68817 /* ViewControllers */,
+			);
+			path = Tag;
+			sourceTree = "<group>";
+		};
+		CC45A180269478BC00E68817 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CC45A182269478DA00E68817 /* TagViewController.swift */,
+				CC45A1862694EFFF00E68817 /* ExitViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CC45A181269478C200E68817 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CC45A1842694D14C00E68817 /* TagTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		CC6FBC0E268A322800BC299C /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +401,7 @@
 		CCA85B272688F11200C9A32C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CC45A17F269478AD00E68817 /* Tag */,
 				CC05E035268C593D00269427 /* CafeTI */,
 				CC05E031268C4F7700269427 /* Mypage */,
 				CC05E02B268B9D3400269427 /* Map */,
@@ -751,6 +784,7 @@
 				CCA85B582688F29700C9A32C /* UITableViewCell+.swift in Sources */,
 				CC05E034268C4F9300269427 /* MypageViewController.swift in Sources */,
 				CC05E030268C4EBF00269427 /* TabbarViewController.swift in Sources */,
+				CC45A1872694EFFF00E68817 /* ExitViewController.swift in Sources */,
 				CCA85B5D2688F29700C9A32C /* UIImage+.swift in Sources */,
 				CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */,
 				E81F0EDC268E2CD30042B825 /* CAFETIQuestionDataModel.swift in Sources */,
@@ -761,10 +795,9 @@
 				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
+				CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */,
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
 				CC45A17C26942BEA00E68817 /* TermsGeneralTableViewCell.swift in Sources */,
-				E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */,
-				E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */,
 				CC45A17E26942BF400E68817 /* TermsVersionTableViewCell.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,
 				CCB6C665268F044400941E92 /* PinPopupViewController.swift in Sources */,
@@ -777,6 +810,7 @@
 				CCB6C663268DC88E00941E92 /* HamburgerViewController.swift in Sources */,
 				CCA85B2A2688F14600C9A32C /* KeyChainStorage.swift in Sources */,
 				CCB6C66E268F498B00941E92 /* CategoryCollectionViewCell.swift in Sources */,
+				CC45A183269478DA00E68817 /* TagViewController.swift in Sources */,
 				CCA85B2C2688F15300C9A32C /* StoryboardStorage.swift in Sources */,
 				CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */,
 				CCB6C668268F083A00941E92 /* PinPopupTableViewCell.swift in Sources */,
@@ -972,7 +1006,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ryan.CAPIN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "capin-develop";
+				PROVISIONING_PROFILE_SPECIFIER = "capin-debug";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
