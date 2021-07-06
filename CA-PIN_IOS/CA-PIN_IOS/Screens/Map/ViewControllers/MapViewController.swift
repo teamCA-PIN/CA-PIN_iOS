@@ -24,6 +24,18 @@ class MapViewController: UIViewController {
   let toggleView = UIView()
   let capinMapButton = UIButton()
   let myMapButton = UIButton()
+  let informationView = UIView()
+  let informationTitleLabel = UILabel()
+  let informationStarIconView = UIImageView()
+  let informationStarLabel = UILabel()
+  let informationImageView = UIImageView()
+  let informationContextLabel = UILabel()
+  let informationTagContainerView = UIView()
+  let informationTagLabel = UILabel()
+  let informationAddButton = UIButton()
+  let marker = NMFMarker().then {
+    $0.position = NMGLatLng(lat: 37.5670135, lng: 126.9783740)
+  }
   
   var locationManager = CLLocationManager()
   var currentLatitude: Double?
@@ -33,9 +45,19 @@ class MapViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBar.isHidden = true
-    layout()
+    marker.mapView = self.mapView.mapView
+    let handler = { (overlay: NMFOverlay) -> Bool in
+      self.informationView.isHidden = false
+      return true
+    }
+    marker.touchHandler = handler
+    self.mapView.mapView.touchDelegate = self
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    layout()
+  }
 }
 
 // MARK: - Extensions
@@ -50,6 +72,15 @@ extension MapViewController {
     layoutToggleView()
     layoutCapinMapButton()
     layoutMyMapButton()
+    layoutInformationView()
+    layoutInformationTitleLabel()
+    layoutInformationStarLabel()
+    layoutInformationStarIconView()
+    layoutInformationImageView()
+    layoutInformationContextLabel()
+    layoutInformationTagContainerView()
+    layoutInformationTagLabel()
+    layoutInformationAddButton()
   }
   func layoutTopView() {
     view.add(topView) {
@@ -152,6 +183,117 @@ extension MapViewController {
       }
     }
   }
+  func layoutInformationView() {
+    view.add(informationView) {
+      $0.isHidden = true
+      $0.backgroundColor = .white
+      $0.setRounded(radius: 10)
+      $0.snp.makeConstraints {
+        $0.bottom.equalTo(self.toggleView.snp.top).offset(-11)
+        $0.leading.equalTo(self.view.snp.leading).offset(20)
+        $0.trailing.equalTo(self.view.snp.trailing).offset(-20)
+        $0.height.equalTo(161)
+      }
+    }
+  }
+  func layoutInformationTitleLabel() {
+    informationView.add(informationTitleLabel) {
+      $0.setupLabel(text: "후엘고",
+                    color: .black,
+                    font: .notoSansKRMediumFont(fontSize: 20))
+      $0.snp.makeConstraints {
+        $0.leading.equalTo(self.informationView.snp.leading).offset(16)
+        $0.top.equalTo(self.informationView.snp.top).offset(17)
+      }
+    }
+  }
+  func layoutInformationStarLabel() {
+    informationView.add(informationStarLabel) {
+      $0.setupLabel(text: "3.5",
+                    color: 0xFFD027.color,
+                    font: .notoSansKRMediumFont(fontSize: 14))
+      $0.snp.makeConstraints {
+        $0.trailing.equalTo(self.informationView.snp.trailing).offset(-16)
+        $0.centerY.equalTo(self.informationTitleLabel.snp.centerY)
+      }
+    }
+  }
+  func layoutInformationStarIconView() {
+    informationView.add(informationStarIconView) {
+      $0.image = UIImage(named: "logo")
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.informationView.snp.top).offset(26)
+        $0.trailing.equalTo(self.informationStarLabel.snp.leading).offset(-7)
+        $0.width.height.equalTo(12)
+      }
+    }
+  }
+  func layoutInformationImageView() {
+    informationView.add(informationImageView) {
+      $0.image = UIImage(named: "logo")
+      $0.setRounded(radius: 10)
+      $0.snp.makeConstraints {
+        $0.leading.equalTo(self.informationTitleLabel.snp.leading)
+        $0.top.equalTo(self.informationTitleLabel.snp.bottom).offset(7)
+        $0.width.height.equalTo(92)
+      }
+    }
+  }
+  func layoutInformationContextLabel() {
+    informationView.add(informationContextLabel) {
+      $0.setupLabel(text:
+                      "서울 마포구 마포대로11길 118 1층 (염리동), 서울 마포구 마포대로11길 118 1층 (염리동)",
+                    color: 0x878787.color,
+                    font: .notoSansKRRegularFont(fontSize: 12))
+      $0.numberOfLines = 3
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.informationStarLabel.snp.bottom).offset(20)
+        $0.leading.equalTo(self.informationImageView.snp.trailing).offset(17)
+      }
+    }
+  }
+  func layoutInformationTagContainerView() {
+    informationView.add(informationTagContainerView) {
+      $0.backgroundColor = 0xA98E7A.color
+      $0.setRounded(radius: 12)
+      $0.snp.makeConstraints {
+        $0.leading.equalTo(self.informationContextLabel.snp.leading)
+        $0.bottom.equalTo(self.informationImageView.snp.bottom)
+        $0.width.equalTo(89)
+        $0.height.equalTo(23)
+      }
+    }
+  }
+  func layoutInformationTagLabel() {
+    informationView.add(informationTagLabel) {
+      $0.setupLabel(text: "분위기 맛집",
+                    color: .white,
+                    font: .notoSansKRMediumFont(fontSize: 12))
+      $0.snp.makeConstraints {
+        $0.centerY.equalTo(self.informationTagContainerView.snp.centerY)
+        $0.leading.equalTo(self.informationTagContainerView.snp.leading).offset(10)
+      }
+    }
+    self.informationTagContainerView.snp.remakeConstraints {
+      $0.leading.equalTo(self.informationContextLabel.snp.leading)
+      $0.bottom.equalTo(self.informationImageView.snp.bottom)
+      $0.trailing.equalTo(self.informationTagLabel.snp.trailing).offset(10)
+      $0.height.equalTo(23)
+    }
+  }
+  func layoutInformationAddButton() {
+    informationView.add(informationAddButton) {
+      $0.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+      $0.addTarget(self,
+                   action: #selector(self.clickedAddCategoryButton),
+                   for: .touchUpInside)
+      $0.snp.makeConstraints {
+        $0.trailing.equalTo(self.informationStarLabel.snp.trailing)
+        $0.bottom.equalTo(self.informationImageView.snp.bottom)
+        $0.width.height.equalTo(28)
+      }
+    }
+  }
   
   // MARK: - General Helpers
   func currentCoordinate() {
@@ -168,5 +310,22 @@ extension MapViewController {
   @objc func clickedMenuButton() {
     let hamburgerVC = HamburgerViewController()
     self.navigationController?.pushViewController(hamburgerVC, animated: true)
+  }
+  @objc func clickedAddCategoryButton() {
+    let pinNavigationController = UINavigationController()
+    let pinPopupVC = PinPopupViewController()
+    pinNavigationController.addChild(pinPopupVC)
+    pinNavigationController.view.backgroundColor = .clear
+    pinNavigationController.modalPresentationStyle = .overFullScreen
+    self.present(pinNavigationController, animated: true, completion: nil)
+  }
+}
+
+extension MapViewController: NMFMapViewTouchDelegate {
+  func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
+    if self.informationView.isHidden == false {
+      self.informationView.isHidden = true
+      self.viewWillAppear(true)
+    }
   }
 }
