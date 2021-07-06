@@ -12,7 +12,9 @@ import Then
 
 // MARK: - MypageViewController
 class MypageViewController: UIViewController {
+    
     // MARK: - Components
+    
     let backButton = UIButton()
     let profileContainerView = UIView()
     let profileImageView = UIImageView()
@@ -20,23 +22,59 @@ class MypageViewController: UIViewController {
     let nicknameLabel = UILabel()
     let cafeTILabel = UILabel()
     let profileEditButton = UIButton()
-//    let tabBarCollectionView = UICollectionView()
-//    let pageCollectionView = UICollectionView()
+    let tabbarCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    let pageCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    let indicatorView = UIView()
+    let pinView = UITableView()
+    let reviewView = UITableView()
+    
+    
+    // MARK: - Variables and Properties
     
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
 
     // MARK: - LifeCycle
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    layout()
-    self.navigationController?.navigationBar.isHidden = true
-  }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        register()
+        layout()
+        self.tabbarCollectionView.delegate = self
+        self.tabbarCollectionView.dataSource = self
+        self.pageCollectionView.delegate = self
+        self.pageCollectionView.dataSource = self
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        ///subview들이 자리 잡은 후 레이아웃 조정 필요할 때 (ex. radius 값)
+    }
   
 }
 
 // MARK: - Extensions
 extension MypageViewController {
+    // MARK: - Helper
+    func register() {
+        self.tabbarCollectionView.register(TabbarCollectionViewCell.self, forCellWithReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier)
+        self.pageCollectionView.register(PageCollectionViewCell.self, forCellWithReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier)
+    }
     
     // MARK: - Layout Helper
     func layout() {
@@ -47,7 +85,9 @@ extension MypageViewController {
         layoutNicknameLabel()
         layoutCafeTILabel()
         layoutProfileEditButton()
-        
+        layoutTabbarCollectionView()
+        layoutIndicatorView()
+        layoutPageCollectionView()
     }
     func layoutBackButton() {
         self.view.add(self.backButton) {
@@ -129,6 +169,71 @@ extension MypageViewController {
                 $0.top.equalTo(self.profileContainerView.snp.top).offset(-7)
                 $0.trailing.equalTo(self.profileContainerView.snp.trailing)
             }
+        }
+    }
+    func layoutTabbarCollectionView() {
+        self.view.add(self.pageCollectionView) {
+            $0.snp.makeConstraints {
+                $0.top.equalTo(self.profileContainerView.snp.bottom).offset(33)
+                $0.leading.equalTo(self.view.snp.leading)
+                $0.trailing.equalTo(self.view.snp.trailing)
+                $0.width.equalTo(self.screenWidth)
+                $0.height.equalTo(self.screenWidth * 33/375)
+            }
+        }
+    }
+    func layoutIndicatorView() {
+        self.view.add(self.indicatorView) {
+            $0.backgroundColor = .brown
+            $0.snp.makeConstraints {
+                $0.top.equalTo(self.tabbarCollectionView.snp.bottom)
+                $0.leading.equalTo(self.view.snp.leading)
+                $0.trailing.equalTo(self.view.snp.trailing)
+                $0.width.equalTo(self.screenWidth/2)
+                $0.height.equalTo(2)
+            }
+        }
+    }
+    func layoutPageCollectionView() {
+        self.view.add(pageCollectionView) {
+            $0.snp.makeConstraints {
+                $0.top.equalTo(self.indicatorView.snp.bottom)
+                $0.leading.equalTo(self.view.snp.leading)
+                $0.trailing.equalTo(self.view.snp.trailing)
+                $0.bottom.equalTo(self.view.snp.bottom)
+            }
+        }
+    }
+}
+
+extension MypageViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        switch collectionView {
+        case self.tabbarCollectionView:
+            return CGSize(width: self.screenWidth/2, height: collectionView.frame.height)
+        case self.pageCollectionView:
+            return CGSize(width: self.screenWidth, height: collectionView.frame.height)
+        default:
+            return CGSize(width: 0, height: 0)
+        }
+    }
+}
+
+extension MypageViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch collectionView {
+        case self.tabbarCollectionView:
+            guard let tabBarCell = collectionView.dequeueReusableCell(withReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier, for: indexPath) as? TabbarCollectionViewCell else { return UICollectionViewCell() }
+            return tabBarCell
+        case self.pageCollectionView:
+            guard let pageCell = collectionView.dequeueReusableCell(withReuseIdentifier: PageCollectionViewCell.reuseIdentifier, for: indexPath) as? PageCollectionViewCell else { return UICollectionViewCell() }
+            return pageCell
+        default:
+            return UICollectionViewCell()
         }
     }
 }
