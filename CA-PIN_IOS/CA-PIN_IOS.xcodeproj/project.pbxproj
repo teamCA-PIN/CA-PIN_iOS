@@ -21,6 +21,9 @@
 		CC05E043268D735A00269427 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03D268D735A00269427 /* NotoSansKR-Light.otf */; };
 		CC05E044268D735A00269427 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03E268D735A00269427 /* NotoSansKR-Medium.otf */; };
 		CC05E045268D735A00269427 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03F268D735A00269427 /* NotoSansKR-Thin.otf */; };
+		CC45A17A2694280800E68817 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1792694280800E68817 /* TermsViewController.swift */; };
+		CC45A17C26942BEA00E68817 /* TermsGeneralTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A17B26942BEA00E68817 /* TermsGeneralTableViewCell.swift */; };
+		CC45A17E26942BF400E68817 /* TermsVersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A17D26942BF400E68817 /* TermsVersionTableViewCell.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -105,6 +108,9 @@
 		CC05E03D268D735A00269427 /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
 		CC05E03E268D735A00269427 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
 		CC05E03F268D735A00269427 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
+		CC45A1792694280800E68817 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
+		CC45A17B26942BEA00E68817 /* TermsGeneralTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsGeneralTableViewCell.swift; sourceTree = "<group>"; };
+		CC45A17D26942BF400E68817 /* TermsVersionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsVersionTableViewCell.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -213,6 +219,7 @@
 				CCB6C662268DC88E00941E92 /* HamburgerViewController.swift */,
 				CCB6C664268F044300941E92 /* PinPopupViewController.swift */,
 				CCB6C66B268F41E800941E92 /* CreateCategoryViewController.swift */,
+				CC45A1792694280800E68817 /* TermsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -445,6 +452,8 @@
 			children = (
 				CCB6C667268F083A00941E92 /* PinPopupTableViewCell.swift */,
 				CCB6C66D268F498B00941E92 /* CategoryCollectionViewCell.swift */,
+				CC45A17B26942BEA00E68817 /* TermsGeneralTableViewCell.swift */,
+				CC45A17D26942BF400E68817 /* TermsVersionTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -743,13 +752,16 @@
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
+				CC45A17C26942BEA00E68817 /* TermsGeneralTableViewCell.swift in Sources */,
 				E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */,
 				E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */,
+				CC45A17E26942BF400E68817 /* TermsVersionTableViewCell.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,
 				CCB6C665268F044400941E92 /* PinPopupViewController.swift in Sources */,
 				CC05E02A268B865400269427 /* UIButton+.swift in Sources */,
 				CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */,
 				CCF78446268B197A005FDF1D /* UITextField+.swift in Sources */,
+				CC45A17A2694280800E68817 /* TermsViewController.swift in Sources */,
 				CC05E038268C595F00269427 /* CafeTIViewController.swift in Sources */,
 				CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */,
 				CCB6C663268DC88E00941E92 /* HamburgerViewController.swift in Sources */,
