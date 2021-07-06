@@ -209,6 +209,7 @@ extension HamburgerViewController {
                      backgroundColor: .clear,
                      state: .normal,
                      radius: 0)
+      $0.addTarget(self, action: #selector(self.clickedTermsButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.archiveContainerView.snp.bottom).offset(56)
@@ -255,5 +256,8 @@ extension HamburgerViewController {
   @objc func clickedCloseButton() {
     self.navigationController?.popViewController(animated: true)
   }
-  
+  @objc func clickedTermsButton() {
+    let termsVC = TermsViewController()
+    self.navigationController?.pushViewController(termsVC, animated: false)
+  }
 }
