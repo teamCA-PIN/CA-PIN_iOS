@@ -59,7 +59,7 @@ extension CafeTIViewController {
             $0.setImage(UIImage(named: "logo"), for: .normal)
             $0.snp.makeConstraints {
                 $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(11)
-                $0.centerX.equalToSuperview()
+                $0.leading.equalTo(self.view.snp.leading).offset(20)
                 $0.width.equalTo(28)
                 $0.height.equalTo(28)
             }
