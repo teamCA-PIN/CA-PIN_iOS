@@ -20,6 +20,8 @@ class QuestionTableViewCell: UITableViewCell {
   let backview = UIView()
   let questionLabel = UILabel()
   
+  var selection: Int?
+  
   // MARK: - LifeCycle
   
   override func awakeFromNib() {
