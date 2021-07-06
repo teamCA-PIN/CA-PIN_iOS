@@ -31,6 +31,8 @@ class CafeTITest1ViewController: UIViewController {
   
   var questionList : [CAFETIQuestionDataModel] = []
   
+ 
+  
   
   
   
@@ -204,6 +206,5 @@ extension CafeTITest1ViewController: UITableViewDataSource {
     guard let questionCell = tableView.dequeueReusableCell(withIdentifier: QuestionTableViewCell.reuseIdentifier, for: indexPath) as? QuestionTableViewCell else { return }
     questionCell.backview.addBorder(.all, color: 0x947d6c.color, thickness: 2)
     tableView.layoutSubviews()
-  }
-  
+    }
 }
