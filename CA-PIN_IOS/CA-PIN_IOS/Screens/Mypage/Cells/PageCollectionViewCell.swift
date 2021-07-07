@@ -88,9 +88,10 @@ extension PageCollectionViewCell: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.item == 0 {
-            guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.reuseIdentifier, for: indexPath) as? CategoryTableViewCell else { return UITableViewCell() }
-            categoryCell.awakeFromNib()
-            return categoryCell
+//            guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.reuseIdentifier, for: indexPath) as? CategoryTableViewCell else { return UITableViewCell() }
+//            categoryCell.awakeFromNib()
+//            return categoryCell
+            return UITableViewCell()
         } else {
             if indexPath.section == 0 {
                 

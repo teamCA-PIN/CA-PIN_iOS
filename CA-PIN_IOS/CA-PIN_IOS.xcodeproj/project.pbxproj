@@ -13,6 +13,8 @@
 		924137092694330E0016D18F /* PageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924137082694330E0016D18F /* PageCollectionViewCell.swift */; };
 		9241370F269457A80016D18F /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9241370E269457A80016D18F /* ReviewTableViewCell.swift */; };
 		92413711269457C50016D18F /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413710269457C50016D18F /* CategoryTableViewCell.swift */; };
+		92413713269596660016D18F /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413712269596660016D18F /* CategoryDetailViewController.swift */; };
+		924137152695CEF60016D18F /* cafeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924137142695CEF50016D18F /* cafeListTableViewCell.swift */; };
 		929AD4DC268EEB150071C394 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929AD4DB268EEB150071C394 /* SignUpViewController.swift */; };
 		CC05E029268B865400269427 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E027268B865400269427 /* UIFont+.swift */; };
 		CC05E02A268B865400269427 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E028268B865400269427 /* UIButton+.swift */; };
@@ -97,6 +99,8 @@
 		924137082694330E0016D18F /* PageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9241370E269457A80016D18F /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		92413710269457C50016D18F /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		92413712269596660016D18F /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
+		924137142695CEF50016D18F /* cafeListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafeListTableViewCell.swift; sourceTree = "<group>"; };
 		929AD4DB268EEB150071C394 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		B350E96FA945D43E4A64DD28 /* Pods-CA-PIN_IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS.debug.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS.debug.xcconfig"; sourceTree = "<group>"; };
 		CC05E027268B865400269427 /* UIFont+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 				924137082694330E0016D18F /* PageCollectionViewCell.swift */,
 				9241370E269457A80016D18F /* ReviewTableViewCell.swift */,
 				92413710269457C50016D18F /* CategoryTableViewCell.swift */,
+				924137142695CEF50016D18F /* cafeListTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				CC05E033268C4F9300269427 /* MypageViewController.swift */,
+				92413712269596660016D18F /* CategoryDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -741,6 +747,7 @@
 			files = (
 				CC05E029268B865400269427 /* UIFont+.swift in Sources */,
 				CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */,
+				92413713269596660016D18F /* CategoryDetailViewController.swift in Sources */,
 				CCA85B582688F29700C9A32C /* UITableViewCell+.swift in Sources */,
 				CC05E034268C4F9300269427 /* MypageViewController.swift in Sources */,
 				CC05E030268C4EBF00269427 /* TabbarViewController.swift in Sources */,
@@ -758,6 +765,7 @@
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
 				E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */,
 				E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */,
+				924137152695CEF60016D18F /* cafeListTableViewCell.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,
 				CC05E02A268B865400269427 /* UIButton+.swift in Sources */,
 				CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */,
