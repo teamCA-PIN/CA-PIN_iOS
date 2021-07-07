@@ -28,6 +28,12 @@
 		CC05E043268D735A00269427 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03D268D735A00269427 /* NotoSansKR-Light.otf */; };
 		CC05E044268D735A00269427 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03E268D735A00269427 /* NotoSansKR-Medium.otf */; };
 		CC05E045268D735A00269427 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = CC05E03F268D735A00269427 /* NotoSansKR-Thin.otf */; };
+		CC45A17A2694280800E68817 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1792694280800E68817 /* TermsViewController.swift */; };
+		CC45A17C26942BEA00E68817 /* TermsGeneralTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A17B26942BEA00E68817 /* TermsGeneralTableViewCell.swift */; };
+		CC45A17E26942BF400E68817 /* TermsVersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A17D26942BF400E68817 /* TermsVersionTableViewCell.swift */; };
+		CC45A183269478DA00E68817 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A182269478DA00E68817 /* TagViewController.swift */; };
+		CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1842694D14C00E68817 /* TagTableViewCell.swift */; };
+		CC45A1872694EFFF00E68817 /* ExitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1862694EFFF00E68817 /* ExitViewController.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -52,6 +58,10 @@
 		CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85B552688F29600C9A32C /* UICollectionView+.swift */; };
 		CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85B612688F2F800C9A32C /* ReusableView.swift */; };
 		CCB6C663268DC88E00941E92 /* HamburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C662268DC88E00941E92 /* HamburgerViewController.swift */; };
+		CCB6C665268F044400941E92 /* PinPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C664268F044300941E92 /* PinPopupViewController.swift */; };
+		CCB6C668268F083A00941E92 /* PinPopupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C667268F083A00941E92 /* PinPopupTableViewCell.swift */; };
+		CCB6C66C268F41E800941E92 /* CreateCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C66B268F41E800941E92 /* CreateCategoryViewController.swift */; };
+		CCB6C66E268F498B00941E92 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C66D268F498B00941E92 /* CategoryCollectionViewCell.swift */; };
 		CCF78427268B0774005FDF1D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78426268B0774005FDF1D /* Then */; };
 		CCF7842A268B0781005FDF1D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78429268B0781005FDF1D /* SnapKit */; };
 		CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7842C268B0797005FDF1D /* CGFloatLiteral */; };
@@ -67,8 +77,8 @@
 		CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78449268B71CD005FDF1D /* LoginViewController.swift */; };
 		DEAF5909BEA6DABAD94C99B1 /* Pods_CA_PIN_IOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2EB73A4D1A93ECC7CCACCE /* Pods_CA_PIN_IOSTests.framework */; };
 		E81F0ED4268DC2340042B825 /* CafeTITest1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */; };
-		E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED7268DC9DC0042B825 /* CafeTITest21ViewController.swift */; };
-		E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED9268DCA790042B825 /* CafeTITest22ViewController.swift */; };
+		E81F0EDC268E2CD30042B825 /* CAFETIQuestionDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0EDB268E2CD30042B825 /* CAFETIQuestionDataModel.swift */; };
+		E81F0EE2269203520042B825 /* QuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0EE1269203520042B825 /* QuestionTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +125,12 @@
 		CC05E03D268D735A00269427 /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
 		CC05E03E268D735A00269427 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
 		CC05E03F268D735A00269427 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
+		CC45A1792694280800E68817 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
+		CC45A17B26942BEA00E68817 /* TermsGeneralTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsGeneralTableViewCell.swift; sourceTree = "<group>"; };
+		CC45A17D26942BF400E68817 /* TermsVersionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsVersionTableViewCell.swift; sourceTree = "<group>"; };
+		CC45A182269478DA00E68817 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
+		CC45A1842694D14C00E68817 /* TagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableViewCell.swift; sourceTree = "<group>"; };
+		CC45A1862694EFFF00E68817 /* ExitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitViewController.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,14 +161,18 @@
 		CCA85B552688F29600C9A32C /* UICollectionView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		CCA85B612688F2F800C9A32C /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		CCB6C662268DC88E00941E92 /* HamburgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HamburgerViewController.swift; sourceTree = "<group>"; };
+		CCB6C664268F044300941E92 /* PinPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPopupViewController.swift; sourceTree = "<group>"; };
+		CCB6C667268F083A00941E92 /* PinPopupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPopupTableViewCell.swift; sourceTree = "<group>"; };
+		CCB6C66B268F41E800941E92 /* CreateCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryViewController.swift; sourceTree = "<group>"; };
+		CCB6C66D268F498B00941E92 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCF78442268B197A005FDF1D /* UITextField+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		CCF78444268B197A005FDF1D /* UILabel+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		CCF78449268B71CD005FDF1D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DCE275964F750EF1950B1B3F /* Pods-CA-PIN_IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS.release.xcconfig"; sourceTree = "<group>"; };
 		E1713BD6CEA8E864225CCD7B /* Pods-CA-PIN_IOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOSTests.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOSTests/Pods-CA-PIN_IOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest1ViewController.swift; sourceTree = "<group>"; };
-		E81F0ED7268DC9DC0042B825 /* CafeTITest21ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest21ViewController.swift; sourceTree = "<group>"; };
-		E81F0ED9268DCA790042B825 /* CafeTITest22ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest22ViewController.swift; sourceTree = "<group>"; };
+		E81F0EDB268E2CD30042B825 /* CAFETIQuestionDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CAFETIQuestionDataModel.swift; path = "CA-PIN_IOS/Screens/CafeTI/ViewControllers/CAFETIQuestionDataModel.swift"; sourceTree = SOURCE_ROOT; };
+		E81F0EE1269203520042B825 /* QuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +246,7 @@
 		CC05E02B268B9D3400269427 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				CCB6C666268F082600941E92 /* Cells */,
 				CC05E02C268B9D4000269427 /* ViewControllers */,
 			);
 			path = Map;
@@ -236,6 +257,9 @@
 			children = (
 				CC05E02D268B9D5400269427 /* MapViewController.swift */,
 				CCB6C662268DC88E00941E92 /* HamburgerViewController.swift */,
+				CCB6C664268F044300941E92 /* PinPopupViewController.swift */,
+				CCB6C66B268F41E800941E92 /* CreateCategoryViewController.swift */,
+				CC45A1792694280800E68817 /* TermsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -261,6 +285,7 @@
 		CC05E035268C593D00269427 /* CafeTI */ = {
 			isa = PBXGroup;
 			children = (
+				E81F0EE02692033F0042B825 /* Cells */,
 				CC05E036268C594600269427 /* ViewControllers */,
 			);
 			path = CafeTI;
@@ -271,8 +296,6 @@
 			children = (
 				CC05E037268C595F00269427 /* CafeTIViewController.swift */,
 				E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */,
-				E81F0ED7268DC9DC0042B825 /* CafeTITest21ViewController.swift */,
-				E81F0ED9268DCA790042B825 /* CafeTITest22ViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -288,6 +311,32 @@
 				CC05E03F268D735A00269427 /* NotoSansKR-Thin.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		CC45A17F269478AD00E68817 /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				CC45A181269478C200E68817 /* Cells */,
+				CC45A180269478BC00E68817 /* ViewControllers */,
+			);
+			path = Tag;
+			sourceTree = "<group>";
+		};
+		CC45A180269478BC00E68817 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CC45A182269478DA00E68817 /* TagViewController.swift */,
+				CC45A1862694EFFF00E68817 /* ExitViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CC45A181269478C200E68817 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CC45A1842694D14C00E68817 /* TagTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		CC6FBC0E268A322800BC299C /* Login */ = {
@@ -389,6 +438,7 @@
 			isa = PBXGroup;
 			children = (
 				929AD4DA268EEAE90071C394 /* SignUp */,
+				CC45A17F269478AD00E68817 /* Tag */,
 				CC05E035268C593D00269427 /* CafeTI */,
 				CC05E031268C4F7700269427 /* Mypage */,
 				CC05E02B268B9D3400269427 /* Map */,
@@ -446,6 +496,7 @@
 		CCA85B2F2688F16700C9A32C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E81F0EDB268E2CD30042B825 /* CAFETIQuestionDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -466,6 +517,17 @@
 			path = Base.lproj;
 			sourceTree = "<group>";
 		};
+		CCB6C666268F082600941E92 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CCB6C667268F083A00941E92 /* PinPopupTableViewCell.swift */,
+				CCB6C66D268F498B00941E92 /* CategoryCollectionViewCell.swift */,
+				CC45A17B26942BEA00E68817 /* TermsGeneralTableViewCell.swift */,
+				CC45A17D26942BF400E68817 /* TermsVersionTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		E58742F02CD642743024EBD7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,6 +539,14 @@
 				E1713BD6CEA8E864225CCD7B /* Pods-CA-PIN_IOSTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E81F0EE02692033F0042B825 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E81F0EE1269203520042B825 /* QuestionTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -745,14 +815,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E81F0EE2269203520042B825 /* QuestionTableViewCell.swift in Sources */,
 				CC05E029268B865400269427 /* UIFont+.swift in Sources */,
 				CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */,
 				92413713269596660016D18F /* CategoryDetailViewController.swift in Sources */,
 				CCA85B582688F29700C9A32C /* UITableViewCell+.swift in Sources */,
 				CC05E034268C4F9300269427 /* MypageViewController.swift in Sources */,
 				CC05E030268C4EBF00269427 /* TabbarViewController.swift in Sources */,
+				CC45A1872694EFFF00E68817 /* ExitViewController.swift in Sources */,
 				CCA85B5D2688F29700C9A32C /* UIImage+.swift in Sources */,
 				CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */,
+				E81F0EDC268E2CD30042B825 /* CAFETIQuestionDataModel.swift in Sources */,
 				CCA85B5B2688F29700C9A32C /* UIViewController+.swift in Sources */,
 				92413711269457C50016D18F /* CategoryTableViewCell.swift in Sources */,
 				CCA85B5A2688F29700C9A32C /* UICollectionViewCell+.swift in Sources */,
@@ -766,18 +839,31 @@
 				E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */,
 				E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */,
 				924137152695CEF60016D18F /* cafeListTableViewCell.swift in Sources */,
+				CCB6C66C268F41E800941E92 /* CreateCategoryViewController.swift in Sources */,
+				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,
+				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
+				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
+				CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */,
+				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
+				CC45A17C26942BEA00E68817 /* TermsGeneralTableViewCell.swift in Sources */,
+				CC45A17E26942BF400E68817 /* TermsVersionTableViewCell.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,
+				CCB6C665268F044400941E92 /* PinPopupViewController.swift in Sources */,
 				CC05E02A268B865400269427 /* UIButton+.swift in Sources */,
 				CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */,
 				CCF78446268B197A005FDF1D /* UITextField+.swift in Sources */,
 				924137092694330E0016D18F /* PageCollectionViewCell.swift in Sources */,
+				CC45A17A2694280800E68817 /* TermsViewController.swift in Sources */,
 				CC05E038268C595F00269427 /* CafeTIViewController.swift in Sources */,
 				CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */,
 				CCB6C663268DC88E00941E92 /* HamburgerViewController.swift in Sources */,
 				CCA85B2A2688F14600C9A32C /* KeyChainStorage.swift in Sources */,
+				CCB6C66E268F498B00941E92 /* CategoryCollectionViewCell.swift in Sources */,
+				CC45A183269478DA00E68817 /* TagViewController.swift in Sources */,
 				CCA85B2C2688F15300C9A32C /* StoryboardStorage.swift in Sources */,
 				CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */,
 				92413707269432F00016D18F /* TabbarCollectionViewCell.swift in Sources */,
+				CCB6C668268F083A00941E92 /* PinPopupTableViewCell.swift in Sources */,
 				CCA85B5C2688F29700C9A32C /* UIDatePicker+.swift in Sources */,
 				CCA85B5F2688F29700C9A32C /* UICollectionReusableView+.swift in Sources */,
 				CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */,

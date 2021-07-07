@@ -29,6 +29,17 @@ extension UITextField {
     self.font = font
     self.placeholder = placeholder ?? ""
   }
+  
+  func underlined(color: UIColor) {
+    self.borderStyle = .none
+    let border = CALayer()
+    border.frame = CGRect(x: 0,
+                          y: self.frame.height-1,
+                          width: self.frame.width,
+                          height: 1)
+    border.backgroundColor = color.cgColor
+    self.layer.addSublayer(border)
+  }
 }
 
 class fourInsetTextField: UITextField {
