@@ -23,20 +23,14 @@ class CafeTIViewController: UIViewController {
     let subtitleLabel = UILabel()
     let startButton = UIButton()
  
-    
-    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
         self.navigationController?.navigationBar.isHidden = true
-        
     }
 }
-
-
-    
 
 // MARK: - Extension
 
@@ -122,11 +116,10 @@ extension CafeTIViewController {
             }
         }
     }
-    
     @objc func startButtonClicked() {
         let CafeTITest1ViewController = CafeTITest1ViewController()
         self.navigationController?.pushViewController(CafeTITest1ViewController, animated: false)
             
         }
-        
 }
+
