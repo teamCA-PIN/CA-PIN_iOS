@@ -27,6 +27,7 @@
 		CC45A183269478DA00E68817 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A182269478DA00E68817 /* TagViewController.swift */; };
 		CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1842694D14C00E68817 /* TagTableViewCell.swift */; };
 		CC45A1872694EFFF00E68817 /* ExitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1862694EFFF00E68817 /* ExitViewController.swift */; };
+		CC45A18C26955CDF00E68817 /* CafeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A18B26955CDE00E68817 /* CafeDetailViewController.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -117,6 +118,7 @@
 		CC45A182269478DA00E68817 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		CC45A1842694D14C00E68817 /* TagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableViewCell.swift; sourceTree = "<group>"; };
 		CC45A1862694EFFF00E68817 /* ExitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitViewController.swift; sourceTree = "<group>"; };
+		CC45A18B26955CDE00E68817 /* CafeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailViewController.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -303,6 +305,30 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		CC45A18826955CC100E68817 /* CafeDetail */ = {
+			isa = PBXGroup;
+			children = (
+				CC45A18A26955CD100E68817 /* Cells */,
+				CC45A18926955CCB00E68817 /* ViewControllers */,
+			);
+			path = CafeDetail;
+			sourceTree = "<group>";
+		};
+		CC45A18926955CCB00E68817 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CC45A18B26955CDE00E68817 /* CafeDetailViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CC45A18A26955CD100E68817 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		CC6FBC0E268A322800BC299C /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +427,7 @@
 		CCA85B272688F11200C9A32C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CC45A18826955CC100E68817 /* CafeDetail */,
 				CC45A17F269478AD00E68817 /* Tag */,
 				CC05E035268C593D00269427 /* CafeTI */,
 				CC05E031268C4F7700269427 /* Mypage */,
@@ -816,6 +843,7 @@
 				CCB6C668268F083A00941E92 /* PinPopupTableViewCell.swift in Sources */,
 				CCA85B5C2688F29700C9A32C /* UIDatePicker+.swift in Sources */,
 				CCA85B5F2688F29700C9A32C /* UICollectionReusableView+.swift in Sources */,
+				CC45A18C26955CDF00E68817 /* CafeDetailViewController.swift in Sources */,
 				CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */,
 				E81F0ED4268DC2340042B825 /* CafeTITest1ViewController.swift in Sources */,
 				CCA85B5E2688F29700C9A32C /* UIColor+.swift in Sources */,
