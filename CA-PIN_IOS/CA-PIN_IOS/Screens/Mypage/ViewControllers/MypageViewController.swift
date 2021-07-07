@@ -13,7 +13,7 @@ import Then
 // MARK: - MypageViewController
 class MypageViewController: UIViewController {
     
-    // MARK: - Components
+    //MARK: - Components
     
     let backButton = UIButton()
     let profileContainerView = UIView()
@@ -64,6 +64,7 @@ class MypageViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         ///subview들이 자리 잡은 후 레이아웃 조정 필요할 때 (ex. radius 값)
+        self.profileImageView.setRounded(radius: self.profileImageView.frame.width/2)
     }
   
 }
@@ -73,7 +74,7 @@ extension MypageViewController {
     // MARK: - Helper
     func register() {
         self.tabbarCollectionView.register(TabbarCollectionViewCell.self, forCellWithReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier)
-        self.pageCollectionView.register(PageCollectionViewCell.self, forCellWithReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier)
+        self.pageCollectionView.register(PageCollectionViewCell.self, forCellWithReuseIdentifier: PageCollectionViewCell.reuseIdentifier)
     }
     
     // MARK: - Layout Helper
@@ -172,7 +173,7 @@ extension MypageViewController {
         }
     }
     func layoutTabbarCollectionView() {
-        self.view.add(self.pageCollectionView) {
+        self.view.add(self.tabbarCollectionView) {
             $0.snp.makeConstraints {
                 $0.top.equalTo(self.profileContainerView.snp.bottom).offset(33)
                 $0.leading.equalTo(self.view.snp.leading)
@@ -206,6 +207,8 @@ extension MypageViewController {
     }
 }
 
+// MARK: - CollectionView DelegateFlowLayout
+
 extension MypageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
@@ -219,6 +222,8 @@ extension MypageViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: - CollectionViewDataSource
+
 extension MypageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2
@@ -228,9 +233,11 @@ extension MypageViewController: UICollectionViewDataSource {
         switch collectionView {
         case self.tabbarCollectionView:
             guard let tabBarCell = collectionView.dequeueReusableCell(withReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier, for: indexPath) as? TabbarCollectionViewCell else { return UICollectionViewCell() }
+            tabBarCell.awakeFromNib()
             return tabBarCell
         case self.pageCollectionView:
             guard let pageCell = collectionView.dequeueReusableCell(withReuseIdentifier: PageCollectionViewCell.reuseIdentifier, for: indexPath) as? PageCollectionViewCell else { return UICollectionViewCell() }
+            pageCell.awakeFromNib()
             return pageCell
         default:
             return UICollectionViewCell()
