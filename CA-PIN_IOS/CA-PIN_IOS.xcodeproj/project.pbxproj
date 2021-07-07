@@ -14,7 +14,9 @@
 		9241370F269457A80016D18F /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9241370E269457A80016D18F /* ReviewTableViewCell.swift */; };
 		92413711269457C50016D18F /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413710269457C50016D18F /* CategoryTableViewCell.swift */; };
 		92413713269596660016D18F /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413712269596660016D18F /* CategoryDetailViewController.swift */; };
-		924137152695CEF60016D18F /* cafeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924137142695CEF50016D18F /* cafeListTableViewCell.swift */; };
+		9292FFC82696352600BCD791 /* CategoryCafeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292FFC72696352600BCD791 /* CategoryCafeListTableViewCell.swift */; };
+		9292FFCA26964AFA00BCD791 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292FFC926964AFA00BCD791 /* TagCollectionViewCell.swift */; };
+		9292FFCD26964DF400BCD791 /* EmptyCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */; };
 		929AD4DC268EEB150071C394 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929AD4DB268EEB150071C394 /* SignUpViewController.swift */; };
 		CC05E029268B865400269427 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E027268B865400269427 /* UIFont+.swift */; };
 		CC05E02A268B865400269427 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E028268B865400269427 /* UIButton+.swift */; };
@@ -110,7 +112,9 @@
 		9241370E269457A80016D18F /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		92413710269457C50016D18F /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		92413712269596660016D18F /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
-		924137142695CEF50016D18F /* cafeListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafeListTableViewCell.swift; sourceTree = "<group>"; };
+		9292FFC72696352600BCD791 /* CategoryCafeListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCafeListTableViewCell.swift; sourceTree = "<group>"; };
+		9292FFC926964AFA00BCD791 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
+		9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		929AD4DB268EEB150071C394 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		B350E96FA945D43E4A64DD28 /* Pods-CA-PIN_IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS.debug.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS.debug.xcconfig"; sourceTree = "<group>"; };
 		CC05E027268B865400269427 /* UIFont+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
@@ -220,7 +224,9 @@
 				924137082694330E0016D18F /* PageCollectionViewCell.swift */,
 				9241370E269457A80016D18F /* ReviewTableViewCell.swift */,
 				92413710269457C50016D18F /* CategoryTableViewCell.swift */,
-				924137142695CEF50016D18F /* cafeListTableViewCell.swift */,
+				9292FFC72696352600BCD791 /* CategoryCafeListTableViewCell.swift */,
+				9292FFC926964AFA00BCD791 /* TagCollectionViewCell.swift */,
+				9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -815,6 +821,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9292FFCD26964DF400BCD791 /* EmptyCategoryTableViewCell.swift in Sources */,
 				E81F0EE2269203520042B825 /* QuestionTableViewCell.swift in Sources */,
 				CC05E029268B865400269427 /* UIFont+.swift in Sources */,
 				CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */,
@@ -836,12 +843,10 @@
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				9241370F269457A80016D18F /* ReviewTableViewCell.swift in Sources */,
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
-				E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */,
-				E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */,
-				924137152695CEF60016D18F /* cafeListTableViewCell.swift in Sources */,
 				CCB6C66C268F41E800941E92 /* CreateCategoryViewController.swift in Sources */,
 				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
+				9292FFC82696352600BCD791 /* CategoryCafeListTableViewCell.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */,
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
@@ -858,6 +863,7 @@
 				CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */,
 				CCB6C663268DC88E00941E92 /* HamburgerViewController.swift in Sources */,
 				CCA85B2A2688F14600C9A32C /* KeyChainStorage.swift in Sources */,
+				9292FFCA26964AFA00BCD791 /* TagCollectionViewCell.swift in Sources */,
 				CCB6C66E268F498B00941E92 /* CategoryCollectionViewCell.swift in Sources */,
 				CC45A183269478DA00E68817 /* TagViewController.swift in Sources */,
 				CCA85B2C2688F15300C9A32C /* StoryboardStorage.swift in Sources */,

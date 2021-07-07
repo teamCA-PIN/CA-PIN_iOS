@@ -12,122 +12,148 @@ import Then
 
 // MARK: - CategoryDetailViewController
 class CategoryDetailViewController: UIViewController {
-    
-    // MARK: - Components
-    let navigationContainerView = UIView()
-    let backButton = UIButton()
-    let categoryNameLabel = UILabel()
-    let deleteButton = UIButton()
-    let pinNumberLabel = UILabel()
-    let cafeListTableView = UITableView()
-    
-    // MARK: - Variables
-    let screenWidth = UIScreen.main.bounds.width
-    let screenHeight = UIScreen.main.bounds.height
-
-    // MARK: - LifeCycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+  
+  // MARK: - Components
+  let navigationContainerView = UIView()
+  let backButton = UIButton()
+  let categoryNameLabel = UILabel()
+  let deleteButton = UIButton()
+  let pinNumberLabel = UILabel()
+  let cafeListTableView = UITableView()
+  
+  // MARK: - Variables
+  let screenWidth = UIScreen.main.bounds.width
+  let screenHeight = UIScreen.main.bounds.height
+  
+  // MARK: - LifeCycle
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.navigationController?.navigationBar.isHidden = true
+    register()
+    attribute()
+    layout()
+    // Do any additional setup after loading the view.
+  }
 }
 
 
 // MARK: Extensions
 extension CategoryDetailViewController {
-    // MARK: - Helpers
-    func register() {
-        self.cafeListTableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: CategoryTableViewCell.reuseIdentifier)
+  // MARK: - Helpers
+  func register() {
+    /// 분기처리
+    /// 카테고리 내의 핀이 0개일 때: EmptyCategoryTableViewCell
+    /// 핀이 1개 이상일 때: CategoryCafeListTableViewCell
+    self.cafeListTableView.register(CategoryCafeListTableViewCell.self, forCellReuseIdentifier: CategoryCafeListTableViewCell.reuseIdentifier)
+  }
+  func attribute() {
+    self.cafeListTableView.delegate = self
+    self.cafeListTableView.dataSource = self
+  }
+  
+  //MARK: - Layout Helpers
+  func layout() {
+    layoutNavigationContainerView()
+    layoutBackButton()
+    layoutCategoryNameLabel()
+    layoutDeleteButton()
+    layoutPinNumberLabel()
+    layoutCafeListTableView()
+    self.cafeListTableView.separatorStyle = .none
+    self.cafeListTableView.showsVerticalScrollIndicator = false
+  }
+  func layoutNavigationContainerView() {
+    self.view.add(self.navigationContainerView) {
+      $0.snp.makeConstraints {
+        $0.width.equalTo(self.screenWidth)
+        $0.height.equalTo(29)
+        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(6)
+        $0.leading.equalTo(self.view.snp.leading)
+        $0.trailing.equalTo(self.view.snp.trailing)
+        $0.centerX.equalToSuperview()
+      }
     }
-    func attribute() {
-//        self.cafeListTableView.delegate = self
-//        self.cafeListTableView.dataSource = self
+  }
+  func layoutBackButton() {
+    self.navigationContainerView.add(self.backButton) {
+      $0.setImage(UIImage(named: "logo"), for: .normal)
+      $0.snp.makeConstraints {
+        $0.width.equalTo(28)
+        $0.height.equalTo(28)
+        $0.top.equalTo(self.navigationContainerView.snp.top).offset(-1)
+        $0.leading.equalTo(self.view.snp.leading).offset(20)
+      }
     }
-    
-    //MARK: - Layout Helpers
-    func layout() {
-        layoutNavigationContainerView()
-        layoutBackButton()
-        layoutCategoryNameLabel()
-        layoutDeleteButton()
-        layoutPinNumberLabel()
-        layoutCafeListTableView()
+  }
+  func layoutCategoryNameLabel() {
+    self.navigationContainerView.add(self.categoryNameLabel) {
+      $0.setupLabel(text: "기본 카테고리", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20), align: .center)
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.navigationContainerView.snp.top)
+        $0.width.equalTo(160)
+        $0.height.equalTo(29)
+        $0.centerX.equalToSuperview()
+      }
     }
-    func layoutNavigationContainerView() {
-        self.view.add(self.navigationContainerView) {
-            $0.snp.makeConstraints {
-                $0.width.equalTo(self.screenWidth)
-                $0.height.equalTo(29)
-                $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-                $0.centerX.equalToSuperview()
-            }
-        }
+  }
+  func layoutDeleteButton() {
+    self.navigationContainerView.add(self.deleteButton) {
+      $0.setImage(UIImage(named: "logo"), for: .normal)
+      $0.addTarget(self, action: #selector(self.deleteButtonClicked), for: .touchUpInside)
+      $0.snp.makeConstraints {
+        $0.width.equalTo(28)
+        $0.height.equalTo(28)
+        $0.top.equalTo(self.navigationContainerView.snp.top).offset(-1)
+        $0.trailing.equalTo(self.navigationContainerView.snp.trailing).offset(-20)
+      }
     }
-    func layoutBackButton() {
-        self.navigationContainerView.add(self.backButton) {
-            $0.setImage(UIImage(named: "logo"), for: .normal)
-            $0.snp.makeConstraints {
-                $0.width.equalTo(28)
-                $0.height.equalTo(28)
-                $0.top.equalTo(self.navigationContainerView.snp.top).offset(-1)
-                $0.leading.equalTo(self.view.snp.leading).offset(20)
-            }
-        }
+  }
+  func layoutPinNumberLabel() {
+    self.view.add(self.pinNumberLabel) {
+      $0.setupLabel(text: "총 8개의 핀", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
+      $0.snp.makeConstraints {
+        $0.height.equalTo(16)
+        $0.width.equalTo(80)
+        $0.top.equalTo(self.navigationContainerView.snp.bottom).offset(27)
+        $0.leading.equalTo(self.view.snp.leading).offset(22)
+      }
     }
-    func layoutCategoryNameLabel() {
-        self.navigationContainerView.add(self.categoryNameLabel) {
-            $0.setupLabel(text: "기본 카테고리", color: .black, font: UIFont.systemFont(ofSize: 20), align: .center)
-            $0.snp.makeConstraints {
-                $0.top.equalTo(self.navigationContainerView.snp.top)
-                $0.width.equalTo(160)
-                $0.height.equalTo(29)
-                $0.centerX.equalTo(self.navigationContainerView.center)
-            }
-        }
+  }
+  func layoutCafeListTableView() {
+    self.view.add(self.cafeListTableView) {
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.pinNumberLabel.snp.bottom).offset(8)
+        $0.leading.equalTo(self.view.snp.leading).offset(20)
+        $0.trailing.equalTo(self.view.snp.trailing).offset(-20)
+        $0.bottom.equalTo(self.view.snp.bottom)
+      }
     }
-    func layoutDeleteButton() {
-        self.navigationContainerView.add(self.deleteButton) {
-            $0.setImage(UIImage(named: "logo"), for: .normal)
-            $0.snp.makeConstraints {
-                $0.width.equalTo(28)
-                $0.height.equalTo(28)
-                $0.top.equalTo(self.navigationContainerView.snp.top).offset(-1)
-                $0.trailing.equalTo(self.navigationContainerView.snp.trailing).offset(-20)
-            }
-        }
-    }
-    func layoutPinNumberLabel() {
-        self.view.add(self.pinNumberLabel) {
-            $0.setupLabel(text: "총 8개의 핀", color: .gray, font: UIFont.systemFont(ofSize: 14))
-            $0.snp.makeConstraints {
-                $0.height.equalTo(16)
-                $0.width.equalTo(80)
-                $0.top.equalTo(self.navigationContainerView.snp.bottom).offset(-27)
-                $0.leading.equalTo(self.view.snp.leading).offset(22)
-            }
-        }
-    }
-    func layoutCafeListTableView() {
-        self.view.add(self.cafeListTableView) {
-            $0.snp.makeConstraints {
-                $0.top.equalTo(self.pinNumberLabel.snp.bottom).offset(8)
-                $0.leading.equalTo(self.view.snp.leading)
-                $0.trailing.equalTo(self.view.snp.trailing)
-                $0.bottom.equalTo(self.view.snp.bottom)
-            }
-        }
-    }
+  }
+  @objc func deleteButtonClicked() {
+    NotificationCenter.default.post(name: NSNotification.Name("DeleteButton"), object: nil)
+  }
 }
 
 extension CategoryDetailViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 150
+  }
 }
 
-//extension CategoryDetailViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//
-//    }
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-////        guard let cafeListCell = tableView.dequeueReusableCell(withIdentifier: cafeListTableViewCell.reuseIdentifier, for: indexPath)
-//    }
-//}
+extension CategoryDetailViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 6
+  }
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    /// 분기처리
+    /// 카테고리 내의 핀이 0개일 때: EmptyCategoryTableViewCell
+    /// 핀이 1개 이상일 때: CategoryCafeListTableViewCell
+    guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: CategoryCafeListTableViewCell.reuseIdentifier, for: indexPath) as? CategoryCafeListTableViewCell else {return UITableViewCell() }
+    categoryCell.awakeFromNib()
+    categoryCell.selectionStyle = .none
+    return categoryCell
+  }
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    <#code#>
+  }
+}
