@@ -99,7 +99,6 @@ extension CafeTIViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.titleLabel.snp.bottom).offset(20)
         $0.centerX.equalToSuperview()
-        $0.height.equalTo(46)
       }
     }
   }
