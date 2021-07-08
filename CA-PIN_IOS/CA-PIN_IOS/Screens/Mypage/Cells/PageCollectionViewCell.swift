@@ -98,9 +98,6 @@ extension PageCollectionViewCell: UITableViewDataSource {
       categoryCell.awakeFromNib()
       return categoryCell
     } else {
-//      if indexPath.section == 0 {
-//
-//      }
       guard let reviewCell = tableView.dequeueReusableCell(withIdentifier: ReviewTableViewCell.reuseIdentifier, for: indexPath) as? ReviewTableViewCell else { return UITableViewCell() }
       reviewCell.awakeFromNib()
       return reviewCell

@@ -236,11 +236,17 @@ extension MypageViewController: UICollectionViewDataSource {
       tabBarCell.awakeFromNib()
       return tabBarCell
     case self.pageCollectionView:
-      guard let pageCell = collectionView.dequeueReusableCell(withReuseIdentifier: PageCollectionViewCell.reuseIdentifier, for: indexPath) as? PageCollectionViewCell else { return UICollectionViewCell() }
-      pageCell.awakeFromNib()
-      return pageCell
+      if indexPath.item == 0 {
+        guard let pageCell = collectionView.dequeueReusableCell(withReuseIdentifier: PageCollectionViewCell.reuseIdentifier, for: indexPath) as? PageCollectionViewCell else { return UICollectionViewCell() }
+        pageCell.awakeFromNib()
+        return pageCell
+      }
+      if indexPath.item == 1 {
+        /// TODO
+      }
     default:
       return UICollectionViewCell()
     }
+    return UICollectionViewCell()
   }
 }

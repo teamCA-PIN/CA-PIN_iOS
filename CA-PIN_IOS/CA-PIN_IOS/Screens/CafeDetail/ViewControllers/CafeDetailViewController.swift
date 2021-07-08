@@ -16,6 +16,9 @@ class CafeDetailViewController: UIViewController {
   // MARK: - Components
   let cafeScrollView = UIScrollView()
   let cafeScrollContainerView = UIView()
+  let navigationView = UIView()
+  let backButton = UIButton()
+  let titleLabel = UILabel()
   let bannerImageView = UIImageView()
   let titleContainerView = UIView()
   let cafeTitleLabel = UILabel()
@@ -48,13 +51,13 @@ class CafeDetailViewController: UIViewController {
   let savePinLabel = UILabel()
   let writeReviewButton = UIButton()
   
-  var cafeModel: CafeDetail = CafeDetail(tags: [Tag(id: "a", name: "커피 맛집"),
-                                                Tag(id: "a", name: "디저트 맛집"),
-                                                Tag(id: "a", name: "그루비"),
-                                                Tag(id: "a", name: "작업하기좋은"),
-                                                Tag(id: "a", name: "조용한"),
-                                                Tag(id: "a", name: "친절한"),
-                                                Tag(id: "a", name: "채광 좋은"),],
+  var cafeModel: CafeDetail = CafeDetail(tags: [Tag(id: "a", name: "커피맛집"),
+                                                Tag(id: "b", name: "디저트맛집"),
+                                                Tag(id: "c", name: "그루비"),
+                                                Tag(id: "d", name: "작업하기좋은"),
+                                                Tag(id: "e", name: "조용한"),
+                                                Tag(id: "f", name: "친절한"),
+                                                Tag(id: "g", name: "채광좋은"),],
                                          offday: [0],
                                          id: "1",
                                          name: "후엘고",
@@ -67,6 +70,27 @@ class CafeDetailViewController: UIViewController {
                                          closetime: "22:00",
                                          isSaved: true,
                                          rating: 4.5)
+  var reviewModel: [Review] = [Review(id: "1",
+                                      nickname: "쿼카",
+                                      date: "2021-01-20",
+                                      rating: 4.0,
+                                      recommend: [0,1],
+                                      content: "무엇보다 커피가 정말 맛있고, 디저트로 준비돼 있던 쿠키와 휘낭시에도 맛있었습니다.  브라운크림은 꼭 드세요 !",
+                                      imgs: ["1","1","1","1","1"]),
+                                      Review(id: "1",
+                                             nickname: "쿼카",
+                                             date: "2021-01-20",
+                                             rating: 4.0,
+                                             recommend: [0,1],
+                                             content: "무엇보다 커피가 정말 맛있고, 디저트로 준비돼 있던 쿠키와 휘낭시에도 맛있었습니다.  브라운크림은 꼭 드세요 !",
+                                             imgs: ["1","1","1","1","1"]),
+                                      Review(id: "1",
+                                             nickname: "쿼카",
+                                             date: "2021-01-20",
+                                             rating: 4.0,
+                                             recommend: [0,1],
+                                             content: "무엇보다 커피가 정말 맛있고, 디저트로 준비돼 있던 쿠키와 휘낭시에도 맛있었습니다.  브라운크림은 꼭 드세요 !",
+                                             imgs: ["1","1","1","1","1"])]
   var offdays = ["일요일 휴무",
                  "월요일 휴무",
                  "화요일 휴무",
@@ -81,6 +105,11 @@ class CafeDetailViewController: UIViewController {
     super.viewDidLoad()
     dataBind()
     layout()
+    register()
+    self.tagCollectionView.delegate = self
+    self.tagCollectionView.dataSource = self
+    self.reviewTableView.delegate = self
+    self.reviewTableView.dataSource = self
   }
 }
 
@@ -92,10 +121,11 @@ extension CafeDetailViewController {
     layoutCafeScrollView()
     layoutCafeScrollContainerView()
     layoutBannerImageView()
+    layoutBackButton()
     layoutTitleContainerView()
     layoutCafeTitleLabel()
-    layoutStarImageView()
     layoutStarRatingLabel()
+    layoutStarImageView()
     layoutAddressLabel()
     layoutTagCollectionView()
     layoutInformationView()
@@ -120,16 +150,23 @@ extension CafeDetailViewController {
   func layoutCafeScrollView() {
     view.add(cafeScrollView) {
       $0.backgroundColor = .white
+      $0.translatesAutoresizingMaskIntoConstraints = false
+      $0.showsVerticalScrollIndicator = false
       $0.snp.makeConstraints {
-        $0.edges.equalTo(self.view.safeAreaLayoutGuide.snp.edges)
+        $0.center.equalToSuperview()
+        $0.width.equalTo(self.view.frame.width)
+        $0.top.equalToSuperview()
       }
     }
   }
   func layoutCafeScrollContainerView() {
     cafeScrollView.add(cafeScrollContainerView) {
+      $0.translatesAutoresizingMaskIntoConstraints = false
       $0.backgroundColor = .clear
+      $0.contentMode = .scaleToFill
       $0.snp.makeConstraints {
-        $0.edges.equalToSuperview()
+        $0.width.equalToSuperview()
+        $0.centerX.top.bottom.equalToSuperview()
       }
     }
   }
@@ -142,14 +179,25 @@ extension CafeDetailViewController {
       }
     }
   }
+  func layoutBackButton() {
+    cafeScrollContainerView.add(backButton) {
+      $0.setBackgroundImage(UIImage(named: "iconBackWhite"), for: .normal)
+      $0.translatesAutoresizingMaskIntoConstraints = false
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.cafeScrollContainerView.snp.top).offset(51)
+        $0.leading.equalTo(self.cafeScrollContainerView.snp.leading).offset(20)
+        $0.width.height.equalTo(28)
+      }
+    }
+  }
   func layoutTitleContainerView() {
     cafeScrollContainerView.add(titleContainerView) {
       $0.backgroundColor = .clear
       $0.snp.makeConstraints {
         $0.top.equalTo(self.bannerImageView.snp.bottom)
-        $0.leading.equalTo(self.cafeScrollView.snp.leading).offset(79)
+        $0.leading.equalTo(self.cafeScrollContainerView.snp.leading)
         $0.centerX.equalToSuperview()
-        $0.height.equalTo(254)
+        $0.height.equalTo(156)
       }
     }
   }
@@ -165,8 +213,8 @@ extension CafeDetailViewController {
     titleContainerView.add(starImageView) {
       $0.image = UIImage(named: "logo")
       $0.snp.makeConstraints {
-        $0.leading.equalTo(self.titleContainerView.snp.leading).offset(69)
-        $0.top.equalTo(self.titleContainerView.snp.top).offset(53)
+        $0.trailing.equalTo(self.starRatingLabel.snp.leading).offset(-6)
+        $0.centerY.equalTo(self.starRatingLabel.snp.centerY)
         $0.width.height.equalTo(16)
       }
     }
@@ -174,8 +222,8 @@ extension CafeDetailViewController {
   func layoutStarRatingLabel() {
     titleContainerView.add(starRatingLabel) {
       $0.snp.makeConstraints {
-        $0.centerY.equalTo(self.starImageView.snp.centerY)
-        $0.leading.equalTo(self.starImageView.snp.trailing).offset(6)
+        $0.top.equalTo(self.cafeTitleLabel.snp.bottom).offset(15)
+        $0.leading.equalTo(self.titleContainerView.snp.centerX).offset(-10)
       }
     }
   }
@@ -183,8 +231,8 @@ extension CafeDetailViewController {
     titleContainerView.add(addressLabel) {
       $0.numberOfLines = 0
       $0.snp.makeConstraints {
-        $0.centerX.leading.equalToSuperview()
-        $0.top.equalTo(self.titleContainerView.snp.top).offset(82)
+        $0.centerX.equalToSuperview()
+        $0.top.equalTo(self.starImageView.snp.bottom).offset(13)
       }
     }
   }
@@ -224,7 +272,7 @@ extension CafeDetailViewController {
     informationView.add(instagramLabel) {
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.informationView.snp.leading).offset(58)
-        $0.centerY.equalTo(self.instagramLogoImageView.snp.centerX)
+        $0.centerY.equalTo(self.instagramLogoImageView.snp.centerY)
       }
     }
   }
@@ -252,7 +300,8 @@ extension CafeDetailViewController {
       $0.image = UIImage(named: "iconMenu")
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.instagramLogoImageView.snp.leading)
-        $0.top.equalTo(self.clockImageView.snp.bottom).offset(29)
+        $0.top.equalTo(self.clockImageView.snp.bottom).offset(18)
+        $0.height.width.equalTo(24)
       }
     }
   }
@@ -265,7 +314,7 @@ extension CafeDetailViewController {
                      state: .normal,
                      radius: 0)
       $0.snp.makeConstraints {
-        $0.centerX.equalTo(self.menuImageView.snp.centerX)
+        $0.centerY.equalTo(self.menuImageView.snp.centerY)
         $0.leading.equalTo(self.instagramLabel.snp.leading)
       }
     }
@@ -276,7 +325,7 @@ extension CafeDetailViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.informationView.snp.bottom).offset(48)
         $0.leading.equalTo(self.cafeScrollContainerView.snp.leading).offset(15)
-        $0.centerX.equalToSuperview()
+        $0.trailing.equalTo(self.cafeScrollContainerView.snp.trailing).offset(-15)
         $0.height.equalTo(55)
       }
     }
@@ -294,7 +343,7 @@ extension CafeDetailViewController {
   }
   func layoutReviewFilterLabel() {
     reviewHeaderView.add(reviewFilterLabel) {
-      $0.setupLabel(text: "전체 보기",
+      $0.setupLabel(text: "전체 리뷰",
                     color: .gray4,
                     font: .notoSansKRRegularFont(fontSize: 12))
       $0.snp.makeConstraints {
@@ -316,7 +365,7 @@ extension CafeDetailViewController {
   }
   func layoutReviewEntireButton() {
     reviewHeaderView.add(reviewEntireButton) {
-      $0.setBackgroundImage(UIImage(named: "iconNextBtn"), for: .normal)
+      $0.setBackgroundImage(UIImage(named: "iconNextbtn"), for: .normal)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.reviewHeaderView.snp.top).offset(4)
         $0.trailing.equalTo(self.reviewHeaderView.snp.trailing).offset(-8)
@@ -330,7 +379,7 @@ extension CafeDetailViewController {
                     color: .gray3,
                     font: .notoSansKRRegularFont(fontSize: 12))
       $0.snp.makeConstraints {
-        $0.centerX.equalTo(self.reviewEntireButton.snp.centerX)
+        $0.centerY.equalTo(self.reviewEntireButton.snp.centerY)
         $0.trailing.equalTo(self.reviewEntireButton.snp.leading).offset(-1)
       }
     }
@@ -384,12 +433,13 @@ extension CafeDetailViewController {
   }
   func layoutReviewTableView() {
     cafeScrollContainerView.add(reviewTableView) {
+      print("여기야여기")
       $0.backgroundColor = .clear
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.cafeScrollContainerView.snp.leading).offset(15)
         $0.trailing.equalTo(self.cafeScrollContainerView.snp.trailing).offset(-15)
         $0.top.equalTo(self.reviewHeaderView.snp.bottom)
-        $0.bottom.equalTo(self.cafeScrollContainerView.snp.bottom)
+        $0.bottom.equalTo(self.cafeScrollContainerView.snp.bottom).offset(-200)
       }
     }
   }
@@ -404,4 +454,88 @@ extension CafeDetailViewController {
       text: "\(self.cafeModel.opentime)-\(self.cafeModel.closetime)(\(self.offdays[self.cafeModel.offday[0]]))",
       color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
   }
+  func register() {
+    tagCollectionView.register(TagCollectionViewCell.self,
+                               forCellWithReuseIdentifier: TagCollectionViewCell.reuseIdentifier)
+    reviewTableView.register(DetailReviewTableViewCell.self,
+                             forCellReuseIdentifier: DetailReviewTableViewCell.reuseIdentifier)
+    
+  }
+}
+
+// MARK: - TagCollectionView Delegate
+extension CafeDetailViewController: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    var width: CGFloat = 0
+    let height: CGFloat = 27
+    switch cafeModel.tags[indexPath.item].id {
+    case "a":
+      width = 69
+    case "b":
+      width = 80
+    case "c", "e", "f":
+      width = 58
+    case "d":
+      width = 91
+    case "g":
+      width = 69
+    default:
+      width = 91
+    }
+    return CGSize(width: width, height: height)
+  }
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 8
+  }
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return 7
+  }
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets.zero
+  }
+}
+
+// MARK: - TagCollectionView DataSource
+extension CafeDetailViewController: UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return cafeModel.tags.count
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.reuseIdentifier, for: indexPath) as? TagCollectionViewCell else {
+      return UICollectionViewCell()
+    }
+    tagCell.dataBind(tagName: cafeModel.tags[indexPath.item].name)
+    tagCell.awakeFromNib()
+    return tagCell
+  }
+}
+
+// MARK: - ReviewTableView Delegate
+extension CafeDetailViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 240
+  }
+}
+
+// MARK: - ReviewTableView DataSource {
+extension CafeDetailViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return reviewModel.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let detailCell = tableView.dequeueReusableCell(withIdentifier: DetailReviewTableViewCell.reuseIdentifier, for: indexPath) as? DetailReviewTableViewCell else {
+      return UITableViewCell()
+    }
+//    detailCell.reviewModel = reviewModel[indexPath.row]
+    detailCell.dataBind(nickName: reviewModel[indexPath.row].nickname,
+                        date: reviewModel[indexPath.row].date,
+                        rating: reviewModel[indexPath.row].rating,
+                        content: reviewModel[indexPath.row].content)
+    detailCell.awakeFromNib()
+    return detailCell
+  }
+  
+  
 }
