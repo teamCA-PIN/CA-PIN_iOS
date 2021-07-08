@@ -1,8 +1,8 @@
 //
-//  CafeTITest1ViewController.swift
+//  CAFETITest21ViewController.swift
 //  CA-PIN_IOS
 //
-//  Created by 김지수 on 2021/07/01.
+//  Created by 김지수 on 2021/07/07.
 //
 
 import UIKit
@@ -11,24 +11,25 @@ import SnapKit
 import SwiftyColor
 import Then
 
-// MARK: - CafeTITest1ViewController
+// MARK: - CAFETITest3ViewController
 
-class CafeTITest1ViewController: UIViewController {
+class CAFETITest3ViewController: UIViewController {
   
-  // MARK: - Components
-  
+  // MARK: - Componenets
   let questiontitleLabel = UILabel()
   let coffeeImageView = UIImageView()
   let contentLabel = UILabel()
   let questiononeButton = UIButton()
   let questiontwoButton = UIButton()
+  let questionthreeButton = UIButton()
+  let questionfourthButton = UIButton()
+  let questionfifthButton = UIButton()
   let buttonContainerView = UIView()
   let backButton = UIButton()
   let nextButton = UIButton()
   
   var selectedIndex = 10
   var buttons: [UIButton] = []
-  
   
   // MARK: - LifeCycle
   
@@ -41,7 +42,7 @@ class CafeTITest1ViewController: UIViewController {
 
 // MARK: - Extensions
 
-extension CafeTITest1ViewController {
+extension CAFETITest3ViewController {
   
   // MARK: - Helper
   
@@ -51,13 +52,17 @@ extension CafeTITest1ViewController {
     layoutContentLabel()
     layoutQuestiononeButton()
     layoutQuestiontwoButton()
+    layoutQuestionthreeButton()
+    layoutQuestionfourthButton()
+    layoutQuestionfifthButton()
     layoutButtonContainerView()
     layoutBackButton()
     layoutNextButton()
+    
   }
   func layoutQuestionTitleLabel() {
     self.view.add(self.questiontitleLabel) {
-      $0.setupLabel(text: "Question.01", color: .subcolorBlue4, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.setupLabel(text: "Question.03", color: .subcolorBlue4, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.snp.top).offset(50)
         $0.centerX.equalToSuperview()
@@ -77,7 +82,7 @@ extension CafeTITest1ViewController {
   }
   func layoutContentLabel() {
     self.view.add(self.contentLabel) {
-      $0.setupLabel(text: "주로 마시는 음료는 무엇인가요?", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.setupLabel(text: "어떤 스타일의 카페를 선호하시나요?", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.snp.makeConstraints {
         $0.top.equalTo(self.coffeeImageView.snp.bottom).offset(59)
         $0.centerX.equalToSuperview()
@@ -86,14 +91,14 @@ extension CafeTITest1ViewController {
   }
   func layoutQuestiononeButton() {
     self.view.add(self.questiononeButton) {
-      $0.setTitle("커피", for: .normal)
+      $0.setTitle("모던", for: .normal)
       $0.setTitleColor(.black, for: .normal)
       $0.backgroundColor = 0xf9f9f9.color
       $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.clickedButton(_:)), for: .touchUpInside)
       $0.setRounded(radius: 5)
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.contentLabel.snp.bottom).offset(113)
+        $0.top.equalTo(self.contentLabel.snp.bottom).offset(26)
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(20)
         $0.height.equalTo(50)
@@ -102,9 +107,9 @@ extension CafeTITest1ViewController {
   }
   func layoutQuestiontwoButton() {
     self.view.add(self.questiontwoButton) {
-      $0.setTitle("논커피", for: .normal)
+      $0.setTitle("빈티지", for: .normal)
       $0.setTitleColor(.black, for: .normal)
-      $0.backgroundColor = 0xf9f9f9.color
+      $0.backgroundColor = .gray1
       $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.clickedButton(_:)), for: .touchUpInside)
       $0.setRounded(radius: 5)
@@ -116,9 +121,60 @@ extension CafeTITest1ViewController {
       }
     }
   }
+  func layoutQuestionthreeButton() {
+    self.view.add(self.questionthreeButton) {
+      $0.setTitle("힙", for: .normal)
+      $0.setTitleColor(.black, for: .normal)
+      $0.backgroundColor = 0xf9f9f9.color
+      $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
+      $0.addTarget(self, action: #selector(self.clickedButton(_:)), for: .touchUpInside)
+      $0.setRounded(radius: 5)
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.questiontwoButton.snp.bottom).offset(10)
+        $0.centerX.equalToSuperview()
+        $0.leading.equalTo(self.view.snp.leading).offset(20)
+        $0.height.equalTo(50)
+      }
+    }
+  }
+  func layoutQuestionfourthButton() {
+    self.view.add(self.questionfourthButton) {
+      $0.setTitle("특색 있는", for: .normal)
+      $0.setTitleColor(.black, for: .normal)
+      $0.backgroundColor = 0xf9f9f9.color
+      $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
+      $0.addTarget(self, action: #selector(self.clickedButton(_:)), for: .touchUpInside)
+      $0.setRounded(radius: 5)
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.questionthreeButton.snp.bottom).offset(10)
+        $0.centerX.equalToSuperview()
+        $0.leading.equalTo(self.view.snp.leading).offset(20)
+        $0.height.equalTo(50)
+      }
+    }
+  }
+  func layoutQuestionfifthButton() {
+    self.view.add(self.questionfifthButton) {
+      $0.setTitle("아기자기한", for: .normal)
+      $0.setTitleColor(.black, for: .normal)
+      $0.backgroundColor = 0xf9f9f9.color
+      $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
+      $0.addTarget(self, action: #selector(self.clickedButton(_:)), for: .touchUpInside)
+      $0.setRounded(radius: 5)
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.questionfourthButton.snp.bottom).offset(10)
+        $0.centerX.equalToSuperview()
+        $0.leading.equalTo(self.view.snp.leading).offset(20)
+        $0.height.equalTo(50)
+      }
+    }
+  }
   func addButtons() {
     self.buttons.append(questiononeButton)
     self.buttons.append(questiontwoButton)
+    self.buttons.append(questionthreeButton)
+    self.buttons.append(questionfourthButton)
+    self.buttons.append(questionfifthButton)
   }
   func layoutButtonContainerView() {
     self.view.add(self.buttonContainerView) {
@@ -172,6 +228,12 @@ extension CafeTITest1ViewController {
       self.selectedIndex = 0
     case buttons[1]:
       self.selectedIndex = 1
+    case buttons[2]:
+      self.selectedIndex = 2
+    case buttons[3]:
+      self.selectedIndex = 3
+    case buttons[4]:
+      self.selectedIndex = 4
     default:
       self.selectedIndex = 10
     }
@@ -186,16 +248,10 @@ extension CafeTITest1ViewController {
     self.navigationController?.popViewController(animated: false)
   }
   @objc func nextButtonClicked() {
-    if self.selectedIndex == 0 {
-      let CAFETITest21ViewController = CAFETITest21ViewController()
-      self.navigationController?.pushViewController(CAFETITest21ViewController, animated: false)
-    }
-    else {
-        let CAFETITest22ViewController = CAFETITest22ViewController()
-        self.navigationController?.pushViewController(CAFETITest22ViewController, animated: false)
-    }
+    let CAFETITest4ViewController = CAFETITest4ViewController()
+    self.navigationController?.pushViewController(CAFETITest4ViewController
+                                                  , animated: false)
   }
 }
-
 
 
