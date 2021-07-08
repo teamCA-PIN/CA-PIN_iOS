@@ -52,8 +52,9 @@ extension CAFETIResultViewController {
     self.view.add(self.titleLabel) {
       $0.setupLabel(text: "검사완료", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.snp.makeConstraints {
-        $0.top.equalToSuperview().offset(50)
+        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(6)
         $0.centerX.equalToSuperview()
+        $0.height.equalTo(29)
       }
     }
   }
