@@ -35,6 +35,7 @@
 		CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1842694D14C00E68817 /* TagTableViewCell.swift */; };
 		CC45A1872694EFFF00E68817 /* ExitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1862694EFFF00E68817 /* ExitViewController.swift */; };
 		CC45A18C26955CDF00E68817 /* CafeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A18B26955CDE00E68817 /* CafeDetailViewController.swift */; };
+		CC45A18E2696329B00E68817 /* CafeDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A18D2696329B00E68817 /* CafeDetailModel.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -133,6 +134,7 @@
 		CC45A1842694D14C00E68817 /* TagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableViewCell.swift; sourceTree = "<group>"; };
 		CC45A1862694EFFF00E68817 /* ExitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitViewController.swift; sourceTree = "<group>"; };
 		CC45A18B26955CDE00E68817 /* CafeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailViewController.swift; sourceTree = "<group>"; };
+		CC45A18D2696329B00E68817 /* CafeDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailModel.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				E81F0EDB268E2CD30042B825 /* CAFETIQuestionDataModel.swift */,
+				CC45A18D2696329B00E68817 /* CafeDetailModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -847,6 +850,7 @@
 				CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */,
 				92413713269596660016D18F /* CategoryDetailViewController.swift in Sources */,
 				CCA85B582688F29700C9A32C /* UITableViewCell+.swift in Sources */,
+				CC45A18E2696329B00E68817 /* CafeDetailModel.swift in Sources */,
 				CC05E034268C4F9300269427 /* MypageViewController.swift in Sources */,
 				CC05E030268C4EBF00269427 /* TabbarViewController.swift in Sources */,
 				CC45A1872694EFFF00E68817 /* ExitViewController.swift in Sources */,
@@ -863,8 +867,6 @@
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				9241370F269457A80016D18F /* ReviewTableViewCell.swift in Sources */,
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
-				E81F0EDA268DCA790042B825 /* CafeTITest22ViewController.swift in Sources */,
-				E81F0ED8268DC9DC0042B825 /* CafeTITest21ViewController.swift in Sources */,
 				924137152695CEF60016D18F /* cafeListTableViewCell.swift in Sources */,
 				CCB6C66C268F41E800941E92 /* CreateCategoryViewController.swift in Sources */,
 				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,

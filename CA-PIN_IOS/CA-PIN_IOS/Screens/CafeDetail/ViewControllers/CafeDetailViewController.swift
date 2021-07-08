@@ -48,9 +48,38 @@ class CafeDetailViewController: UIViewController {
   let savePinLabel = UILabel()
   let writeReviewButton = UIButton()
   
+  var cafeModel: CafeDetail = CafeDetail(tags: [Tag(id: "a", name: "커피 맛집"),
+                                                Tag(id: "a", name: "디저트 맛집"),
+                                                Tag(id: "a", name: "그루비"),
+                                                Tag(id: "a", name: "작업하기좋은"),
+                                                Tag(id: "a", name: "조용한"),
+                                                Tag(id: "a", name: "친절한"),
+                                                Tag(id: "a", name: "채광 좋은"),],
+                                         offday: [0],
+                                         id: "1",
+                                         name: "후엘고",
+                                         cafeImg: "adsf",
+                                         address: "서울 마포구 마포대로11길 118 1층 (염리동)",
+                                         latitude: 123,
+                                         longitude: 213,
+                                         insta: "@huelgocoffee",
+                                         opentime: "11:00",
+                                         closetime: "22:00",
+                                         isSaved: true,
+                                         rating: 4.5)
+  var offdays = ["일요일 휴무",
+                 "월요일 휴무",
+                 "화요일 휴무",
+                 "수요일 휴무",
+                 "목요일 휴무",
+                 "금요일 휴무",
+                 "토요일 휴무"]
+  
+  
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
+    dataBind()
     layout()
   }
 }
@@ -229,6 +258,12 @@ extension CafeDetailViewController {
   }
   func layoutMenuButton() {
     informationView.add(menuButton) {
+      $0.setupButton(title: "메뉴 상세보기",
+                     color: .gray4,
+                     font: .notoSansKRRegularFont(fontSize: 14),
+                     backgroundColor: .clear,
+                     state: .normal,
+                     radius: 0)
       $0.snp.makeConstraints {
         $0.centerX.equalTo(self.menuImageView.snp.centerX)
         $0.leading.equalTo(self.instagramLabel.snp.leading)
@@ -361,6 +396,12 @@ extension CafeDetailViewController {
   
   // MARK: - General Helpers
   func dataBind() {
-    
+    self.cafeTitleLabel.setupLabel(text: self.cafeModel.name, color: .black, font: .notoSansKRMediumFont(fontSize: 26))
+    self.starRatingLabel.setupLabel(text: "\(self.cafeModel.rating)/5", color: .pointcolorYellow, font: .notoSansKRMediumFont(fontSize: 20))
+    self.addressLabel.setupLabel(text: self.cafeModel.address, color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+    self.instagramLabel.setupLabel(text: self.cafeModel.insta, color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
+    self.clockLabel.setupLabel(
+      text: "\(self.cafeModel.opentime)-\(self.cafeModel.closetime)(\(self.offdays[self.cafeModel.offday[0]]))",
+      color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
   }
 }
