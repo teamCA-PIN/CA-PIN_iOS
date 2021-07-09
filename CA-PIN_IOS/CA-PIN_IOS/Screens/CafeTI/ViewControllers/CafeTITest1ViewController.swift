@@ -59,8 +59,9 @@ extension CafeTITest1ViewController {
     self.view.add(self.questiontitleLabel) {
       $0.setupLabel(text: "Question.01", color: .subcolorBlue4, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.view.snp.top).offset(50)
+        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(6)
         $0.centerX.equalToSuperview()
+        $0.height.equalTo(30)
       }
     }
   }
@@ -81,6 +82,7 @@ extension CafeTITest1ViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.coffeeImageView.snp.bottom).offset(59)
         $0.centerX.equalToSuperview()
+        $0.height.equalTo(29)
       }
     }
   }
