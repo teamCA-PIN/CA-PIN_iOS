@@ -189,6 +189,9 @@ extension MapViewController {
       $0.isHidden = true
       $0.backgroundColor = .white
       $0.setRounded(radius: 10)
+      let tapGesture = UITapGestureRecognizer(target: self,
+                                              action: #selector(self.tappedInformationView))
+      $0.addGestureRecognizer(tapGesture)
       $0.snp.makeConstraints {
         $0.bottom.equalTo(self.toggleView.snp.top).offset(-11)
         $0.leading.equalTo(self.view.snp.leading).offset(20)
@@ -323,6 +326,10 @@ extension MapViewController {
     pinNavigationController.view.backgroundColor = .clear
     pinNavigationController.modalPresentationStyle = .overFullScreen
     self.present(pinNavigationController, animated: true, completion: nil)
+  }
+  @objc func tappedInformationView() {
+    let detailView = CafeDetailViewController()
+    self.navigationController?.pushViewController(detailView, animated: false)
   }
 }
 

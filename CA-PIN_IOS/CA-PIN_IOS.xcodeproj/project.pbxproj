@@ -34,6 +34,18 @@
 		CC45A183269478DA00E68817 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A182269478DA00E68817 /* TagViewController.swift */; };
 		CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1842694D14C00E68817 /* TagTableViewCell.swift */; };
 		CC45A1872694EFFF00E68817 /* ExitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A1862694EFFF00E68817 /* ExitViewController.swift */; };
+		CC45A18C26955CDF00E68817 /* CafeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A18B26955CDE00E68817 /* CafeDetailViewController.swift */; };
+		CC45A18E2696329B00E68817 /* CafeDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A18D2696329B00E68817 /* CafeDetailModel.swift */; };
+		CC45A1902697299F00E68817 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A18F2697299F00E68817 /* TagCollectionViewCell.swift */; };
+		CC45A19226972D6E00E68817 /* DetailReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A19126972D6E00E68817 /* DetailReviewTableViewCell.swift */; };
+		CC481FFE2698A00300D7F280 /* CollectionViewCenteredFlowLayout in Frameworks */ = {isa = PBXBuildFile; productRef = CC481FFD2698A00300D7F280 /* CollectionViewCenteredFlowLayout */; };
+		CC4820002698A79100D7F280 /* PhotoPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC481FFF2698A79100D7F280 /* PhotoPreviewViewController.swift */; };
+		CC4820042698A99500D7F280 /* PhotoPreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4820032698A99500D7F280 /* PhotoPreviewCollectionViewCell.swift */; };
+		CC4D163126975B1C00F3F9B4 /* CAFETITest21ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B0269577D3004BD355 /* CAFETITest21ViewController.swift */; };
+		CC4D163226975B1E00F3F9B4 /* CAFETITest22ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B226957815004BD355 /* CAFETITest22ViewController.swift */; };
+		CC4D163426978C4800F3F9B4 /* RecommendTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4D163326978C4800F3F9B4 /* RecommendTagCollectionViewCell.swift */; };
+		CC4D163626978CA400F3F9B4 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4D163526978CA400F3F9B4 /* PhotoCollectionViewCell.swift */; };
+		CC4D163826978E7A00F3F9B4 /* ReviewListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4D163726978E7900F3F9B4 /* ReviewListModel.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -138,6 +150,15 @@
 		CC45A182269478DA00E68817 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		CC45A1842694D14C00E68817 /* TagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableViewCell.swift; sourceTree = "<group>"; };
 		CC45A1862694EFFF00E68817 /* ExitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitViewController.swift; sourceTree = "<group>"; };
+		CC45A18B26955CDE00E68817 /* CafeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailViewController.swift; sourceTree = "<group>"; };
+		CC45A18D2696329B00E68817 /* CafeDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailModel.swift; sourceTree = "<group>"; };
+		CC45A18F2697299F00E68817 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
+		CC45A19126972D6E00E68817 /* DetailReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewTableViewCell.swift; sourceTree = "<group>"; };
+		CC481FFF2698A79100D7F280 /* PhotoPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewViewController.swift; sourceTree = "<group>"; };
+		CC4820032698A99500D7F280 /* PhotoPreviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		CC4D163326978C4800F3F9B4 /* RecommendTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTagCollectionViewCell.swift; sourceTree = "<group>"; };
+		CC4D163526978CA400F3F9B4 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		CC4D163726978E7900F3F9B4 /* ReviewListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListModel.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -200,6 +221,7 @@
 				CCF78436268B082A005FDF1D /* Moya in Frameworks */,
 				CCF78427268B0774005FDF1D /* Then in Frameworks */,
 				CCF78438268B082A005FDF1D /* RxMoya in Frameworks */,
+				CC481FFE2698A00300D7F280 /* CollectionViewCenteredFlowLayout in Frameworks */,
 				CCF7843A268B082A005FDF1D /* ReactiveMoya in Frameworks */,
 				CCF7842A268B0781005FDF1D /* SnapKit in Frameworks */,
 				CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */,
@@ -358,6 +380,36 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		CC45A18826955CC100E68817 /* CafeDetail */ = {
+			isa = PBXGroup;
+			children = (
+				CC45A18A26955CD100E68817 /* Cells */,
+				CC45A18926955CCB00E68817 /* ViewControllers */,
+			);
+			path = CafeDetail;
+			sourceTree = "<group>";
+		};
+		CC45A18926955CCB00E68817 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CC45A18B26955CDE00E68817 /* CafeDetailViewController.swift */,
+				CC481FFF2698A79100D7F280 /* PhotoPreviewViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CC45A18A26955CD100E68817 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CC45A18F2697299F00E68817 /* TagCollectionViewCell.swift */,
+				CC45A19126972D6E00E68817 /* DetailReviewTableViewCell.swift */,
+				CC4D163326978C4800F3F9B4 /* RecommendTagCollectionViewCell.swift */,
+				CC4D163526978CA400F3F9B4 /* PhotoCollectionViewCell.swift */,
+				CC4820032698A99500D7F280 /* PhotoPreviewCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		CC6FBC0E268A322800BC299C /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +509,7 @@
 			isa = PBXGroup;
 			children = (
 				E8244CD326983B8A007E63ED /* WriteReview */,
+				CC45A18826955CC100E68817 /* CafeDetail */,
 				E8244CC32697318D007E63ED /* CafeMenu */,
 				929AD4DA268EEAE90071C394 /* SignUp */,
 				CC45A17F269478AD00E68817 /* Tag */,
@@ -512,6 +565,16 @@
 				CCF78442268B197A005FDF1D /* UITextField+.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CCA85B2F2688F16700C9A32C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E81F0EDB268E2CD30042B825 /* CAFETIQuestionDataModel.swift */,
+				CC45A18D2696329B00E68817 /* CafeDetailModel.swift */,
+				CC4D163726978E7900F3F9B4 /* ReviewListModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		CCA85B302688F16D00C9A32C /* Protocols */ = {
@@ -647,6 +710,7 @@
 				CCF78439268B082A005FDF1D /* ReactiveMoya */,
 				CCF7843C268B08C2005FDF1D /* SwiftKeychainWrapper */,
 				CCF7843F268B08E4005FDF1D /* SwiftyColor */,
+				CC481FFD2698A00300D7F280 /* CollectionViewCenteredFlowLayout */,
 			);
 			productName = "CA-PIN_IOS";
 			productReference = CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */;
@@ -731,6 +795,7 @@
 				CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */,
 				CCF7843B268B08C2005FDF1D /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 				CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */,
+				CC481FFC2698A00200D7F280 /* XCRemoteSwiftPackageReference "CollectionViewCenteredFlowLayout" */,
 			);
 			productRefGroup = CCA85AF22688ED6F00C9A32C /* Products */;
 			projectDirPath = "";
@@ -888,13 +953,20 @@
 				CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */,
 				92413713269596660016D18F /* CategoryDetailViewController.swift in Sources */,
 				CCA85B582688F29700C9A32C /* UITableViewCell+.swift in Sources */,
+				CC4D163226975B1E00F3F9B4 /* CAFETITest22ViewController.swift in Sources */,
+				CC45A18E2696329B00E68817 /* CafeDetailModel.swift in Sources */,
+				CC4D163826978E7A00F3F9B4 /* ReviewListModel.swift in Sources */,
 				CC05E034268C4F9300269427 /* MypageViewController.swift in Sources */,
+				CC4D163126975B1C00F3F9B4 /* CAFETITest21ViewController.swift in Sources */,
 				CC05E030268C4EBF00269427 /* TabbarViewController.swift in Sources */,
 				CC45A1872694EFFF00E68817 /* ExitViewController.swift in Sources */,
 				CCA85B5D2688F29700C9A32C /* UIImage+.swift in Sources */,
+				CC4820002698A79100D7F280 /* PhotoPreviewViewController.swift in Sources */,
+				CC4820042698A99500D7F280 /* PhotoPreviewCollectionViewCell.swift in Sources */,
 				CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */,
 				CCA85B5B2688F29700C9A32C /* UIViewController+.swift in Sources */,
 				E8244CD726983C01007E63ED /* WriteReviewViewController.swift in Sources */,
+				CC45A1902697299F00E68817 /* TagCollectionViewCell.swift in Sources */,
 				E83045B726957835004BD355 /* CAFETITest4ViewController.swift in Sources */,
 				E8244CD226974693007E63ED /* CafeMenuListDataModel.swift in Sources */,
 				92413711269457C50016D18F /* CategoryTableViewCell.swift in Sources */,
@@ -905,6 +977,7 @@
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				9241370F269457A80016D18F /* ReviewTableViewCell.swift in Sources */,
+				CC4D163426978C4800F3F9B4 /* RecommendTagCollectionViewCell.swift in Sources */,
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
 				E8244CC82697382E007E63ED /* CAFETITest21ViewController.swift in Sources */,
 				924137152695CEF60016D18F /* cafeListTableViewCell.swift in Sources */,
@@ -926,6 +999,7 @@
 				CC45A17A2694280800E68817 /* TermsViewController.swift in Sources */,
 				CC05E038268C595F00269427 /* CafeTIViewController.swift in Sources */,
 				CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */,
+				CC45A19226972D6E00E68817 /* DetailReviewTableViewCell.swift in Sources */,
 				CCB6C663268DC88E00941E92 /* HamburgerViewController.swift in Sources */,
 				CCA85B2A2688F14600C9A32C /* KeyChainStorage.swift in Sources */,
 				CCB6C66E268F498B00941E92 /* CategoryCollectionViewCell.swift in Sources */,
@@ -933,9 +1007,11 @@
 				CCA85B2C2688F15300C9A32C /* StoryboardStorage.swift in Sources */,
 				CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */,
 				92413707269432F00016D18F /* TabbarCollectionViewCell.swift in Sources */,
+				CC4D163626978CA400F3F9B4 /* PhotoCollectionViewCell.swift in Sources */,
 				CCB6C668268F083A00941E92 /* PinPopupTableViewCell.swift in Sources */,
 				CCA85B5C2688F29700C9A32C /* UIDatePicker+.swift in Sources */,
 				CCA85B5F2688F29700C9A32C /* UICollectionReusableView+.swift in Sources */,
+				CC45A18C26955CDF00E68817 /* CafeDetailViewController.swift in Sources */,
 				CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */,
 				E81F0ED4268DC2340042B825 /* CafeTITest1ViewController.swift in Sources */,
 				E8244CC72697382B007E63ED /* CAFETITest22ViewController.swift in Sources */,
@@ -1289,6 +1365,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CC481FFC2698A00200D7F280 /* XCRemoteSwiftPackageReference "CollectionViewCenteredFlowLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Coeur/CollectionViewCenteredFlowLayout";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
+			};
+		};
 		CCF78425268B0774005FDF1D /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then";
@@ -1356,6 +1440,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CC481FFD2698A00300D7F280 /* CollectionViewCenteredFlowLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC481FFC2698A00200D7F280 /* XCRemoteSwiftPackageReference "CollectionViewCenteredFlowLayout" */;
+			productName = CollectionViewCenteredFlowLayout;
+		};
 		CCF78426268B0774005FDF1D /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CCF78425268B0774005FDF1D /* XCRemoteSwiftPackageReference "Then" */;
