@@ -1,8 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
       "filename" : "starRateUnactive.png",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
@@ -11,9 +11,9 @@
       "scale" : "2x"
     },
     {
+      "scale" : "3x",
       "idiom" : "universal",
-      "filename" : "starRateUnactive@3x.png",
-      "scale" : "3x"
+      "filename" : "starRateUnactive@3x.png"
     }
   ],
   "info" : {

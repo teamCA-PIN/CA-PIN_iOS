@@ -1,9 +1,9 @@
 {
   "images" : [
     {
-      "scale" : "1x",
+      "filename" : "colorchip6.png",
       "idiom" : "universal",
-      "filename" : "colorchip6.png"
+      "scale" : "1x"
     },
     {
       "scale" : "2x",

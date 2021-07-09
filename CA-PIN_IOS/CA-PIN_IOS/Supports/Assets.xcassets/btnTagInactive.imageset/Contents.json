@@ -1,19 +1,19 @@
 {
   "images" : [
     {
+      "filename" : "btnTagInactive.png",
       "scale" : "1x",
-      "idiom" : "universal",
-      "filename" : "btnTagInactive.png"
+      "idiom" : "universal"
     },
     {
+      "filename" : "btnTagInactive@2x.png",
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "btnTagInactive@2x.png"
+      "scale" : "2x"
     },
     {
+      "filename" : "btnTagInactive@3x.png",
       "scale" : "3x",
-      "idiom" : "universal",
-      "filename" : "btnTagInactive@3x.png"
+      "idiom" : "universal"
     }
   ],
   "info" : {

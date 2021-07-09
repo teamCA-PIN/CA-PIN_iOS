@@ -86,7 +86,7 @@ extension WriteReviewViewController {
       $0.translatesAutoresizingMaskIntoConstraints = false
       $0.backgroundColor = .clear
       $0.contentMode = .scaleToFill
-      $0.snp.makeConstraints(<#T##closure: (ConstraintMaker) -> Void##(ConstraintMaker) -> Void#>)
+//      $0.snp.makeConstraints(<#T##closure: (ConstraintMaker) -> Void##(ConstraintMaker) -> Void#>)
     }
   }
   func layoutBackButton() {

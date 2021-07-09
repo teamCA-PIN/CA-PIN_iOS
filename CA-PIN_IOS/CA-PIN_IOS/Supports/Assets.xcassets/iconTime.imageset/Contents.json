@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "iconTime.png",
       "scale" : "1x",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "iconTime.png"
     },
     {
-      "filename" : "iconTime@2x.png",
       "idiom" : "universal",
+      "filename" : "iconTime@2x.png",
       "scale" : "2x"
     },
     {
-      "filename" : "iconTime@3x.png",
+      "idiom" : "universal",
       "scale" : "3x",
-      "idiom" : "universal"
+      "filename" : "iconTime@3x.png"
     }
   ],
   "info" : {

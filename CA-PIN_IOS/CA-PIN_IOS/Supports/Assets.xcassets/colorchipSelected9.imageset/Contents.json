@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "scale" : "1x",
       "idiom" : "universal",
-      "filename" : "colorchipSelected9.png"
+      "filename" : "colorchipSelected9.png",
+      "scale" : "1x"
     },
     {
-      "scale" : "2x",
       "filename" : "colorchipSelected9@2x.png",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "scale" : "2x"
     },
     {
-      "scale" : "3x",
+      "idiom" : "universal",
       "filename" : "colorchipSelected9@3x.png",
-      "idiom" : "universal"
+      "scale" : "3x"
     }
   ],
   "info" : {
