@@ -23,7 +23,7 @@ class DetailReviewTableViewCell: UITableViewCell {
   let ratingLabel = UILabel()
   let tagCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .vertical
+    layout.scrollDirection = .horizontal
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.isScrollEnabled = false
     return collectionView
@@ -31,12 +31,13 @@ class DetailReviewTableViewCell: UITableViewCell {
   let reviewContentLabel = UILabel()
   let photoCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .vertical
+    layout.scrollDirection = .horizontal
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.isScrollEnabled = false
     return collectionView
   }()
   
+  var rootViewController: UIViewController?
   var reviewModel = Review(id: "1",
                             nickname: "쿼카",
                             date: "2021-01-20",
@@ -99,7 +100,7 @@ extension DetailReviewTableViewCell {
     containerView.add(titleContainerView) {
       $0.backgroundColor = .clear
       $0.snp.makeConstraints {
-        $0.leading.equalTo(self.profileImageView.snp.leading).offset(10)
+        $0.leading.equalTo(self.profileImageView.snp.trailing).offset(10)
         $0.top.equalTo(self.profileImageView.snp.top)
         $0.trailing.equalTo(self.containerView.snp.trailing)
         $0.height.equalTo(17)
@@ -238,66 +239,49 @@ extension DetailReviewTableViewCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     var number = 0
     if collectionView == tagCollectionView {
-      number = 2
+      number = reviewModel.recommend?.count ?? 0
     }
     if collectionView == photoCollectionView {
-      number = 4
+      number = reviewModel.imgs?.count ?? 0
+      if number > 4 {
+        number = 4
+      }
     }
     return number
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    print("여기야여기")
-    var cell = UICollectionViewCell()
-    guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendTagCollectionViewCell.reuseIdentifier, for: indexPath) as? RecommendTagCollectionViewCell else {
-      return UICollectionViewCell()
-    }
-    guard let photoCell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.reuseIdentifier, for: indexPath) as? PhotoCollectionViewCell else {
-      return UICollectionViewCell()
-    }
-    if collectionView == tagCollectionView && reviewModel.recommend == [0] && indexPath.item == 0 {
-      tagCell.dataBind(tagName: "맛 추천")
+    if collectionView == tagCollectionView {
+      guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendTagCollectionViewCell.reuseIdentifier, for: indexPath) as? RecommendTagCollectionViewCell else {
+        return UICollectionViewCell()
+      }
+      tagCell.dataBind(tagNumber: reviewModel.recommend?[indexPath.item])
       tagCell.awakeFromNib()
-      cell = tagCell
+      return tagCell
     }
-    if collectionView == tagCollectionView && reviewModel.recommend == [0] && indexPath.item == 1 {
-      return cell
-    }
-    if collectionView == tagCollectionView && reviewModel.recommend == [1] && indexPath.item == 0 {
-      tagCell.dataBind(tagName: "분위기 추천")
-      tagCell.awakeFromNib()
-      cell = tagCell
-    }
-    if collectionView == tagCollectionView && reviewModel.recommend == [1] && indexPath.item == 1 {
-      return cell
-    }
-    if collectionView == tagCollectionView && reviewModel.recommend == [0, 1] && indexPath.item == 0 {
-      tagCell.dataBind(tagName: "맛 추천")
-      tagCell.awakeFromNib()
-      cell = tagCell
-    }
-    if collectionView == tagCollectionView && reviewModel.recommend == [0, 1] && indexPath.item == 1 {
-      tagCell.dataBind(tagName: "분위기 추천")
-      tagCell.awakeFromNib()
-      cell = tagCell
-    }
-    if collectionView == photoCollectionView && reviewModel.imgs!.count > 0 && reviewModel.imgs!.count <= 4 && indexPath.item < reviewModel.imgs!.count {
-      photoCell.dataBind(imageName: (reviewModel.imgs?[indexPath.item])!, moreNumber: 0)
+    else {
+      guard let photoCell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.reuseIdentifier, for: indexPath) as? PhotoCollectionViewCell else {
+        return UICollectionViewCell()
+      }
+      var moreNumber = (reviewModel.imgs?.count ?? 3) - 3
+      if moreNumber < 0 {
+        moreNumber = 0
+      }
+      photoCell.dataBind(imageName: reviewModel.imgs?[indexPath.item], moreNumber: moreNumber)
       photoCell.awakeFromNib()
-      cell = photoCell
+      if indexPath.item == 3 && moreNumber > 0 {
+        photoCell.photoImageView.isHidden = true
+        photoCell.moreLabel.isHidden = false
+      }
+      return photoCell
     }
-    if collectionView == photoCollectionView && reviewModel.imgs!.count > 0 && reviewModel.imgs!.count > 4 && indexPath.item < 3 {
-      photoCell.dataBind(imageName: reviewModel.imgs![indexPath.item], moreNumber: 0)
-      photoCell.awakeFromNib()
-      cell = photoCell
+  }
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    if collectionView == photoCollectionView {
+      let photoPreviewVC = PhotoPreviewViewController()
+      photoPreviewVC.modalPresentationStyle = .overFullScreen
+      rootViewController?.present(photoPreviewVC, animated: false, completion: nil)
     }
-    if collectionView == photoCollectionView && reviewModel.imgs!.count > 0 && reviewModel.imgs!.count > 4 && indexPath.item == 3 {
-      photoCell.photoImageView.isHidden = true
-      photoCell.moreLabel.isHidden = false
-      photoCell.awakeFromNib()
-      cell = photoCell
-    }
-    return cell
   }
 }
 

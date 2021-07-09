@@ -155,5 +155,14 @@ extension UIView {
       layer.render(in: rendererContext.cgContext)
     })
   }
+  func setGradient() {
+    let gradient: CAGradientLayer = CAGradientLayer()
+    gradient.colors = [UIColor.black.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]
+    gradient.locations = [0.0 , 1.0]
+    gradient.startPoint = CGPoint(x: 0.5, y: 0)
+    gradient.endPoint = CGPoint(x: 0.5, y: 0.5)
+    gradient.frame = bounds
+    layer.insertSublayer(gradient, at: 0)
+  }
   
 }

@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "CollectionViewCenteredFlowLayout",
+        "repositoryURL": "https://github.com/Coeur/CollectionViewCenteredFlowLayout",
+        "state": {
+          "branch": null,
+          "revision": "542502cf46f12ed41303eb3ed3a072815436209d",
+          "version": "1.0.2"
+        }
+      },
+      {
         "package": "Kingfisher",
         "repositoryURL": "https://github.com/onevcat/Kingfisher",
         "state": {

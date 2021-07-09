@@ -19,6 +19,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
   let photoImageView = UIImageView()
   let moreLabel = UILabel()
   
+  var rootViewController: UIViewController?
+  
   // MARK: - LifeCycles
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -63,8 +65,10 @@ extension PhotoCollectionViewCell {
   }
   
   // MARK: - Genenral Helpers
-  func dataBind(imageName: String, moreNumber: Int) {
-    photoImageView.setImage(from: imageName, UIImage(named: "image176")!)
+  func dataBind(imageName: String?, moreNumber: Int) {
+    if let image = imageName {
+      photoImageView.setImage(from: image, UIImage(named: "image176")!)
+    }
     moreLabel.setupLabel(text: "+\(moreNumber)",
                          color: .gray3,
                          font: .notoSansKRRegularFont(fontSize: 14))

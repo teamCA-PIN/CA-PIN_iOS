@@ -12,7 +12,7 @@ import Then
 
 // MARK: - RecommendTagCollectionViewCell
 class RecommendTagCollectionViewCell: UICollectionViewCell {
-    
+  
   // MARK: - Components
   let containerView = UIView()
   let tagLabel = UILabel()
@@ -32,7 +32,7 @@ extension RecommendTagCollectionViewCell {
   }
   func layoutContainerView() {
     contentView.add(containerView) {
-      $0.setRounded(radius: 13)
+      $0.setRounded(radius: 11)
       $0.backgroundColor = .pointcolor1
       $0.snp.makeConstraints {
         $0.edges.equalToSuperview()
@@ -50,5 +50,10 @@ extension RecommendTagCollectionViewCell {
   // MARK: - General Helpers
   func dataBind(tagName: String) {
     tagLabel.setupLabel(text: tagName, color: .white, font: .notoSansKRRegularFont(fontSize: 12))
+  }
+  func dataBind(tagNumber: Int?) {
+    if let number = tagNumber {
+      tagLabel.setupLabel(text: number == 0 ? "맛 추천": "분위기 추천", color: .white, font: .notoSansKRRegularFont(fontSize: 12))
+    }
   }
 }
