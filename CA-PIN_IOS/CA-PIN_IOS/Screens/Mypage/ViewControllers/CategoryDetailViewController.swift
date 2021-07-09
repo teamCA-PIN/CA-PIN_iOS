@@ -19,11 +19,17 @@ class CategoryDetailViewController: UIViewController {
   let categoryNameLabel = UILabel()
   let deleteButton = UIButton()
   let pinNumberLabel = UILabel()
-  let cafeListTableView = UITableView()
+  let cafeListTableView = UITableView().then {
+    $0.estimatedRowHeight = 600
+    $0.rowHeight = UITableView.automaticDimension
+  }
   
   // MARK: - Variables
   let screenWidth = UIScreen.main.bounds.width
   let screenHeight = UIScreen.main.bounds.height
+  var pinNumber = 0 ///해당 카테고리 속 핀 개수
+  var countedPinNumber = 0 /// 삭제하려고 누른 핀의 수
+  var enableDelete: Bool = false ///삭제 팝업 띄울겨 말겨
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
@@ -32,10 +38,9 @@ class CategoryDetailViewController: UIViewController {
     register()
     attribute()
     layout()
-    // Do any additional setup after loading the view.
+    notificationCenter()
   }
 }
-
 
 // MARK: Extensions
 extension CategoryDetailViewController {
@@ -80,7 +85,7 @@ extension CategoryDetailViewController {
       $0.snp.makeConstraints {
         $0.width.equalTo(28)
         $0.height.equalTo(28)
-        $0.top.equalTo(self.navigationContainerView.snp.top).offset(-1)
+        $0.bottom.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(20)
       }
     }
@@ -89,9 +94,9 @@ extension CategoryDetailViewController {
     self.navigationContainerView.add(self.categoryNameLabel) {
       $0.setupLabel(text: "기본 카테고리", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20), align: .center)
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.navigationContainerView.snp.top)
         $0.width.equalTo(160)
         $0.height.equalTo(29)
+        $0.top.equalTo(self.navigationContainerView.snp.top)
         $0.centerX.equalToSuperview()
       }
     }
@@ -103,19 +108,19 @@ extension CategoryDetailViewController {
       $0.snp.makeConstraints {
         $0.width.equalTo(28)
         $0.height.equalTo(28)
-        $0.top.equalTo(self.navigationContainerView.snp.top).offset(-1)
+        $0.top.equalTo(self.navigationContainerView.snp.top).offset(1)
         $0.trailing.equalTo(self.navigationContainerView.snp.trailing).offset(-20)
       }
     }
   }
   func layoutPinNumberLabel() {
     self.view.add(self.pinNumberLabel) {
-      $0.setupLabel(text: "총 8개의 핀", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
+      $0.setupLabel(text: "총 \(self.pinNumber)개의 핀", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
       $0.snp.makeConstraints {
         $0.height.equalTo(16)
         $0.width.equalTo(80)
         $0.top.equalTo(self.navigationContainerView.snp.bottom).offset(27)
-        $0.leading.equalTo(self.view.snp.leading).offset(22)
+        $0.leading.equalTo(self.view.snp.leading).offset(30)
       }
     }
   }
@@ -123,20 +128,61 @@ extension CategoryDetailViewController {
     self.view.add(self.cafeListTableView) {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.pinNumberLabel.snp.bottom).offset(8)
-        $0.leading.equalTo(self.view.snp.leading).offset(20)
-        $0.trailing.equalTo(self.view.snp.trailing).offset(-20)
+        $0.leading.equalTo(self.view.snp.leading)
+        $0.trailing.equalTo(self.view.snp.trailing)
         $0.bottom.equalTo(self.view.snp.bottom)
       }
     }
   }
+  func notificationCenter() {
+    NotificationCenter.default.addObserver(self, selector: #selector(checkButtonClicked), name: Notification.Name("CheckButtonClicked"), object: nil)
+  }
   @objc func deleteButtonClicked() {
-    NotificationCenter.default.post(name: NSNotification.Name("DeleteButton"), object: nil)
+    if self.categoryNameLabel.text == "기본 카테고리" {
+      NotificationCenter.default.post(name: NSNotification.Name("DeleteButton"), object: nil)
+    } else {
+      /// 삭제 팝업 띄우기
+      
+    }
+  }
+  @objc func checkButtonClicked(notification: Notification) {
+    if let check = notification.object as? Bool {
+      changeNavigationTitle(check: check)
+    }
+  }
+  func changeNavigationTitle(check: Bool) {
+    if check == true {
+      print("버튼 선택")
+      countedPinNumber += 1
+      self.categoryNameLabel.text = "\(countedPinNumber)개 선택됨"
+      self.deleteButton.setImage(UIImage(named: "iconDelete1616"), for: .normal)
+      self.enableDelete = true
+    } else {
+      print("버튼 선택 해제")
+      countedPinNumber -= 1
+      if countedPinNumber == 0 {
+        self.categoryNameLabel.text = "기본 카테고리"
+        self.deleteButton.setImage(UIImage(named: "logo"), for: .normal)
+        /// 노티 post
+        NotificationCenter.default.post(name: NSNotification.Name("returnCategoryView"), object: nil)
+        print("다시 돌아가거라")
+      }
+      else {
+        self.categoryNameLabel.text = "\(countedPinNumber)개 선택됨"
+      }
+    }
   }
 }
 
 extension CategoryDetailViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 150
+//  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//    tableView.estimatedRowHeight = 150
+//    tableView.rowHeight = UITableView.automaticDimension
+//  }
+  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    tableView.estimatedRowHeight = 500
+    tableView.rowHeight = UITableView.automaticDimension
+    return UITableView.automaticDimension
   }
 }
 
@@ -151,9 +197,7 @@ extension CategoryDetailViewController: UITableViewDataSource {
     guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: CategoryCafeListTableViewCell.reuseIdentifier, for: indexPath) as? CategoryCafeListTableViewCell else {return UITableViewCell() }
     categoryCell.awakeFromNib()
     categoryCell.selectionStyle = .none
+    /// categoryCell에 정보 뿌리는 함수 사용: setRealData()
     return categoryCell
-  }
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    <#code#>
   }
 }

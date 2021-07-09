@@ -17,16 +17,16 @@ class PageCollectionViewCell: UICollectionViewCell {
     // MARK: - LifeCycles
     override func awakeFromNib() {
         super.awakeFromNib()
-        register()
-        attribute()
-        layout()
+//        register()
+//        attribute()
+//        layout()
     }
 }
 
 extension PageCollectionViewCell {
     func register() {
-        self.categoryTableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: CategoryTableViewCell.reuseIdentifier)
-        self.reviewTableView.register(ReviewTableViewCell.self, forCellReuseIdentifier: ReviewTableViewCell.reuseIdentifier)
+        self.categoryTableView.register(MyCategoryTableViewCell.self, forCellReuseIdentifier: MyCategoryTableViewCell.reuseIdentifier)
+        self.reviewTableView.register(MyReviewTableViewCell.self, forCellReuseIdentifier: MyReviewTableViewCell.reuseIdentifier)
     }
     func attribute() {
         categoryTableView.delegate = self
@@ -62,7 +62,16 @@ extension PageCollectionViewCell {
 }
 
 extension PageCollectionViewCell: UITableViewDelegate {
-    
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    switch tableView {
+    case categoryTableView:
+      return 61
+    case reviewTableView:
+      return 215
+    default:
+      return 0
+    }
+  }
 }
 
 extension PageCollectionViewCell: UITableViewDataSource {
@@ -88,17 +97,15 @@ extension PageCollectionViewCell: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.item == 0 {
-//            guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.reuseIdentifier, for: indexPath) as? CategoryTableViewCell else { return UITableViewCell() }
-//            categoryCell.awakeFromNib()
-//            return categoryCell
-            return UITableViewCell()
+            guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: MyCategoryTableViewCell.reuseIdentifier, for: indexPath) as? MyCategoryTableViewCell else { return UITableViewCell() }
+            categoryCell.awakeFromNib()
+            return categoryCell
+//            return UITableViewCell()
         } else {
-            if indexPath.section == 0 {
-                
-            }
-            guard let reviewCell = tableView.dequeueReusableCell(withIdentifier: ReviewTableViewCell.reuseIdentifier, for: indexPath) as? ReviewTableViewCell else { return UITableViewCell() }
+            guard let reviewCell = tableView.dequeueReusableCell(withIdentifier: MyReviewTableViewCell.reuseIdentifier, for: indexPath) as? MyReviewTableViewCell else { return UITableViewCell() }
             reviewCell.awakeFromNib()
             return reviewCell
+//          return UITableViewCell()
         }
     }
 }

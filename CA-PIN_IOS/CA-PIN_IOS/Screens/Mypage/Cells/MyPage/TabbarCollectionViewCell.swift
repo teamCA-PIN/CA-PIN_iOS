@@ -12,6 +12,12 @@ class TabbarCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Components
     let tabbarImageView = UIImageView()
+  
+  override var isSelected: Bool {
+      didSet {
+        tabbarImageView.image = isSelected ? UIImage(named: "iconCloseBlack") : UIImage(named: "logo")
+      }
+  }
     
     // MARK: - LifeCycles
     override func awakeFromNib() {
