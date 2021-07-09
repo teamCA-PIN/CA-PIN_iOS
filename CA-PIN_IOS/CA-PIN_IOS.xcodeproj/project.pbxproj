@@ -94,6 +94,7 @@
 		E8244CC82697382E007E63ED /* CAFETITest21ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B0269577D3004BD355 /* CAFETITest21ViewController.swift */; };
 		E8244CCB26974238007E63ED /* CafeMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8244CCA26974238007E63ED /* CafeMenuTableViewCell.swift */; };
 		E8244CD226974693007E63ED /* CafeMenuListDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */; };
+		E8244CD726983C01007E63ED /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8244CD626983C01007E63ED /* WriteReviewViewController.swift */; };
 		E83045B526957824004BD355 /* CAFETITest3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B426957824004BD355 /* CAFETITest3ViewController.swift */; };
 		E83045B726957835004BD355 /* CAFETITest4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B626957835004BD355 /* CAFETITest4ViewController.swift */; };
 		E83045B926957843004BD355 /* CAFETIResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B826957843004BD355 /* CAFETIResultViewController.swift */; };
@@ -201,6 +202,7 @@
 		E8244CC5269731AA007E63ED /* CafeMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeMenuViewController.swift; sourceTree = "<group>"; };
 		E8244CCA26974238007E63ED /* CafeMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeMenuTableViewCell.swift; sourceTree = "<group>"; };
 		E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeMenuListDataModel.swift; sourceTree = "<group>"; };
+		E8244CD626983C01007E63ED /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
 		E83045B0269577D3004BD355 /* CAFETITest21ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETITest21ViewController.swift; sourceTree = "<group>"; };
 		E83045B226957815004BD355 /* CAFETITest22ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETITest22ViewController.swift; sourceTree = "<group>"; };
 		E83045B426957824004BD355 /* CAFETITest3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETITest3ViewController.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 		CCA85B272688F11200C9A32C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E8244CD326983B8A007E63ED /* WriteReview */,
 				CC45A18826955CC100E68817 /* CafeDetail */,
 				E8244CC32697318D007E63ED /* CafeMenu */,
 				929AD4DA268EEAE90071C394 /* SignUp */,
@@ -652,6 +655,30 @@
 				E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E8244CD326983B8A007E63ED /* WriteReview */ = {
+			isa = PBXGroup;
+			children = (
+				E8244CD426983BBF007E63ED /* Cells */,
+				E8244CD526983BC3007E63ED /* ViewControllers */,
+			);
+			path = WriteReview;
+			sourceTree = "<group>";
+		};
+		E8244CD426983BBF007E63ED /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		E8244CD526983BC3007E63ED /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E8244CD626983C01007E63ED /* WriteReviewViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -938,6 +965,7 @@
 				CC4820042698A99500D7F280 /* PhotoPreviewCollectionViewCell.swift in Sources */,
 				CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */,
 				CCA85B5B2688F29700C9A32C /* UIViewController+.swift in Sources */,
+				E8244CD726983C01007E63ED /* WriteReviewViewController.swift in Sources */,
 				CC45A1902697299F00E68817 /* TagCollectionViewCell.swift in Sources */,
 				E83045B726957835004BD355 /* CAFETITest4ViewController.swift in Sources */,
 				E8244CD226974693007E63ED /* CafeMenuListDataModel.swift in Sources */,
