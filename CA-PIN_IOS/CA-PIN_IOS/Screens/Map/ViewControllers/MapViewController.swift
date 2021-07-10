@@ -40,6 +40,7 @@ class MapViewController: UIViewController {
   var locationManager = CLLocationManager()
   var currentLatitude: Double?
   var currentLongitude: Double?
+  var informationRevealed = false
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -57,6 +58,10 @@ class MapViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     layout()
+    if informationRevealed == true {
+      informationView.isHidden = false
+      informationRevealed = false
+    }
   }
 }
 
@@ -106,7 +111,7 @@ extension MapViewController {
   }
   func layoutMenuButton() {
     topView.add(menuButton) {
-      $0.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+      $0.setBackgroundImage(UIImage(named: "iconMenu"), for: .normal)
       $0.addTarget(self, action: #selector(self.clickedMenuButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerY.equalToSuperview()
@@ -117,7 +122,7 @@ extension MapViewController {
   }
   func layoutHashButton() {
     topView.add(hashButton) {
-      $0.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+      $0.setBackgroundImage(UIImage(named: "btnTagInactive"), for: .normal)
       $0.addTarget(self, action: #selector(self.clickedHashButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerY.equalToSuperview()
@@ -224,7 +229,7 @@ extension MapViewController {
   }
   func layoutInformationStarIconView() {
     informationView.add(informationStarIconView) {
-      $0.image = UIImage(named: "logo")
+      $0.image = UIImage(named: "star")
       $0.snp.makeConstraints {
         $0.top.equalTo(self.informationView.snp.top).offset(26)
         $0.trailing.equalTo(self.informationStarLabel.snp.leading).offset(-7)
@@ -234,7 +239,7 @@ extension MapViewController {
   }
   func layoutInformationImageView() {
     informationView.add(informationImageView) {
-      $0.image = UIImage(named: "logo")
+      $0.image = UIImage(named: "image176")
       $0.setRounded(radius: 10)
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.informationTitleLabel.snp.leading)
@@ -253,6 +258,7 @@ extension MapViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.informationStarLabel.snp.bottom).offset(20)
         $0.leading.equalTo(self.informationImageView.snp.trailing).offset(17)
+        $0.trailing.equalTo(self.informationView.snp.trailing).offset(-20)
       }
     }
   }
@@ -287,7 +293,7 @@ extension MapViewController {
   }
   func layoutInformationAddButton() {
     informationView.add(informationAddButton) {
-      $0.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+      $0.setBackgroundImage(UIImage(named: "iconPinplusActive"), for: .normal)
       $0.addTarget(self,
                    action: #selector(self.clickedAddCategoryButton),
                    for: .touchUpInside)
