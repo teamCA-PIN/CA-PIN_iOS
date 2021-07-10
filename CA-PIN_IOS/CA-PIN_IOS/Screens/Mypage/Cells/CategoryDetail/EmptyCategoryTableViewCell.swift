@@ -33,7 +33,7 @@ extension EmptyCategoryTableViewCell {
   }
   func layoutEmptyImageView() {
     self.contentView.add(self.emptyImageView) {
-      $0.image = UIImage(named: "logo")
+      $0.image = UIImage(named: "group637")
       $0.snp.makeConstraints {
         $0.width.equalTo(222)
         $0.height.equalTo(222)
