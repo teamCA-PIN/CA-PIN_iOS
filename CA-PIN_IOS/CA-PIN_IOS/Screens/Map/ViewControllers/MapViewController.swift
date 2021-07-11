@@ -33,26 +33,28 @@ class MapViewController: UIViewController {
   let informationTagContainerView = UIView()
   let informationTagLabel = UILabel()
   let informationAddButton = UIButton()
-  let marker = NMFMarker().then {
-    $0.position = NMGLatLng(lat: 37.5670135, lng: 126.9783740)
-  }
+  //  let marker = NMFMarker().then {
+  //    $0.position = NMGLatLng(lat: 37.5670135, lng: 126.9783740)
+  //    $0.iconImage = NMFOverlayImage(name: "colorchip1")
+  //    $0.isFlat = true
+  //  }
   
   var locationManager = CLLocationManager()
   var currentLatitude: Double?
   var currentLongitude: Double?
   var informationRevealed = false
   
+  let coordinates: [NMGLatLng] = [NMGLatLng(lat: 37.5456374, lng: 126.922704),
+                                  NMGLatLng(lat: 37.598143153491826, lng: 126.90827045852954),
+                                  NMGLatLng(lat: 37.54919282143892, lng: 126.94772955370694)]
+  var markers = [NMFMarker]()
+  
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBar.isHidden = true
-    marker.mapView = self.mapView.mapView
-    let handler = { (overlay: NMFOverlay) -> Bool in
-      self.informationView.isHidden = false
-      return true
-    }
-    marker.touchHandler = handler
     self.mapView.mapView.touchDelegate = self
+    setupMarker()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -337,6 +339,32 @@ extension MapViewController {
     let detailView = CafeDetailViewController()
     self.navigationController?.pushViewController(detailView, animated: false)
   }
+  func setupMarker() {
+    let handler = { (overlay: NMFOverlay) -> Bool in
+      self.informationView.isHidden = false
+      if let marker = overlay as? NMFMarker {
+        marker.iconImage = NMFOverlayImage(name: "pinActiveDefault")
+      }
+      return true
+    }
+    DispatchQueue.global(qos: .default).async {
+      var markers = [NMFMarker]()
+      for index in 0..<self.coordinates.count {
+        let marker = NMFMarker(position: self.coordinates[index])
+        marker.touchHandler = handler
+        marker.iconImage = NMFOverlayImage(name: "pinInactiveDefault")
+        markers.append(marker)
+        self.markers = markers
+      }
+      
+      DispatchQueue.main.async { [weak self] in
+        for marker in markers {
+          marker.mapView = self?.mapView.mapView
+        }
+        self?.mapView.mapView.layoutSubviews()
+      }
+    }
+  }
 }
 
 
@@ -345,6 +373,9 @@ extension MapViewController: NMFMapViewTouchDelegate {
     if self.informationView.isHidden == false {
       self.informationView.isHidden = true
       self.viewWillAppear(true)
+    }
+    for marker in markers {
+      marker.iconImage =  NMFOverlayImage(name: "pinInactiveDefault")
     }
   }
 }
