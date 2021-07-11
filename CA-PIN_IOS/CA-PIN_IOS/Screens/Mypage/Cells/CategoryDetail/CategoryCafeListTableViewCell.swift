@@ -48,7 +48,7 @@ class CategoryCafeListTableViewCell: UITableViewCell {
 
 extension CategoryCafeListTableViewCell {
   func register() {
-    self.tagCollectionView.register(CategoryTagCollectionViewCell.self, forCellWithReuseIdentifier: CategoryTagCollectionViewCell.reuseIdentifier)
+    self.tagCollectionView.register(MyTagCollectionViewCell.self, forCellWithReuseIdentifier: MyTagCollectionViewCell.reuseIdentifier)
   }
   func attribute() {
     self.tagCollectionView.delegate = self
@@ -82,7 +82,7 @@ extension CategoryCafeListTableViewCell {
   }
   func layoutStarImageView() {
     self.contentView.add(self.starImageView) {
-      $0.image = UIImage(named: "logo")
+      $0.image = UIImage(named: "star")
       $0.snp.makeConstraints {
         $0.height.equalTo(11)
         $0.width.equalTo(11)
@@ -118,7 +118,7 @@ extension CategoryCafeListTableViewCell {
   }
   func layoutCheckButton() {
     self.contentView.add(self.checkButton) {
-      $0.setImage(UIImage(named: "logo"), for: .normal)
+      $0.setImage(UIImage(named: "checkboxInactive"), for: .normal)
       $0.addTarget(self, action: #selector(self.checkButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.width.equalTo(24)
@@ -176,6 +176,7 @@ extension CategoryCafeListTableViewCell {
   }
   @objc func checkButtonClicked() {
     self.checkButton.isSelected.toggle()
+    setCheckButtonImage(bool: self.checkButton.isSelected)
     NotificationCenter.default.post(name: NSNotification.Name("CheckButtonClicked"), object: checkButton.isSelected)
   }
   func setRealData(name: String, score: String, address: String) {
@@ -184,6 +185,12 @@ extension CategoryCafeListTableViewCell {
     self.nameLabel.text = name
     self.scoreLabel.text = score
     self.explainLabel.text = address
+  }
+  func setCheckButtonImage(bool: Bool) {
+    switch self.checkButton.isSelected {
+    case true: self.checkButton.setImageByName("checkboxActive")
+    case false: self.checkButton.setImageByName("checkboxInactive")
+    }
   }
 }
 
@@ -213,7 +220,7 @@ extension CategoryCafeListTableViewCell: UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryTagCollectionViewCell.reuseIdentifier, for: indexPath) as? CategoryTagCollectionViewCell else { return UICollectionViewCell() }
+    guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTagCollectionViewCell.reuseIdentifier, for: indexPath) as? MyTagCollectionViewCell else { return UICollectionViewCell() }
     tagCell.awakeFromNib()
     /// 서버 연결 후, TagCollectionViewCell에 라벨 텍스트 바꾸는 함수 만들어서 여기서 쓰기
     tagCell.setTagData(tag: tagArray[indexPath.row])

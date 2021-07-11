@@ -81,7 +81,8 @@ extension CategoryDetailViewController {
   }
   func layoutBackButton() {
     self.navigationContainerView.add(self.backButton) {
-      $0.setImage(UIImage(named: "logo"), for: .normal)
+      $0.setImage(UIImage(named: "iconBackBlack"), for: .normal)
+      $0.addTarget(self, action: #selector(self.backButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.width.equalTo(28)
         $0.height.equalTo(28)
@@ -103,7 +104,7 @@ extension CategoryDetailViewController {
   }
   func layoutDeleteButton() {
     self.navigationContainerView.add(self.deleteButton) {
-      $0.setImage(UIImage(named: "logo"), for: .normal)
+      $0.setImage(UIImage(named: "iconDeleteVer2"), for: .normal)
       $0.addTarget(self, action: #selector(self.deleteButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.width.equalTo(28)
@@ -137,6 +138,9 @@ extension CategoryDetailViewController {
   func notificationCenter() {
     NotificationCenter.default.addObserver(self, selector: #selector(checkButtonClicked), name: Notification.Name("CheckButtonClicked"), object: nil)
   }
+  @objc func backButtonClicked() {
+    self.navigationController?.popViewController(animated: false)
+  }
   @objc func deleteButtonClicked() {
     if self.categoryNameLabel.text == "기본 카테고리" {
       NotificationCenter.default.post(name: NSNotification.Name("DeleteButton"), object: nil)
@@ -155,14 +159,14 @@ extension CategoryDetailViewController {
       print("버튼 선택")
       countedPinNumber += 1
       self.categoryNameLabel.text = "\(countedPinNumber)개 선택됨"
-      self.deleteButton.setImage(UIImage(named: "iconDelete1616"), for: .normal)
+      self.deleteButton.setImage(UIImage(named: "iconDeleteRed"), for: .normal)
       self.enableDelete = true
     } else {
       print("버튼 선택 해제")
       countedPinNumber -= 1
       if countedPinNumber == 0 {
         self.categoryNameLabel.text = "기본 카테고리"
-        self.deleteButton.setImage(UIImage(named: "logo"), for: .normal)
+        self.deleteButton.setImage(UIImage(named: "iconDeleteVer2"), for: .normal)
         /// 노티 post
         NotificationCenter.default.post(name: NSNotification.Name("returnCategoryView"), object: nil)
         print("다시 돌아가거라")
@@ -175,10 +179,6 @@ extension CategoryDetailViewController {
 }
 
 extension CategoryDetailViewController: UITableViewDelegate {
-//  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//    tableView.estimatedRowHeight = 150
-//    tableView.rowHeight = UITableView.automaticDimension
-//  }
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
     tableView.estimatedRowHeight = 500
     tableView.rowHeight = UITableView.automaticDimension

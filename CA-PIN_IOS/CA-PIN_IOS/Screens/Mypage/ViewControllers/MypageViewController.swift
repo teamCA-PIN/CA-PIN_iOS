@@ -54,6 +54,7 @@ class MypageViewController: UIViewController {
   let screenHeight = UIScreen.main.bounds.height
   var userName: String = "김카핀"
   var cafeTI: String = "WBFJ"
+  var trigger = true
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
@@ -79,12 +80,11 @@ extension MypageViewController {
   // MARK: - Helper
   func register() {
     self.tabbarCollectionView.register(TabbarCollectionViewCell.self, forCellWithReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier)
-    self.pageCollectionView.register(PageCollectionViewCell.self, forCellWithReuseIdentifier: PageCollectionViewCell.reuseIdentifier)
     self.pageCollectionView.register(MyCategoryCollectionViewCell.self, forCellWithReuseIdentifier: MyCategoryCollectionViewCell.reuseIdentifier)
     self.pageCollectionView.register(MyReviewCollectionViewCell.self, forCellWithReuseIdentifier: MyReviewCollectionViewCell.reuseIdentifier)
   }
   func scroll(to index: Int) {
-      tabbarCollectionView.selectItem(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: [])
+    tabbarCollectionView.selectItem(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: [])
   }
   // MARK: - Layout Helper
   func layout() {
@@ -102,6 +102,7 @@ extension MypageViewController {
   func layoutBackButton() {
     self.view.add(self.backButton) {
       $0.setImage(UIImage(named: "iconCloseBlack"), for: .normal)
+      $0.addTarget(self, action: #selector(self.backButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(11)
         $0.trailing.equalTo(self.view.snp.trailing).offset(-21)
@@ -124,7 +125,7 @@ extension MypageViewController {
   }
   func layoutProfileImageView() {
     self.profileContainerView.add(self.profileImageView) {
-      $0.image = UIImage(named: "logo")
+      $0.image = UIImage(named: "colorchip7")
       $0.snp.makeConstraints {
         $0.top.equalTo(self.profileContainerView.snp.top)
         $0.leading.equalTo(self.profileContainerView.snp.leading)
@@ -167,7 +168,7 @@ extension MypageViewController {
       $0.setRounded(radius: 9)
       $0.snp.makeConstraints {
         $0.height.equalTo(17)
-        $0.width.equalTo(54)
+        $0.width.equalTo(62)
         $0.leading.equalTo(self.profileImageView.snp.trailing).offset(15)
         $0.bottom.equalTo(self.profileContainerView.snp.bottom).offset(-4)
       }
@@ -200,13 +201,12 @@ extension MypageViewController {
   }
   func layoutIndicatorView() {
     self.view.add(self.indicatorView) {
-      $0.backgroundColor = .brown
+      $0.backgroundColor = .pointcolor1
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.tabbarCollectionView.snp.bottom)
-        $0.leading.equalTo(self.view.snp.leading)
-        $0.trailing.equalTo(self.view.snp.trailing)
         $0.width.equalTo(self.screenWidth/2)
         $0.height.equalTo(2)
+        $0.top.equalTo(self.tabbarCollectionView.snp.bottom)
+        $0.leading.equalTo(self.view.snp.leading)
       }
     }
   }
@@ -223,6 +223,29 @@ extension MypageViewController {
       }
     }
   }
+  func categorySelected() {
+    NotificationCenter.default.post(name: NSNotification.Name("categorySelect"), object: nil)
+    self.pageCollectionView.scrollToItem(at: NSIndexPath(item: 0, section: 0) as IndexPath, at: .left, animated: true)
+    self.indicatorView.snp.remakeConstraints {
+      $0.width.equalTo(self.screenWidth/2)
+      $0.height.equalTo(2)
+      $0.top.equalTo(self.tabbarCollectionView.snp.bottom)
+      $0.leading.equalTo(self.view.snp.leading)
+    }
+  }
+  func reviewSelected() {
+    NotificationCenter.default.post(name: NSNotification.Name("reviewSelect"), object: nil)
+    self.pageCollectionView.scrollToItem(at: NSIndexPath(item: 0, section: 1) as IndexPath, at: .left, animated: true)
+    self.indicatorView.snp.remakeConstraints {
+      $0.width.equalTo(self.screenWidth/2)
+      $0.height.equalTo(2)
+      $0.top.equalTo(self.tabbarCollectionView.snp.bottom)
+      $0.trailing.equalTo(self.view.snp.trailing)
+    }
+  }
+  @objc func backButtonClicked() {
+    self.dismiss(animated: true, completion: nil)
+  }
 }
 
 // MARK: - CollectionView DelegateFlowLayout
@@ -238,14 +261,25 @@ extension MypageViewController: UICollectionViewDelegateFlowLayout {
       return CGSize(width: 0, height: 0)
     }
   }
-  func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    
-  }
-  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-    let page = Int(targetContentOffset.pointee.x / scrollView.frame.width)
-    
-    print(page)
-//    categoryTabbarView.scroll(to: page)
+  
+  /// 왼쪽 or 오른쪽으로 스와이프 하면
+  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+      let currentIndex = Int(scrollView.contentOffset.x / scrollView.frame.width)
+      
+      switch currentIndex {
+      case 0:
+//        trigger = true
+//        tabbarCollectionView.reloadData()
+//        categorySelected()
+        self.trigger = true
+        self.tabbarCollectionView.reloadData()
+        self.categorySelected()
+      case 1:
+        self.trigger = false
+        self.tabbarCollectionView.reloadData()
+        self.reviewSelected()
+      default: break
+      }
   }
 }
 
@@ -260,6 +294,9 @@ extension MypageViewController: UICollectionViewDataSource {
     }
   }
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    if collectionView == pageCollectionView {
+      return 1
+    }
     return 2
   }
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -268,34 +305,60 @@ extension MypageViewController: UICollectionViewDataSource {
     case self.tabbarCollectionView:
       guard let tabBarCell = collectionView.dequeueReusableCell(withReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier, for: indexPath) as? TabbarCollectionViewCell else { return UICollectionViewCell() }
       tabBarCell.awakeFromNib()
+      if trigger == true {
+        if indexPath.item == 0 {
+          tabBarCell.tabImageView.image = UIImage(named: "iconPin")
+        }
+        else {
+          tabBarCell.tabImageView.image = UIImage(named: "iconCloseBlack")
+        }
+      }
+      else {
+        if indexPath.item == 0 {
+          tabBarCell.tabImageView.image = UIImage(named: "iconCloseBlack")
+        }
+        else {
+          tabBarCell.tabImageView.image = UIImage(named: "iconPin")
+        }
+      }
+      
       return tabBarCell
     /// 페이지 컬렉션뷰일 때
     case self.pageCollectionView:
-      guard let pageCell = collectionView.dequeueReusableCell(withReuseIdentifier: PageCollectionViewCell.reuseIdentifier, for: indexPath) as? PageCollectionViewCell else { return UICollectionViewCell() }
       if indexPath.section == 0 {
         guard let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCategoryCollectionViewCell.reuseIdentifier, for: indexPath) as? MyCategoryCollectionViewCell else { return UICollectionViewCell() }
         categoryCell.awakeFromNib()
-        categoryCell.backgroundColor = .red
+        categoryCell.backgroundColor = .white
         return categoryCell
       } else {
         guard let reviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.reuseIdentifier, for: indexPath) as? MyReviewCollectionViewCell else { return UICollectionViewCell() }
         reviewCell.awakeFromNib()
-        reviewCell.backgroundColor = .brown
+        reviewCell.backgroundColor = .white
         return reviewCell
       }
-//      return pageCell
     default: return UICollectionViewCell()
     }
   }
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    guard let tabBarCell = collectionView.dequeueReusableCell(withReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier, for: indexPath) as? TabbarCollectionViewCell else { return }
+    tabBarCell.awakeFromNib()
     if collectionView == tabbarCollectionView {
-      scrollToIndex(to: indexPath.row)
+      if indexPath.item == 0 {
+        trigger = true
+        tabbarCollectionView.reloadData()
+        categorySelected()
+      }
+      if indexPath.item == 1 {
+        trigger = false
+        tabbarCollectionView.reloadData()
+        reviewSelected()
+      }
     }
   }
 }
 
 extension MypageViewController: PagingTabbarDelegate {
   func scrollToIndex(to index: Int) {
-      pageCollectionView.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
+    pageCollectionView.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
   }
 }
