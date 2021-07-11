@@ -33,11 +33,6 @@ class MapViewController: UIViewController {
   let informationTagContainerView = UIView()
   let informationTagLabel = UILabel()
   let informationAddButton = UIButton()
-  //  let marker = NMFMarker().then {
-  //    $0.position = NMGLatLng(lat: 37.5670135, lng: 126.9783740)
-  //    $0.iconImage = NMFOverlayImage(name: "colorchip1")
-  //    $0.isFlat = true
-  //  }
   
   var locationManager = CLLocationManager()
   var currentLatitude: Double?
@@ -48,6 +43,7 @@ class MapViewController: UIViewController {
                                   NMGLatLng(lat: 37.598143153491826, lng: 126.90827045852954),
                                   NMGLatLng(lat: 37.54919282143892, lng: 126.94772955370694)]
   var markers = [NMFMarker]()
+  var currentMarkers = [NMFMarker]()
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -364,6 +360,9 @@ extension MapViewController {
         self?.mapView.mapView.layoutSubviews()
       }
     }
+  }
+  func findCurrentMarker() {
+    var bounds = self.mapView
   }
 }
 
