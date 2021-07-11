@@ -125,7 +125,7 @@ extension DetailReviewTableViewCell {
   func layoutRatingLabel() {
     titleContainerView.add(ratingLabel) {
       $0.snp.makeConstraints {
-        $0.trailing.equalTo(self.titleContainerView.snp.trailing).offset(-19)
+        $0.trailing.equalTo(self.titleContainerView.snp.trailing).offset(-15)
         $0.centerY.equalTo(self.titleLabel.snp.centerY)
       }
     }
@@ -134,7 +134,7 @@ extension DetailReviewTableViewCell {
     titleContainerView.add(ratingImageView) {
       $0.image = UIImage(named: "starRateUnactive")
       $0.snp.makeConstraints {
-        $0.trailing.equalTo(self.ratingLabel.snp.leading)
+        $0.trailing.equalTo(self.ratingLabel.snp.leading).offset(-2)
         $0.centerY.equalTo(self.ratingLabel.snp.centerY)
         $0.height.width.equalTo(14)
       }
@@ -217,7 +217,7 @@ extension DetailReviewTableViewCell: UICollectionViewDelegateFlowLayout {
       height = 22
     }
     if collectionView == photoCollectionView {
-      width = 80
+      width = (self.contentView.frame.width-22)/4
       height = 80
     }
     return CGSize(width: width!, height: height!)

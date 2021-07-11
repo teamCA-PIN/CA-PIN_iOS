@@ -199,20 +199,19 @@ extension PinPopupViewController: UITableViewDataSource {
             for: indexPath) as? PinPopupTableViewCell else {
       return UITableViewCell()
     }
+    categoryCell.awakeFromNib()
     if indexPath.row == 0 {
-      categoryCell.textLabel?.text = "새 카테고리"
+      categoryCell.tagImageView.image = UIImage(named: "iconPlus")
+      categoryCell.categoryTitleLabel.text = "새 카테고리"
       categoryCell.selectbutton.isHidden = true
     }
     else {
-      categoryCell.textLabel?.text = "카테고리\(indexPath.row)"
+      categoryCell.categoryTitleLabel.text = "카테고리\(indexPath.row)"
     }
-    categoryCell.awakeFromNib()
     return categoryCell
   }
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if indexPath.row == 0 {
-      print("여기야여기")
-      print(self.navigationController)
       let categoryVC = CreateCategoryViewController()
       self.navigationController?.pushViewController(categoryVC, animated: true)
     }

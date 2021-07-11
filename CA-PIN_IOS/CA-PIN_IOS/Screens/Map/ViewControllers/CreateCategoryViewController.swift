@@ -71,7 +71,7 @@ extension CreateCategoryViewController {
   }
   func layoutBackButton() {
     view.add(backButton) {
-      $0.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+      $0.setBackgroundImage(UIImage(named: "iconBackBlack"), for: .normal)
       $0.addTarget(self, action: #selector(self.clickedBackButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(29)

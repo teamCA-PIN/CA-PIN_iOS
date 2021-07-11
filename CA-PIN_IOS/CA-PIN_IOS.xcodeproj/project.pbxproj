@@ -53,6 +53,7 @@
 		CC4D163626978CA400F3F9B4 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4D163526978CA400F3F9B4 /* PhotoCollectionViewCell.swift */; };
 		CC6468D22698B8A000CF848A /* CafeDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6468D12698B89F00CF848A /* CafeDetailModel.swift */; };
 		CC6468D42698B8A700CF848A /* ReviewListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6468D32698B8A600CF848A /* ReviewListModel.swift */; };
+		CC6468D62699E6F300CF848A /* EntireReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6468D52699E6F200CF848A /* EntireReviewViewController.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -175,6 +176,7 @@
 		CC4D163726978E7900F3F9B4 /* ReviewListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListModel.swift; sourceTree = "<group>"; };
 		CC6468D12698B89F00CF848A /* CafeDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CafeDetailModel.swift; sourceTree = "<group>"; };
 		CC6468D32698B8A600CF848A /* ReviewListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewListModel.swift; sourceTree = "<group>"; };
+		CC6468D52699E6F200CF848A /* EntireReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntireReviewViewController.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 			children = (
 				CC45A18B26955CDE00E68817 /* CafeDetailViewController.swift */,
 				CC481FFF2698A79100D7F280 /* PhotoPreviewViewController.swift */,
+				CC6468D52699E6F200CF848A /* EntireReviewViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1051,6 +1054,7 @@
 				CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */,
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
 				92537083269B23E400E2E5EA /* ReviewImageCollectionViewCell.swift in Sources */,
+				CC6468D62699E6F300CF848A /* EntireReviewViewController.swift in Sources */,
 				CC45A17C26942BEA00E68817 /* TermsGeneralTableViewCell.swift in Sources */,
 				CC45A17E26942BF400E68817 /* TermsVersionTableViewCell.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,

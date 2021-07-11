@@ -49,7 +49,7 @@ extension PinPopupTableViewCell {
   }
   func layoutTagImageView() {
     containerView.add(tagImageView) {
-      $0.image = UIImage(named: "logo")
+      $0.image = UIImage(named: "colorchip1")
       $0.snp.makeConstraints {
         $0.centerY.equalToSuperview()
         $0.leading.equalTo(self.containerView.snp.leading).offset(26)
@@ -70,8 +70,8 @@ extension PinPopupTableViewCell {
   }
   func layoutSelectButton() {
     containerView.add(selectbutton) {
-      $0.setBackgroundImage(UIImage(named: "logo"), for: .normal)
-      $0.setBackgroundImage(UIImage(named: "logo"), for: .selected)
+      $0.setBackgroundImage(UIImage(named: "checkboxInactive"), for: .normal)
+      $0.setBackgroundImage(UIImage(named: "checkboxActive"), for: .selected)
       $0.snp.makeConstraints {
         $0.centerY.equalTo(self.tagImageView.snp.centerY)
         $0.trailing.equalTo(self.containerView.snp.trailing).offset(-30)
