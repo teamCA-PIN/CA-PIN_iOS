@@ -64,7 +64,7 @@ extension TermsGeneralTableViewCell {
   }
   func layoutNextButton() {
     containerView.add(nextButton) {
-      $0.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+      $0.setBackgroundImage(UIImage(named: "iconNextbtn"), for: .normal)
       $0.snp.makeConstraints {
         $0.trailing.equalToSuperview()
         $0.centerY.equalToSuperview()

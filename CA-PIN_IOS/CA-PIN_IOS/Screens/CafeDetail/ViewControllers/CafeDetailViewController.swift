@@ -213,6 +213,7 @@ extension CafeDetailViewController {
     navigationView.add(backButton) {
       $0.setBackgroundImage(UIImage(named: "iconBackWhite"), for: .normal)
       $0.translatesAutoresizingMaskIntoConstraints = false
+      $0.addTarget(self, action: #selector(self.clickedBackButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerY.equalTo(self.titleLabel.snp.centerY)
         $0.leading.equalTo(self.navigationView.snp.leading).offset(20)
@@ -241,7 +242,7 @@ extension CafeDetailViewController {
   }
   func layoutStarImageView() {
     titleContainerView.add(starImageView) {
-      $0.image = UIImage(named: "logo")
+      $0.image = UIImage(named: "star")
       $0.snp.makeConstraints {
         $0.trailing.equalTo(self.starRatingLabel.snp.leading).offset(-6)
         $0.centerY.equalTo(self.starRatingLabel.snp.centerY)
@@ -343,6 +344,7 @@ extension CafeDetailViewController {
                      backgroundColor: .clear,
                      state: .normal,
                      radius: 0)
+      $0.addTarget(self, action: #selector(self.clickedMenuButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerY.equalTo(self.menuImageView.snp.centerY)
         $0.leading.equalTo(self.instagramLabel.snp.leading)
@@ -396,6 +398,7 @@ extension CafeDetailViewController {
   func layoutReviewEntireButton() {
     reviewHeaderView.add(reviewEntireButton) {
       $0.setBackgroundImage(UIImage(named: "iconNextbtn"), for: .normal)
+      $0.addTarget(self, action: #selector(self.clickedEntireReviewButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.reviewHeaderView.snp.top).offset(4)
         $0.trailing.equalTo(self.reviewHeaderView.snp.trailing).offset(-8)
@@ -426,7 +429,8 @@ extension CafeDetailViewController {
   }
   func layoutSavePinButton() {
     bottomView.add(savePinButton) {
-      $0.setBackgroundImage(UIImage(named: "iconPinPlus"), for: .normal)
+      $0.setBackgroundImage(UIImage(named: "iconPinplusActive"), for: .normal)
+      $0.addTarget(self, action: #selector(self.clickedAddPinButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.bottomView.snp.top).offset(11)
         $0.leading.equalTo(self.bottomView.snp.leading).offset(25)
@@ -495,6 +499,33 @@ extension CafeDetailViewController {
     reviewTableView.register(DetailReviewTableViewCell.self,
                              forCellReuseIdentifier: DetailReviewTableViewCell.reuseIdentifier)
     
+  }
+  @objc func clickedBackButton() {
+    print(self.navigationController?.children)
+    let mapVC = navigationController?.children[0] as? MapViewController
+    mapVC?.informationRevealed = true
+    self.navigationController?.popViewController(animated: false)
+  }
+  @objc func clickedMenuButton() {
+    let menuNavigationController = UINavigationController()
+    let menuVC = CafeMenuViewController()
+    menuNavigationController.addChild(menuVC)
+    menuNavigationController.view.backgroundColor = .clear
+    menuNavigationController.modalPresentationStyle = .overFullScreen
+    menuNavigationController.navigationBar.isHidden = true
+    self.present(menuNavigationController, animated: false, completion: nil)
+  }
+  @objc func clickedEntireReviewButton() {
+    let entireVC = EntireReviewViewController()
+    self.navigationController?.pushViewController(entireVC, animated: false)
+  }
+  @objc func clickedAddPinButton() {
+    let pinNavigationController = UINavigationController()
+    let pinPopupVC = PinPopupViewController()
+    pinNavigationController.addChild(pinPopupVC)
+    pinNavigationController.view.backgroundColor = .clear
+    pinNavigationController.modalPresentationStyle = .overFullScreen
+    self.present(pinNavigationController, animated: true, completion: nil)
   }
 }
 

@@ -32,6 +32,8 @@ class PhotoPreviewViewController: UIViewController {
     register()
     photoPreviewCollectionView.delegate = self
     photoPreviewCollectionView.dataSource = self
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tappedBackground))
+    view.addGestureRecognizer(tapGesture)
   }
 }
 
@@ -56,6 +58,9 @@ extension PhotoPreviewViewController {
   func register() {
     photoPreviewCollectionView.register(PhotoPreviewCollectionViewCell.self, forCellWithReuseIdentifier: PhotoPreviewCollectionViewCell.reuseIdentifier)
   }
+  @objc func tappedBackground() {
+    self.dismiss(animated: false, completion: nil)
+  }
 }
 
 // MARK: - photoPreviewCollectionView DelegateFlowLayout
@@ -67,7 +72,7 @@ extension PhotoPreviewViewController: UICollectionViewDelegateFlowLayout {
     return 15
   }
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    return UIEdgeInsets.zero
+    return UIEdgeInsets(top: 0, left: 67, bottom: 0, right: 0)
   }
 }
 

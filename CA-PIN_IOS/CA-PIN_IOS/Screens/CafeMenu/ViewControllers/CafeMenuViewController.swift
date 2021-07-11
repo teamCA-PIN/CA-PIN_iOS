@@ -27,6 +27,7 @@ class CafeMenuViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    print(self.navigationController)
     layout()
     register()
     setCafemenuList()
@@ -83,6 +84,7 @@ extension CafeMenuViewController {
     self.cafemenuTableView.register(CafeMenuTableViewCell.self, forCellReuseIdentifier: CafeMenuTableViewCell.reuseIdentifier)
   }
   func layout() {
+    view.backgroundColor = .white
     layoutMenuallLabel()
     layoutCloseButton()
     layoutBackView()
@@ -100,7 +102,8 @@ extension CafeMenuViewController {
   }
   func layoutCloseButton() {
     self.view.add(self.closeButton) {
-      $0.setImage(UIImage(named: "logo"), for: .normal)
+      $0.setImage(UIImage(named: "iconCloseBlack"), for: .normal)
+      $0.addTarget(self, action: #selector(self.clickedCloseButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(7)
         $0.trailing.equalTo(self.view.snp.trailing).offset(-20)
@@ -135,6 +138,11 @@ extension CafeMenuViewController {
         $0.bottom.equalTo(self.backview.snp.bottom).offset(-25)
       }
     }
+  }
+  
+  // MARK: - General Helpers
+  @objc func clickedCloseButton() {
+    self.dismiss(animated: false, completion: nil)
   }
 }
 

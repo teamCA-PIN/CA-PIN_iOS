@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 // MARK: - TagCollectionViewCell
-class CategoryTagCollectionViewCell: UICollectionViewCell {
+class MyTagCollectionViewCell: UICollectionViewCell {
   
   // MARK: - Components
   let tagLabel = UILabel()
@@ -23,7 +23,7 @@ class CategoryTagCollectionViewCell: UICollectionViewCell {
   }
 }
 
-extension CategoryTagCollectionViewCell {
+extension MyTagCollectionViewCell {
   func layout() {
     self.contentView.backgroundColor = .pointcolor1
     self.contentView.layer.masksToBounds = true
