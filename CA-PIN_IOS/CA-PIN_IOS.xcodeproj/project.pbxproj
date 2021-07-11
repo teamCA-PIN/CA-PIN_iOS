@@ -100,6 +100,8 @@
 		E83045B526957824004BD355 /* CAFETITest3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B426957824004BD355 /* CAFETITest3ViewController.swift */; };
 		E83045B726957835004BD355 /* CAFETITest4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B626957835004BD355 /* CAFETITest4ViewController.swift */; };
 		E83045B926957843004BD355 /* CAFETIResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B826957843004BD355 /* CAFETIResultViewController.swift */; };
+		E8818961269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8818960269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift */; };
+		E8818963269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8818962269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,6 +218,8 @@
 		E83045B426957824004BD355 /* CAFETITest3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETITest3ViewController.swift; sourceTree = "<group>"; };
 		E83045B626957835004BD355 /* CAFETITest4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETITest4ViewController.swift; sourceTree = "<group>"; };
 		E83045B826957843004BD355 /* CAFETIResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETIResultViewController.swift; sourceTree = "<group>"; };
+		E8818960269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReviewPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		E8818962269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -699,6 +703,8 @@
 		E8244CD426983BBF007E63ED /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				E8818960269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift */,
+				E8818962269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1007,6 +1013,7 @@
 				CC05E02E268B9D5400269427 /* MapViewController.swift in Sources */,
 				929AD4DC268EEB150071C394 /* SignUpViewController.swift in Sources */,
 				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,
+				E8818963269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift in Sources */,
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				9241370F269457A80016D18F /* MyReviewTableViewCell.swift in Sources */,
@@ -1047,6 +1054,7 @@
 				CC45A18C26955CDF00E68817 /* CafeDetailViewController.swift in Sources */,
 				CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */,
 				E81F0ED4268DC2340042B825 /* CafeTITest1ViewController.swift in Sources */,
+				E8818961269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift in Sources */,
 				E8244CC72697382B007E63ED /* CAFETITest22ViewController.swift in Sources */,
 				E83045B926957843004BD355 /* CAFETIResultViewController.swift in Sources */,
 				E8244CCB26974238007E63ED /* CafeMenuTableViewCell.swift in Sources */,
