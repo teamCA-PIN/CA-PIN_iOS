@@ -201,7 +201,7 @@ extension MypageViewController {
   }
   func layoutIndicatorView() {
     self.view.add(self.indicatorView) {
-      $0.backgroundColor = .brown
+      $0.backgroundColor = .pointcolor1
       $0.snp.makeConstraints {
         $0.width.equalTo(self.screenWidth/2)
         $0.height.equalTo(2)

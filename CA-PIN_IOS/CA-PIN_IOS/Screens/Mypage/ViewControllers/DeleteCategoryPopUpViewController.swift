@@ -54,7 +54,7 @@ extension DeleteCategoryPopUpViewController {
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20),
                     align: .center)
-      $0.letterSpacing = -1
+//      $0.letterSpacing = -1
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.popupView.snp.top).offset(26)

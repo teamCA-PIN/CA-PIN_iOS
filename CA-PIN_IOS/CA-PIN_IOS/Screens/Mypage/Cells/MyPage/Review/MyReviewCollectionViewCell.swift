@@ -12,7 +12,7 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
   let headerView = UIView()
   let headerLabel = UILabel()
   let myReviewTableView = UITableView()
-  var isEmpty: Bool = true /// 리뷰 존재하는지 체크하는 불
+  var isEmpty: Bool = false /// 리뷰 존재하는지 체크하는 불
   var reviewNumber: Int = 10 /// 리뷰 개수
     
   // MARK: - LifeCycles
@@ -29,8 +29,8 @@ extension MyReviewCollectionViewCell {
     /// 분기처리
     /// 리뷰가 0개일 때: EmptyReviewTableViewCell
     /// 리뷰가 1개 이상일 때: MyReviewTableViewCell
-    self.myReviewTableView.register(EmptyReviewTableViewCell.self, forCellReuseIdentifier: EmptyReviewTableViewCell.reuseIdentifier)
-//    self.myReviewTableView.register(MyReviewTableViewCell.self, forCellReuseIdentifier: MyReviewTableViewCell.reuseIdentifier)
+//    self.myReviewTableView.register(EmptyReviewTableViewCell.self, forCellReuseIdentifier: EmptyReviewTableViewCell.reuseIdentifier)
+    self.myReviewTableView.register(MyReviewTableViewCell.self, forCellReuseIdentifier: MyReviewTableViewCell.reuseIdentifier)
   }
   func associate() {
     self.myReviewTableView.delegate = self
@@ -50,6 +50,7 @@ extension MyReviewCollectionViewCell {
   func layoutHeaderLabel() {
     self.headerView.add(self.headerLabel) {
       $0.setupLabel(text: "총 \(self.reviewNumber)개의 리뷰", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
+      $0.letterSpacing = -0.7
       $0.sizeToFit()
       $0.snp.makeConstraints {
         $0.height.equalTo(21)
@@ -75,23 +76,28 @@ extension MyReviewCollectionViewCell: UITableViewDelegate {
     tableView.rowHeight = UITableView.automaticDimension
     return UITableView.automaticDimension
   }
+  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    return 30
+  }
+  
 }
 extension MyReviewCollectionViewCell: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     /// 분기처리
     /// 리뷰가 0개면 1, 아니면 ReviewNumber
-    return 1
+//    return 1
+    return 10
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     /// 분기처리
     /// 리뷰가 0개일 때: EmptyReviewTableViewCell
     /// 리뷰가 1개 이상일 때: MyReviewTableViewCell
-    guard let emptycell = tableView.dequeueReusableCell(withIdentifier: EmptyReviewTableViewCell.reuseIdentifier, for: indexPath) as? EmptyReviewTableViewCell else { return UITableViewCell() }
-    emptycell.awakeFromNib()
-    return emptycell
-//    guard let reviewCell = tableView.dequeueReusableCell(withIdentifier: MyReviewTableViewCell.reuseIdentifier, for: indexPath) as? MyReviewTableViewCell else { return UITableViewCell() }
-//    reviewCell.awakeFromNib()
-//    return reviewCell
+//    guard let emptycell = tableView.dequeueReusableCell(withIdentifier: EmptyReviewTableViewCell.reuseIdentifier, for: indexPath) as? EmptyReviewTableViewCell else { return UITableViewCell() }
+//    emptycell.awakeFromNib()
+//    return emptycell
+    guard let reviewCell = tableView.dequeueReusableCell(withIdentifier: MyReviewTableViewCell.reuseIdentifier, for: indexPath) as? MyReviewTableViewCell else { return UITableViewCell() }
+    reviewCell.awakeFromNib()
+    return reviewCell
   }
 }
