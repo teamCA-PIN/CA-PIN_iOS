@@ -21,7 +21,15 @@ class NewReviewPhotoCollectionViewCell: UICollectionViewCell {
   let addPhotoIconImageview = UIImageView()
   let addphotoLabel = UILabel()
   
-  
+//  func setData(photoView : String)
+//      {
+//          if let image = UIImage(named: photoView)
+//          {
+//              addPhotoView.image = image
+//          }
+//
+//      }
+
   
   // MARK: - LifeCycles
   override func awakeFromNib() {
