@@ -21,6 +21,8 @@ class MapViewController: UIViewController {
   let menuButton = UIButton()
   let hashButton = UIButton()
   let mapView = NMFNaverMapView(frame: .zero)
+  let locationButton = NMFLocationButton(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
+  let zoomControllView = NMFZoomControlView(frame: CGRect(x: 0, y: 0, width: 35, height: 70))
   let toggleView = UIView()
   let capinMapButton = UIButton()
   let myMapButton = UIButton()
@@ -44,6 +46,7 @@ class MapViewController: UIViewController {
                                   NMGLatLng(lat: 37.54919282143892, lng: 126.94772955370694)]
   var markers = [NMFMarker]()
   var currentMarkers = [NMFMarker]()
+  let locationComponent = NMFLocationManager.sharedInstance()
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -51,6 +54,8 @@ class MapViewController: UIViewController {
     self.navigationController?.navigationBar.isHidden = true
     self.mapView.mapView.touchDelegate = self
     setupMarker()
+    self.mapView.mapView.addCameraDelegate(delegate: self)
+    locationComponent?.add(self)
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +73,8 @@ extension MapViewController {
   // MARK: - Layout Helpers
   func layout() {
     layoutMapView()
+    layoutLocationButton()
+    layoutZoomControlView()
     layoutTopView()
     layoutTitleImageView()
     layoutMenuButton()
@@ -131,8 +138,6 @@ extension MapViewController {
   }
   func layoutMapView() {
     view.add(mapView) {
-      $0.showZoomControls = true
-      $0.showLocationButton = true
       self.currentCoordinate()
       $0.mapView.positionMode = .normal
       $0.mapView.locationOverlay.location =
@@ -140,6 +145,24 @@ extension MapViewController {
                   lng: self.currentLongitude ?? self.mapView.mapView.longitude)
       $0.snp.makeConstraints {
         $0.edges.equalTo(self.view.safeAreaLayoutGuide.snp.edges)
+      }
+    }
+  }
+  func layoutLocationButton() {
+    view.add(locationButton) {
+      $0.mapView = self.mapView.mapView
+      $0.snp.makeConstraints {
+        $0.trailing.equalTo(self.view.snp.trailing).offset(-10)
+        $0.centerY.equalToSuperview()
+      }
+    }
+  }
+  func layoutZoomControlView() {
+    view.add(zoomControllView) {
+      $0.mapView = self.mapView.mapView
+      $0.snp.makeConstraints {
+        $0.trailing.equalTo(self.view.snp.trailing).offset(-30)
+        $0.bottom.equalTo(self.locationButton.snp.top).offset(-20)
       }
     }
   }
@@ -343,26 +366,35 @@ extension MapViewController {
       }
       return true
     }
-    DispatchQueue.global(qos: .default).async {
-      var markers = [NMFMarker]()
-      for index in 0..<self.coordinates.count {
-        let marker = NMFMarker(position: self.coordinates[index])
-        marker.touchHandler = handler
-        marker.iconImage = NMFOverlayImage(name: "pinInactiveDefault")
-        markers.append(marker)
-        self.markers = markers
-      }
-      
-      DispatchQueue.main.async { [weak self] in
-        for marker in markers {
-          marker.mapView = self?.mapView.mapView
-        }
-        self?.mapView.mapView.layoutSubviews()
-      }
+    
+    self.markers.removeAll()
+
+    for index in 0..<self.coordinates.count {
+      let marker = NMFMarker(position: self.coordinates[index])
+      marker.touchHandler = handler
+      marker.iconImage = NMFOverlayImage(name: "pinInactiveDefault")
+      markers.append(marker)
     }
+    self.findCurrentMarker()
+    
+    for marker in currentMarkers {
+      marker.mapView = self.mapView.mapView
+    }
+    self.mapView.mapView.layoutSubviews()
+    
   }
   func findCurrentMarker() {
-    var bounds = self.mapView
+    let bounds = self.mapView.mapView.coveringBounds
+    let southWest = bounds.southWest
+    let northEast = bounds.northEast
+    for marker in markers {
+      if marker.position.lat > southWest.lat &&
+          marker.position.lat < northEast.lat &&
+          marker.position.lng > southWest.lng &&
+          marker.position.lng < northEast.lng {
+        currentMarkers.append(marker)
+      }
+    }
   }
 }
 
@@ -373,8 +405,24 @@ extension MapViewController: NMFMapViewTouchDelegate {
       self.informationView.isHidden = true
       self.viewWillAppear(true)
     }
-    for marker in markers {
+    for marker in currentMarkers {
       marker.iconImage =  NMFOverlayImage(name: "pinInactiveDefault")
     }
   }
+}
+
+extension MapViewController: NMFMapViewCameraDelegate {
+  func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
+    for marker in currentMarkers {
+      marker.mapView = nil
+    }
+    currentMarkers.removeAll()
+    self.setupMarker()
+    print("여기야여기")
+    print(self.currentMarkers.count)
+  }
+}
+
+extension MapViewController: NMFLocationManagerDelegate {
+  
 }

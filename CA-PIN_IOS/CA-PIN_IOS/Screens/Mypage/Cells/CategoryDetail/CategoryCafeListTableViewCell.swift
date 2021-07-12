@@ -28,7 +28,8 @@ class CategoryCafeListTableViewCell: UITableViewCell {
   let separatorView = UIView()
   
   // MARK: - Variables
-  var checkDeleteNotification: Bool = false
+  var checkDeleteNotification: Bool = false /// 휴지통 버튼을 눌렀으면 트루, 휴지통 버튼을 누르지 않았으면 false
+  var isSet: Bool = false /// 맨 처음에만 버튼 unselect로 지정하기 위한 불값
   var tagArray: [String] = ["맛있겠지", "태그태그", "냥냠냥", "물선배", "커피커피커피커피커피커피", "지수선배", "선배", "뿡"] /// 서버 연결한 후 tagcollectionview에 사용
 
   // MARK: - LifeCycle
@@ -54,12 +55,13 @@ extension CategoryCafeListTableViewCell {
     self.tagCollectionView.delegate = self
     self.tagCollectionView.dataSource = self
   }
-  func layout() {
-    if checkDeleteNotification == false {
+  func layout() { /// 휴지통 버튼 눌리지 않았으면
+    if checkDeleteNotification == false { /// 체크 버튼 숨기기
       self.checkButton.isHidden = true
     }
-    else {
-      self.checkButton.isHidden = false
+    else { /// 휴지통 버튼 눌렀으면
+      self.checkButton.isHidden = false /// 체크 버튼 보이게하고
+      layoutDelete() /// 주소 라벨 레이아웃 조정
     }
     layoutNameLabel()
     layoutStarImageView()
@@ -73,6 +75,7 @@ extension CategoryCafeListTableViewCell {
     self.contentView.add(self.nameLabel) {
       $0.setupLabel(text: "후엘고", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 16))
       $0.sizeToFit()
+      $0.letterSpacing = -0.8
       $0.snp.makeConstraints {
         $0.top.equalTo(self.contentView.snp.top).offset(20)
         $0.leading.equalTo(self.contentView.snp.leading).offset(30)
@@ -87,7 +90,7 @@ extension CategoryCafeListTableViewCell {
         $0.height.equalTo(11)
         $0.width.equalTo(11)
         $0.leading.equalTo(self.nameLabel.snp.trailing).offset(6)
-        $0.bottom.equalTo(self.nameLabel.snp.bottom)
+        $0.centerY.equalTo(self.nameLabel.snp.centerY)
       }
     }
   }
@@ -97,8 +100,8 @@ extension CategoryCafeListTableViewCell {
       $0.snp.makeConstraints {
         $0.height.equalTo(18)
         $0.width.equalTo(18)
-        $0.top.equalTo(self.contentView.snp.top).offset(20)
         $0.leading.equalTo(self.starImageView.snp.trailing).offset(4)
+        $0.centerY.equalTo(self.nameLabel.snp.centerY)
       }
     }
   }
@@ -109,16 +112,24 @@ extension CategoryCafeListTableViewCell {
       $0.sizeToFit()
       $0.setupLabel(text: "서울 마포구 마포대로11길 118 1층 (염리동) 주소가 길어지면 여기까지 내려올 수 있다~서울 마포구 마포대로11길 118 1층 (염리동) 주소가 길...", color: .gray4
                     , font: UIFont.notoSansKRRegularFont(fontSize: 12))
-      $0.snp.makeConstraints {
-        $0.top.greaterThanOrEqualTo(self.nameLabel.snp.bottom).offset(13)
-        $0.leading.equalToSuperview().offset(30)
-        $0.trailing.equalToSuperview().offset(-30)
+      if self.checkDeleteNotification == true {
+        self.layoutDelete()
+      }
+      else {
+        $0.snp.makeConstraints {
+          $0.top.greaterThanOrEqualTo(self.nameLabel.snp.bottom).offset(13)
+          $0.leading.equalToSuperview().offset(30)
+          $0.trailing.equalToSuperview().offset(-30)
+        }
       }
     }
   }
   func layoutCheckButton() {
     self.contentView.add(self.checkButton) {
-      $0.setImage(UIImage(named: "checkboxInactive"), for: .normal)
+      if self.isSet == false {
+        $0.setImage(UIImage(named: "checkboxInactive"), for: .normal)
+        self.isSet = true
+      }
       $0.addTarget(self, action: #selector(self.checkButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.width.equalTo(24)

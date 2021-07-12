@@ -23,7 +23,6 @@ class TabbarCollectionViewCell: UICollectionViewCell {
   // MARK: - LifeCycles
   override func awakeFromNib() {
     super.awakeFromNib()
-    notificationCenter()
     layout()
   }
 }
@@ -32,10 +31,6 @@ class TabbarCollectionViewCell: UICollectionViewCell {
 extension TabbarCollectionViewCell {
 
   // MARK: - Helper
-  func notificationCenter() {
-    NotificationCenter.default.addObserver(self, selector: #selector(categoryTabAction), name: Notification.Name("CheckButtonClicked"), object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(reviewTabAction), name: Notification.Name("CheckButtonClicked"), object: nil)
-  }
   
   //MARK: - Layout Helpers
   func layout(){
@@ -51,6 +46,9 @@ extension TabbarCollectionViewCell {
         $0.width.equalTo(28)
       }
     }
+  }
+  func setImage(name: String) {
+    self.tabImageView.image = UIImage(named: name)
   }
   @objc func categoryTabAction() {
     

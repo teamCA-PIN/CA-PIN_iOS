@@ -28,17 +28,18 @@ class MyReviewTableViewCell: UITableViewCell {
   let imageCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
-    layout.minimumLineSpacing = 0
-    layout.minimumInteritemSpacing = 0
+//    layout.minimumLineSpacing = 0
+    layout.minimumInteritemSpacing = 5
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.translatesAutoresizingMaskIntoConstraints = false
     return collectionView
   }()
+  let bottomView = UIView()
   
   // MARK: - Variables
   var cafeName: String = "후엘고"
-  var tagArray: [String] = ["맛 추천", "분위기 추천"] /// 서버 연결한 후 tagcollectionview에 사용
-  var imageArray: [String] = ["hihi"] /// 서버 연결한 후 reviewImageCollectionview에 사용
+  var tagArray: [String] = ["맛 추천", "분위기 추천"] /// 서버 연결한 후 tagcollectionview에 사용 -> 여기가 아니라 reviewcollectionViewcell에 있어야함
+  var imageArray: [String] = ["hihi"] /// 서버 연결한 후 reviewImageCollectionview에 사용 -> 여기가 아니라 reviewcollectionViewcell에 있어야함
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
@@ -88,6 +89,7 @@ extension MyReviewTableViewCell {
     layoutReviewText()
     layoutTagCollectionView()
     layoutImageCollectionView()
+    layoutBottomView()
   }
   func layoutNameLabel() {
     self.contentView.add(self.nameLabel) {
@@ -107,7 +109,6 @@ extension MyReviewTableViewCell {
         $0.width.equalTo(14)
         $0.height.equalTo(14)
         $0.centerY.equalTo(self.nameLabel.snp.centerY)
-//        $0.top.equalTo(self.contentView.snp.top).offset(7)
         $0.leading.equalTo(self.nameLabel.snp.trailing).offset(8)
       }
     }
@@ -119,7 +120,6 @@ extension MyReviewTableViewCell {
         $0.width.equalTo(25)
         $0.height.equalTo(16)
         $0.centerY.equalTo(self.nameLabel.snp.centerY)
-//        $0.top.equalTo(self.contentView.snp.top).offset(6)
         $0.leading.equalTo(self.starImageView.snp.trailing).offset(1)
       }
     }
@@ -131,7 +131,6 @@ extension MyReviewTableViewCell {
         $0.width.equalTo(28)
         $0.height.equalTo(28)
         $0.centerY.equalTo(self.nameLabel.snp.centerY)
-//        $0.top.equalTo(self.contentView.snp.top)
         $0.leading.equalTo(self.scoreLabel.snp.trailing).offset(4)
       }
     }
@@ -143,7 +142,6 @@ extension MyReviewTableViewCell {
       $0.snp.makeConstraints {
         $0.width.equalTo(28)
         $0.height.equalTo(28)
-//        $0.top.equalTo(self.contentView.snp.top).offset(1)
         $0.centerY.equalTo(self.nameLabel.snp.centerY)
         $0.trailing.equalTo(self.contentView.snp.trailing).offset(-3)
       }
@@ -181,10 +179,20 @@ extension MyReviewTableViewCell {
       $0.backgroundColor = .white
       $0.snp.makeConstraints {
         $0.height.equalTo(80)
-        $0.top.equalTo(self.tagCollectionView.snp.bottom).offset(15)
-        $0.bottom.equalTo(self.contentView.snp.bottom)
+        $0.top.greaterThanOrEqualTo(self.tagCollectionView.snp.bottom).offset(15)
         $0.leading.equalTo(self.contentView.snp.leading)
         $0.trailing.equalTo(self.contentView.snp.trailing)
+      }
+    }
+  }
+  func layoutBottomView() {
+    self.contentView.add(self.bottomView) {
+      $0.snp.makeConstraints {
+        $0.height.equalTo(24)
+        $0.leading.equalToSuperview()
+        $0.trailing.equalToSuperview()
+        $0.top.greaterThanOrEqualTo(self.imageCollectionView.snp.bottom)
+        $0.bottom.equalTo(self.contentView.snp.bottom)
       }
     }
   }
@@ -240,9 +248,7 @@ extension MyReviewTableViewCell: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     switch collectionView {
     case tagCollectionView: return 6
-    case imageCollectionView:
-      print("ㅎㅇ")
-      return 5
+    case imageCollectionView: return 0
     default: return 5
     }
   }

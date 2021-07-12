@@ -82,6 +82,7 @@ extension MyCategoryCollectionViewCell {
   }
   func layoutCategoryTableView() {
     self.contentView.add(self.myCategoryTableView) {
+      $0.showsVerticalScrollIndicator = false
       $0.snp.makeConstraints {
         $0.top.equalToSuperview().offset(17)
         $0.top.equalToSuperview()
