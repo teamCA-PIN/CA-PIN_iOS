@@ -149,7 +149,9 @@ extension CategoryDetailViewController {
       NotificationCenter.default.post(name: NSNotification.Name("DeleteButton"), object: nil)
     } else {
       /// 삭제 팝업 띄우기
-      
+      let dvc = DeletePinViewController()
+      dvc.modalPresentationStyle = .overFullScreen
+      self.present(dvc, animated: false, completion: nil)
     }
   }
   /// 체크버튼 check, uncheck 상태에 따라서 네비게이션 타이틀 바꿈
