@@ -61,6 +61,7 @@ extension MyReviewCollectionViewCell {
   }
   func layoutReviewTableView() {
     self.contentView.add(self.myReviewTableView) {
+      $0.showsVerticalScrollIndicator = false
       $0.snp.makeConstraints {
         $0.top.equalToSuperview()
         $0.leading.equalToSuperview().offset(30)
