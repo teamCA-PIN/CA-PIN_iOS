@@ -14,7 +14,9 @@ import Then
 // MARK: - WriteReviewViewController
 
 class WriteReviewViewController: UIViewController {
+  
   // MARK: - Components
+  
   let writeScrollView = UIScrollView()
   let writeScrollContainerView = UIView()
   let topcontainerview = UIView()
@@ -29,7 +31,7 @@ class WriteReviewViewController: UIViewController {
     layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     let collectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: layout)
-    collectionView.isScrollEnabled = false
+    collectionView.isScrollEnabled = true
     collectionView.translatesAutoresizingMaskIntoConstraints = false
     return collectionView
   }()
@@ -41,7 +43,7 @@ class WriteReviewViewController: UIViewController {
   let reviewLabel = UILabel()
   let reviewessentialImageView = UIImageView()
   let explainreviewLabel = UILabel()
-  var reviewTextField = fourInsetTextField(insets: UIEdgeInsets(top: 15, left: 18, bottom: 20, right: 18))
+  var reviewTextView = UITextView()
   let reviewwordcountLabel = UILabel()
   let starLabel = UILabel()
   let staressentialImageView = UIImageView()
@@ -50,20 +52,40 @@ class WriteReviewViewController: UIViewController {
   final let maxLength = 150
   var nameCount = 0
   
+  private var photoList : [ReviewPhotoModel] = []
   
   // MARK: - LifeCycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
     layout()
+    register()
+    setPhotoList()
+    self.reviewphotoCollectionView.delegate = self
+    self.reviewphotoCollectionView.dataSource = self
     self.navigationController?.navigationBar.isHidden = true
-    self.reviewTextField.delegate = self
+    self.reviewTextView.delegate = self
     NotificationCenter.default.addObserver(self,
                                            selector: #selector(self.textDidChange(_:)),
-                                           name: UITextField.textDidChangeNotification,
-                                           object: self.reviewTextField)
+                                           name: UITextView.textDidChangeNotification,
+                                           object: self.reviewTextView)
   }
+  func setPhotoList()
+  {
+    photoList.append(contentsOf: [
+      ReviewPhotoModel(PhotoImageView: "group637"),
+      ReviewPhotoModel(PhotoImageView: "group637"),
+      ReviewPhotoModel(PhotoImageView: "group637"),
+      ReviewPhotoModel(PhotoImageView: "group637"),
+      ReviewPhotoModel(PhotoImageView: "group637"),
+      ReviewPhotoModel(PhotoImageView: "group637")
+      
+    ])
+  }
+  
+  
 }
+
 
 // MARK: - Extension
 
@@ -73,6 +95,7 @@ extension WriteReviewViewController {
   
   func register() {
     self.reviewphotoCollectionView.register(ReviewPhotoCollectionViewCell.self, forCellWithReuseIdentifier: ReviewPhotoCollectionViewCell.reuseIdentifier)
+    self.reviewphotoCollectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
   }
   func layout() {
     layoutWriteScrollView()
@@ -92,7 +115,7 @@ extension WriteReviewViewController {
     layoutReviewLabel()
     layoutReviewessentialImageView()
     layoutExplainreviewLabel()
-    layoutReviewTextField()
+    layoutReviewTextView()
     layoutReviewwordcountLabel()
     layoutStarLabel()
     layoutStaressentialImageView()
@@ -190,7 +213,7 @@ extension WriteReviewViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.explainphotoLabel.snp.bottom).offset(15)
         $0.leading.equalTo(self.writeScrollContainerView.snp.leading)
-        $0.width.equalTo(545)
+        $0.trailing.equalTo(self.writeScrollContainerView.snp.trailing)
         $0.height.equalTo(80)
       }
     }
@@ -289,21 +312,18 @@ extension WriteReviewViewController {
       }
     }
   }
-  func layoutReviewTextField() {
-    self.writeScrollContainerView.add(self.reviewTextField) {
-      $0.configureTextField(textColor: .black, font: .notoSansKRRegularFont(fontSize: 14))
-      $0.attributedPlaceholder =
-        NSAttributedString(string: "리뷰를 입력하세요.",
-                           attributes:
-                            [NSAttributedString.Key.font:
-                              UIFont.notoSansKRRegularFont(fontSize: 14),
-                             NSAttributedString.Key.foregroundColor:
-                              UIColor.gray3])
+  func layoutReviewTextView() {
+    self.writeScrollContainerView.add(self.reviewTextView) {
       $0.autocorrectionType = .no
       $0.autocapitalizationType = .none
       $0.setBorder(borderColor: .gray3, borderWidth: 1)
       $0.setRounded(radius: 5)
-      $0.backgroundColor = .pointcolor1
+      $0.text = "리뷰를 작성하세요."
+      $0.font = .notoSansKRRegularFont(fontSize: 14)
+      $0.textColor = .gray3
+      $0.tintColor = .black
+      $0.backgroundColor = .clear
+      $0.textContainerInset = UIEdgeInsets(top: 15, left: 18, bottom: 20, right: 18)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.explainreviewLabel.snp.bottom).offset(20)
         $0.centerX.equalTo(self.writeScrollContainerView)
@@ -314,14 +334,15 @@ extension WriteReviewViewController {
     }
   }
   func layoutReviewwordcountLabel() {
-    self.reviewTextField.add(self.reviewwordcountLabel) {
-      self.nameCount = self.reviewTextField.text?.count ?? 0
-      $0.setupLabel(text: "\(self.nameCount)/150",
+    self.writeScrollContainerView.add(self.reviewwordcountLabel) {
+      self.nameCount = self.reviewTextView.text?.count ?? 0
+      $0.setupLabel(text: "0/150",
                     color: .gray3,
                     font: .notoSansKRRegularFont(fontSize: 14))
+      
       $0.snp.makeConstraints {
-        $0.trailing.equalTo(self.reviewTextField.snp.trailing).offset(-13)
-        $0.bottom.equalTo(self.reviewTextField.snp.bottom).offset(-10)
+        $0.trailing.equalTo(self.reviewTextView.snp.trailing).offset(-13)
+        $0.bottom.equalTo(self.reviewTextView.snp.bottom).offset(-10)
       }
     }
   }
@@ -329,7 +350,7 @@ extension WriteReviewViewController {
     self.writeScrollContainerView.add(self.starLabel) {
       $0.setupLabel(text: "별점", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.reviewTextField.snp.bottom).offset(40)
+        $0.top.equalTo(self.reviewTextView.snp.bottom).offset(40)
         $0.leading.equalTo(self.writeScrollContainerView.snp.leading).offset(20)
       }
     }
@@ -380,10 +401,13 @@ extension WriteReviewViewController {
       feelButton.setTitleColor(.gray4, for: .normal)
     }
   }
+  
   @objc func textDidChange(_ notification: Notification) {
-    if let textField = notification.object as? UITextField {
+    if let textField = notification.object as? UITextView {
       if let text = textField.text {
-        self.reviewwordcountLabel.text = "\(text.count)/150"
+        if text.isEmpty == false {
+          self.reviewwordcountLabel.text = "\(text.count)/150"
+        }
         if text.count > self.maxLength {
           textField.resignFirstResponder()
         }
@@ -397,11 +421,11 @@ extension WriteReviewViewController {
   }
 }
 
-// MARK: - ReviewTextField Delegate
+// MARK: - ReviewTextView Delegate
 
-extension WriteReviewViewController: UITextFieldDelegate {
-  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    guard let text = textField.text else {return false}
+extension WriteReviewViewController: UITextViewDelegate {
+  private func textview(_ textview: UITextView, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    guard let text = textview.text else {return false}
     if text.count >= self.maxLength &&
         range.length == 0 &&
         range.location < self.maxLength {
@@ -409,27 +433,69 @@ extension WriteReviewViewController: UITextFieldDelegate {
     }
     return true
   }
+  
+  func textViewDidBeginEditing(_ textView: UITextView) {
+    if textView.textColor == UIColor.gray3 {
+      textView.text = nil
+      
+      textView.textColor = UIColor.black
+    }
+  }
+  
+  func textViewDidEndEditing(_ textView: UITextView) {
+    if textView.text.isEmpty {
+      textView.text = "리뷰를 입력하세요."
+      textView.textColor = UIColor.gray3
+    }
+  }
 }
+
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension WriteReviewViewController: UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let width: CGFloat
-    switch indexPath.item {
-    case 1:
-      width = 80
-    case 2:
-      width = 80
-    default:
-      width = 80
-    }
-    return CGSize(width: 80, height: 80)
+extension WriteReviewViewController : UICollectionViewDataSource
+{
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return self.photoList.count
   }
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-    return 5
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let photocell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewPhotoCollectionViewCell.reuseIdentifier,
+                                                             for: indexPath)
+            as? ReviewPhotoCollectionViewCell
+    else {return UICollectionViewCell() }
+    
+    photocell.setData(photoView: photoList[indexPath.row].PhotoImageView)
+    photocell.backgroundColor = .gray3
+    photocell.awakeFromNib()
+    return photocell
   }
 }
+extension WriteReviewViewController : UICollectionViewDelegate
+{
+  
+}
 
-// MARK: - UICollectionViewDataSource
-
+extension WriteReviewViewController : UICollectionViewDelegateFlowLayout
+{
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    //    let width = UIScreen.main.bounds.width
+    let cellWidth = 80
+    let cellHeight = cellWidth
+    
+    return CGSize(width: cellWidth, height: cellHeight)
+  }
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets.zero
+  }
+  
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 5
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return 3
+  }
+  
+}

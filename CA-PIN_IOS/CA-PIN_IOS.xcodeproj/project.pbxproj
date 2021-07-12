@@ -115,6 +115,7 @@
 		E83045B926957843004BD355 /* CAFETIResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B826957843004BD355 /* CAFETIResultViewController.swift */; };
 		E8818961269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8818960269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift */; };
 		E8818963269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8818962269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift */; };
+		E8818966269C2AF200B884FB /* ReviewPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8818965269C2AF200B884FB /* ReviewPhotoModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -245,6 +246,7 @@
 		E83045B826957843004BD355 /* CAFETIResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETIResultViewController.swift; sourceTree = "<group>"; };
 		E8818960269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReviewPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		E8818962269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		E8818965269C2AF200B884FB /* ReviewPhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPhotoModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -749,6 +751,7 @@
 				E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */,
 				CC6468D12698B89F00CF848A /* CafeDetailModel.swift */,
 				CC6468D32698B8A600CF848A /* ReviewListModel.swift */,
+				E8818965269C2AF200B884FB /* ReviewPhotoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1103,6 +1106,7 @@
 				CC45A17E26942BF400E68817 /* TermsVersionTableViewCell.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,
 				CCB6C665268F044400941E92 /* PinPopupViewController.swift in Sources */,
+				E8818966269C2AF200B884FB /* ReviewPhotoModel.swift in Sources */,
 				CC05E02A268B865400269427 /* UIButton+.swift in Sources */,
 				CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */,
 				E83045B526957824004BD355 /* CAFETITest3ViewController.swift in Sources */,
