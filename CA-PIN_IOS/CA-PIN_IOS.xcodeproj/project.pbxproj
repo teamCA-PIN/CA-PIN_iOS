@@ -54,6 +54,7 @@
 		CC6468D22698B8A000CF848A /* CafeDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6468D12698B89F00CF848A /* CafeDetailModel.swift */; };
 		CC6468D42698B8A700CF848A /* ReviewListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6468D32698B8A600CF848A /* ReviewListModel.swift */; };
 		CC6468D62699E6F300CF848A /* EntireReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6468D52699E6F200CF848A /* EntireReviewViewController.swift */; };
+		CC7BB2EE269B8E800079FC4F /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = CC7BB2ED269B8E800079FC4F /* Cosmos */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -237,6 +238,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC7BB2EE269B8E800079FC4F /* Cosmos in Frameworks */,
 				CCF78433268B07DC005FDF1D /* Lottie in Frameworks */,
 				CCF78430268B07C0005FDF1D /* Kingfisher in Frameworks */,
 				CCF78440268B08E4005FDF1D /* SwiftyColor in Frameworks */,
@@ -778,6 +780,7 @@
 				CCF7843C268B08C2005FDF1D /* SwiftKeychainWrapper */,
 				CCF7843F268B08E4005FDF1D /* SwiftyColor */,
 				CC481FFD2698A00300D7F280 /* CollectionViewCenteredFlowLayout */,
+				CC7BB2ED269B8E800079FC4F /* Cosmos */,
 			);
 			productName = "CA-PIN_IOS";
 			productReference = CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */;
@@ -863,6 +866,7 @@
 				CCF7843B268B08C2005FDF1D /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 				CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */,
 				CC481FFC2698A00200D7F280 /* XCRemoteSwiftPackageReference "CollectionViewCenteredFlowLayout" */,
+				CC7BB2EC269B8E800079FC4F /* XCRemoteSwiftPackageReference "Cosmos" */,
 			);
 			productRefGroup = CCA85AF22688ED6F00C9A32C /* Products */;
 			projectDirPath = "";
@@ -1450,6 +1454,14 @@
 				minimumVersion = 1.0.2;
 			};
 		};
+		CC7BB2EC269B8E800079FC4F /* XCRemoteSwiftPackageReference "Cosmos" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/Cosmos";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 23.0.0;
+			};
+		};
 		CCF78425268B0774005FDF1D /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then";
@@ -1521,6 +1533,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CC481FFC2698A00200D7F280 /* XCRemoteSwiftPackageReference "CollectionViewCenteredFlowLayout" */;
 			productName = CollectionViewCenteredFlowLayout;
+		};
+		CC7BB2ED269B8E800079FC4F /* Cosmos */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC7BB2EC269B8E800079FC4F /* XCRemoteSwiftPackageReference "Cosmos" */;
+			productName = Cosmos;
 		};
 		CCF78426268B0774005FDF1D /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
