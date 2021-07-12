@@ -48,6 +48,7 @@ extension CategoryDetailViewController {
   func register() {
     /// 분기처리
     /// 카테고리 내의 핀이 0개일 때: EmptyCategoryTableViewCell
+//    self.cafeListTableView.register(EmptyCategoryTableViewCell.self, forCellReuseIdentifier: EmptyCategoryTableViewCell.reuseIdentifier)
     /// 핀이 1개 이상일 때: CategoryCafeListTableViewCell
     self.cafeListTableView.register(CategoryCafeListTableViewCell.self, forCellReuseIdentifier: CategoryCafeListTableViewCell.reuseIdentifier)
   }
@@ -94,6 +95,7 @@ extension CategoryDetailViewController {
   func layoutCategoryNameLabel() {
     self.navigationContainerView.add(self.categoryNameLabel) {
       $0.setupLabel(text: "기본 카테고리", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20), align: .center)
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.width.equalTo(160)
         $0.height.equalTo(29)
@@ -117,6 +119,7 @@ extension CategoryDetailViewController {
   func layoutPinNumberLabel() {
     self.view.add(self.pinNumberLabel) {
       $0.setupLabel(text: "총 \(self.pinNumber)개의 핀", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
+      $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
         $0.height.equalTo(16)
         $0.width.equalTo(80)
@@ -149,29 +152,27 @@ extension CategoryDetailViewController {
       
     }
   }
+  /// 체크버튼 check, uncheck 상태에 따라서 네비게이션 타이틀 바꿈
   @objc func checkButtonClicked(notification: Notification) {
     if let check = notification.object as? Bool {
       changeNavigationTitle(check: check)
     }
   }
   func changeNavigationTitle(check: Bool) {
+    /// 체크 버튼 선택 액션이면  타이틀 "n개 선택됨"으로
     if check == true {
-      print("버튼 선택")
       countedPinNumber += 1
       self.categoryNameLabel.text = "\(countedPinNumber)개 선택됨"
       self.deleteButton.setImage(UIImage(named: "iconDeleteRed"), for: .normal)
       self.enableDelete = true
-    } else {
-      print("버튼 선택 해제")
+    } else { /// 체크 버튼 해제 액션이면 개수에 따라서 타이틀 바꿔준다
       countedPinNumber -= 1
-      if countedPinNumber == 0 {
+      if countedPinNumber == 0 { /// 선택된 체크 버튼이 0개면 타이틀 바꾸고 레이아웃 다시 잡을 수 있도록 노티 Post
         self.categoryNameLabel.text = "기본 카테고리"
         self.deleteButton.setImage(UIImage(named: "iconDeleteVer2"), for: .normal)
-        /// 노티 post
         NotificationCenter.default.post(name: NSNotification.Name("returnCategoryView"), object: nil)
-        print("다시 돌아가거라")
       }
-      else {
+      else { /// 1개 이상이면 타이틀만 바꿔준다
         self.categoryNameLabel.text = "\(countedPinNumber)개 선택됨"
       }
     }

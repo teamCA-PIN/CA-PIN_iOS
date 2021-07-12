@@ -138,6 +138,7 @@ extension MypageViewController {
   func layoutHiLabel() {
     self.profileContainerView.add(self.hiLabel) {
       $0.setupLabel(text: "안녕하세요", color: .gray3, font: UIFont.notoSansKRRegularFont(fontSize: 16))
+      $0.letterSpacing = -0.48
       $0.snp.makeConstraints {
         $0.height.equalTo(23)
         $0.top.equalTo(self.profileContainerView.snp.top).offset(7)
@@ -149,6 +150,7 @@ extension MypageViewController {
     self.profileContainerView.add(self.nicknameLabel) {
       var nickname = self.userName + "님"
       $0.setupLabel(text: nickname, color: .subcolorBrown4, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       let fontSize = UIFont.notoSansKRRegularFont(fontSize: 20)
       let attributedString = NSMutableAttributedString(string: $0.text ?? "")
       attributedString.addAttribute(.font, value: fontSize, range: (nickname as NSString).range(of: "님"))
@@ -176,9 +178,10 @@ extension MypageViewController {
   }
   func layoutProfileEditButton() {
     self.profileContainerView.add(self.profileEditButton) {
-      $0.setupButton(title: "프로필 편집", color: .gray3, font: UIFont.notoSansKRRegularFont(fontSize: 12), backgroundColor: .clear, state: .normal, radius: 14)
+      $0.setupButton(title: "프로필 편집", color: .gray3, font: UIFont.notoSansKRRegularFont(fontSize: 14), backgroundColor: .clear, state: .normal, radius: 14)
       $0.borderColor = .gray3
       $0.borderWidth = 1
+      $0.titleLabel?.letterSpacing = -0.6
       $0.snp.makeConstraints {
         $0.height.equalTo(28)
         $0.width.equalTo(80)
@@ -268,9 +271,6 @@ extension MypageViewController: UICollectionViewDelegateFlowLayout {
       
       switch currentIndex {
       case 0:
-//        trigger = true
-//        tabbarCollectionView.reloadData()
-//        categorySelected()
         self.trigger = true
         self.tabbarCollectionView.reloadData()
         self.categorySelected()
@@ -305,20 +305,20 @@ extension MypageViewController: UICollectionViewDataSource {
     case self.tabbarCollectionView:
       guard let tabBarCell = collectionView.dequeueReusableCell(withReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier, for: indexPath) as? TabbarCollectionViewCell else { return UICollectionViewCell() }
       tabBarCell.awakeFromNib()
-      if trigger == true {
-        if indexPath.item == 0 {
-          tabBarCell.tabImageView.image = UIImage(named: "iconPin")
+      if trigger == true { /// 카테고리 탭 선택됐을 때
+        if indexPath.item == 0 { /// 카테고리 아이콘 갈색
+          tabBarCell.setImage(name: "iconPinActive")
         }
-        else {
-          tabBarCell.tabImageView.image = UIImage(named: "iconCloseBlack")
+        else { /// 리뷰 아이콘 회색
+          tabBarCell.setImage(name: "iconError2")
         }
       }
-      else {
-        if indexPath.item == 0 {
-          tabBarCell.tabImageView.image = UIImage(named: "iconCloseBlack")
-        }
-        else {
+      else { /// 리뷰 탭 선택됐을 때
+        if indexPath.item == 0 { /// 카테고리 아이콘 회색
           tabBarCell.tabImageView.image = UIImage(named: "iconPin")
+        }
+        else { /// 리뷰 아이콘 갈색
+          tabBarCell.tabImageView.image = UIImage(named: "iconReviewActive")
         }
       }
       
