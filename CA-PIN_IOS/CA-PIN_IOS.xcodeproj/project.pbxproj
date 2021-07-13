@@ -23,6 +23,8 @@
 		92537085269C37ED00E2E5EA /* DeletePinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92537084269C37ED00E2E5EA /* DeletePinViewController.swift */; };
 		9253708A269C95E300E2E5EA /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92537089269C95E300E2E5EA /* LoginModel.swift */; };
 		9253708C269C9CFB00E2E5EA /* ResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253708B269C9CFB00E2E5EA /* ResponseType.swift */; };
+		9253708F269D8F3800E2E5EA /* SignupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253708E269D8F3800E2E5EA /* SignupModel.swift */; };
+		92537091269D959F00E2E5EA /* UINavigationController+Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92537090269D959E00E2E5EA /* UINavigationController+Root.swift */; };
 		9292FFC82696352600BCD791 /* CategoryCafeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292FFC72696352600BCD791 /* CategoryCafeListTableViewCell.swift */; };
 		9292FFCA26964AFA00BCD791 /* MyTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292FFC926964AFA00BCD791 /* MyTagCollectionViewCell.swift */; };
 		9292FFCD26964DF400BCD791 /* EmptyCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */; };
@@ -159,6 +161,8 @@
 		92537084269C37ED00E2E5EA /* DeletePinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePinViewController.swift; sourceTree = "<group>"; };
 		92537089269C95E300E2E5EA /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		9253708B269C9CFB00E2E5EA /* ResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseType.swift; sourceTree = "<group>"; };
+		9253708E269D8F3800E2E5EA /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
+		92537090269D959E00E2E5EA /* UINavigationController+Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Root.swift"; sourceTree = "<group>"; };
 		9292FFC72696352600BCD791 /* CategoryCafeListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCafeListTableViewCell.swift; sourceTree = "<group>"; };
 		9292FFC926964AFA00BCD791 /* MyTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -331,6 +335,14 @@
 				92537089269C95E300E2E5EA /* LoginModel.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		9253708D269D8F2600E2E5EA /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				9253708E269D8F3800E2E5EA /* SignupModel.swift */,
+			);
+			path = Signup;
 			sourceTree = "<group>";
 		};
 		9292FFCE26983D8900BCD791 /* MyPage */ = {
@@ -685,6 +697,7 @@
 				CCA85B502688F29600C9A32C /* UIViewController+.swift */,
 				CCF78444268B197A005FDF1D /* UILabel+.swift */,
 				CCF78442268B197A005FDF1D /* UITextField+.swift */,
+				92537090269D959E00E2E5EA /* UINavigationController+Root.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -764,6 +777,7 @@
 		E8244CD026974603007E63ED /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9253708D269D8F2600E2E5EA /* Signup */,
 				92537088269C95CB00E2E5EA /* Login */,
 				E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */,
 				CC6468D12698B89F00CF848A /* CafeDetailModel.swift */,
@@ -1112,6 +1126,7 @@
 				CCB6C66C268F41E800941E92 /* CreateCategoryViewController.swift in Sources */,
 				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
+				9253708F269D8F3800E2E5EA /* SignupModel.swift in Sources */,
 				925370792698F4DD00E2E5EA /* MyEmptyCategoryTableViewCell.swift in Sources */,
 				9292FFC82696352600BCD791 /* CategoryCafeListTableViewCell.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
@@ -1123,6 +1138,7 @@
 				CC6468D62699E6F300CF848A /* EntireReviewViewController.swift in Sources */,
 				CC45A17C26942BEA00E68817 /* TermsGeneralTableViewCell.swift in Sources */,
 				CC45A17E26942BF400E68817 /* TermsVersionTableViewCell.swift in Sources */,
+				92537091269D959F00E2E5EA /* UINavigationController+Root.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,
 				CCB6C665268F044400941E92 /* PinPopupViewController.swift in Sources */,
 				E8818966269C2AF200B884FB /* ReviewPhotoModel.swift in Sources */,

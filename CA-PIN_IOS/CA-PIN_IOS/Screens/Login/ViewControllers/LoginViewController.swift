@@ -41,8 +41,6 @@ class LoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBar.isHidden = true
-//    self.showGrayToast(message: "이미 사용중인 이름입니다.")
-    self.showGreenToast(message: "인증번호가 전송되었습니다.")
     layout()
     makeDelegate()
     keyboardObserver()
