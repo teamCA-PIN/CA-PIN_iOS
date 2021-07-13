@@ -21,6 +21,13 @@ struct ResponseType<T: Codable>: Codable {
     var loginData: T?
 }
 
+struct CategoryResponseArrayType<T: Codable>: Codable {
+    var status: Int?
+    var success: Bool?
+    var message: String?
+    var myCategoryList: [T]?
+}
+
 struct Response: Codable {
     var status: Int?
     var success: Bool?

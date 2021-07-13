@@ -35,7 +35,7 @@ extension TabbarViewController {
     secondNavigationController.addChild(secondTabController)
     
     let thirdNavigationController = UINavigationController()
-    let thirdTabController = EditCategoryViewController()
+    let thirdTabController = LoginViewController()
     thirdNavigationController.addChild(thirdTabController)
     
     

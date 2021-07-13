@@ -7,6 +7,11 @@
 
 import UIKit
 
+import Moya
+import RxMoya
+import RxSwift
+import SwiftyColor
+
 class MyCategoryCollectionViewCell: UICollectionViewCell {
   // MARK: - Components
   let headerView = UIView()
@@ -15,8 +20,13 @@ class MyCategoryCollectionViewCell: UICollectionViewCell {
   let separatorView = UIView()
   let myCategoryTableView = UITableView()
   
+  let disposeBag = DisposeBag()
+  private let UserProvider = MoyaProvider<UserService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+  
   // MARK: - Variables
+  var categoryArray: [MyCategoryList] = [] /// 서버 통신해서 받아올 배열을 저장할거임
   var categoryNumber = 10 /// 카테고리 수 기준으로 section 1개 or 2개
+                          /// cateogoryArray.count
   
   // MARK: - LifeCycles
   override func awakeFromNib() {
@@ -24,6 +34,7 @@ class MyCategoryCollectionViewCell: UICollectionViewCell {
     register()
     associate()
     layout()
+    getServerData()
     self.myCategoryTableView.separatorStyle = .none
   }
 }
@@ -92,6 +103,34 @@ extension MyCategoryCollectionViewCell {
       }
     }
   }
+  
+  // MARK: - Server
+  func getServerData() {
+    UserProvider.rx.request(.categoryList)
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
+                                          from: response.data)
+            self.categoryArray = data.myCategoryList!
+            print(self.categoryArray)
+            self.myCategoryTableView.reloadData()
+          } catch {
+            print(error)
+          }
+        }
+        else {
+          
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+        
+      }).disposed(by: disposeBag)
+  }
+  
   @objc func plusButtonClicked() {
     let parentViewController: UIViewController = self.parentViewController!
     let dvc = CreateCategoryViewController()
@@ -123,11 +162,11 @@ extension MyCategoryCollectionViewCell: UITableViewDataSource {
       return 1
     }
     /// 내가 등록한 카테고리도 있는거
-    return 9 /// 웅엥.count
+    return categoryArray.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if self.categoryNumber == 1 { /// 기본 카테고리만 있을 때엔
+    if categoryArray.count == 1 { /// 기본 카테고리만 있을 때엔
       if indexPath.section == 0 {
         guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: MyCategoryTableViewCell.reuseIdentifier, for: indexPath) as? MyCategoryTableViewCell else { return UITableViewCell() }
         categoryCell.awakeFromNib()
@@ -138,7 +177,6 @@ extension MyCategoryCollectionViewCell: UITableViewDataSource {
         }
         return categoryCell
       } else {
-        /// empty 웅엥
         guard let emptyCell = tableView.dequeueReusableCell(withIdentifier: MyEmptyCategoryTableViewCell.reuseIdentifier, for: indexPath) as? MyEmptyCategoryTableViewCell else { return UITableViewCell() }
         emptyCell.awakeFromNib()
         return emptyCell
@@ -148,6 +186,9 @@ extension MyCategoryCollectionViewCell: UITableViewDataSource {
     categoryCell.awakeFromNib()
     categoryCell.selectionStyle = .none
     categoryCell.backgroundColor = .white
+    categoryCell.setCategoryData(colorCode: categoryArray[indexPath.row].color, name: categoryArray[indexPath.row].name, number: categoryArray[indexPath.row].cafes.count)
+    categoryCell.categoryID = categoryArray[indexPath.row].id
+    
     if indexPath.item == 0 {
       categoryCell.editButton.isHidden = true
     }

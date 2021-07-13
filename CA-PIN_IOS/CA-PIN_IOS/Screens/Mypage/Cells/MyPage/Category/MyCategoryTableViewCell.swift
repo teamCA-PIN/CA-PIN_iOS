@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyColor
 
 class MyCategoryTableViewCell: UITableViewCell {
   
@@ -14,16 +15,17 @@ class MyCategoryTableViewCell: UITableViewCell {
     layout()
   }
   
+  /// 카페 리스트를 담을 배열을 만들어놓고 서버 통신할 때 받은 배열 값을 쭉 append
+  /// 그리고 나서 didsellect에서 그 함수 이용
+  
   // MARK: - Components
-  let plusButton = UIButton()
-  let plusLabel = UILabel()
   let colorView = UIView()
   let titleLabel = UILabel()
   let numberLabel = UILabel()
   let editButton = UIButton()
   let separatorView = UIView()
   
-  
+  var categoryID: String = ""
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
@@ -96,40 +98,58 @@ extension MyCategoryTableViewCell {
       }
     }
   }
+  func hexStringToUIColor (hex:String) -> UIColor {
+      var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+
+      if (cString.hasPrefix("#")) {
+          cString.remove(at: cString.startIndex)
+      }
+
+      if ((cString.count) != 6) {
+          return UIColor.gray
+      }
+
+      var rgbValue:UInt64 = 0
+      Scanner(string: cString).scanHexInt64(&rgbValue)
+
+      return UIColor(
+          red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+          green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+          blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+          alpha: CGFloat(1.0)
+      )
+  }
+  func setCategoryData(colorCode: String, name: String, number: Int) {
+    let color = hexStringToUIColor(hex: colorCode)
+    self.colorView.backgroundColor = color
+    self.titleLabel.text = name
+    self.numberLabel.text = "\(number)/100"
+  }
+  
   @objc func editButtonClicekd() {
-    /// 액션시트
-    print(" 에딧")
-    
     let alertController: UIAlertController
     alertController = UIAlertController(title: "카테고리 편집", message: nil, preferredStyle: .actionSheet)
 
     let editAction: UIAlertAction
-    // handler는 alert action이 선택됐을때, OK버튼이 실행된다면
-    // 실행될 코드 블럭을 의미한다
     editAction = UIAlertAction(title: "카테고리 수정", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in print("edit pressed")
-      /// 카테고리 수정 뷰로 이동
+      /// TODO 카테고리 수정 뷰로 이동
     })
     let deleteAction: UIAlertAction
-    deleteAction = UIAlertAction(title: "카테고리 삭제", style: .destructive, handler: { (action: UIAlertAction) in print("delete pressed")
-      /// 삭제 팝업 띄우기
+    deleteAction = UIAlertAction(title: "카테고리 삭제", style: .destructive, handler: { (action: UIAlertAction) in
       let dvc = DeleteCategoryPopUpViewController()
       dvc.modalPresentationStyle = .overFullScreen
       self.parentViewController?.present(dvc, animated: false, completion: nil)
     })
 
     let cancelAction: UIAlertAction
-    // nil은 사용자가 누르면 아무 액션없이 alert이 dismiss된다
     cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
 
-    // action을 추가해줘야 실행된다.
-    // 액션 순서에 상관없이 어떻게 넣어주더라도 위치는 UIAlertController가 알아서 지정해준다
     alertController.addAction(editAction)
     alertController.addAction(deleteAction)
     alertController.addAction(cancelAction)
     
     alertController.view.tintColor = .maincolor1
 
-    // 모달로 올려줌! completion은 모달이 올라오는 애니메이션이 끝나고 직후에 호출될 블럭
     parentViewController?.present(alertController, animated: true, completion: nil)
   }
 }
