@@ -8,6 +8,10 @@
 import UIKit
 
 import SnapKit
+import SwiftKeychainWrapper
+import Moya
+import RxMoya
+import RxSwift
 import Then
 
 // MARK: - SignUpViewController
@@ -33,11 +37,18 @@ class SignUpViewController: UIViewController {
   let checkPasswordBordrView = UIView()
   let signUpButton = UIButton()
   
+  let disposeBag = DisposeBag()
+  private let UserAuthProvider = MoyaProvider<UserAuthService>()
+  
+  var isSame: Bool = false /// 비밀번호가 일치하는지 보려구
+  
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBar.isHidden = true
     layout()
+//    self.signUpButton.isEnabled = false
+    self.isSame = false
   }
 }
 
@@ -65,12 +76,52 @@ extension SignUpViewController {
     layoutCheckPasswordBorderView()
     layoutSignUpButton()
   }
-  
+  func attribute() {
+    self.userNameTextField.delegate = self
+    self.emailTextField.delegate = self
+    self.passwordTextField.delegate = self
+    self.checkPasswordTextField.delegate = self
+  }
   @objc func backButtonClicked() {
     self.navigationController?.popViewController(animated: false)
   }
   @objc func signUpButtonClicked() {
     // TODO: - 회원가입 서버 연결
+    guard let nicknameText = userNameTextField.text,
+          let emailText = emailTextField.text,
+          let passwordText = passwordTextField.text else { return }
+
+    UserAuthProvider.rx.request(.signup(email: emailText, password: passwordText, nickname: nicknameText))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            /// 왜 안찍혔을까요 ~
+            print("회원가입 성공!")
+          }
+          catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+        /// 에러 별로 분기처리
+      }, onCompleted: {
+        /// 토스트 띄워야하는거 아닌가 ?
+        self.navigationController?.popViewController(animated: false)
+      }).disposed(by: disposeBag)
+  }
+  func enableSignupButton() {
+    /// 텍스트필드 값이 모두 채워져있고, 비밀번호 두개가 일치할 때 enable
+    let isNameEmpty = userNameTextField.text?.isEmpty
+    let isEmailEmpty = emailTextField.text?.isEmpty
+    let isPasswordEmpty = passwordTextField.text?.isEmpty
+    let isCheckPasswordEmpty = checkPasswordTextField.text?.isEmpty
+    
+    if (isNameEmpty == false) && (isEmailEmpty == false) && (isPasswordEmpty == false) && (isCheckPasswordEmpty == false) && (isSame == true) {
+      signUpButton.isEnabled = true
+      self.signUpButton.setTitleColor(UIColor.pointcolor1, for: .normal)
+    }
   }
   
   func layoutNavigationBarView() {
@@ -280,15 +331,25 @@ extension SignUpViewController {
       $0.titleLabel?.font = UIFont.systemFont(ofSize: 16)
       $0.setupButton(title: "가입하기", color: UIColor.white, font: UIFont.notoSansKRRegularFont(fontSize: 16), backgroundColor: .gray3, state: .normal
                      , radius: 25)
-      $0.setupButton(title: "가입하기", color: UIColor.white, font: UIFont.notoSansKRRegularFont(fontSize: 16), backgroundColor: .pointcolor1, state: .selected
-                     , radius: 25)
+      $0.addTarget(self, action: #selector(self.signUpButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(78)
         $0.trailing.equalTo(self.view.snp.trailing).offset(-78)
-        $0.bottom.equalTo(self.view.snp.bottom).offset(-34)
+        $0.bottom.equalTo(self.view.snp.bottom).offset(-100)
         $0.height.equalTo(49)
       }
     }
+  }
+  
+  /// 뷰의 다른 곳 탭하면 키보드 내려가게
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    self.view.endEditing(true)
+  }
+}
+
+extension SignUpViewController: UITextFieldDelegate {
+  @objc func keyboardWillDisappear(_ notification: NSNotification){
+    self.view.transform = .identity
   }
 }
