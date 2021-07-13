@@ -18,32 +18,27 @@ enum CafeService {
 
 extension CafeService: TargetType {
   
+  func urlEncode(string: String) -> String? { return string.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]{} ").inverted) }
+  
+  
   private var token: String {
-    return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
+//    return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
+    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGVjNjk0MTJkNGNhZDY0ZjBkNmVhNjgiLCJpYXQiOjE2MjYxOTMzNjMsImV4cCI6MTYyNjI3OTc2M30.nOOpJOviRuEZixpO3gMaowt0LZl9olwcWNoiSxKgpiQ"
   }
   
   public var baseURL: URL {
     return URL(string: "http://3.37.75.200:5000")!
   }
   
+  
   var path: String {
     switch self {
-    case .cafeList(tags: let tags):
-      var tagString: String = ""
-      if let tag = tags {
-        for number in tag {
-          tagString.append("\(number),")
-        }
-        tagString.removeLast()
-        return "/cafes?tags=\(tagString)"
-      }
-      else {
-        return "/cafes?tags="
-      }
     case .cafeListMymap:
       return "/cafes/myMap"
     case .cafeDetail(cafeId: let cafeId):
       return "/cafes/detail/\(cafeId)"
+    default:
+      return "/cafes"
     }
   }
   
@@ -60,8 +55,10 @@ extension CafeService: TargetType {
   
   var task: Task {
     switch self {
-    case .cafeList, .cafeListMymap, .cafeDetail:
+    case .cafeListMymap, .cafeDetail:
       return .requestPlain
+    case .cafeList(tags: let tags):
+      return .requestParameters(parameters: ["tags": tags], encoding: URLEncoding(destination: .queryString, arrayEncoding: .noBrackets))
     }
   }
   

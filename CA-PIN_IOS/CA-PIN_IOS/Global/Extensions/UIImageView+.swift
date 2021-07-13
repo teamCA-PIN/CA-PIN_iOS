@@ -16,7 +16,7 @@ extension UIImageView {
   func setImage(from url: String,
                 _ defaultImage: UIImage){
     self.kf.indicatorType = .activity
-    self.kf.setImage(with: URL(string: url)!,
+    self.kf.setImage(with: URL(string: url) ?? URL(string: ""),
                      placeholder: UIImage(),
                      options: [.transition(.fade(1))],
                      progressBlock: nil)
