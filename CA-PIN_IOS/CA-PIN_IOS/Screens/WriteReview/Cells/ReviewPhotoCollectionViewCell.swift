@@ -24,17 +24,6 @@ class ReviewPhotoCollectionViewCell: UICollectionViewCell {
   }
   let photoDeleteButton = UIButton()
   
-//  func setData(photoView : String)
-//
-//  {
-//    if let image = UIImage(named: photoView)
-//    {
-//      reviewPhotoImageView.image = image
-//    }
-//
-//  }
-  
-  
   // MARK: - LifeCycles
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -52,7 +41,6 @@ extension ReviewPhotoCollectionViewCell {
   
   func layoutReviewPhotoImageView() {
     self.contentView.add(reviewPhotoImageView) {
-//      $0.image = UIImage(named: "group637")
       $0.snp.makeConstraints {
         $0.top.equalTo(self.contentView.snp.top)
         $0.leading.equalTo(self.contentView.snp.leading)
@@ -64,6 +52,7 @@ extension ReviewPhotoCollectionViewCell {
   func layoutPhotoDeleteButton(){
     self.reviewPhotoImageView.add(photoDeleteButton) {
       $0.setImage(UIImage(named: "iconDelete"), for: .normal)
+//      $0.addTarget(self, action: #selector(self.deleteButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.reviewPhotoImageView.snp.top).offset(2)
         $0.leading.equalTo(self.reviewPhotoImageView.snp.leading).offset(58)
@@ -75,5 +64,3 @@ extension ReviewPhotoCollectionViewCell {
     }
   }
 }
-
-

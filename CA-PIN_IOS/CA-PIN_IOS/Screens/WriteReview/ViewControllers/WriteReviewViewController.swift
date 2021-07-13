@@ -13,13 +13,26 @@ import SnapKit
 import SwiftyColor
 import Then
 
+import YPImagePicker
+
 // MARK: - WriteReviewViewController
 
-class WriteReviewViewController: UIViewController, PHPhotoLibraryChangeObserver {
-  
+class WriteReviewViewController: UIViewController {
   
   // MARK: - Components
-  
+  var config : YPImagePickerConfiguration {
+    var temp = YPImagePickerConfiguration()
+    temp.usesFrontCamera = false
+    temp.screens = [.library, .photo]
+    temp.library.maxNumberOfItems = 10
+    temp.library.defaultMultipleSelection = true
+    temp.showsPhotoFilters = false
+    temp.onlySquareImagesFromCamera = false
+    temp.hidesBottomBar = false
+    temp.hidesCancelButton = false
+    temp.library.skipSelectionsGallery = true
+    return temp
+  }
   let writeScrollView = UIScrollView()
   let writeScrollContainerView = UIView()
   let topcontainerview = UIView()
@@ -54,7 +67,7 @@ class WriteReviewViewController: UIViewController, PHPhotoLibraryChangeObserver 
   final let maxLength = 150
   var nameCount = 0
   
-  //  var photoList : [ReviewPhotoModel] = []
+  
   
   var fetchResult: PHFetchResult<PHAsset>?
   var canAccessImages: [UIImage] = []
@@ -63,10 +76,8 @@ class WriteReviewViewController: UIViewController, PHPhotoLibraryChangeObserver 
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    //    PHPhotoLibrary.shared().register(self)
     layout()
     register()
-    //    setPhotoList()
     self.reviewphotoCollectionView.delegate = self
     self.reviewphotoCollectionView.dataSource = self
     self.navigationController?.navigationBar.isHidden = true
@@ -75,37 +86,8 @@ class WriteReviewViewController: UIViewController, PHPhotoLibraryChangeObserver 
                                            selector: #selector(self.textDidChange(_:)),
                                            name: UITextView.textDidChangeNotification,
                                            object: self.reviewTextView)
-    
-    //    let requiredAccessLevel: PHAccessLevel = .readWrite
-    //    PHPhotoLibrary.requestAuthorization(for: requiredAccessLevel) { authorizationStatus in
-    //      switch authorizationStatus {
-    //      case .limited:
-    //        print("limited authorization granted")
-    //      case .authorized:
-    //        print("authorization granted")
-    //      default:
-    //        //FIXME: Implement handling for all authorizationStatus
-    //        print("Unimplemented")
-    //      }
-    //    }
   }
-  
-  
-  //  func setPhotoList()
-  //  {
-  //    photoList.append(contentsOf: [
-  //      ReviewPhotoModel(PhotoImageView: "group637"),
-  //      ReviewPhotoModel(PhotoImageView: "group637"),
-  //      ReviewPhotoModel(PhotoImageView: "group637"),
-  //      ReviewPhotoModel(PhotoImageView: "group637"),
-  //      ReviewPhotoModel(PhotoImageView: "group637")
-  //
-  //    ])
-  //  }
-  //
-  
 }
-
 
 // MARK: - Extension
 
@@ -444,51 +426,46 @@ extension WriteReviewViewController {
       }
     }
   }
-  func addPhotoTab() {
-    self.requestPHPhotoLibraryAuthorization {
-      self.getCanAccessImages()
-    }
-  }
-  func requestPHPhotoLibraryAuthorization(completion: @escaping () -> Void) {
-    PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in
-      switch status {
-      case .limited:
-        completion()
-        PHPhotoLibrary.shared().register(self)
-      default:
-        completion()
-        PHPhotoLibrary.shared().register(self)
-        break
+  
+  
+  func cameraWork() {
+    let picker = YPImagePicker(configuration: self.config)
+    picker.didFinishPicking{ [unowned picker] items, _ in
+      if let photo = items.singlePhoto {
+        self.canAccessImages.append(photo.image)
       }
-    }
-  }
-  func getCanAccessImages() {
-    self.canAccessImages = []
-    let requestOptions = PHImageRequestOptions()
-    requestOptions.isSynchronous = true
-    let fetchOptions = PHFetchOptions()
-    self.fetchResult = PHAsset.fetchAssets(with: fetchOptions)
-    self.fetchResult?.enumerateObjects { (asset, _, _) in
-      PHImageManager().requestImage(for: asset,
-                                    targetSize: CGSize(width: 80, height: 80),
-                                    contentMode: .aspectFill,
-                                    options: requestOptions) { (image, info) in
-        guard let image = image
-        else { return };
-        self.canAccessImages.append(image); DispatchQueue.main.async {
-          //          self.reviewphotoCollectionView.insertItems(at: [IndexPath(item: self.canAccessImages.count - 1, section: 0)])
-          self.reviewphotoCollectionView.reloadData()
-          
-          
-        }
-      }
+      self.reviewphotoCollectionView.reloadData()
+      picker.dismiss(animated: true, completion: nil)
       
     }
-  }
-  func photoLibraryDidChange(_ changeInstance: PHChange) {
-    self.getCanAccessImages()
+    present(picker, animated: true, completion: nil)
   }
   
+  func photoLibraryWork() {
+    let picker = YPImagePicker(configuration: config)
+    picker.didFinishPicking{ [unowned picker] items, cancelled in
+      for item in items {
+        switch item {
+        case .photo(let photo):
+          print(photo.image)
+          if !self.canAccessImages.contains(photo.image){
+            self.canAccessImages.append(photo.image)
+            if items.count > 5 {
+              print("ASD")
+              // 토스트 메세지
+              // 추가 안되게 !
+            }
+          }
+        case .video(v: _):
+          print("비디오")
+        }
+      }
+      self.reviewphotoCollectionView.reloadData()
+      picker.dismiss(animated: true, completion: nil)
+    }
+    picker.modalPresentationStyle = .overCurrentContext
+    self.present(picker, animated: true, completion: nil)
+  }
 }
 
 
@@ -545,6 +522,9 @@ extension WriteReviewViewController : UICollectionViewDataSource
       return emptyCell
     } else {
       photocell.reviewPhotoImageView.image = self.canAccessImages[indexPath.item-1]
+      photocell.setRounded(radius: 5)
+      if canAccessImages.count > 5 {
+      }
       photocell.awakeFromNib()
       return photocell
     }
@@ -552,11 +532,12 @@ extension WriteReviewViewController : UICollectionViewDataSource
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if indexPath.item == 0 {
-      self.addPhotoTab()
+      self.photoLibraryWork()
     }
     
   }
 }
+
 
 extension WriteReviewViewController : UICollectionViewDelegateFlowLayout
 {
