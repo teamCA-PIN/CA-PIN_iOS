@@ -5,6 +5,8 @@
 //  Created by 김지수 on 2021/07/09.
 //
 
+import Photos
+import PhotosUI
 import UIKit
 
 import SnapKit
@@ -13,7 +15,8 @@ import Then
 
 // MARK: - WriteReviewViewController
 
-class WriteReviewViewController: UIViewController {
+class WriteReviewViewController: UIViewController, PHPhotoLibraryChangeObserver {
+  
   
   // MARK: - Components
   
@@ -28,7 +31,6 @@ class WriteReviewViewController: UIViewController {
   let reviewphotoCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
-    layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     let collectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: layout)
     collectionView.isScrollEnabled = true
@@ -52,15 +54,19 @@ class WriteReviewViewController: UIViewController {
   final let maxLength = 150
   var nameCount = 0
   
-  private var photoList : [ReviewPhotoModel] = []
+  //  var photoList : [ReviewPhotoModel] = []
+  
+  var fetchResult: PHFetchResult<PHAsset>?
+  var canAccessImages: [UIImage] = []
   
   // MARK: - LifeCycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    //    PHPhotoLibrary.shared().register(self)
     layout()
     register()
-    setPhotoList()
+    //    setPhotoList()
     self.reviewphotoCollectionView.delegate = self
     self.reviewphotoCollectionView.dataSource = self
     self.navigationController?.navigationBar.isHidden = true
@@ -69,20 +75,34 @@ class WriteReviewViewController: UIViewController {
                                            selector: #selector(self.textDidChange(_:)),
                                            name: UITextView.textDidChangeNotification,
                                            object: self.reviewTextView)
-  }
-  func setPhotoList()
-  {
-    photoList.append(contentsOf: [
-      ReviewPhotoModel(PhotoImageView: "group637"),
-      ReviewPhotoModel(PhotoImageView: "group637"),
-      ReviewPhotoModel(PhotoImageView: "group637"),
-      ReviewPhotoModel(PhotoImageView: "group637"),
-      ReviewPhotoModel(PhotoImageView: "group637"),
-      ReviewPhotoModel(PhotoImageView: "group637")
-      
-    ])
+    
+    //    let requiredAccessLevel: PHAccessLevel = .readWrite
+    //    PHPhotoLibrary.requestAuthorization(for: requiredAccessLevel) { authorizationStatus in
+    //      switch authorizationStatus {
+    //      case .limited:
+    //        print("limited authorization granted")
+    //      case .authorized:
+    //        print("authorization granted")
+    //      default:
+    //        //FIXME: Implement handling for all authorizationStatus
+    //        print("Unimplemented")
+    //      }
+    //    }
   }
   
+  
+  //  func setPhotoList()
+  //  {
+  //    photoList.append(contentsOf: [
+  //      ReviewPhotoModel(PhotoImageView: "group637"),
+  //      ReviewPhotoModel(PhotoImageView: "group637"),
+  //      ReviewPhotoModel(PhotoImageView: "group637"),
+  //      ReviewPhotoModel(PhotoImageView: "group637"),
+  //      ReviewPhotoModel(PhotoImageView: "group637")
+  //
+  //    ])
+  //  }
+  //
   
 }
 
@@ -91,11 +111,15 @@ class WriteReviewViewController: UIViewController {
 
 extension WriteReviewViewController {
   
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    self.view.endEditing(true)
+  }
+  
   // MARK: - Helpers
   
   func register() {
     self.reviewphotoCollectionView.register(ReviewPhotoCollectionViewCell.self, forCellWithReuseIdentifier: ReviewPhotoCollectionViewCell.reuseIdentifier)
-    self.reviewphotoCollectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+    self.reviewphotoCollectionView.register(NewReviewPhotoCollectionViewCell.self, forCellWithReuseIdentifier: NewReviewPhotoCollectionViewCell.reuseIdentifier)
   }
   func layout() {
     layoutWriteScrollView()
@@ -212,7 +236,7 @@ extension WriteReviewViewController {
       $0.isUserInteractionEnabled = true
       $0.snp.makeConstraints {
         $0.top.equalTo(self.explainphotoLabel.snp.bottom).offset(15)
-        $0.leading.equalTo(self.writeScrollContainerView.snp.leading)
+        $0.leading.equalTo(self.photoLabel.snp.leading)
         $0.trailing.equalTo(self.writeScrollContainerView.snp.trailing)
         $0.height.equalTo(80)
       }
@@ -378,6 +402,7 @@ extension WriteReviewViewController {
   }
   
   // MARK: - General Helpers
+  
   @objc func tasteButtonClicked() {
     tasteButton.isSelected.toggle()
     if tasteButton.isSelected == true {
@@ -419,7 +444,54 @@ extension WriteReviewViewController {
       }
     }
   }
+  func addPhotoTab() {
+    self.requestPHPhotoLibraryAuthorization {
+      self.getCanAccessImages()
+    }
+  }
+  func requestPHPhotoLibraryAuthorization(completion: @escaping () -> Void) {
+    PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in
+      switch status {
+      case .limited:
+        completion()
+        PHPhotoLibrary.shared().register(self)
+      default:
+        completion()
+        PHPhotoLibrary.shared().register(self)
+        break
+      }
+    }
+  }
+  func getCanAccessImages() {
+    self.canAccessImages = []
+    let requestOptions = PHImageRequestOptions()
+    requestOptions.isSynchronous = true
+    let fetchOptions = PHFetchOptions()
+    self.fetchResult = PHAsset.fetchAssets(with: fetchOptions)
+    self.fetchResult?.enumerateObjects { (asset, _, _) in
+      PHImageManager().requestImage(for: asset,
+                                    targetSize: CGSize(width: 80, height: 80),
+                                    contentMode: .aspectFill,
+                                    options: requestOptions) { (image, info) in
+        guard let image = image
+        else { return };
+        self.canAccessImages.append(image); DispatchQueue.main.async {
+          //          self.reviewphotoCollectionView.insertItems(at: [IndexPath(item: self.canAccessImages.count - 1, section: 0)])
+          self.reviewphotoCollectionView.reloadData()
+          
+          
+        }
+      }
+      
+    }
+  }
+  func photoLibraryDidChange(_ changeInstance: PHChange) {
+    self.getCanAccessImages()
+  }
+  
 }
+
+
 
 // MARK: - ReviewTextView Delegate
 
@@ -451,29 +523,39 @@ extension WriteReviewViewController: UITextViewDelegate {
 }
 
 
-// MARK: - UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDataSource
 
 extension WriteReviewViewController : UICollectionViewDataSource
 {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return self.photoList.count
+    reviewphotoCollectionView.showsHorizontalScrollIndicator = false
+    return self.canAccessImages.count+1
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let photocell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewPhotoCollectionViewCell.reuseIdentifier,
-                                                             for: indexPath)
+    guard let emptyCell = collectionView.dequeueReusableCell(withReuseIdentifier: NewReviewPhotoCollectionViewCell.reuseIdentifier, for: indexPath) as? NewReviewPhotoCollectionViewCell else {
+      return UICollectionViewCell()
+    }
+    guard let photocell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewPhotoCollectionViewCell.reuseIdentifier, for: indexPath)
             as? ReviewPhotoCollectionViewCell
     else {return UICollectionViewCell() }
     
-    photocell.setData(photoView: photoList[indexPath.row].PhotoImageView)
-    photocell.backgroundColor = .gray3
-    photocell.awakeFromNib()
-    return photocell
+    if indexPath.item == 0 {
+      emptyCell.awakeFromNib()
+      return emptyCell
+    } else {
+      photocell.reviewPhotoImageView.image = self.canAccessImages[indexPath.item-1]
+      photocell.awakeFromNib()
+      return photocell
+    }
   }
-}
-extension WriteReviewViewController : UICollectionViewDelegate
-{
   
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    if indexPath.item == 0 {
+      self.addPhotoTab()
+    }
+    
+  }
 }
 
 extension WriteReviewViewController : UICollectionViewDelegateFlowLayout
@@ -488,14 +570,9 @@ extension WriteReviewViewController : UICollectionViewDelegateFlowLayout
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
     return UIEdgeInsets.zero
   }
-  
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    return 5
-  }
-  
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     return 3
   }
   
 }
+
