@@ -346,9 +346,9 @@
 		9292FFCF26983D9300BCD791 /* CategoryDetail */ = {
 			isa = PBXGroup;
 			children = (
-				9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */,
 				9292FFC926964AFA00BCD791 /* MyTagCollectionViewCell.swift */,
 				9292FFC72696352600BCD791 /* CategoryCafeListTableViewCell.swift */,
+				9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */,
 			);
 			path = CategoryDetail;
 			sourceTree = "<group>";
