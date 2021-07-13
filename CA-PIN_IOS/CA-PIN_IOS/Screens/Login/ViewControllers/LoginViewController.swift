@@ -112,6 +112,11 @@ extension LoginViewController {
       }).disposed(by: disposeBag)
   }
   
+  @objc func signUpButtonClicked() {
+    let dvc = SignUpViewController()
+    self.navigationController?.pushViewController(dvc, animated: false)
+  }
+  
   /// TextField 입력 체크하는 함수
   private func textFieldEditingCheck() {
     /// 텍스트가 입력중일 때 동작
@@ -335,6 +340,7 @@ extension LoginViewController {
     self.buttonContainerView.add(self.signupButton) {
       $0.setupButton(title: "회원가입", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14), backgroundColor: .clear, state: .normal, radius: 0)
       $0.titleLabel?.letterSpacing = -0.7
+      $0.addTarget(self, action: #selector(self.signUpButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.buttonContainerView.snp.top)
         $0.bottom.equalTo(self.buttonContainerView.snp.bottom)
