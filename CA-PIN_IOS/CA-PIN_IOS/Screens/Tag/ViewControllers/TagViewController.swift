@@ -7,6 +7,9 @@
 
 import UIKit
 
+import Moya
+import RxMoya
+import RxSwift
 import SnapKit
 import SwiftyColor
 import Then
@@ -29,6 +32,10 @@ class TagViewController: UIViewController {
                       "작업하기 좋은",
                       "산미없는 커피",
                       "산미있는 커피"]
+  var selectedTag: [Int] = []
+  
+  let disposeBag = DisposeBag()
+  let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -100,7 +107,7 @@ extension TagViewController {
   }
   func layoutResultButton() {
     view.add(resultButton) {
-      $0.setupButton(title: "\(self.resultCount ?? 0)건의 검색결과 보기",
+      $0.setupButton(title: "-건의 검색결과 보기",
                      color: .gray4,
                      font: .notoSansKRMediumFont(fontSize: 20),
                      backgroundColor: .gray1,
@@ -140,6 +147,32 @@ extension TagViewController {
     exitVC.modalPresentationStyle = .overFullScreen
     self.present(exitVC, animated: false, completion: nil)
   }
+  func setupCafeList() {
+    listProvider.rx.request(.cafeList(tags: selectedTag))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(MapListResponseArrayType<CafeLocation>.self,
+                                          from: response.data)
+            self.resultButton.setupButton(title: "\(data.cafeLocations?.count ?? 0)건의 검색결과 보기",
+                                          color: .gray1,
+                                          font: .notoSansKRMediumFont(fontSize: 20),
+                                          backgroundColor: .subcolorBrown3,
+                                          state: .normal,
+                                          radius: 0)
+            
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+        self.reloadInputViews()
+      }).disposed(by: disposeBag)
+  }
 }
 
 // MARK: - TagTableView Delegate
@@ -161,6 +194,7 @@ extension TagViewController: UITableViewDataSource {
       return UITableViewCell()
     }
     tagCell.awakeFromNib()
+    tagCell.rootViewController = self
     tagCell.tagButton.setTitle(self.buttonTitles[indexPath.row], for: .normal)
     tagCell.tagButton.setTitleColor(.pointcolor1, for: .normal)
     tagCell.tagButton.setBorder(borderColor: .pointcolor1, borderWidth: 2)
