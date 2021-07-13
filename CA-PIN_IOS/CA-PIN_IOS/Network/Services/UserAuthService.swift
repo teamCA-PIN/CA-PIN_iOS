@@ -58,7 +58,8 @@ extension UserAuthService: TargetType {
       return .requestCompositeParameters(bodyParameters: ["email": email,
                                                           "password": password,
                                                           "nickname": nickname],
-                                         bodyEncoding: JSONEncoding.default, urlParameters: .init())
+                                         bodyEncoding: JSONEncoding.default,
+                                         urlParameters: .init())
     }
   }
   

@@ -5,15 +5,19 @@
 //  Created by 노한솔 on 2021/06/30.
 //
 
+import Foundation
 import UIKit
 import CoreLocation
 
+import Moya
 import NMapsMap
+import RxMoya
+import RxSwift
 import SnapKit
 import Then
 
 // MARK: - MapViewController
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, NMFLocationManagerDelegate {
   
   // MARK: - Components
   let topView = UIView()
@@ -40,17 +44,23 @@ class MapViewController: UIViewController {
   var currentLatitude: Double?
   var currentLongitude: Double?
   var informationRevealed = false
-  
-  let coordinates: [NMGLatLng] = [NMGLatLng(lat: 37.5456374, lng: 126.922704),
-                                  NMGLatLng(lat: 37.598143153491826, lng: 126.90827045852954),
-                                  NMGLatLng(lat: 37.54919282143892, lng: 126.94772955370694)]
   var markers = [NMFMarker]()
   var currentMarkers = [NMFMarker]()
+  var tags: [Int] = []
+  var cafeListModel: [CafeLocation] = [CafeLocation(id: "1", latitude: 37.5260118, longitude: 127.0355868)]
+  var cafeDetailModel: CafeServerDetail?
+  var isSaved: Bool?
+  var rating: Float = 0
+  var coordinates: [NMGLatLng] = [NMGLatLng(lat: 36.1, lng: 107.2)]
+  var selectedMarker: NMFMarker?
   let locationComponent = NMFLocationManager.sharedInstance()
+  let disposeBag = DisposeBag()
+  let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
+    setupCafeList()
     self.navigationController?.navigationBar.isHidden = true
     self.mapView.mapView.touchDelegate = self
     setupMarker()
@@ -356,14 +366,24 @@ extension MapViewController {
   }
   @objc func tappedInformationView() {
     let detailView = CafeDetailViewController()
+    detailView.cafeModel = self.cafeDetailModel
     self.navigationController?.pushViewController(detailView, animated: false)
   }
   func setupMarker() {
     let handler = { (overlay: NMFOverlay) -> Bool in
-      self.informationView.isHidden = false
+      var id = ""
       if let marker = overlay as? NMFMarker {
+        self.selectedMarker?.iconImage = NMFOverlayImage(name: "pinInactiveDefault")
+        self.selectedMarker = marker
         marker.iconImage = NMFOverlayImage(name: "pinActiveDefault")
+        for coordinate in self.coordinates {
+          if marker.position == coordinate {
+            let index = self.coordinates.lastIndex(of: coordinate)
+            id = self.cafeListModel[index ?? 0].id
+          }
+        }
       }
+      self.setupCafeInformation(cafeId: id)
       return true
     }
     
@@ -396,6 +416,61 @@ extension MapViewController {
       }
     }
   }
+  func setupCafeList() {
+    listProvider.rx.request(.cafeList(tags: tags))
+          .asObservable()
+          .subscribe(onNext: { response in
+            if response.statusCode == 200 {
+              do {
+                let decoder = JSONDecoder()
+                let data = try decoder.decode(MapListResponseArrayType<CafeLocation>.self,
+                                              from: response.data)
+                self.cafeListModel = data.cafeLocations ?? [CafeLocation(id: "1", latitude: 37.5260118, longitude: 127.0355868)]
+                self.coordinates.removeAll()
+                for cafe in self.cafeListModel {
+                  self.coordinates.append(NMGLatLng(lat: cafe.latitude, lng: cafe.longitude))
+                }
+                print(self.coordinates)
+              } catch {
+                print(error)
+              }
+            }
+          }, onError: { error in
+            print(error)
+          }, onCompleted: {
+            self.reloadInputViews()
+          }).disposed(by: disposeBag)
+  }
+  func setupCafeInformation(cafeId: String) {
+    listProvider.rx.request(.cafeDetail(cafeId: cafeId))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(CafeDetailResponseType<CafeServerDetail>.self,
+                                          from: response.data)
+            self.cafeDetailModel = data.cafeDetail!
+            self.rating = data.average ?? 0
+            self.isSaved = data.isSaved
+            self.informationViewDataBind()
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
+  }
+  func informationViewDataBind() {
+    informationTitleLabel.text = self.cafeDetailModel?.name
+    informationStarLabel.text = "\(self.rating)"
+    informationImageView.setImage(from: (self.cafeDetailModel?.cafeImg) ?? "", UIImage(named: "image176")!)
+    informationContextLabel.text = self.cafeDetailModel?.address
+    informationTagLabel.text = self.cafeDetailModel?.tags[0].name
+    informationView.isHidden = false
+  }
 }
 
 
@@ -404,6 +479,8 @@ extension MapViewController: NMFMapViewTouchDelegate {
     if self.informationView.isHidden == false {
       self.informationView.isHidden = true
       self.viewWillAppear(true)
+      selectedMarker?.iconImage = NMFOverlayImage(name: "pinInactiveDefault")
+      selectedMarker = nil
     }
     for marker in currentMarkers {
       marker.iconImage =  NMFOverlayImage(name: "pinInactiveDefault")
@@ -414,15 +491,82 @@ extension MapViewController: NMFMapViewTouchDelegate {
 extension MapViewController: NMFMapViewCameraDelegate {
   func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
     for marker in currentMarkers {
-      marker.mapView = nil
+      if marker != selectedMarker {
+        marker.mapView = nil
+      }
     }
     currentMarkers.removeAll()
     self.setupMarker()
-    print("여기야여기")
-    print(self.currentMarkers.count)
   }
 }
 
-extension MapViewController: NMFLocationManagerDelegate {
-  
+
+struct MapListResponseArrayType<T: Codable>: Codable {
+    var status: Int?
+    var success: Bool?
+    var message: String?
+    var cafeLocations: [T]?
+}
+
+struct CafeDetailResponseType<T: Codable>: Codable {
+    var status: Int?
+    var success: Bool?
+    var message: String?
+    var cafeDetail: T?
+  var isSaved: Bool
+  var average: Float?
+}
+
+
+// MARK: - CafeListModel
+struct CafeListModel: Codable {
+    let message: String
+    let cafeLocations: [CafeLocation]?
+}
+
+// MARK: - CafeLocation
+struct CafeLocation: Codable {
+    let id: String
+    let latitude, longitude: Double
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case latitude, longitude
+    }
+}
+
+// MARK: - CafeDetailModel
+struct CafeServerDetailModel: Codable {
+    let message: String
+    let cafeDetail: CafeServerDetail
+    let isSaved: Bool
+    let average: Double
+}
+
+// MARK: - CafeDetail
+struct CafeServerDetail: Codable {
+    let tags: [ServerTag]
+    let id, name, address: String
+    let opentime, opentimeHoliday, closetime, closetimeHoliday: String?
+  let cafeImg, instagram: String?
+    let offday: [String]?
+    let latitude, longitude: Double
+
+    enum CodingKeys: String, CodingKey {
+        case tags
+        case id = "_id"
+        case name, address, instagram, opentime, opentimeHoliday, closetime, closetimeHoliday, offday, latitude, longitude, cafeImg
+    }
+}
+
+// MARK: - Tag
+struct ServerTag: Codable {
+    let id: String
+    let tagIdx: Int
+    let name: String
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case tagIdx, name
+    }
 }

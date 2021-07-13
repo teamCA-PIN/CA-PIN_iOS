@@ -5,18 +5,34 @@
 //  Created by 김지수 on 2021/07/09.
 //
 
+import Photos
+import PhotosUI
 import UIKit
 
 import SnapKit
 import SwiftyColor
 import Then
 
+import YPImagePicker
+
 // MARK: - WriteReviewViewController
 
 class WriteReviewViewController: UIViewController {
   
   // MARK: - Components
-  
+  var config : YPImagePickerConfiguration {
+    var temp = YPImagePickerConfiguration()
+    temp.usesFrontCamera = false
+    temp.screens = [.library, .photo]
+    temp.library.maxNumberOfItems = 10
+    temp.library.defaultMultipleSelection = true
+    temp.showsPhotoFilters = false
+    temp.onlySquareImagesFromCamera = false
+    temp.hidesBottomBar = false
+    temp.hidesCancelButton = false
+    temp.library.skipSelectionsGallery = true
+    return temp
+  }
   let writeScrollView = UIScrollView()
   let writeScrollContainerView = UIView()
   let topcontainerview = UIView()
@@ -28,7 +44,6 @@ class WriteReviewViewController: UIViewController {
   let reviewphotoCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
-    layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     let collectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: layout)
     collectionView.isScrollEnabled = true
@@ -52,7 +67,10 @@ class WriteReviewViewController: UIViewController {
   final let maxLength = 150
   var nameCount = 0
   
-  private var photoList : [ReviewPhotoModel] = []
+  
+  
+  var fetchResult: PHFetchResult<PHAsset>?
+  var canAccessImages: [UIImage] = []
   
   // MARK: - LifeCycle
   
@@ -60,7 +78,6 @@ class WriteReviewViewController: UIViewController {
     super.viewDidLoad()
     layout()
     register()
-    setPhotoList()
     self.reviewphotoCollectionView.delegate = self
     self.reviewphotoCollectionView.dataSource = self
     self.navigationController?.navigationBar.isHidden = true
@@ -70,32 +87,21 @@ class WriteReviewViewController: UIViewController {
                                            name: UITextView.textDidChangeNotification,
                                            object: self.reviewTextView)
   }
-  func setPhotoList()
-  {
-    photoList.append(contentsOf: [
-      ReviewPhotoModel(PhotoImageView: "group637"),
-      ReviewPhotoModel(PhotoImageView: "group637"),
-      ReviewPhotoModel(PhotoImageView: "group637"),
-      ReviewPhotoModel(PhotoImageView: "group637"),
-      ReviewPhotoModel(PhotoImageView: "group637"),
-      ReviewPhotoModel(PhotoImageView: "group637")
-      
-    ])
-  }
-  
-  
 }
-
 
 // MARK: - Extension
 
 extension WriteReviewViewController {
   
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    self.view.endEditing(true)
+  }
+  
   // MARK: - Helpers
   
   func register() {
     self.reviewphotoCollectionView.register(ReviewPhotoCollectionViewCell.self, forCellWithReuseIdentifier: ReviewPhotoCollectionViewCell.reuseIdentifier)
-    self.reviewphotoCollectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+    self.reviewphotoCollectionView.register(NewReviewPhotoCollectionViewCell.self, forCellWithReuseIdentifier: NewReviewPhotoCollectionViewCell.reuseIdentifier)
   }
   func layout() {
     layoutWriteScrollView()
@@ -212,7 +218,7 @@ extension WriteReviewViewController {
       $0.isUserInteractionEnabled = true
       $0.snp.makeConstraints {
         $0.top.equalTo(self.explainphotoLabel.snp.bottom).offset(15)
-        $0.leading.equalTo(self.writeScrollContainerView.snp.leading)
+        $0.leading.equalTo(self.photoLabel.snp.leading)
         $0.trailing.equalTo(self.writeScrollContainerView.snp.trailing)
         $0.height.equalTo(80)
       }
@@ -378,6 +384,7 @@ extension WriteReviewViewController {
   }
   
   // MARK: - General Helpers
+  
   @objc func tasteButtonClicked() {
     tasteButton.isSelected.toggle()
     if tasteButton.isSelected == true {
@@ -419,7 +426,49 @@ extension WriteReviewViewController {
       }
     }
   }
+  
+  
+  func cameraWork() {
+    let picker = YPImagePicker(configuration: self.config)
+    picker.didFinishPicking{ [unowned picker] items, _ in
+      if let photo = items.singlePhoto {
+        self.canAccessImages.append(photo.image)
+      }
+      self.reviewphotoCollectionView.reloadData()
+      picker.dismiss(animated: true, completion: nil)
+      
+    }
+    present(picker, animated: true, completion: nil)
+  }
+  
+  func photoLibraryWork() {
+    let picker = YPImagePicker(configuration: config)
+    picker.didFinishPicking{ [unowned picker] items, cancelled in
+      for item in items {
+        switch item {
+        case .photo(let photo):
+          print(photo.image)
+          if !self.canAccessImages.contains(photo.image){
+            self.canAccessImages.append(photo.image)
+            if items.count > 5 {
+              print("ASD")
+              // 토스트 메세지
+              // 추가 안되게 !
+            }
+          }
+        case .video(v: _):
+          print("비디오")
+        }
+      }
+      self.reviewphotoCollectionView.reloadData()
+      picker.dismiss(animated: true, completion: nil)
+    }
+    picker.modalPresentationStyle = .overCurrentContext
+    self.present(picker, animated: true, completion: nil)
+  }
 }
+
+
 
 // MARK: - ReviewTextView Delegate
 
@@ -451,30 +500,44 @@ extension WriteReviewViewController: UITextViewDelegate {
 }
 
 
-// MARK: - UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDataSource
 
 extension WriteReviewViewController : UICollectionViewDataSource
 {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return self.photoList.count
+    reviewphotoCollectionView.showsHorizontalScrollIndicator = false
+    return self.canAccessImages.count+1
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let photocell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewPhotoCollectionViewCell.reuseIdentifier,
-                                                             for: indexPath)
+    guard let emptyCell = collectionView.dequeueReusableCell(withReuseIdentifier: NewReviewPhotoCollectionViewCell.reuseIdentifier, for: indexPath) as? NewReviewPhotoCollectionViewCell else {
+      return UICollectionViewCell()
+    }
+    guard let photocell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewPhotoCollectionViewCell.reuseIdentifier, for: indexPath)
             as? ReviewPhotoCollectionViewCell
     else {return UICollectionViewCell() }
     
-    photocell.setData(photoView: photoList[indexPath.row].PhotoImageView)
-    photocell.backgroundColor = .gray3
-    photocell.awakeFromNib()
-    return photocell
+    if indexPath.item == 0 {
+      emptyCell.awakeFromNib()
+      return emptyCell
+    } else {
+      photocell.reviewPhotoImageView.image = self.canAccessImages[indexPath.item-1]
+      photocell.setRounded(radius: 5)
+      if canAccessImages.count > 5 {
+      }
+      photocell.awakeFromNib()
+      return photocell
+    }
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    if indexPath.item == 0 {
+      self.photoLibraryWork()
+    }
+    
   }
 }
-extension WriteReviewViewController : UICollectionViewDelegate
-{
-  
-}
+
 
 extension WriteReviewViewController : UICollectionViewDelegateFlowLayout
 {
@@ -488,14 +551,9 @@ extension WriteReviewViewController : UICollectionViewDelegateFlowLayout
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
     return UIEdgeInsets.zero
   }
-  
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    return 5
-  }
-  
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     return 3
   }
   
 }
+

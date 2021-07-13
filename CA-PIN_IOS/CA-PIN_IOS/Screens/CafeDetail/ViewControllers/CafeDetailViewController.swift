@@ -54,26 +54,30 @@ class CafeDetailViewController: UIViewController {
   
   let gradationBlackColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
   let gradationWhiteColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3)
+  
+  var rating: Float?
+  var isSaved: Bool?
   var threshold = true
-  var cafeModel: CafeDetail = CafeDetail(tags: [Tag(id: "a", name: "커피맛집"),
-                                                Tag(id: "b", name: "디저트맛집"),
-                                                Tag(id: "c", name: "그루비"),
-                                                Tag(id: "d", name: "작업하기좋은"),
-                                                Tag(id: "e", name: "조용한"),
-                                                Tag(id: "f", name: "친절한"),
-                                                Tag(id: "g", name: "채광좋은"),],
-                                         offday: [0],
-                                         id: "1",
-                                         name: "후엘고",
-                                         cafeImg: "adsf",
-                                         address: "서울 마포구 마포대로11길 118 1층 (염리동)",
-                                         latitude: 123,
-                                         longitude: 213,
-                                         insta: "@huelgocoffee",
-                                         opentime: "11:00",
-                                         closetime: "22:00",
-                                         isSaved: true,
-                                         rating: 4.5)
+//  var cafeModel: CafeDetail = CafeDetail(tags: [Tag(id: "a", name: "커피맛집"),
+//                                                Tag(id: "b", name: "디저트맛집"),
+//                                                Tag(id: "c", name: "그루비"),
+//                                                Tag(id: "d", name: "작업하기좋은"),
+//                                                Tag(id: "e", name: "조용한"),
+//                                                Tag(id: "f", name: "친절한"),
+//                                                Tag(id: "g", name: "채광좋은"),],
+//                                         offday: [0],
+//                                         id: "1",
+//                                         name: "후엘고",
+//                                         cafeImg: "adsf",
+//                                         address: "서울 마포구 마포대로11길 118 1층 (염리동)",
+//                                         latitude: 123,
+//                                         longitude: 213,
+//                                         insta: "@huelgocoffee",
+//                                         opentime: "11:00",
+//                                         closetime: "22:00",
+//                                         isSaved: true,
+//                                         rating: 4.5)
+  var cafeModel: CafeServerDetail?
   var reviewModel: [Review] = [Review(id: "1",
                                       nickname: "쿼카",
                                       date: "2021-01-20",
@@ -484,13 +488,13 @@ extension CafeDetailViewController {
   
   // MARK: - General Helpers
   func dataBind() {
-    self.titleLabel.setupLabel(text: self.cafeModel.name, color: .black, font: .notoSansKRMediumFont(fontSize: 20))
-    self.cafeTitleLabel.setupLabel(text: self.cafeModel.name, color: .black, font: .notoSansKRMediumFont(fontSize: 26))
-    self.starRatingLabel.setupLabel(text: "\(self.cafeModel.rating)/5", color: .pointcolorYellow, font: .notoSansKRMediumFont(fontSize: 20))
-    self.addressLabel.setupLabel(text: self.cafeModel.address, color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
-    self.instagramLabel.setupLabel(text: self.cafeModel.insta, color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
+    self.titleLabel.setupLabel(text: self.cafeModel?.name ?? "", color: .black, font: .notoSansKRMediumFont(fontSize: 20))
+    self.cafeTitleLabel.setupLabel(text: self.cafeModel?.name ?? "", color: .black, font: .notoSansKRMediumFont(fontSize: 26))
+    self.starRatingLabel.setupLabel(text: "\(self.rating ?? 0)/5", color: .pointcolorYellow, font: .notoSansKRMediumFont(fontSize: 20))
+    self.addressLabel.setupLabel(text: self.cafeModel?.address ?? "", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+    self.instagramLabel.setupLabel(text: self.cafeModel?.instagram ?? "", color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
     self.clockLabel.setupLabel(
-      text: "\(self.cafeModel.opentime)-\(self.cafeModel.closetime)(\(self.offdays[self.cafeModel.offday[0]]))",
+      text: "\(self.cafeModel?.opentime)-\(self.cafeModel?.closetime)(\(self.cafeModel?.offday?[0])휴무",
       color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
   }
   func register() {
@@ -534,7 +538,7 @@ extension CafeDetailViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     var width: CGFloat = 0
     let height: CGFloat = 27
-    switch cafeModel.tags[indexPath.item].id {
+    switch cafeModel?.tags[indexPath.item].id {
     case "a":
       width = 69
     case "b":
@@ -564,14 +568,14 @@ extension CafeDetailViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - TagCollectionView DataSource
 extension CafeDetailViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return cafeModel.tags.count
+    return cafeModel?.tags.count ?? 0
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.reuseIdentifier, for: indexPath) as? TagCollectionViewCell else {
       return UICollectionViewCell()
     }
-    tagCell.dataBind(tagName: cafeModel.tags[indexPath.item].name)
+    tagCell.dataBind(tagName: cafeModel?.tags[indexPath.item].name ?? "")
     tagCell.awakeFromNib()
     return tagCell
   }

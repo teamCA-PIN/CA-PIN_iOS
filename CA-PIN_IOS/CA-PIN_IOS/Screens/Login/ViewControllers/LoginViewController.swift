@@ -8,7 +8,12 @@
 import UIKit
 
 import SnapKit
+import Moya
+import RxMoya
+import RxSwift
+import SwiftKeychainWrapper
 import Then
+
 
 // MARK: - LoginViewController
 class LoginViewController: UIViewController {
@@ -27,6 +32,10 @@ class LoginViewController: UIViewController {
   let buttonContainerView = UIView()
   let findPasswordButton = UIButton()
   let signupButton = UIButton()
+  let appDel : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+  
+  let disposeBag = DisposeBag()
+  private let UserAuthProvider = MoyaProvider<UserAuthService>()
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
@@ -73,6 +82,42 @@ extension LoginViewController {
     cancelPasswordTextingButton.isHidden = true
     loginButton.isEnabled = false
   }
+  
+  /// 로그인 서버 연결
+  @objc func loginButtonClicked() {
+    appDel.isLoginManually = true
+    
+    guard let emailText = emailTextField.text,
+          let passwordText = passwordTextField.text else { return }
+    UserAuthProvider.rx.request(.login(email: emailText, password: passwordText))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(ResponseType<LoginData>.self,
+                                          from: response.data)
+            KeychainWrapper.standard.set(emailText, forKey: "loginEmail")
+            KeychainWrapper.standard.set(passwordText, forKey: "loginPassword")
+            KeychainWrapper.standard.set(data.loginData!.token, forKey: "userToken")
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+        let mapVC = MapViewController()
+        self.navigationController?.pushViewController(mapVC, animated: false)
+      }).disposed(by: disposeBag)
+  }
+  
+  @objc func signUpButtonClicked() {
+    let dvc = SignUpViewController()
+    self.navigationController?.pushViewController(dvc, animated: false)
+//    self.showGrayToast(message: "안녕")
+  }
+  
   /// TextField 입력 체크하는 함수
   private func textFieldEditingCheck() {
     /// 텍스트가 입력중일 때 동작
@@ -134,11 +179,6 @@ extension LoginViewController {
   /// 뷰의 다른 곳 탭하면 키보드 내려가게
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     self.view.endEditing(true)
-    /// 비번 텍필까지 보이게 올리면 다시 잡는거 필요함
-    self.emailLabel.snp.remakeConstraints {
-      $0.top.equalTo(self.logoImageView.snp.bottom).offset(84)
-      $0.leading.equalTo(self.view.snp.leading).offset(48)
-    }
   }
   @objc func emailCancelButtonClicked() {
     // emailTextField의 텍스트 전부를 지우고, 취소버튼을 사라지게 한다
@@ -264,6 +304,7 @@ extension LoginViewController {
       $0.titleLabel?.letterSpacing = -0.48
       $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
       $0.backgroundColor = .gray3
+      $0.addTarget(self, action: #selector(self.loginButtonClicked), for: .touchUpInside)
       $0.setRounded(radius: 24.5)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.passwordBorderView.snp.bottom).offset(42)
@@ -300,6 +341,7 @@ extension LoginViewController {
     self.buttonContainerView.add(self.signupButton) {
       $0.setupButton(title: "회원가입", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14), backgroundColor: .clear, state: .normal, radius: 0)
       $0.titleLabel?.letterSpacing = -0.7
+      $0.addTarget(self, action: #selector(self.signUpButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.buttonContainerView.snp.top)
         $0.bottom.equalTo(self.buttonContainerView.snp.bottom)
@@ -329,12 +371,6 @@ extension LoginViewController: UITextFieldDelegate {
   @objc func keyboardWillShow(_ notification: NSNotification) {
     if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
       UIView.animate(withDuration: 0.3, animations: { self.view.transform = CGAffineTransform(translationX: 0, y: -50) })
-      /// 로그인까지 보일 때 -> -60
-      self.emailLabel.snp.remakeConstraints {
-        $0.top.equalTo(self.logoImageView.snp.bottom).offset(30)
-        $0.leading.equalTo(self.view.snp.leading).offset(48)
-      }
-//      /// 비번 텍필까지 보일 때 ->  -50
     }
   }
   @objc func keyboardWillDisappear(_ notification: NSNotification){

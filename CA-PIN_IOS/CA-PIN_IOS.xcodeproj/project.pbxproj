@@ -22,6 +22,10 @@
 		92537083269B23E400E2E5EA /* ReviewImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92537082269B23E400E2E5EA /* ReviewImageCollectionViewCell.swift */; };
 		92537085269C37ED00E2E5EA /* DeletePinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92537084269C37ED00E2E5EA /* DeletePinViewController.swift */; };
 		92537087269C7FAD00E2E5EA /* EditCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92537086269C7FAD00E2E5EA /* EditCategoryViewController.swift */; };
+		9253708A269C95E300E2E5EA /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92537089269C95E300E2E5EA /* LoginModel.swift */; };
+		9253708C269C9CFB00E2E5EA /* ResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253708B269C9CFB00E2E5EA /* ResponseType.swift */; };
+		9253708F269D8F3800E2E5EA /* SignupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253708E269D8F3800E2E5EA /* SignupModel.swift */; };
+		92537091269D959F00E2E5EA /* UINavigationController+Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92537090269D959E00E2E5EA /* UINavigationController+Root.swift */; };
 		9292FFC82696352600BCD791 /* CategoryCafeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292FFC72696352600BCD791 /* CategoryCafeListTableViewCell.swift */; };
 		9292FFCA26964AFA00BCD791 /* MyTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292FFC926964AFA00BCD791 /* MyTagCollectionViewCell.swift */; };
 		9292FFCD26964DF400BCD791 /* EmptyCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */; };
@@ -118,6 +122,7 @@
 		E8818961269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8818960269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift */; };
 		E8818963269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8818962269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift */; };
 		E8818966269C2AF200B884FB /* ReviewPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8818965269C2AF200B884FB /* ReviewPhotoModel.swift */; };
+		E8818969269DE35C00B884FB /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = E8818968269DE35C00B884FB /* YPImagePicker */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +162,10 @@
 		92537082269B23E400E2E5EA /* ReviewImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		92537084269C37ED00E2E5EA /* DeletePinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePinViewController.swift; sourceTree = "<group>"; };
 		92537086269C7FAD00E2E5EA /* EditCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryViewController.swift; sourceTree = "<group>"; };
+		92537089269C95E300E2E5EA /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		9253708B269C9CFB00E2E5EA /* ResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseType.swift; sourceTree = "<group>"; };
+		9253708E269D8F3800E2E5EA /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
+		92537090269D959E00E2E5EA /* UINavigationController+Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Root.swift"; sourceTree = "<group>"; };
 		9292FFC72696352600BCD791 /* CategoryCafeListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCafeListTableViewCell.swift; sourceTree = "<group>"; };
 		9292FFC926964AFA00BCD791 /* MyTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -269,6 +278,7 @@
 				CCF7843A268B082A005FDF1D /* ReactiveMoya in Frameworks */,
 				CCF7842A268B0781005FDF1D /* SnapKit in Frameworks */,
 				CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */,
+				E8818969269DE35C00B884FB /* YPImagePicker in Frameworks */,
 				CCF7843D268B08C2005FDF1D /* SwiftKeychainWrapper in Frameworks */,
 				7B80170D951C27BD4B4456D6 /* Pods_CA_PIN_IOS.framework in Frameworks */,
 			);
@@ -323,6 +333,22 @@
 			path = Review;
 			sourceTree = "<group>";
 		};
+		92537088269C95CB00E2E5EA /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				92537089269C95E300E2E5EA /* LoginModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		9253708D269D8F2600E2E5EA /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				9253708E269D8F3800E2E5EA /* SignupModel.swift */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
 		9292FFCE26983D8900BCD791 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,9 +362,9 @@
 		9292FFCF26983D9300BCD791 /* CategoryDetail */ = {
 			isa = PBXGroup;
 			children = (
-				9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */,
 				9292FFC926964AFA00BCD791 /* MyTagCollectionViewCell.swift */,
 				9292FFC72696352600BCD791 /* CategoryCafeListTableViewCell.swift */,
+				9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */,
 			);
 			path = CategoryDetail;
 			sourceTree = "<group>";
@@ -613,6 +639,7 @@
 			children = (
 				CC7BB2F3269C2C6F0079FC4F /* Services */,
 				CC7BB2F1269C2B790079FC4F /* MoyaNetworkLogger.swift */,
+				9253708B269C9CFB00E2E5EA /* ResponseType.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -675,6 +702,7 @@
 				CCA85B502688F29600C9A32C /* UIViewController+.swift */,
 				CCF78444268B197A005FDF1D /* UILabel+.swift */,
 				CCF78442268B197A005FDF1D /* UITextField+.swift */,
+				92537090269D959E00E2E5EA /* UINavigationController+Root.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -754,6 +782,8 @@
 		E8244CD026974603007E63ED /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9253708D269D8F2600E2E5EA /* Signup */,
+				92537088269C95CB00E2E5EA /* Login */,
 				E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */,
 				CC6468D12698B89F00CF848A /* CafeDetailModel.swift */,
 				CC6468D32698B8A600CF848A /* ReviewListModel.swift */,
@@ -819,6 +849,7 @@
 				CCF7843F268B08E4005FDF1D /* SwiftyColor */,
 				CC481FFD2698A00300D7F280 /* CollectionViewCenteredFlowLayout */,
 				CC7BB2ED269B8E800079FC4F /* Cosmos */,
+				E8818968269DE35C00B884FB /* YPImagePicker */,
 			);
 			productName = "CA-PIN_IOS";
 			productReference = CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */;
@@ -905,6 +936,7 @@
 				CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */,
 				CC481FFC2698A00200D7F280 /* XCRemoteSwiftPackageReference "CollectionViewCenteredFlowLayout" */,
 				CC7BB2EC269B8E800079FC4F /* XCRemoteSwiftPackageReference "Cosmos" */,
+				E8818967269DE35B00B884FB /* XCRemoteSwiftPackageReference "YPImagePicker" */,
 			);
 			productRefGroup = CCA85AF22688ED6F00C9A32C /* Products */;
 			projectDirPath = "";
@@ -1092,6 +1124,7 @@
 				929AD4DC268EEB150071C394 /* SignUpViewController.swift in Sources */,
 				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,
 				E8818963269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift in Sources */,
+				9253708C269C9CFB00E2E5EA /* ResponseType.swift in Sources */,
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				9241370F269457A80016D18F /* MyReviewTableViewCell.swift in Sources */,
@@ -1100,6 +1133,7 @@
 				CCB6C66C268F41E800941E92 /* CreateCategoryViewController.swift in Sources */,
 				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
+				9253708F269D8F3800E2E5EA /* SignupModel.swift in Sources */,
 				925370792698F4DD00E2E5EA /* MyEmptyCategoryTableViewCell.swift in Sources */,
 				9292FFC82696352600BCD791 /* CategoryCafeListTableViewCell.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
@@ -1111,6 +1145,7 @@
 				CC6468D62699E6F300CF848A /* EntireReviewViewController.swift in Sources */,
 				CC45A17C26942BEA00E68817 /* TermsGeneralTableViewCell.swift in Sources */,
 				CC45A17E26942BF400E68817 /* TermsVersionTableViewCell.swift in Sources */,
+				92537091269D959F00E2E5EA /* UINavigationController+Root.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,
 				CCB6C665268F044400941E92 /* PinPopupViewController.swift in Sources */,
 				E8818966269C2AF200B884FB /* ReviewPhotoModel.swift in Sources */,
@@ -1144,6 +1179,7 @@
 				92537081269A451100E2E5EA /* DeleteReviewViewController.swift in Sources */,
 				E8244CC72697382B007E63ED /* CAFETITest22ViewController.swift in Sources */,
 				CC7BB2F9269C2FCE0079FC4F /* CafeTIService.swift in Sources */,
+				9253708A269C95E300E2E5EA /* LoginModel.swift in Sources */,
 				E83045B926957843004BD355 /* CAFETIResultViewController.swift in Sources */,
 				E8244CCB26974238007E63ED /* CafeMenuTableViewCell.swift in Sources */,
 				E8244CC6269731AA007E63ED /* CafeMenuViewController.swift in Sources */,
@@ -1574,6 +1610,14 @@
 				minimumVersion = 1.2.1;
 			};
 		};
+		E8818967269DE35B00B884FB /* XCRemoteSwiftPackageReference "YPImagePicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Yummypets/YPImagePicker";
+			requirement = {
+				branch = spm;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1636,6 +1680,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */;
 			productName = SwiftyColor;
+		};
+		E8818968269DE35C00B884FB /* YPImagePicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E8818967269DE35B00B884FB /* XCRemoteSwiftPackageReference "YPImagePicker" */;
+			productName = YPImagePicker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
