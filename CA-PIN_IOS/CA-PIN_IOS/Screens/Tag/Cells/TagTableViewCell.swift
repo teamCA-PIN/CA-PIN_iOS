@@ -83,7 +83,6 @@ extension TagTableViewCell {
     changeBackground()
     rootVC.setupCafeList()
     rootVC.reloadInputViews()
-   
   }
   func changeBackground() {
     if self.tagButton.isSelected == true {

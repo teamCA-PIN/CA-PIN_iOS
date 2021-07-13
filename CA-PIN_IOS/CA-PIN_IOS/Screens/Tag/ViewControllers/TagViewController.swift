@@ -107,12 +107,20 @@ extension TagViewController {
   }
   func layoutResultButton() {
     view.add(resultButton) {
-      $0.setupButton(title: "-건의 검색결과 보기",
+      var titleText = ""
+      if self.selectedTag.isEmpty {
+        titleText = "- 건의 검색결과 보기"
+      }
+      else {
+        self.setupCafeList()
+      }
+      $0.setupButton(title: titleText,
                      color: .gray4,
                      font: .notoSansKRMediumFont(fontSize: 20),
                      backgroundColor: .gray1,
                      state: .normal,
                      radius: 0)
+      $0.addTarget(self, action: #selector(self.pop), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.leading.trailing.equalToSuperview()
         $0.bottom.equalTo(self.view.snp.bottom).offset(-self.view.safeAreaInsets.bottom-50)
@@ -140,6 +148,8 @@ extension TagViewController {
     self.tagTableView.register(TagTableViewCell.self, forCellReuseIdentifier: TagTableViewCell.reuseIdentifier)
   }
   @objc func pop() {
+    let mapVC = self.navigationController?.children[0] as? MapViewController
+    mapVC?.tags = self.selectedTag
     self.navigationController?.popViewController(animated: false)
   }
   @objc func clickedCloseButton() {
@@ -147,6 +157,7 @@ extension TagViewController {
     exitVC.modalPresentationStyle = .overFullScreen
     self.present(exitVC, animated: false, completion: nil)
   }
+
   func setupCafeList() {
     listProvider.rx.request(.cafeList(tags: selectedTag))
       .asObservable()
@@ -157,7 +168,7 @@ extension TagViewController {
             let data = try decoder.decode(MapListResponseArrayType<CafeLocation>.self,
                                           from: response.data)
             self.resultButton.setupButton(title: "\(data.cafeLocations?.count ?? 0)건의 검색결과 보기",
-                                          color: .gray1,
+                                          color: .white,
                                           font: .notoSansKRMediumFont(fontSize: 20),
                                           backgroundColor: .subcolorBrown3,
                                           state: .normal,
@@ -196,8 +207,18 @@ extension TagViewController: UITableViewDataSource {
     tagCell.awakeFromNib()
     tagCell.rootViewController = self
     tagCell.tagButton.setTitle(self.buttonTitles[indexPath.row], for: .normal)
-    tagCell.tagButton.setTitleColor(.pointcolor1, for: .normal)
     tagCell.tagButton.setBorder(borderColor: .pointcolor1, borderWidth: 2)
+    for tag in selectedTag {
+      if tag == indexPath.row {
+        tagCell.tagButton.setTitleColor(.white, for: .normal)
+        tagCell.tagButton.isSelected.toggle()
+        tagCell.changeBackground()
+      }
+      else {
+        tagCell.tagButton.setTitleColor(.pointcolor1, for: .normal)
+        tagCell.changeBackground()
+      }
+    }
     return tagCell
   }
 }
