@@ -1,11 +1,10 @@
 //
 //  UINavigationController+Root.swift
-//  CA-PIN_IOS
 //
-//  Created by 장서현 on 2021/07/13.
+//  Created by Rigoberto Sáenz Imbacuán (https://www.linkedin.com/in/rsaenzi/)
+//  Copyright © 2017. All rights reserved.
 //
-
-import Foundation
+import UIKit
 
 extension UINavigationController {
     

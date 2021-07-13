@@ -39,16 +39,17 @@ class SignUpViewController: UIViewController {
   
   let disposeBag = DisposeBag()
   private let UserAuthProvider = MoyaProvider<UserAuthService>()
-  
-  var isSame: Bool = false /// 비밀번호가 일치하는지 보려구
+  var isSame: Bool = false
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBar.isHidden = true
     layout()
-//    self.signUpButton.isEnabled = false
-    self.isSame = false
+    attribute()
+    setTextField()
+    keyboardObserver()
+    self.signUpButton.isEnabled = false
   }
 }
 
@@ -82,25 +83,32 @@ extension SignUpViewController {
     self.passwordTextField.delegate = self
     self.checkPasswordTextField.delegate = self
   }
+  func setTextField() {
+    self.userNameTextField.clearButtonMode = .whileEditing
+    self.emailTextField.clearButtonMode = .whileEditing
+    self.passwordTextField.clearButtonMode = .whileEditing
+    self.checkPasswordTextField.clearButtonMode = .whileEditing
+    self.passwordTextField.isSecureTextEntry = true
+    self.checkPasswordTextField.isSecureTextEntry = true
+  }
   @objc func backButtonClicked() {
     self.navigationController?.popViewController(animated: false)
   }
   @objc func signUpButtonClicked() {
-    // TODO: - 회원가입 서버 연결
     guard let nicknameText = userNameTextField.text,
           let emailText = emailTextField.text,
           let passwordText = passwordTextField.text else { return }
-
     UserAuthProvider.rx.request(.signup(email: emailText, password: passwordText, nickname: nicknameText))
       .asObservable()
       .subscribe(onNext: { response in
-        if response.statusCode == 200 { /// 회원가입 성공
+        if response.statusCode == 201 { /// 회원가입 성공
           do {
             let decoder = JSONDecoder()
-            /// 왜 안찍혔을까요 ~
-            print("회원가입 성공!")
             let data = try decoder.decode(Response.self, from: response.data)
-            print(data.message)
+            let loginVC = self.navigationController?.children[0]
+            self.navigationController?.popViewController(animated: false, completion: {
+              loginVC?.showGreenToast(message: "가입이 완료되었습니다.")
+            })
           }
           catch {
             print(error)
@@ -108,18 +116,16 @@ extension SignUpViewController {
         }
         else { /// 회원가입 실패 -> 분기처리
           do {
-            print("회원가입 실패!")
             let decoder = JSONDecoder()
             let data = try decoder.decode(Response.self, from: response.data)
             switch data.message {
             case "필요한 값이 없습니다.":
-              print("hi")
               self.showGrayToast(message: "필요한 값이 입력되지 않았습니다")
               break
             case "이미 존재하는 이메일 입니다.":
               self.showGrayToast(message: "이미 사용중인 이메일입니다.")
               break
-            case "이미 존재하는 닉네임 입니다.":
+            case "존재하는 닉네임 입니다.":
               self.showGrayToast(message: "이미 사용중인 이름입니다.")
               break
             case .none:
@@ -135,8 +141,6 @@ extension SignUpViewController {
       }, onError: { error in
         print(error)
       }, onCompleted: {
-        self.navigationController?.popViewController(animated: false)
-        
       }).disposed(by: disposeBag)
   }
   func enableSignupButton() {
@@ -148,8 +152,14 @@ extension SignUpViewController {
     
     if (isNameEmpty == false) && (isEmailEmpty == false) && (isPasswordEmpty == false) && (isCheckPasswordEmpty == false) && (isSame == true) {
       signUpButton.isEnabled = true
-      self.signUpButton.setTitleColor(UIColor.pointcolor1, for: .normal)
+      self.signUpButton.backgroundColor = UIColor.pointcolor1
     }
+  }
+  
+  func keyboardObserver(){
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
   }
   
   func layoutNavigationBarView() {
@@ -377,7 +387,90 @@ extension SignUpViewController {
 }
 
 extension SignUpViewController: UITextFieldDelegate {
+  @objc func keyboardWillShow(_ notification: NSNotification) {
+    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+      UIView.animate(withDuration: 0.3, animations: {
+        self.userNameLabel.snp.updateConstraints {
+          $0.top.equalTo(self.navigationBarView.snp.bottom).offset(20)
+        }
+        self.userNameTextField.snp.updateConstraints {
+          $0.top.equalTo(self.userNameLabel.snp.bottom).offset(5)
+        }
+        self.emailLabel.snp.updateConstraints {
+          $0.top.equalTo(self.userNameExplanationLabel.snp.bottom).offset(16)
+        }
+        self.emailTextField.snp.updateConstraints {
+          $0.top.equalTo(self.emailLabel.snp.bottom).offset(5)
+        }
+        self.passwordLabel.snp.updateConstraints {
+          $0.top.equalTo(self.emailExplanationLabel.snp.bottom).offset(16)
+        }
+        self.passwordTextField.snp.updateConstraints {
+          $0.top.equalTo(self.passwordLabel.snp.bottom).offset(5)
+        }
+        self.checkPasswordLabel.snp.updateConstraints {
+          $0.top.equalTo(self.passwordBorderView.snp.bottom).offset(16)
+        }
+        self.checkPasswordTextField.snp.updateConstraints {
+          $0.top.equalTo(self.checkPasswordLabel.snp.bottom).offset(5)
+        }
+      })
+    }
+  }
   @objc func keyboardWillDisappear(_ notification: NSNotification){
-    self.view.transform = .identity
+    self.userNameLabel.snp.updateConstraints {
+      $0.top.equalTo(self.navigationBarView.snp.bottom).offset(99)
+    }
+    self.userNameTextField.snp.updateConstraints {
+      $0.top.equalTo(self.userNameLabel.snp.bottom).offset(10)
+    }
+    self.emailLabel.snp.updateConstraints {
+      $0.top.equalTo(self.userNameExplanationLabel.snp.bottom).offset(32)
+    }
+    self.emailTextField.snp.updateConstraints {
+      $0.top.equalTo(self.emailLabel.snp.bottom).offset(10)
+    }
+    self.passwordLabel.snp.updateConstraints {
+      $0.top.equalTo(self.emailExplanationLabel.snp.bottom).offset(32)
+    }
+    self.passwordTextField.snp.updateConstraints {
+      $0.top.equalTo(self.passwordLabel.snp.bottom).offset(10)
+    }
+    self.checkPasswordLabel.snp.updateConstraints {
+      $0.top.equalTo(self.passwordBorderView.snp.bottom).offset(32)
+    }
+    self.checkPasswordTextField.snp.updateConstraints {
+      $0.top.equalTo(self.checkPasswordLabel.snp.bottom).offset(10)
+    }
+  }
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    switch textField {
+    case userNameTextField:
+      enableSignupButton()
+    case emailTextField:
+      enableSignupButton()
+    case passwordTextField:
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+      enableSignupButton()
+    case checkPasswordTextField:
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+      guard let passwordText = passwordTextField.text,
+            let checkPasswordText = checkPasswordTextField.text else { return }
+      if passwordText != checkPasswordText {
+        isSame = false
+        self.showGrayToast(message: "비밀번호가 일치하지 않습니다.")
+      }
+      else {
+        isSame = true
+      }
+      enableSignupButton()
+    default: break
+    }
+  }
+
+  /// Return 눌렀을 때 키보드 내리기
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      textField.resignFirstResponder()
+      return true
   }
 }

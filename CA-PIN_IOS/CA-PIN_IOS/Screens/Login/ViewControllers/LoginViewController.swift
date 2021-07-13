@@ -371,12 +371,6 @@ extension LoginViewController: UITextFieldDelegate {
   @objc func keyboardWillShow(_ notification: NSNotification) {
     if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
       UIView.animate(withDuration: 0.3, animations: { self.view.transform = CGAffineTransform(translationX: 0, y: -50) })
-      /// 로그인까지 보일 때 -> -60
-//      self.emailLabel.snp.remakeConstraints {
-//        $0.top.equalTo(self.logoImageView.snp.bottom).offset(30)
-//        $0.leading.equalTo(self.view.snp.leading).offset(48)
-//      }
-//      /// 비번 텍필까지 보일 때 ->  -50
     }
   }
   @objc func keyboardWillDisappear(_ notification: NSNotification){
