@@ -141,7 +141,7 @@ extension CAFETITest3ViewController {
   }
   func layoutQuestionfourthButton() {
     self.view.add(self.questionfourthButton) {
-      $0.setTitle("특색 있는", for: .normal)
+      $0.setTitle("특색있는", for: .normal)
       $0.setTitleColor(.black, for: .normal)
       $0.backgroundColor = 0xf9f9f9.color
       $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
