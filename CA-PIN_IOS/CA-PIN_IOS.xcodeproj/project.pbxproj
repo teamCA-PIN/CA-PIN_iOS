@@ -117,6 +117,7 @@
 		E8818961269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8818960269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift */; };
 		E8818963269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8818962269B23B100B884FB /* ReviewPhotoCollectionViewCell.swift */; };
 		E8818966269C2AF200B884FB /* ReviewPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8818965269C2AF200B884FB /* ReviewPhotoModel.swift */; };
+		E8818969269DE35C00B884FB /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = E8818968269DE35C00B884FB /* YPImagePicker */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,6 +268,7 @@
 				CCF7843A268B082A005FDF1D /* ReactiveMoya in Frameworks */,
 				CCF7842A268B0781005FDF1D /* SnapKit in Frameworks */,
 				CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */,
+				E8818969269DE35C00B884FB /* YPImagePicker in Frameworks */,
 				CCF7843D268B08C2005FDF1D /* SwiftKeychainWrapper in Frameworks */,
 				7B80170D951C27BD4B4456D6 /* Pods_CA_PIN_IOS.framework in Frameworks */,
 			);
@@ -816,6 +818,7 @@
 				CCF7843F268B08E4005FDF1D /* SwiftyColor */,
 				CC481FFD2698A00300D7F280 /* CollectionViewCenteredFlowLayout */,
 				CC7BB2ED269B8E800079FC4F /* Cosmos */,
+				E8818968269DE35C00B884FB /* YPImagePicker */,
 			);
 			productName = "CA-PIN_IOS";
 			productReference = CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */;
@@ -902,6 +905,7 @@
 				CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */,
 				CC481FFC2698A00200D7F280 /* XCRemoteSwiftPackageReference "CollectionViewCenteredFlowLayout" */,
 				CC7BB2EC269B8E800079FC4F /* XCRemoteSwiftPackageReference "Cosmos" */,
+				E8818967269DE35B00B884FB /* XCRemoteSwiftPackageReference "YPImagePicker" */,
 			);
 			productRefGroup = CCA85AF22688ED6F00C9A32C /* Products */;
 			projectDirPath = "";
@@ -1570,6 +1574,14 @@
 				minimumVersion = 1.2.1;
 			};
 		};
+		E8818967269DE35B00B884FB /* XCRemoteSwiftPackageReference "YPImagePicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Yummypets/YPImagePicker";
+			requirement = {
+				branch = spm;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1632,6 +1644,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */;
 			productName = SwiftyColor;
+		};
+		E8818968269DE35C00B884FB /* YPImagePicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E8818967269DE35B00B884FB /* XCRemoteSwiftPackageReference "YPImagePicker" */;
+			productName = YPImagePicker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
