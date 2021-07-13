@@ -34,6 +34,7 @@ class CreateCategoryViewController: UIViewController {
   final let maxLength = 10
   
   var nameCount = 0
+  var selectedNumber: Int?
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -209,7 +210,15 @@ extension CreateCategoryViewController: UICollectionViewDataSource {
       return UICollectionViewCell()
     }
     categoryCell.awakeFromNib()
+    categoryCell.colorView.image = UIImage(named: "colorchip\(indexPath.item+1)")
+    if selectedNumber == indexPath.item {
+      categoryCell.colorView.image = UIImage(named: "colorchipSelected\(indexPath.item+1)")
+    }
     return categoryCell
+  }
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    self.selectedNumber = indexPath.item
+    collectionView.reloadData()
   }
 }
 

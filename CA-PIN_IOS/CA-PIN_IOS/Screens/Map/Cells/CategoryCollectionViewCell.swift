@@ -15,7 +15,9 @@ import Then
 class CategoryCollectionViewCell: UICollectionViewCell {
   
   // MARK: - Components
-  let colorView = UIView()
+  let colorView = UIImageView()
+  
+  var isViewSelected: Bool?
   
   // MARK: - LifeCycles
   override func awakeFromNib() {
@@ -34,7 +36,6 @@ extension CategoryCollectionViewCell {
     contentView.backgroundColor = .clear
     contentView.add(colorView) {
       $0.setRounded(radius: 17)
-      $0.backgroundColor = 0xFB0000.color
       $0.snp.makeConstraints {
         $0.top.equalTo(self.contentView.snp.top).offset(17)
         $0.leading.equalTo(self.contentView.snp.leading).offset(13)
