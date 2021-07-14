@@ -19,7 +19,8 @@ enum UserService {
 extension UserService: TargetType {
   
   private var token: String {
-    return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
+//    return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
+    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGVjNjk0MTJkNGNhZDY0ZjBkNmVhNjgiLCJpYXQiOjE2MjYxOTMzNjMsImV4cCI6MTYyNjI3OTc2M30.nOOpJOviRuEZixpO3gMaowt0LZl9olwcWNoiSxKgpiQ"
   }
   
   public var baseURL: URL {

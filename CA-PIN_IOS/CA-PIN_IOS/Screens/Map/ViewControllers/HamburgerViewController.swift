@@ -7,6 +7,10 @@
 
 import UIKit
 
+import Kingfisher
+import Moya
+import RxMoya
+import RxSwift
 import SnapKit
 import SwiftyColor
 import Then
@@ -32,10 +36,20 @@ class HamburgerViewController: UIViewController {
   let logoutButton = UIButton()
   let copyrightLabel = UILabel()
   
+  let disposeBag = DisposeBag()
+  let userProvider = MoyaProvider<UserService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+  
+  var infoData: MyInfo?
+  
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
     layout()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super .viewWillAppear(true)
+    loadInfoData()
   }
 }
 
@@ -261,4 +275,41 @@ extension HamburgerViewController {
     let termsVC = TermsViewController()
     self.navigationController?.pushViewController(termsVC, animated: false)
   }
+  func loadInfoData() {
+    userProvider.rx.request(.myInfo)
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(MyInfoResponseType<MyInfo>.self,
+                                          from: response.data)
+            print(data)
+            self.infoData = data.myInfo
+            self.infoDataBind()
+            self.reloadInputViews()
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
+  }
+  func infoDataBind() {
+    self.profileImageView.setImage(from: self.infoData?.profileImg ?? "", UIImage(named: "image176")!)
+    self.profileNameLabel.text = self.infoData?.nickname
+    self.profileEmailLabel.text = self.infoData?.email
+    self.cafetiLabel.text = self.infoData?.cafeti.type
+    self.archivePinContentLabel.text = "\(self.infoData?.pinNum)"
+    self.archiveFeedContentLabel.text = "\(self.infoData?.reviewNum)"
+  }
+}
+
+struct MyInfoResponseType<T: Codable>: Codable {
+    var status: Int?
+    var success: Bool?
+    var message: String?
+    var myInfo: T?
 }
