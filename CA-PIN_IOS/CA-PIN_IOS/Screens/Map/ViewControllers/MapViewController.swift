@@ -60,7 +60,6 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupCafeList()
     self.navigationController?.navigationBar.isHidden = true
     self.mapView.mapView.touchDelegate = self
     setupMarker()
@@ -70,6 +69,7 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    setupCafeList()
     layout()
     if informationRevealed == true {
       informationView.isHidden = false
@@ -137,7 +137,12 @@ extension MapViewController {
   }
   func layoutHashButton() {
     topView.add(hashButton) {
-      $0.setBackgroundImage(UIImage(named: "btnTagInactive"), for: .normal)
+      if self.tags.isEmpty {
+        $0.setBackgroundImage(UIImage(named: "btnTagInactive"), for: .normal)
+      }
+      else {
+        $0.setBackgroundImage(UIImage(named: "btnTagActive"), for: .normal)
+      }
       $0.addTarget(self, action: #selector(self.clickedHashButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerY.equalToSuperview()
@@ -354,6 +359,7 @@ extension MapViewController {
   }
   @objc func clickedHashButton() {
     let tagVC = TagViewController()
+    tagVC.selectedTag = self.tags
     self.navigationController?.pushViewController(tagVC, animated: false)
   }
   @objc func clickedAddCategoryButton() {

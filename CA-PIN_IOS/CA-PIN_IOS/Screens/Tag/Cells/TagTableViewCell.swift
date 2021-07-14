@@ -18,6 +18,7 @@ class TagTableViewCell: UITableViewCell {
   let tagButton = UIButton().then {
     $0.tag = 0
   }
+  var rootViewController = UIViewController()
   
   // MARK: - LifeCycles
   override func awakeFromNib() {
@@ -63,7 +64,25 @@ extension TagTableViewCell {
   // MARK: - General Helpers
   @objc func clickedTagButton() {
     self.tagButton.isSelected.toggle()
+    guard let rootVC = self.rootViewController as? TagViewController else { return }
+    if self.tagButton.isSelected == true {
+      let selectedNumber = getTableCellIndexPath()
+      rootVC.selectedTag.append(selectedNumber)
+      print(rootVC.selectedTag)
+    }
+    else {
+      let selectedNumber = getTableCellIndexPath()
+      for i in 0..<rootVC.selectedTag.count {
+        if rootVC.selectedTag[i] == selectedNumber {
+          rootVC.selectedTag.remove(at: i)
+          break
+        }
+      }
+      print(rootVC.selectedTag)
+    }
     changeBackground()
+    rootVC.setupCafeList()
+    rootVC.reloadInputViews()
   }
   func changeBackground() {
     if self.tagButton.isSelected == true {
