@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "frame121.png",
       "scale" : "1x",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "alpacaNoncoffee.png"
     },
     {
       "scale" : "2x",
       "idiom" : "universal",
-      "filename" : "frame121@2x.png"
+      "filename" : "alpacaNoncoffee@2x.png"
     },
     {
-      "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "frame121@3x.png"
+      "idiom" : "universal",
+      "filename" : "alpacaNoncoffee@3x.png"
     }
   ],
   "info" : {
