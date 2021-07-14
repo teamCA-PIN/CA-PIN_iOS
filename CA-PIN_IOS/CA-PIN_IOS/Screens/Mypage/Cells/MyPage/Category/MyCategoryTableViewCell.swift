@@ -32,7 +32,7 @@ class MyCategoryTableViewCell: UITableViewCell {
   private let CategoryProvider = MoyaProvider<CategoryService>()
   
   var categoryID: String = ""
-  var categoryName: String = ""
+//  var categoryName: String = ""
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
@@ -132,31 +132,6 @@ extension MyCategoryTableViewCell {
     self.titleLabel.text = name
     self.numberLabel.text = "\(number)/100"
   }
-  
-//  func getCafeDataInCategory() {
-//    CategoryProvider.rx.request(.cafeListInCategory(categoryId: self.categoryID))
-//      .asObservable()
-//      .subscribe(onNext: { response in
-//        if response.statusCode == 200 {
-//          do {
-//            let decoder = JSONDecoder()
-//            let data = try decoder.decode(CafeInCategoryResponseArrayType<CafeDetail>.self,
-//                                          from: response.data)
-//            print("여기여기")
-//            print(data.message)
-//          } catch {
-//            print(error)
-//          }
-//        }
-//        else {
-//          
-//        }
-//      }, onError: { error in
-//        print(error)
-//      }, onCompleted: {
-//        
-//      }).disposed(by: disposeBag)
-//  }
   
   @objc func editButtonClicekd() {
     let alertController: UIAlertController

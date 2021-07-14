@@ -13,13 +13,6 @@ class TabbarCollectionViewCell: UICollectionViewCell {
   // MARK: - Components
   let tabImageView = UIImageView()
   
-  //  override var isSelected: Bool {
-  //      didSet {
-  //        tabButton
-  //        tabbarImageView.image = isSelected ? UIImage(named: "iconPin") : UIImage(named: "iconCloseBlack")
-  //      }
-  //  }
-  
   // MARK: - LifeCycles
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -38,7 +31,6 @@ extension TabbarCollectionViewCell {
   }
   func layoutTabbarImageView() {
     self.contentView.add(self.tabImageView) {
-      //            $0.image = UIImage(named: "iconPin")
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.contentView.snp.top)

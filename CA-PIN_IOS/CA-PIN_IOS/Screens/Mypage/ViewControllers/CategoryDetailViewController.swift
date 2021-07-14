@@ -7,6 +7,9 @@
 
 import UIKit
 
+import Moya
+import RxMoya
+import RxSwift
 import SnapKit
 import Then
 
@@ -32,17 +35,28 @@ class CategoryDetailViewController: UIViewController {
   var enableDelete: Bool = false ///삭제 팝업 띄울겨 말겨
   var categoryTitle: String = ""
   
-  var cafeDetailArray: [CafeDetail] = []
+  let disposeBag = DisposeBag()
+  private let CategoryService = MoyaProvider<CategoryService>()
   
+  var cafeDetailArray: [CafeDetail] = [] /// 서버에서 받아온 카페 디테일 배열
+  var cafeIdArray: [String] = [] /// 카페 id 값을 모두 저장할 배열 -> 삭제할 때 써야됨
+  var cafeIdArrayToDelete: [String] = [] /// 삭제할 카페 id값만 넣어놓은 배열
+  var categoryId: String = "" /// 선택된 카테고리 아이디 -> 삭제할 때 쓸거임
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
+    print(#function)
     super.viewDidLoad()
     self.navigationController?.navigationBar.isHidden = true
     register()
     attribute()
     layout()
     notificationCenter()
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    print("카테고리 디테일 뷰컨 viewwillappear")
+    print(#function)
+    cafeListTableView.reloadData()
   }
 }
 
@@ -55,7 +69,6 @@ extension CategoryDetailViewController {
     if pinNumber == 0{
       self.cafeListTableView.register(EmptyCategoryTableViewCell.self, forCellReuseIdentifier: EmptyCategoryTableViewCell.reuseIdentifier)
     }
-
     /// 핀이 1개 이상일 때: CategoryCafeListTableViewCell
     else {
       self.cafeListTableView.register(CategoryCafeListTableViewCell.self, forCellReuseIdentifier: CategoryCafeListTableViewCell.reuseIdentifier)
@@ -149,19 +162,39 @@ extension CategoryDetailViewController {
   }
   func notificationCenter() {
     NotificationCenter.default.addObserver(self, selector: #selector(checkButtonClicked), name: Notification.Name("CheckButtonClicked"), object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(appendDeleteArray), name: Notification.Name("AppendToDeleteArray"), object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(removeDeleteArray), name: Notification.Name("RemoveDeleteArray"), object: nil)
+  }
+  @objc func appendDeleteArray(notification: Notification) {
+    if let index = notification.object as? Int {
+      self.cafeIdArrayToDelete.append(self.cafeIdArray[index])
+    }
+    print("추가")
+    print(cafeIdArrayToDelete)
+  }
+  @objc func removeDeleteArray(notification: Notification) {
+    if let index = notification.object as? Int {
+      if let firstIndex = cafeIdArrayToDelete.firstIndex(of: cafeIdArray[index]) {
+          cafeIdArrayToDelete.remove(at: firstIndex)
+      }
+    }
+    print("제거")
+    print(cafeIdArrayToDelete)
   }
   @objc func backButtonClicked() {
     self.navigationController?.popViewController(animated: false)
   }
   @objc func deleteButtonClicked() {
-    if self.categoryNameLabel.text == "기본 카테고리" {
+    if self.categoryNameLabel.text == categoryTitle {
       NotificationCenter.default.post(name: NSNotification.Name("DeleteButton"), object: nil)
     } else {
       /// 삭제 팝업 띄우기
-      print("삭제")
       let dvc = DeletePinViewController()
-      dvc.modalPresentationStyle = .overFullScreen
-      self.present(dvc, animated: false, completion: nil)
+      dvc.categoryId = self.categoryId
+      dvc.cafeIdArrayToDelete = self.cafeIdArrayToDelete
+//      dvc.modalPresentationStyle = .overFullScreen
+//      self.present(dvc, animated: false, completion: nil)
+      self.navigationController?.pushViewController(dvc, animated: false)
     }
   }
   /// 체크버튼 check, uncheck 상태에 따라서 네비게이션 타이틀 바꿈

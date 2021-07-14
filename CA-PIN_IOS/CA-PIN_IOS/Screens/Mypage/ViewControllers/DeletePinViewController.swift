@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Moya
+import RxMoya
+import RxSwift
 
 class DeletePinViewController: UIViewController {
   
@@ -16,15 +19,23 @@ class DeletePinViewController: UIViewController {
   let cancelButton = UIButton()
   let confirmButton = UIButton()
   
+  var categoryId: String = "" /// 선택된 카테고리 아이디 -> 삭제할 때 쓸거임
+  var cafeIdArrayToDelete: [String] = [] /// 삭제할 카페 id값만 넣어놓은 배열
+  
+  let disposeBag = DisposeBag()
+  private let CategoryService = MoyaProvider<CategoryService>()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     layout()
+    print("deleteVC")
+    print(self.categoryId)
+    print(self.cafeIdArrayToDelete)
     // Do any additional setup after loading the view.
   }
 }
 // MARK: - Extensions
 extension DeletePinViewController {
-  
   // MARK: - Layout Helpers
   func layout() {
     self.view.backgroundColor = .backgroundCover
@@ -47,7 +58,7 @@ extension DeletePinViewController {
   }
   func layoutTitleLabel() {
     popupView.add(titleLabel) {
-      $0.setupLabel(text: "선택된 핀을 모두\n삭제하시겠습니까??",
+      $0.setupLabel(text: "선택된 핀을 모두\n삭제하시겠습니까?",
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20),
                     align: .center)
@@ -101,12 +112,47 @@ extension DeletePinViewController {
     }
   }
   
+  func deleteService(categoryId: String, cafeList: [String]) {
+    print("삭제 함수")
+    print(categoryId)
+    print(cafeList)
+    CategoryService.rx.request(.deleteCafeInCategory(categoryId: categoryId, cafeList: cafeList))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 { /// 삭제 성공
+          do {
+//            self.dismiss(animated: false, completion: nil)
+            self.navigationController?.popViewController(animated: false)
+          }
+          catch {
+            print(error)
+          }
+        }
+        else { /// 삭제 실패
+          do {
+            self.showGrayToast(message: "삭제에 실패했습니다")
+          }
+          catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
+  }
+  
   // MARK: - General Helpers
   @objc func clickedCancelButton() {
-    self.dismiss(animated: false, completion: nil)
+//    self.dismiss(animated: false, completion: nil)
+    self.navigationController?.popViewController(animated: false)
   }
   @objc func clickedConfirmButton() {
-    print("확인 ㄷ ㄷ ㄷ")
-    /// 삭제 서버 연결
+//    let categoryDetailVC = CategoryDetailViewController()
+//    categoryDetailVC.deleteService()
+    print("삭제 버튼 눌림")
+    print(self.categoryId)
+    print(self.cafeIdArrayToDelete)
+    self.deleteService(categoryId: self.categoryId, cafeList: self.cafeIdArrayToDelete)
   }
 }

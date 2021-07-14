@@ -118,21 +118,7 @@ extension SignUpViewController {
           do {
             let decoder = JSONDecoder()
             let data = try decoder.decode(Response.self, from: response.data)
-            switch data.message {
-            case "필요한 값이 없습니다.":
-              self.showGrayToast(message: "필요한 값이 입력되지 않았습니다")
-              break
-            case "이미 존재하는 이메일 입니다.":
-              self.showGrayToast(message: "이미 사용중인 이메일입니다.")
-              break
-            case "존재하는 닉네임 입니다.":
-              self.showGrayToast(message: "이미 사용중인 이름입니다.")
-              break
-            case .none:
-              break
-            case .some(_):
-              break
-            }
+            self.showGrayToast(message: data.message ?? "")
           }
           catch {
             print(error)

@@ -15,6 +15,7 @@ enum CategoryService {
   case deleteCategory(categoryId: String)
   case addCafe(categoryId: String, cafeIds: [String])
   case cafeListInCategory(categoryId: String)
+  case deleteCafeInCategory(categoryId: String, cafeList: [String])
 }
 
 extension CategoryService: TargetType {
@@ -37,6 +38,8 @@ extension CategoryService: TargetType {
       return "/cateogry/\(categoryId)/archive"
     case .cafeListInCategory(categoryId: let categoryId):
       return "/category/\(categoryId)/cafes"
+    case .deleteCafeInCategory(categoryId: let categoryId, _):
+      return "/category/\(categoryId)/archive"
     }
   }
   
@@ -49,6 +52,8 @@ extension CategoryService: TargetType {
       return .delete
     case .cafeListInCategory:
       return .get
+    case .deleteCafeInCategory:
+      return .delete
     }
   }
   
@@ -69,6 +74,10 @@ extension CategoryService: TargetType {
       return .requestPlain
     case .addCafe(_, cafeIds: let cafeIds):
       return .requestCompositeParameters(bodyParameters: ["cafeIds": cafeIds],
+                                         bodyEncoding: JSONEncoding.default,
+                                         urlParameters: .init())
+    case .deleteCafeInCategory(_, cafeList: let cafeList):
+      return .requestCompositeParameters(bodyParameters: ["cafeList": cafeList],
                                          bodyEncoding: JSONEncoding.default,
                                          urlParameters: .init())
     }

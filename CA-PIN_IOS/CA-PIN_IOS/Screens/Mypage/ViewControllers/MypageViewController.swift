@@ -68,6 +68,12 @@ class MypageViewController: UIViewController {
     self.navigationController?.navigationBar.isHidden = true
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    print("MyPageViewController")
+    print(#function)
+    self.pageCollectionView.reloadData()
+  }
+  
   override func viewDidLayoutSubviews() {
     ///subview들이 자리 잡은 후 레이아웃 조정 필요할 때 (ex. radius 값)
     self.profileImageView.setRounded(radius: self.profileImageView.frame.width/2)

@@ -39,10 +39,12 @@ class CategoryCafeListTableViewCell: UITableViewCell {
   // MARK: - LifeCycle
   override func awakeFromNib() {
     super.awakeFromNib()
+    print(#function)
     register()
     attribute()
     layout()
     notificationCenter()
+    reloadInputViews()
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {
@@ -137,7 +139,7 @@ extension CategoryCafeListTableViewCell {
       $0.snp.makeConstraints {
         $0.width.equalTo(24)
         $0.height.equalTo(24)
-        $0.top.equalTo(self.contentView.snp.top).offset(63)
+        $0.centerY.equalTo(self.explainLabel.snp.centerY)
         $0.trailing.equalTo(self.contentView.snp.trailing).offset(-24)
       }
     }
@@ -191,19 +193,28 @@ extension CategoryCafeListTableViewCell {
   @objc func checkButtonClicked() {
     self.checkButton.isSelected.toggle()
     setCheckButtonImage(bool: self.checkButton.isSelected)
+    if checkButton.isSelected == true {
+      /// 노티
+      let indexPath = self.getTableCellIndexPath()
+      NotificationCenter.default.post(name: NSNotification.Name("AppendToDeleteArray"), object: indexPath)
+    }
+    else {
+      let indexPath = self.getTableCellIndexPath()
+      NotificationCenter.default.post(name: NSNotification.Name("RemoveDeleteArray"), object: indexPath)
+    }
     NotificationCenter.default.post(name: NSNotification.Name("CheckButtonClicked"), object: checkButton.isSelected)
-  }
-  func setCafeData(name: String, rating: Float, address: String, tagArray: [Tag]) {
-    self.nameLabel.text = name
-    self.scoreLabel.text = "\(rating)"
-    self.explainLabel.text = address
-    self.cafeTagArray = tagArray
   }
   func setCheckButtonImage(bool: Bool) {
     switch self.checkButton.isSelected {
     case true: self.checkButton.setImageByName("checkboxActive")
     case false: self.checkButton.setImageByName("checkboxInactive")
     }
+  }
+  func setCafeData(name: String, rating: Float, address: String, tagArray: [Tag]) {
+    self.nameLabel.text = name
+    self.scoreLabel.text = "\(rating)"
+    self.explainLabel.text = address
+    self.cafeTagArray = tagArray
   }
 }
 

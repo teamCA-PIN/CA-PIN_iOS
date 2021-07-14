@@ -35,10 +35,12 @@ class MyCategoryCollectionViewCell: UICollectionViewCell {
   // MARK: - LifeCycles
   override func awakeFromNib() {
     super.awakeFromNib()
+    print(#function)
     register()
     associate()
     getCategoryData()
     layout()
+    myCategoryTableView.reloadData()
     self.myCategoryTableView.separatorStyle = .none
   }
 }
@@ -123,6 +125,7 @@ extension MyCategoryCollectionViewCell {
             for i in 0...self.categoryArray.count-1 {
               self.categoryIdArray.append(self.categoryArray[i].id)
             }
+            print("카테고리 아이디 배열")
             print(self.categoryIdArray)
           } catch {
             print(error)
@@ -152,9 +155,15 @@ extension MyCategoryCollectionViewCell {
             dvc.categoryTitle = self.customizedCategoryTitle /// 디테일뷰 타이틀을 바꿔준다
             dvc.pinNumber = data.cafeDetail?.count ?? 100 /// 디테일뷰 핀 개수를 바꿔준다
             dvc.cafeDetailArray = data.cafeDetail ?? []
-            print("hihihi")
-            print(dvc.cafeDetailArray)
-//            dvc.cafeListTableView.reloadData()
+            dvc.categoryId = self.categoryIdArray[index]
+            print("hih")
+            print(dvc.categoryId)
+            
+            for i in 0...data.cafeDetail!.count-1 {
+              let indexCategoryId = data.cafeDetail![i].id
+              dvc.cafeIdArray.append(indexCategoryId)
+            }
+            
             parentViewController.navigationController?.pushViewController(dvc, animated: false)
           } catch {
             print(error)
@@ -235,9 +244,11 @@ extension MyCategoryCollectionViewCell: UITableViewDataSource {
   }
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     self.selectedCategoryIndex = indexPath.row
-    print(selectedCategoryIndex)
     self.customizedCategoryTitle = self.categoryArray[indexPath.row].name
     self.getCafeDataInCategory(index: selectedCategoryIndex)
+    print("didselect")
+    print(categoryIdArray[indexPath.row])
+    let categoryId = categoryIdArray[indexPath.row]
 //    let parentViewController: UIViewController = self.parentViewController!
 //    let dvc = CategoryDetailViewController()
 //    parentViewController.navigationController?.pushViewController(dvc, animated: false)
