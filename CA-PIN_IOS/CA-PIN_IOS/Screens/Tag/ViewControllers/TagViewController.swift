@@ -35,8 +35,7 @@ class TagViewController: UIViewController {
   var selectedTag: [Int] = []
   
   let disposeBag = DisposeBag()
-  let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
-  
+  let listProvider = MoyaProvider<CafeService>()
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()

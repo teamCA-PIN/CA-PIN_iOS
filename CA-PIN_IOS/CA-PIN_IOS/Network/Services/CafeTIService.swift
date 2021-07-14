@@ -17,7 +17,8 @@ enum CafeTIService {
 extension CafeTIService: TargetType {
   
   private var token: String {
-    return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
+//    return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
+    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGU2OWUwZGNlN2Q0M2M3MzNlZTI2MTkiLCJpYXQiOjE2MjYyOTgyMDAsImV4cCI6MTYyNjM4NDYwMH0.ywdg6aOB2T9_vSxUPN-Qz7ulY_oCaJ7X0X0NHd2KE7A"
   }
   
   public var baseURL: URL {
