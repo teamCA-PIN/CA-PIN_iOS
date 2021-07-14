@@ -10,7 +10,7 @@ import Foundation
 // MARK: - CafeInCategoryModel
 struct CafeInCategoryModel: Codable {
     let message: String
-    let cafeDetail: [CafeDetail]
+    let cafeDetail: [String] = []
 }
 
 // MARK: - CafeDetail

@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Moya
+import RxMoya
+import RxSwift
 import SwiftyColor
 
 class MyCategoryTableViewCell: UITableViewCell {
@@ -13,10 +16,10 @@ class MyCategoryTableViewCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     layout()
+    print("tableviewcell")
+    print(self.categoryID)
+//    getCafeDataInCategory()
   }
-  
-  /// 카페 리스트를 담을 배열을 만들어놓고 서버 통신할 때 받은 배열 값을 쭉 append
-  /// 그리고 나서 didsellect에서 그 함수 이용
   
   // MARK: - Components
   let colorView = UIView()
@@ -25,7 +28,11 @@ class MyCategoryTableViewCell: UITableViewCell {
   let editButton = UIButton()
   let separatorView = UIView()
   
+  let disposeBag = DisposeBag()
+  private let CategoryProvider = MoyaProvider<CategoryService>()
+  
   var categoryID: String = ""
+  var categoryName: String = ""
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
@@ -125,6 +132,31 @@ extension MyCategoryTableViewCell {
     self.titleLabel.text = name
     self.numberLabel.text = "\(number)/100"
   }
+  
+//  func getCafeDataInCategory() {
+//    CategoryProvider.rx.request(.cafeListInCategory(categoryId: self.categoryID))
+//      .asObservable()
+//      .subscribe(onNext: { response in
+//        if response.statusCode == 200 {
+//          do {
+//            let decoder = JSONDecoder()
+//            let data = try decoder.decode(CafeInCategoryResponseArrayType<CafeDetail>.self,
+//                                          from: response.data)
+//            print("여기여기")
+//            print(data.message)
+//          } catch {
+//            print(error)
+//          }
+//        }
+//        else {
+//          
+//        }
+//      }, onError: { error in
+//        print(error)
+//      }, onCompleted: {
+//        
+//      }).disposed(by: disposeBag)
+//  }
   
   @objc func editButtonClicekd() {
     let alertController: UIAlertController

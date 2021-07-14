@@ -22,19 +22,23 @@ class MyCategoryCollectionViewCell: UICollectionViewCell {
   
   let disposeBag = DisposeBag()
   private let UserProvider = MoyaProvider<UserService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+  private let CategoryProvider = MoyaProvider<CategoryService>()
   
   // MARK: - Variables
   var categoryArray: [MyCategoryList] = [] /// 서버 통신해서 받아올 배열을 저장할거임
   var categoryNumber = 10 /// 카테고리 수 기준으로 section 1개 or 2개
                           /// cateogoryArray.count
+  var categoryIdArray: [String] = [] /// 카테고리 아이디를 저장해놓는 배열 -> 카테고리 상세 페이지로 넘어갈 때 사용할 파라미터
+  var selectedCategoryIndex: Int = 100
+  var customizedCategoryTitle: String = ""
   
   // MARK: - LifeCycles
   override func awakeFromNib() {
     super.awakeFromNib()
     register()
     associate()
+    getCategoryData()
     layout()
-    getServerData()
     self.myCategoryTableView.separatorStyle = .none
   }
 }
@@ -105,7 +109,7 @@ extension MyCategoryCollectionViewCell {
   }
   
   // MARK: - Server
-  func getServerData() {
+  func getCategoryData() {
     UserProvider.rx.request(.categoryList)
       .asObservable()
       .subscribe(onNext: { response in
@@ -115,8 +119,11 @@ extension MyCategoryCollectionViewCell {
             let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
                                           from: response.data)
             self.categoryArray = data.myCategoryList!
-            print(self.categoryArray)
             self.myCategoryTableView.reloadData()
+            for i in 0...self.categoryArray.count-1 {
+              self.categoryIdArray.append(self.categoryArray[i].id)
+            }
+            print(self.categoryIdArray)
           } catch {
             print(error)
           }
@@ -128,6 +135,38 @@ extension MyCategoryCollectionViewCell {
         print(error)
       }, onCompleted: {
         
+      }).disposed(by: disposeBag)
+  }
+  
+  func getCafeDataInCategory(index: Int) {
+    CategoryProvider.rx.request(.cafeListInCategory(categoryId: self.categoryIdArray[index]))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(CafeInCategoryResponseArrayType<CafeDetail>.self,
+                                          from: response.data)
+            let parentViewController: UIViewController = self.parentViewController!
+            let dvc = CategoryDetailViewController()
+            dvc.categoryTitle = self.customizedCategoryTitle /// 디테일뷰 타이틀을 바꿔준다
+            dvc.pinNumber = data.cafeDetail?.count ?? 100 /// 디테일뷰 핀 개수를 바꿔준다
+            dvc.cafeDetailArray = data.cafeDetail ?? []
+            print("hihihi")
+            print(dvc.cafeDetailArray)
+//            dvc.cafeListTableView.reloadData()
+            parentViewController.navigationController?.pushViewController(dvc, animated: false)
+          } catch {
+            print(error)
+          }
+        }
+        else {
+
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+
       }).disposed(by: disposeBag)
   }
   
@@ -195,8 +234,12 @@ extension MyCategoryCollectionViewCell: UITableViewDataSource {
     return categoryCell
   }
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let parentViewController: UIViewController = self.parentViewController!
-    let dvc = CategoryDetailViewController()
-    parentViewController.navigationController?.pushViewController(dvc, animated: false)
+    self.selectedCategoryIndex = indexPath.row
+    print(selectedCategoryIndex)
+    self.customizedCategoryTitle = self.categoryArray[indexPath.row].name
+    self.getCafeDataInCategory(index: selectedCategoryIndex)
+//    let parentViewController: UIViewController = self.parentViewController!
+//    let dvc = CategoryDetailViewController()
+//    parentViewController.navigationController?.pushViewController(dvc, animated: false)
   }
 }
