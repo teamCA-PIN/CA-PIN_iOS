@@ -210,12 +210,10 @@ extension TagViewController: UITableViewDataSource {
     tagCell.tagButton.setBorder(borderColor: .pointcolor1, borderWidth: 2)
     for tag in selectedTag {
       if tag == indexPath.row {
-        tagCell.tagButton.setTitleColor(.white, for: .normal)
-        tagCell.tagButton.isSelected.toggle()
+        tagCell.tagButton.isSelected = true
         tagCell.changeBackground()
       }
       else {
-        tagCell.tagButton.setTitleColor(.pointcolor1, for: .normal)
         tagCell.changeBackground()
       }
     }
