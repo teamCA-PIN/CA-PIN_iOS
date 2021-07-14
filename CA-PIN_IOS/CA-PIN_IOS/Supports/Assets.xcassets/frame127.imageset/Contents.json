@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "frame121.png",
+      "filename" : "frame127.png",
       "scale" : "1x",
       "idiom" : "universal"
     },
     {
-      "scale" : "2x",
+      "filename" : "frame127@2x.png",
       "idiom" : "universal",
-      "filename" : "frame121@2x.png"
+      "scale" : "2x"
     },
     {
-      "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "frame121@3x.png"
+      "idiom" : "universal",
+      "filename" : "frame127@3x.png"
     }
   ],
   "info" : {
