@@ -11,8 +11,8 @@
       "scale" : "2x"
     },
     {
-      "scale" : "3x",
       "idiom" : "universal",
+      "scale" : "3x",
       "filename" : "alpacaCoffee@3x.png"
     }
   ],
