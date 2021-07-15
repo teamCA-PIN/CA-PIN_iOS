@@ -4,7 +4,6 @@
 //
 //  Created by 김지수 on 2021/07/11.
 //
-
 import UIKit
 
 import Kingfisher
@@ -12,7 +11,6 @@ import SnapKit
 import Then
 
 // MARK: - NewReviewPhotoCollectionViewCell
-
 class NewReviewPhotoCollectionViewCell: UICollectionViewCell {
   
   // MARK: - Components
@@ -29,7 +27,6 @@ class NewReviewPhotoCollectionViewCell: UICollectionViewCell {
 }
 
 // MARK: - Extensions
-
 extension NewReviewPhotoCollectionViewCell {
   func layout() {
     layoutAddPhotoView()
@@ -68,4 +65,3 @@ extension NewReviewPhotoCollectionViewCell {
     }
   }
 }
-

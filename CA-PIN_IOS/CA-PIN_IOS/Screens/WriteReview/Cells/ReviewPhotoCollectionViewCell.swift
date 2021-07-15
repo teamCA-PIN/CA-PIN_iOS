@@ -4,7 +4,6 @@
 //
 //  Created by 김지수 on 2021/07/11.
 //
-
 import UIKit
 
 import Kingfisher
@@ -12,7 +11,6 @@ import SnapKit
 import Then
 
 // MARK: - ReviewPhotoCollectionViewCell
-
 class ReviewPhotoCollectionViewCell: UICollectionViewCell {
   
   // MARK: - Components
@@ -32,7 +30,6 @@ class ReviewPhotoCollectionViewCell: UICollectionViewCell {
 }
 
 // MARK: - Extensions
-
 extension ReviewPhotoCollectionViewCell {
   func layout() {
     layoutReviewPhotoImageView()
@@ -68,7 +65,3 @@ extension ReviewPhotoCollectionViewCell {
     NotificationCenter.default.post(name: NSNotification.Name("delete"), object: buttonIndex)
   }
 }
-
-
-
-

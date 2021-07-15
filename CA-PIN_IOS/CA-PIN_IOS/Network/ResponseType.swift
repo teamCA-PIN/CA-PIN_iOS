@@ -14,6 +14,13 @@ struct ResponseArrayType<T: Codable>: Codable {
     var data: [T]?
 }
 
+struct ResponseMenuArrayType<T: Codable>: Codable {
+    var status: Int?
+    var success: Bool?
+    var message: String?
+    var menus: [T]?
+}
+
 struct ResponseType<T: Codable>: Codable {
     var status: Int?
     var success: Bool?

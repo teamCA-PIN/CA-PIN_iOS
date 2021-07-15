@@ -5,6 +5,7 @@
 //  Created by 김지수 on 2021/07/09.
 //
 
+import Cosmos
 import Photos
 import PhotosUI
 import UIKit
@@ -63,6 +64,16 @@ class WriteReviewViewController: UIViewController {
   let starLabel = UILabel()
   let staressentialImageView = UIImageView()
   let explainstarLabel = UILabel()
+  //star rating
+  let ratingView = CosmosView().then {
+    $0.settings.fillMode = .half
+    $0.settings.filledImage = UIImage(named: "vector")
+    $0.settings.emptyImage = UIImage(named: "starInactive")
+    $0.settings.starSize = 34
+    $0.settings.starMargin = 14.7
+    $0.settings.starPoints = [CGPoint(x: 100, y: 91.176)]
+  }
+  let writereviewButton = UIButton()
   
   final let maxLength = 150
   var nameCount = 0
@@ -93,7 +104,7 @@ class WriteReviewViewController: UIViewController {
                                            name: NSNotification.Name("delete"),
                                            object: nil)
     let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-            view.addGestureRecognizer(tap) // Add gesture recognizer to background view
+    view.addGestureRecognizer(tap)
   }
 }
 
@@ -130,6 +141,9 @@ extension WriteReviewViewController {
     layoutStarLabel()
     layoutStaressentialImageView()
     layoutExplainstarLabel()
+    layoutRatingView()
+    layoutWriteReviewButton()
+    
   }
   func layoutWriteScrollView() {
     self.view.add(writeScrollView) {
@@ -383,7 +397,34 @@ extension WriteReviewViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.starLabel.snp.bottom).offset(4)
         $0.leading.equalTo(self.writeScrollContainerView.snp.leading).offset(20)
-        $0.bottom.equalTo(self.writeScrollContainerView.snp.bottom).offset(-550)
+        //        $0.bottom.equalTo(self.writeScrollContainerView.snp.bottom).offset(-550)
+      }
+    }
+  }
+  ///별점
+  func layoutRatingView() {
+    self.writeScrollContainerView.add(self.ratingView) {
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.explainstarLabel.snp.bottom).offset(30)
+        $0.center.equalToSuperview()
+        $0.width.equalTo(100)
+      }
+    }
+  }
+  func layoutWriteReviewButton() {
+    self.writeScrollContainerView.add(self.writereviewButton) {
+      $0.setTitle("리뷰등록하기", for: .normal)
+      $0.setTitleColor(.white, for: .normal)
+      $0.backgroundColor = .pointcolor1
+      $0.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
+      $0.addTarget(self, action: #selector(self.writereviewButtonClicked), for: .touchUpInside)
+      $0.setRounded(radius: 24.5)
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.ratingView.snp.bottom).offset(38)
+        $0.centerX.equalToSuperview()
+        $0.leading.equalTo(self.writeScrollContainerView.snp.leading).offset(20)
+        $0.trailing.equalTo(self.writeScrollContainerView.snp.trailing).offset(-20)
+        $0.height.equalTo(49)
       }
     }
   }
@@ -414,8 +455,8 @@ extension WriteReviewViewController {
     }
   }
   @objc func handleTap() {
-          reviewTextView.resignFirstResponder() // dismiss keyoard
-      }
+    reviewTextView.resignFirstResponder() // dismiss keyoard
+  }
   
   ///back button 누르면 돌아가게
   @objc func backButtonClicked() {}
@@ -437,6 +478,16 @@ extension WriteReviewViewController {
       }
     }
   }
+  @objc func writereviewButtonClicked() {
+    if reviewwordcountLabel.text == "0/150" {
+      self.showGrayToast(message: "리뷰와 별점을 등록해주세요")
+    } else {
+      /// 다음 화면으로 넘어가게
+    }
+    /// 별점 없을시 토스트 띄워주기
+  }
+  
+  
   /// 선택한 사진 삭제
   @objc func DataDelete(Notification: NSNotification) {
     if let index = Notification.object as? Int {
@@ -483,8 +534,8 @@ extension WriteReviewViewController {
     picker.modalPresentationStyle = .overCurrentContext
     self.present(picker, animated: true, completion: nil)
   }
+  //CollectionView 에는 TapGesture 제외
 }
-
 
 
 // MARK: - ReviewTextView Delegate
@@ -576,3 +627,7 @@ extension WriteReviewViewController : UICollectionViewDelegateFlowLayout {
   }
 }
 
+///TapGesture CollectionView에서는 제외하도록
+extension WriteReviewViewController: UIGestureRecognizerDelegate {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                         shouldReceive touch: UITouch) -> Bool { let point = touch.location(in: view); return !reviewphotoCollectionView.frame.contains(point) } }

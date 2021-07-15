@@ -8,7 +8,9 @@
 import UIKit
 
 import SnapKit
-import SwiftyColor
+import Moya
+import RxMoya
+import RxSwift
 import Then
 
 // MARK: - CafeMenuTableViewCell
@@ -28,10 +30,12 @@ class CafeMenuTableViewCell: UITableViewCell {
   }
   
   func setData(menuName : String,
-               price : String)
+               price : Int)
   {
-    menunameLabel.text = menuName
-    priceLabel.text = price
+    self.menunameLabel.setupLabel(text: menuName, color: .black, font: UIFont.notoSansKRRegularFont(fontSize: 16))
+//    self.priceLabel.setupLabel(text: price, color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
+//    menunameLabel.text = menuName
+//    priceLabel.text = price
   }
   
   // MARK: - Components
@@ -75,4 +79,5 @@ extension CafeMenuTableViewCell {
       }
     }
   }
+  
 }
