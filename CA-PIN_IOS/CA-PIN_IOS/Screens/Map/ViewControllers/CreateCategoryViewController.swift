@@ -191,8 +191,6 @@ extension CreateCategoryViewController {
     else {
       addCategory(colorIndex: self.selectedNumber!, categoryName: self.categoryNameTextField.text!)
     }
-    self.navigationController?.viewControllers[0].dismiss(animated: false, completion: nil)
-    self.navigationController?.popToRootViewController(animated: true)
   }
   @objc func textDidChange(_ notification: Notification) {
     if let textField = notification.object as? UITextField {
@@ -213,9 +211,13 @@ extension CreateCategoryViewController {
     categoryProvider.rx.request(.createCategory(colorIndex: colorIndex, categoryName: categoryName))
       .asObservable()
       .subscribe(onNext: { response in
-        if response.statusCode == 200 {
+        if response.statusCode == 201 {
           do {
-            print(response.statusCode)
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(ResponseType<ServerReview>.self,
+                                          from: response.data)
+            self.navigationController?.viewControllers[0].dismiss(animated: false, completion: nil)
+            self.navigationController?.popToRootViewController(animated: true)
           } catch {
             print(error)
           }

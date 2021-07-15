@@ -53,7 +53,8 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
   var cafeDetailModel: CafeServerDetail?
   var isSaved: Bool?
   var rating: Float = 0
-  var coordinates: [NMGLatLng] = [NMGLatLng(lat: 36.1, lng: 107.2)]
+//  var coordinates: [NMGLatLng] = [NMGLatLng(lat: 36.1, lng: 107.2)]
+  var coordinates: [MapCoordinates] = [MapCoordinates(coordinates: NMGLatLng(lat: 36.1, lng: 107.2), colorCode: "", id: "")]
   var selectedMarker: NMFMarker?
   let locationComponent = NMFLocationManager.sharedInstance()
   let disposeBag = DisposeBag()
@@ -408,28 +409,31 @@ extension MapViewController {
   func setupMarker() {
     let handler = { (overlay: NMFOverlay) -> Bool in
       var id = ""
+      var colorCode = ""
       if let marker = overlay as? NMFMarker {
-        self.selectedMarker?.iconImage = NMFOverlayImage(name: "pinInactiveDefault")
-        self.selectedMarker = marker
-        marker.iconImage = NMFOverlayImage(name: "pinActiveDefault")
         for coordinate in self.coordinates {
-          if marker.position == coordinate {
-            let index = self.coordinates.lastIndex(of: coordinate)
-            id = self.cafeListModel[index ?? 0].id
+          if marker.position == coordinate.coordinates {
+            id = coordinate.id
+            colorCode = coordinate.colorCode
           }
         }
+        self.selectedMarker?.iconImage = NMFOverlayImage(name: self.markerImage(colorCode: colorCode, isActive: 0))
+        self.selectedMarker = marker
+        marker.iconImage = NMFOverlayImage(name: self.markerImage(colorCode: colorCode, isActive: 1))
       }
       self.setupCafeInformation(cafeId: id)
       return true
     }
     
     self.markers.removeAll()
-
+    
     for index in 0..<self.coordinates.count {
-      let marker = NMFMarker(position: self.coordinates[index])
-      marker.touchHandler = handler
-      marker.iconImage = NMFOverlayImage(name: "pinInactiveDefault")
-      markers.append(marker)
+      if selectedMarker?.position != self.coordinates[index].coordinates {
+        let marker = NMFMarker(position: self.coordinates[index].coordinates)
+        marker.touchHandler = handler
+        marker.iconImage = NMFOverlayImage(name: markerImage(colorCode: self.coordinates[index].colorCode, isActive: 0))
+        markers.append(marker)
+      }
     }
     self.findCurrentMarker()
     
@@ -455,57 +459,59 @@ extension MapViewController {
   }
   func setupCafeList() {
     listProvider.rx.request(.cafeList(tags: tags))
-          .asObservable()
-          .subscribe(onNext: { response in
-            if response.statusCode == 200 {
-              do {
-                let decoder = JSONDecoder()
-                let data = try decoder.decode(MapListResponseArrayType<CafeLocation>.self,
-                                              from: response.data)
-                self.cafeListModel = data.cafeLocations ?? [CafeLocation(id: "1", latitude: 37.5260118, longitude: 127.0355868)]
-                self.coordinates.removeAll()
-                for cafe in self.cafeListModel {
-                  self.coordinates.append(NMGLatLng(lat: cafe.latitude, lng: cafe.longitude))
-                }
-                print(self.coordinates)
-              } catch {
-                print(error)
-              }
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(MapListResponseArrayType<CafeLocation>.self,
+                                          from: response.data)
+            self.cafeListModel = data.cafeLocations ?? [CafeLocation(id: "1", latitude: 37.5260118, longitude: 127.0355868)]
+            self.coordinates.removeAll()
+            for cafe in self.cafeListModel {
+              self.coordinates.append(MapCoordinates(coordinates: NMGLatLng(lat: cafe.latitude, lng: cafe.longitude), colorCode: "", id: cafe.id))
             }
-          }, onError: { error in
+            print(self.coordinates)
+          } catch {
             print(error)
-          }, onCompleted: {
-            self.reloadInputViews()
-          }).disposed(by: disposeBag)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+        self.reloadInputViews()
+      }).disposed(by: disposeBag)
   }
   func setupMyMapList() {
     listProvider.rx.request(.cafeListMymap)
-          .asObservable()
-          .subscribe(onNext: { response in
-            if response.statusCode == 200 {
-              do {
-                let decoder = JSONDecoder()
-                let data = try decoder.decode(MyMapListResponseType<MyMapLocation>.self,
-                                              from: response.data)
-                
-                let myMapListModel = data.myMapLocations
-                for cafeModel in myMapListModel! {
-                  self.myMapCafeList = cafeModel.cafes ?? [MyMapCafe(id: "", latitude: 0, longitude: 0)]
-                }
-                self.coordinates.removeAll()
-                for cafe in self.myMapCafeList {
-                  self.coordinates.append(NMGLatLng(lat: cafe.latitude, lng: cafe.longitude))
-                }
-                print(self.coordinates)
-              } catch {
-                print(error)
-              }
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(MyMapListResponseType<MyMapLocation>.self,
+                                          from: response.data)
+            
+            let myMapListModel = data.myMapLocations
+            var colorCode = ""
+            for cafeModel in myMapListModel! {
+              self.myMapCafeList = cafeModel.cafes ?? [MyMapCafe(id: "", latitude: 0, longitude: 0)]
+              colorCode = cafeModel.color
             }
-          }, onError: { error in
+            self.coordinates.removeAll()
+            for cafe in self.myMapCafeList {
+              self.coordinates.append(MapCoordinates(coordinates: NMGLatLng(lat: cafe.latitude, lng: cafe.longitude), colorCode: colorCode, id: cafe.id))
+            }
+            print(self.coordinates)
+          } catch {
             print(error)
-          }, onCompleted: {
-            self.reloadInputViews()
-          }).disposed(by: disposeBag)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+        self.reloadInputViews()
+      }).disposed(by: disposeBag)
   }
   func setupCafeInformation(cafeId: String) {
     listProvider.rx.request(.cafeDetail(cafeId: cafeId))
@@ -599,11 +605,19 @@ extension MapViewController: NMFMapViewTouchDelegate {
     if self.informationView.isHidden == false {
       self.informationView.isHidden = true
       self.viewWillAppear(true)
-      selectedMarker?.iconImage = NMFOverlayImage(name: "pinInactiveDefault")
+      for coordinate in self.coordinates {
+        if selectedMarker?.position == coordinate.coordinates {
+          selectedMarker?.iconImage = NMFOverlayImage(name: markerImage(colorCode: coordinate.colorCode, isActive: 0))
+        }
+      }
       selectedMarker = nil
     }
     for marker in currentMarkers {
-      marker.iconImage =  NMFOverlayImage(name: "pinInactiveDefault")
+      for coordinate in self.coordinates {
+        if marker.position == coordinate.coordinates {
+          marker.iconImage = NMFOverlayImage(name: markerImage(colorCode: coordinate.colorCode, isActive: 0))
+        }
+      }
     }
   }
 }
@@ -622,17 +636,17 @@ extension MapViewController: NMFMapViewCameraDelegate {
 
 
 struct MapListResponseArrayType<T: Codable>: Codable {
-    var status: Int?
-    var success: Bool?
-    var message: String?
-    var cafeLocations: [T]?
+  var status: Int?
+  var success: Bool?
+  var message: String?
+  var cafeLocations: [T]?
 }
 
 struct CafeDetailResponseType<T: Codable>: Codable {
-    var status: Int?
-    var success: Bool?
-    var message: String?
-    var cafeDetail: T?
+  var status: Int?
+  var success: Bool?
+  var message: String?
+  var cafeDetail: T?
   var isSaved: Bool
   var average: Float?
 }
@@ -645,53 +659,53 @@ struct MyMapListResponseType<T: Codable>: Codable {
 
 // MARK: - CafeListModel
 struct CafeListModel: Codable {
-    let message: String
-    let cafeLocations: [CafeLocation]?
+  let message: String
+  let cafeLocations: [CafeLocation]?
 }
 
 // MARK: - CafeLocation
 struct CafeLocation: Codable {
-    let id: String
-    let latitude, longitude: Double
-
-    enum CodingKeys: String, CodingKey {
-        case id = "_id"
-        case latitude, longitude
-    }
+  let id: String
+  let latitude, longitude: Double
+  
+  enum CodingKeys: String, CodingKey {
+    case id = "_id"
+    case latitude, longitude
+  }
 }
 
 // MARK: - CafeDetailModel
 struct CafeServerDetailModel: Codable {
-    let message: String
-    let cafeDetail: CafeServerDetail
-    let isSaved: Bool
-    let average: Double
+  let message: String
+  let cafeDetail: CafeServerDetail
 }
 
 // MARK: - CafeDetail
 struct CafeServerDetail: Codable {
-    let tags: [ServerTag]
-    let id, name, address: String
-    let opentime, opentimeHoliday, closetime, closetimeHoliday: String?
+  let tags: [ServerTag]
+  let id, name, address: String
+  let opentime, opentimeHoliday, closetime, closetimeHoliday: String?
   let cafeImg, instagram: String?
-    let offday: [String]?
-    let latitude, longitude: Double
-
-    enum CodingKeys: String, CodingKey {
-        case tags
-        case id = "_id"
-        case name, address, instagram, opentime, opentimeHoliday, closetime, closetimeHoliday, offday, latitude, longitude, cafeImg
-    }
+  let offday: [String]?
+  let latitude, longitude: Double
+  let rating: Float?
+  
+  enum CodingKeys: String, CodingKey {
+    case tags
+    case id = "_id"
+    case name, address, instagram, opentime, opentimeHoliday, closetime, closetimeHoliday, offday, latitude, longitude, cafeImg
+    case rating
+  }
 }
 
 // MARK: - Tag
 struct ServerTag: Codable {
-    let id: String
-    let tagIdx: Int
-    let name: String
-
-    enum CodingKeys: String, CodingKey {
-        case id = "_id"
-        case tagIdx, name
-    }
+  let id: String
+  let tagIdx: Int
+  let name: String
+  
+  enum CodingKeys: String, CodingKey {
+    case id = "_id"
+    case tagIdx, name
+  }
 }
