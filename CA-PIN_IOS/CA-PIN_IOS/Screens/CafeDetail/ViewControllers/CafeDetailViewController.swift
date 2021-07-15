@@ -533,6 +533,7 @@ extension CafeDetailViewController {
   }
   @objc func clickedWriteReviewButton() {
     let writeReviewVC = WriteReviewViewController()
+    writeReviewVC.cafeId = (self.cafeModel?.id)!
     self.navigationController?.pushViewController(writeReviewVC, animated: false)
   }
   func setupReviewData(cafeId: String) {

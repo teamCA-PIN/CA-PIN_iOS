@@ -24,15 +24,20 @@ extension ReviewService: TargetType {
   }
   
   public var baseURL: URL {
-    return URL(string: "http://3.37.75.200:5000")!
+    switch self {
+    case .writeReview(cafeId: let cafeId, _, _, _, _):
+      return URL(string: "http://3.37.75.200:5000/reviews?cafe=\(cafeId)")!
+    default:
+      return URL(string: "http://3.37.75.200:5000")!
+    }
   }
   
   var path: String {
     switch self {
     case .reviewList(let cafeId):
       return "/reviews"
-    case .writeReview(cafeId: let cafeId):
-      return "/reviews?cafe=\(cafeId)"
+    case .writeReview:
+      return ""
     case .editReview(let reviewId):
       return "/reviews:\(reviewId)"
     case .deleteReview(let reviewId):
@@ -67,15 +72,28 @@ extension ReviewService: TargetType {
       
     case .writeReview(_, recommend: let recommend, content: let content, rating: let rating, images: let images):
       var multiPartFormData: [MultipartFormData] = []
-      let review = [
-        "recommend": recommend,
-        "content": content,
-        "rating": rating
-      ] as [String : Any]
-      let data = try! JSONSerialization.data(withJSONObject: review, options: .prettyPrinted)
-      let jsonString = String(data: data, encoding: .utf8)!
-      let stringData = MultipartFormData(provider: .data(jsonString.data(using: String.Encoding.utf8)!), name: "review")
-      multiPartFormData.append(stringData)
+      if recommend == [] {
+        print("recommend 없음")
+        let review = [
+          "content": content,
+          "rating": rating
+        ] as [String: Any]
+        let data = try! JSONSerialization.data(withJSONObject: review, options: .prettyPrinted)
+        let jsonString = String(data: data, encoding: .utf8)!
+        let stringData = MultipartFormData(provider: .data(jsonString.data(using: String.Encoding.utf8)!), name: "review")
+        multiPartFormData.append(stringData)
+      }
+      else {
+        let review = [
+          "recommend": recommend,
+          "content": content,
+          "rating": rating
+        ] as [String: Any]
+        let data = try! JSONSerialization.data(withJSONObject: review, options: .prettyPrinted)
+        let jsonString = String(data: data, encoding: .utf8)!
+        let stringData = MultipartFormData(provider: .data(jsonString.data(using: String.Encoding.utf8)!), name: "review")
+        multiPartFormData.append(stringData)
+      }
       if images != nil {
         for image in images! {
           let imageData = image.jpegData(compressionQuality: 1.0)

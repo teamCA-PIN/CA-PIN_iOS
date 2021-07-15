@@ -523,8 +523,7 @@ extension MapViewController {
             let data = try decoder.decode(CafeDetailResponseType<CafeServerDetail>.self,
                                           from: response.data)
             self.cafeDetailModel = data.cafeDetail!
-            self.rating = data.average ?? 0
-            self.isSaved = data.isSaved
+            self.rating = data.cafeDetail?.rating ?? 0
             self.informationViewDataBind()
           } catch {
             print(error)
@@ -647,8 +646,6 @@ struct CafeDetailResponseType<T: Codable>: Codable {
   var success: Bool?
   var message: String?
   var cafeDetail: T?
-  var isSaved: Bool
-  var average: Float?
 }
 
 struct MyMapListResponseType<T: Codable>: Codable {
