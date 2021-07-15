@@ -284,7 +284,7 @@ extension HamburgerViewController {
     mypageVC.cafeTI = self.infoData!.cafeti.type
     mypageVC.plainImage = self.infoData!.cafeti.plainImg
     let mypageNavigation = UINavigationController()
-    mypageNavigation.modalPresentationStyle = .fullScreen
+    mypageNavigation.modalPresentationStyle = .currentContext
     mypageNavigation.addChild(mypageVC)
     self.present(mypageNavigation, animated: false, completion: nil)
   }

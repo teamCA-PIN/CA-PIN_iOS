@@ -38,7 +38,7 @@ class EditCategoryViewController: UIViewController {
   final let maxLength = 10
   
   let disposeBag = DisposeBag()
-  private let CategoryProvider = MoyaProvider<CategoryService>()
+  private let CategoryProvider = MoyaProvider<CategoryService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   
   var nameCount = 0
   var selectedNumber: Int?
@@ -192,27 +192,17 @@ extension EditCategoryViewController {
       confirmButton.setupButton(title: "완료", color: .white, font: .notoSansKRMediumFont(fontSize: 16), backgroundColor: .pointcolor1, state: .normal, radius: 24.5)
     }
   }
-  func categoryEditService(colorIndex: Int, categoryName: String) {
-    print(#function)
-    print(colorIndex)
-    print(categoryName)
-    CategoryProvider.rx.request(.editCategory(colorIndex: colorIndex, categoryName: categoryName))
+  func categoryEditService(categoryId: String,colorIndex: Int, categoryName: String) {
+    CategoryProvider.rx.request(.editCategory(categoryId: categoryId, colorIndex: colorIndex, categoryName: categoryName))
       .asObservable()
       .subscribe(onNext: { response in
         if response.statusCode == 200 {
-          print("success")
           do {
             let decoder = JSONDecoder()
             let data = try decoder.decode(Response.self, from: response.data)
-//            let myPageVC = self.navigationController?.children[1]
-//            self.navigationController?.popViewController(animated: false, completion: {
-//              loginVC?.showGreenToast(message: "가입이 완료되었습니다.")
-//            })
             self.navigationController?.popViewController(animated: false, completion: {
-              print(self.presentingViewController)
-              print(self.presentedViewController)
+              
             })
-            print("가입이 완료되었습니다")
           }
           catch {
             print(error)
@@ -220,9 +210,7 @@ extension EditCategoryViewController {
         }
         else {
           do {
-//            let decoder = JSONDecoder()
-//            let data = try decoder.decode(Response.self, from: response.data)
-//            self.showGrayToast(message: data.message ?? "")
+            print(response)
           }
           catch {
             print(error)
@@ -237,13 +225,8 @@ extension EditCategoryViewController {
     self.navigationController?.popViewController(animated: true)
   }
   @objc func clickedConfirmButton() {
-    /// TOOD: Server Connection
-    print("confirmButton")
-    print(newCategoryName)
-    print(selectedNumber)
-    self.categoryEditService(colorIndex: self.selectedNumber ?? 0, categoryName: self.newCategoryName ?? "")
-    self.navigationController?.viewControllers[0].dismiss(animated: false, completion: nil)
-    self.navigationController?.popToRootViewController(animated: true)
+    self.categoryEditService(categoryId: "60efd5579c891a2c9173a439", colorIndex: self.selectedNumber ?? 0, categoryName: self.newCategoryName ?? "")
+   
   }
   @objc func textDidChange(_ notification: Notification) {
     if let textField = notification.object as? UITextField {
