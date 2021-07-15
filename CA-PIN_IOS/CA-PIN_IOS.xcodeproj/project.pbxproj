@@ -68,6 +68,7 @@
 		CC7BB2FB269C308E0079FC4F /* ReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FA269C308E0079FC4F /* ReviewService.swift */; };
 		CC7BB2FD269C57B90079FC4F /* CafeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FC269C57B90079FC4F /* CafeService.swift */; };
 		CC7BB2FF269C5D820079FC4F /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FE269C5D820079FC4F /* CategoryService.swift */; };
+		CC9C854D269EBFA1002A3321 /* MyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */; };
 		CC9C8550269EF82E002A3321 /* ReviewDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
@@ -210,6 +211,7 @@
 		CC7BB2FA269C308E0079FC4F /* ReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewService.swift; sourceTree = "<group>"; };
 		CC7BB2FC269C57B90079FC4F /* CafeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeService.swift; sourceTree = "<group>"; };
 		CC7BB2FE269C5D820079FC4F /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
+		CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoModel.swift; sourceTree = "<group>"; };
 		CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailModel.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -565,6 +567,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		CC9C854B269EBF86002A3321 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */,
+			);
+			path = User;
+      sourceTree = "<group>";
+    };
 		CC9C854E269EF813002A3321 /* Review */ = {
 			isa = PBXGroup;
 			children = (
@@ -794,6 +804,7 @@
 		E8244CD026974603007E63ED /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CC9C854B269EBF86002A3321 /* User */,
 				CC9C854E269EF813002A3321 /* Review */,
 				E82E5AA2269F32D000DE5C23 /* CafeTIModel */,
 				9253708D269D8F2600E2E5EA /* Signup */,
@@ -1160,6 +1171,7 @@
 				9253708F269D8F3800E2E5EA /* SignupModel.swift in Sources */,
 				925370792698F4DD00E2E5EA /* MyEmptyCategoryTableViewCell.swift in Sources */,
 				9292FFC82696352600BCD791 /* CategoryCafeListTableViewCell.swift in Sources */,
+				CC9C854D269EBFA1002A3321 /* MyInfoModel.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */,
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,

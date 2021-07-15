@@ -23,7 +23,8 @@ extension CafeService: TargetType {
   
   private var token: String {
 //    return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
-    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGVjNjk0MTJkNGNhZDY0ZjBkNmVhNjgiLCJpYXQiOjE2MjYyODE2NTcsImV4cCI6MTYyNjM2ODA1N30.KrUpKHCZKmahakpFbZbt8cdUS9NB99lffupEpS8NQzo"
+    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGVjNjk0MTJkNGNhZDY0ZjBkNmVhNjgiLCJpYXQiOjE2MjYzMzMwMDMsImV4cCI6MTYyNjQxOTQwM30.W3VgorVwJPdQoHFaK0V8ieIgcN37no83XqeBzeGuP9g"
+
   }
   
   public var baseURL: URL {
