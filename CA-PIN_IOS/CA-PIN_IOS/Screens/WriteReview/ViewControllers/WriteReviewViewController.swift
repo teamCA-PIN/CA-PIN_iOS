@@ -5,11 +5,14 @@
 //  Created by 김지수 on 2021/07/09.
 //
 
-import Cosmos
 import Photos
 import PhotosUI
 import UIKit
 
+import Cosmos
+import Moya
+import RxMoya
+import RxSwift
 import SnapKit
 import SwiftyColor
 import Then
@@ -567,6 +570,7 @@ extension WriteReviewViewController {
   func didFinishTouchRatingView(_ rating: Double) {
     self.ratingContentLabel.text = "\(rating)점"
   }
+  
 }
 
 
