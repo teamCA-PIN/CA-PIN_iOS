@@ -33,7 +33,7 @@ class CafeMenuTableViewCell: UITableViewCell {
                price : Int)
   {
     self.menunameLabel.setupLabel(text: menuName, color: .black, font: UIFont.notoSansKRRegularFont(fontSize: 16))
-//    self.priceLabel.setupLabel(text: price, color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
+    self.priceLabel.setupLabel(text: "\(price)", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
 //    menunameLabel.text = menuName
 //    priceLabel.text = price
   }

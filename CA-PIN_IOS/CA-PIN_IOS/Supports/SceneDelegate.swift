@@ -22,7 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       let rootNav = UINavigationController()
       rootNav.navigationBar.isHidden = true
       rootNav.hidesBottomBarWhenPushed = false
-      let rootVC = TabbarViewController()
+      let rootVC = LoginViewController()
+      rootVC.view.backgroundColor = .white
       rootVC.hidesBottomBarWhenPushed = false
       
       rootNav.viewControllers = [rootVC]

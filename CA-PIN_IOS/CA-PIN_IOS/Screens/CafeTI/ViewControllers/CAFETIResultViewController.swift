@@ -31,6 +31,7 @@ class CAFETIResultViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     setResultData()
     layout()
     self.navigationController?.navigationBar.isHidden = true

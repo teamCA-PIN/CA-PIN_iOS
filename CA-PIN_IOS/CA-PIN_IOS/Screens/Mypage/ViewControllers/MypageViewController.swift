@@ -55,10 +55,13 @@ class MypageViewController: UIViewController {
   var userName: String = "김카핀"
   var cafeTI: String = "WBFJ"
   var trigger = true
+  var profileImage: String = ""
+  var plainImage: String = ""
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     register()
     layout()
     self.tabbarCollectionView.delegate = self
@@ -66,6 +69,12 @@ class MypageViewController: UIViewController {
     self.pageCollectionView.delegate = self
     self.pageCollectionView.dataSource = self
     self.navigationController?.navigationBar.isHidden = true
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    print("MyPageViewController")
+    print(#function)
+    self.pageCollectionView.reloadData()
   }
   
   override func viewDidLayoutSubviews() {
@@ -113,7 +122,7 @@ extension MypageViewController {
   }
   func layoutProfileContainerView() {
     self.view.add(self.profileContainerView) {
-      $0.backgroundColor = .clear
+      $0.backgroundColor = .white
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.backButton.snp.bottom).offset(17)

@@ -35,6 +35,7 @@ class CafeMenuViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     showCafeMenuList()
     layout()
     register()
@@ -44,7 +45,8 @@ class CafeMenuViewController: UIViewController {
   }
   
   override func viewWillLayoutSubviews() {
-    updateViewConstraints()
+    super.updateViewConstraints()
+    self.cafemenuTableView.heightConstraint?.constant = self.cafemenuTableView.contentSize.height
   }
   
   func setCafemenuList() {
@@ -171,6 +173,7 @@ extension CafeMenuViewController {
                                         menuName: data[i].name,
                                         price: data[i].price))
             }
+            self.cafemenuTableView.reloadData()
             print("성공")
           } catch {
             print(error)
@@ -220,5 +223,8 @@ extension CafeMenuViewController: UITableViewDataSource {
     return cafemenuCell
   }
   
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    self.viewWillLayoutSubviews()
+  }
 }
 

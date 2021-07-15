@@ -20,5 +20,4 @@ extension UICollectionViewCell: ReusableView {
       
       return indexPath
     }
-    
 }

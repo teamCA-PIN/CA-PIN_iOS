@@ -10,6 +10,14 @@ import UIKit
 
 // MARK: - UIColor Extension
 extension UIColor {
+//  convenience init(rgb: Int) {
+//      self.init(
+//          red: (rgb >> 16) & 0xFF,
+//          green: (rgb >> 8) & 0xFF,
+//          blue: rgb & 0xFF
+//      )
+//  }
+
 
   @nonobjc class var gray2: UIColor {
     return UIColor(white: 237.0 / 255.0, alpha: 1.0)

@@ -44,6 +44,7 @@ class HamburgerViewController: UIViewController {
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     layout()
   }
   
@@ -164,6 +165,7 @@ extension HamburgerViewController {
   func layoutArchiveNextButton() {
     archiveContainerView.add(archiveNextButton) {
       $0.setBackgroundImage(UIImage(named: "iconBack"), for: .normal)
+      $0.addTarget(self, action: #selector(self.clickedNextButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerY.equalTo(self.archiveTitleLabel.snp.centerY)
         $0.trailing.equalTo(self.archiveContainerView.snp.trailing).offset(-20)
@@ -274,6 +276,17 @@ extension HamburgerViewController {
   @objc func clickedTermsButton() {
     let termsVC = TermsViewController()
     self.navigationController?.pushViewController(termsVC, animated: false)
+  }
+  @objc func clickedNextButton() {
+    let mypageVC = MypageViewController()
+    mypageVC.userName = self.infoData!.nickname
+    mypageVC.profileImage = self.infoData!.profileImg
+    mypageVC.cafeTI = self.infoData!.cafeti.type
+    mypageVC.plainImage = self.infoData!.cafeti.plainImg
+    let mypageNavigation = UINavigationController()
+    mypageNavigation.modalPresentationStyle = .fullScreen
+    mypageNavigation.addChild(mypageVC)
+    self.present(mypageNavigation, animated: false, completion: nil)
   }
   func loadInfoData() {
     userProvider.rx.request(.myInfo)

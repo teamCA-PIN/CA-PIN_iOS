@@ -39,6 +39,7 @@ class CAFETITest3ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     addButtons()
     layout()
   }

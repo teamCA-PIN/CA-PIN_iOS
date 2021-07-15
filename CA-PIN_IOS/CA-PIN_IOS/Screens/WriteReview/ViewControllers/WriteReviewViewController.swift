@@ -74,25 +74,31 @@ class WriteReviewViewController: UIViewController {
     $0.settings.starPoints = [CGPoint(x: 100, y: 91.176)]
   }
   let writereviewButton = UIButton()
+  let ratingContentLabel = UILabel()
+  let ratingMaxLabel = UILabel()
   
   final let maxLength = 150
   var nameCount = 0
   
-  
+  var ratingValue = 2.5
   
   var fetchResult: PHFetchResult<PHAsset>?
   var canAccessImages: [UIImage] = []
   
   var changetiming = 0
   
+  let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+  
   // MARK: - LifeCycle
   
   override func viewDidLoad() {
+    self.view.backgroundColor = .white
     super.viewDidLoad()
     layout()
     register()
     self.reviewphotoCollectionView.delegate = self
     self.reviewphotoCollectionView.dataSource = self
+    self.ratingView.didFinishTouchingCosmos = didFinishTouchRatingView
     self.navigationController?.navigationBar.isHidden = true
     self.reviewTextView.delegate = self
     NotificationCenter.default.addObserver(self,
@@ -103,9 +109,11 @@ class WriteReviewViewController: UIViewController {
                                            selector: #selector(DataDelete),
                                            name: NSNotification.Name("delete"),
                                            object: nil)
-    
-    let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-    view.addGestureRecognizer(tap)
+    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+    tapRecognizer.numberOfTapsRequired = 1
+    tapRecognizer.isEnabled = true
+    tapRecognizer.cancelsTouchesInView = false
+    self.writeScrollView.addGestureRecognizer(tapRecognizer)
   }
 }
 
@@ -143,6 +151,8 @@ extension WriteReviewViewController {
     layoutStaressentialImageView()
     layoutExplainstarLabel()
     layoutRatingView()
+    layoutRatingMaxLabel()
+    layoutRatingContentLabel()
     layoutWriteReviewButton()
     
   }
@@ -407,8 +417,25 @@ extension WriteReviewViewController {
     self.writeScrollContainerView.add(self.ratingView) {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.explainstarLabel.snp.bottom).offset(30)
-        $0.center.equalToSuperview()
-        $0.width.equalTo(100)
+        $0.leading.equalTo(self.writeScrollContainerView.snp.leading).offset(27)
+      }
+    }
+  }
+  func layoutRatingMaxLabel() {
+    self.writeScrollContainerView.add(self.ratingMaxLabel) {
+      $0.setupLabel(text: "/5점", color: .gray3, font: .notoSansKRMediumFont(fontSize: 16))
+      $0.snp.makeConstraints {
+        $0.centerY.equalTo(self.ratingView.snp.centerY)
+        $0.trailing.equalTo(self.writeScrollContainerView.snp.trailing).offset(-20)
+      }
+    }
+  }
+  func layoutRatingContentLabel() {
+    self.writeScrollContainerView.add(self.ratingContentLabel) {
+      $0.setupLabel(text: "\(self.ratingValue)점", color: .black, font: .notoSansKRMediumFont(fontSize: 16))
+      $0.snp.makeConstraints {
+        $0.centerY.equalTo(self.ratingMaxLabel.snp.centerY)
+        $0.trailing.equalTo(self.ratingMaxLabel.snp.leading).offset(-5)
       }
     }
   }
@@ -425,6 +452,7 @@ extension WriteReviewViewController {
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.writeScrollContainerView.snp.leading).offset(20)
         $0.trailing.equalTo(self.writeScrollContainerView.snp.trailing).offset(-20)
+        $0.bottom.equalTo(self.writeScrollContainerView.snp.bottom).offset(-34)
         $0.height.equalTo(49)
       }
     }
@@ -535,7 +563,10 @@ extension WriteReviewViewController {
     picker.modalPresentationStyle = .overCurrentContext
     self.present(picker, animated: true, completion: nil)
   }
-  //CollectionView 에는 TapGesture 제외
+  
+  func didFinishTouchRatingView(_ rating: Double) {
+    self.ratingContentLabel.text = "\(rating)점"
+  }
 }
 
 
@@ -558,6 +589,7 @@ extension WriteReviewViewController: UITextViewDelegate {
       
       textView.textColor = UIColor.black
     }
+    
   }
   
   func textViewDidEndEditing(_ textView: UITextView) {
@@ -565,6 +597,7 @@ extension WriteReviewViewController: UITextViewDelegate {
       textView.text = "리뷰를 입력하세요."
       textView.textColor = UIColor.gray3
     }
+    
   }
 }
 
@@ -629,7 +662,4 @@ extension WriteReviewViewController : UICollectionViewDelegateFlowLayout {
   }
 }
 
-///TapGesture CollectionView에서는 제외하도록
-extension WriteReviewViewController: UIGestureRecognizerDelegate {
-  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                         shouldReceive touch: UITouch) -> Bool { let point = touch.location(in: view); return !reviewphotoCollectionView.frame.contains(point) } }
+

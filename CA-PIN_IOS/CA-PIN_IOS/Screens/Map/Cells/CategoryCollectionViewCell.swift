@@ -25,7 +25,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     self.backgroundColor = .clear
     layout()
   }
-  
 }
 
 // MARK: - Extensions
@@ -37,10 +36,12 @@ extension CategoryCollectionViewCell {
     contentView.add(colorView) {
       $0.setRounded(radius: 17)
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.contentView.snp.top).offset(17)
-        $0.leading.equalTo(self.contentView.snp.leading).offset(13)
-        $0.center.equalToSuperview()
-        $0.width.height.equalTo(34)
+        /// 솔 코드
+//        $0.top.equalTo(self.contentView.snp.top).offset(17)
+//        $0.leading.equalTo(self.contentView.snp.leading).offset(13)
+//        $0.center.equalToSuperview()
+//        $0.width.height.equalTo(34)
+        $0.centerX.centerY.equalToSuperview()
       }
     }
   }

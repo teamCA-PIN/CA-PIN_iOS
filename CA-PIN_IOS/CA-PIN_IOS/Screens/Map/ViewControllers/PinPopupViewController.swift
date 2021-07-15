@@ -26,6 +26,7 @@ class PinPopupViewController: UIViewController {
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     self.navigationController?.navigationBar.isHidden = true
     layout()
     register()

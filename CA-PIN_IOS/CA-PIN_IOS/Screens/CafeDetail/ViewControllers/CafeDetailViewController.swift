@@ -103,9 +103,11 @@ class CafeDetailViewController: UIViewController {
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     self.setupReviewData(cafeId: self.cafeModel!.id)
     dataBind()
     register()
+    layout()
     self.tagCollectionView.delegate = self
     self.tagCollectionView.dataSource = self
     self.reviewTableView.delegate = self
@@ -458,6 +460,7 @@ extension CafeDetailViewController {
                      backgroundColor: .black,
                      state: .normal,
                      radius: 24.5)
+      $0.addTarget(self, action: #selector(self.clickedWriteReviewButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.savePinButton.snp.top)
         $0.bottom.equalTo(self.savePinLabel.snp.bottom)
@@ -502,7 +505,6 @@ extension CafeDetailViewController {
     
   }
   @objc func clickedBackButton() {
-    print(self.navigationController?.children)
     let mapVC = navigationController?.children[0] as? MapViewController
     mapVC?.informationRevealed = true
     self.navigationController?.popViewController(animated: false)
@@ -528,6 +530,10 @@ extension CafeDetailViewController {
     pinNavigationController.view.backgroundColor = .clear
     pinNavigationController.modalPresentationStyle = .overFullScreen
     self.present(pinNavigationController, animated: true, completion: nil)
+  }
+  @objc func clickedWriteReviewButton() {
+    let writeReviewVC = WriteReviewViewController()
+    self.navigationController?.pushViewController(writeReviewVC, animated: false)
   }
   func setupReviewData(cafeId: String) {
     reviewProvider.rx.request(.reviewList(cafeId: cafeId))

@@ -36,6 +36,7 @@ class CafeTITest1ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     addButtons()
     layout()
     self.navigationController?.navigationBar.isHidden = true

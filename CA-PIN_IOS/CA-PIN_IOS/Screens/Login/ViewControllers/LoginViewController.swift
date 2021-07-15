@@ -35,11 +35,12 @@ class LoginViewController: UIViewController {
   let appDel : AppDelegate = UIApplication.shared.delegate as! AppDelegate
   
   let disposeBag = DisposeBag()
-  private let UserAuthProvider = MoyaProvider<UserAuthService>()
+  private let UserAuthProvider = MoyaProvider<UserAuthService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     self.navigationController?.navigationBar.isHidden = true
     layout()
     makeDelegate()
@@ -99,16 +100,31 @@ extension LoginViewController {
                                           from: response.data)
             KeychainWrapper.standard.set(emailText, forKey: "loginEmail")
             KeychainWrapper.standard.set(passwordText, forKey: "loginPassword")
-            KeychainWrapper.standard.set(data.loginData!.token, forKey: "userToken")
+            KeychainWrapper.standard.set(data.loginData!.token, forKey: "accessToken")
+            
+            /// 이게 원래
+    //        let mapVC = MapViewController()
+    //        self.navigationController?.pushViewController(mapVC, animated: false)
+            /// 뷰 연결 전 테스트용
+            let myPageVC = CafeTIViewController()
+            self.navigationController?.pushViewController(myPageVC, animated: false)
           } catch {
             print(error)
+          }
+        } else {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(ResponseType<LoginModel>.self,
+                                          from: response.data)
+            self.showGrayToast(message: data.message!)
+            
+          } catch {
+            
           }
         }
       }, onError: { error in
         print(error)
       }, onCompleted: {
-        let mapVC = MapViewController()
-        self.navigationController?.pushViewController(mapVC, animated: false)
       }).disposed(by: disposeBag)
   }
   

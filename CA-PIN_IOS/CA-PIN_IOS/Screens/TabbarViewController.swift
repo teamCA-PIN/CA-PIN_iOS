@@ -35,7 +35,7 @@ extension TabbarViewController {
     secondNavigationController.addChild(secondTabController)
     
     let thirdNavigationController = UINavigationController()
-    let thirdTabController = EditCategoryViewController()
+    let thirdTabController = LoginViewController()
     thirdNavigationController.addChild(thirdTabController)
     
     
@@ -45,8 +45,8 @@ extension TabbarViewController {
     let tabBar: UITabBar = self.tabBar
     tabBar.backgroundColor = UIColor.clear
     tabBar.barTintColor = UIColor.white
-//    tabBar.isHidden = false
-    tabBar.isHidden = true
+    tabBar.isHidden = false
+//    tabBar.isHidden = true
     
     let titles = ["한솔", "지수", "서현"]
 

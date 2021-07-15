@@ -44,6 +44,7 @@ class CreateCategoryViewController: UIViewController {
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     layout()
     register()
     self.categoryCollectionView.delegate = self

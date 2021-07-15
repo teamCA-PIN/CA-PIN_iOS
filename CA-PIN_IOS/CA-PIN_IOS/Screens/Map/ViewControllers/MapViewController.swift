@@ -62,6 +62,7 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     self.navigationController?.navigationBar.isHidden = true
     self.mapView.mapView.touchDelegate = self
     setupMarker()

@@ -6,6 +6,10 @@
 //
 
 import UIKit
+import Moya
+import RxMoya
+import RxSwift
+
 
 class DeleteCategoryPopUpViewController: UIViewController {
   
@@ -17,9 +21,15 @@ class DeleteCategoryPopUpViewController: UIViewController {
   let cancelButton = UIButton()
   let deleteButton = UIButton()
   
+  let disposeBag = DisposeBag()
+  private let CategoryService = MoyaProvider<CategoryService>()
+  var categoryId: String = ""
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     layout()
+    print(categoryId)
     // Do any additional setup after loading the view.
   }
 }
@@ -114,12 +124,43 @@ extension DeleteCategoryPopUpViewController {
     }
   }
   
+  func deleteService(categoryId: String) {
+    print("삭제 함수")
+    CategoryService.rx.request(.deleteCategory(categoryId: categoryId))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 { /// 삭제 성공
+          do {
+            self.dismiss(animated: false, completion: {
+              self.presentedViewController?.navigationController?.popViewController(animated: false)
+            })
+//            self.navigationController?.popViewController(animated: false)
+          }
+          catch {
+            print(error)
+          }
+        }
+        else { /// 삭제 실패
+          do {
+            self.showGrayToast(message: "삭제에 실패했습니다")
+          }
+          catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
+  }
+  
   // MARK: - General Helpers
   @objc func clickedCancelButton() {
     self.dismiss(animated: false, completion: nil)
   }
   @objc func clickedDeleteButton() {
     print("삭제 ㄷ ㄷ ㄷ")
+    deleteService(categoryId: categoryId)
     /// 삭제 서버 연결
   }
 }

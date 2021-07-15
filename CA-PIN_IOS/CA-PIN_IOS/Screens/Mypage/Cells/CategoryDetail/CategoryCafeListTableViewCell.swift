@@ -30,11 +30,16 @@ class CategoryCafeListTableViewCell: UITableViewCell {
   // MARK: - Variables
   var checkDeleteNotification: Bool = false /// 휴지통 버튼을 눌렀으면 트루, 휴지통 버튼을 누르지 않았으면 false
   var isSet: Bool = false /// 맨 처음에만 버튼 unselect로 지정하기 위한 불값
-  var tagArray: [String] = ["맛있겠지", "태그태그", "냥냠냥", "물선배", "커피커피커피커피커피커피", "지수선배", "선배", "뿡"] /// 서버 연결한 후 tagcollectionview에 사용
+  
+  var cafeName: String? = ""
+  var cafeRating: Float? = 0.0
+  var cafeAddress: String? = ""
+  var cafeTagArray: [Tag] = [] /// 서버 연결한 후 tagcollectionview에 사용
 
   // MARK: - LifeCycle
   override func awakeFromNib() {
     super.awakeFromNib()
+    print(#function)
     register()
     attribute()
     layout()
@@ -73,7 +78,7 @@ extension CategoryCafeListTableViewCell {
   }
   func layoutNameLabel() {
     self.contentView.add(self.nameLabel) {
-      $0.setupLabel(text: "후엘고", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 16))
+      $0.setupLabel(text: self.cafeName ?? "", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 16))
       $0.sizeToFit()
       $0.letterSpacing = -0.8
       $0.snp.makeConstraints {
@@ -96,7 +101,7 @@ extension CategoryCafeListTableViewCell {
   }
   func layoutScoreLabel() {
     self.contentView.add(self.scoreLabel) {
-      $0.setupLabel(text: "3.5", color: .pointcolorYellow, font: UIFont.notoSansKRMediumFont(fontSize: 12))
+      $0.setupLabel(text: "\(self.cafeRating)", color: .pointcolorYellow, font: UIFont.notoSansKRMediumFont(fontSize: 12))
       $0.snp.makeConstraints {
         $0.height.equalTo(18)
         $0.width.equalTo(18)
@@ -110,8 +115,7 @@ extension CategoryCafeListTableViewCell {
       $0.numberOfLines = 0
       $0.lineBreakMode = .byCharWrapping
       $0.sizeToFit()
-      $0.setupLabel(text: "서울 마포구 마포대로11길 118 1층 (염리동) 주소가 길어지면 여기까지 내려올 수 있다~서울 마포구 마포대로11길 118 1층 (염리동) 주소가 길...", color: .gray4
-                    , font: UIFont.notoSansKRRegularFont(fontSize: 12))
+      $0.setupLabel(text: self.cafeAddress ?? "", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 12))
       if self.checkDeleteNotification == true {
         self.layoutDelete()
       }
@@ -134,7 +138,7 @@ extension CategoryCafeListTableViewCell {
       $0.snp.makeConstraints {
         $0.width.equalTo(24)
         $0.height.equalTo(24)
-        $0.top.equalTo(self.contentView.snp.top).offset(63)
+        $0.centerY.equalTo(self.explainLabel.snp.centerY)
         $0.trailing.equalTo(self.contentView.snp.trailing).offset(-24)
       }
     }
@@ -188,20 +192,28 @@ extension CategoryCafeListTableViewCell {
   @objc func checkButtonClicked() {
     self.checkButton.isSelected.toggle()
     setCheckButtonImage(bool: self.checkButton.isSelected)
+    if checkButton.isSelected == true {
+      /// 노티
+      let indexPath = self.getTableCellIndexPath()
+      NotificationCenter.default.post(name: NSNotification.Name("AppendToDeleteArray"), object: indexPath)
+    }
+    else {
+      let indexPath = self.getTableCellIndexPath()
+      NotificationCenter.default.post(name: NSNotification.Name("RemoveDeleteArray"), object: indexPath)
+    }
     NotificationCenter.default.post(name: NSNotification.Name("CheckButtonClicked"), object: checkButton.isSelected)
-  }
-  func setRealData(name: String, score: String, address: String) {
-    ///서버에서 받아온 값으로 라벨값 업데이트
-    ///별점 스트링?
-    self.nameLabel.text = name
-    self.scoreLabel.text = score
-    self.explainLabel.text = address
   }
   func setCheckButtonImage(bool: Bool) {
     switch self.checkButton.isSelected {
     case true: self.checkButton.setImageByName("checkboxActive")
     case false: self.checkButton.setImageByName("checkboxInactive")
     }
+  }
+  func setCafeData(name: String, rating: Float, address: String, tagArray: [Tag]) {
+    self.nameLabel.text = name
+    self.scoreLabel.text = "\(rating)"
+    self.explainLabel.text = address
+    self.cafeTagArray = tagArray
   }
 }
 
@@ -212,7 +224,7 @@ extension CategoryCafeListTableViewCell: UICollectionViewDelegateFlowLayout {
     /// 사용하려는 라벨 크기 받아서 동적으로 셀 크기 맞춰줄거임
     let label = UILabel().then {
       $0.font = .notoSansKRMediumFont(fontSize: 12)
-      $0.text = tagArray[indexPath.row]
+      $0.text = cafeTagArray[indexPath.row].name
       $0.sizeToFit()
     }
     let size = label.frame.size
@@ -227,14 +239,14 @@ extension CategoryCafeListTableViewCell: UICollectionViewDelegateFlowLayout {
 extension CategoryCafeListTableViewCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     /// 서버 연결 후, 태그 개수만큼으로 바꾸기
-    return tagArray.count
+    return cafeTagArray.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTagCollectionViewCell.reuseIdentifier, for: indexPath) as? MyTagCollectionViewCell else { return UICollectionViewCell() }
     tagCell.awakeFromNib()
     /// 서버 연결 후, TagCollectionViewCell에 라벨 텍스트 바꾸는 함수 만들어서 여기서 쓰기
-    tagCell.setTagData(tag: tagArray[indexPath.row])
+    tagCell.setTagData(tag: cafeTagArray[indexPath.row].name)
     return tagCell
   }
 }

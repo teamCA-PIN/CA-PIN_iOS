@@ -25,6 +25,7 @@ class ExitViewController: UIViewController {
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     layout()
   }
 }

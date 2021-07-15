@@ -27,6 +27,7 @@ class CafeTIViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.view.backgroundColor = .white
     layout()
     self.navigationController?.navigationBar.isHidden = true
   }
@@ -117,8 +118,8 @@ extension CafeTIViewController {
     }
   }
   @objc func startButtonClicked() {
-    let  CafeMenuViewController = CafeMenuViewController()
-    self.navigationController?.pushViewController(CafeMenuViewController, animated: false)
+    let cafeTI1VC = CafeTITest1ViewController()
+    self.navigationController?.pushViewController(cafeTI1VC, animated: false)
 
     
   }
