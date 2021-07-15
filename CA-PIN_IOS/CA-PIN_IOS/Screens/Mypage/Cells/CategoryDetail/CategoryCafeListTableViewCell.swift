@@ -44,7 +44,6 @@ class CategoryCafeListTableViewCell: UITableViewCell {
     attribute()
     layout()
     notificationCenter()
-    reloadInputViews()
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {

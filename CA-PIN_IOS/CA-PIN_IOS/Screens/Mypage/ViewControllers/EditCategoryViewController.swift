@@ -8,9 +8,15 @@
 import UIKit
 
 import SnapKit
+import SwiftyColor
+import Moya
+import RxMoya
+import RxSwift
 import Then
 
+// MARK: - CreateCategoryViewController
 class EditCategoryViewController: UIViewController {
+  
   // MARK: - Components
   let backButton = UIButton()
   let titleLabel = UILabel()
@@ -21,6 +27,7 @@ class EditCategoryViewController: UIViewController {
     let flowLayout = UICollectionViewFlowLayout()
     flowLayout.scrollDirection = .vertical
     flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+    flowLayout.minimumInteritemSpacing = 0
     let collectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: flowLayout)
     collectionView.isScrollEnabled = false
@@ -30,19 +37,28 @@ class EditCategoryViewController: UIViewController {
   let confirmButton = UIButton()
   final let maxLength = 10
   
-  var nameCount = 0
+  let disposeBag = DisposeBag()
+  private let CategoryProvider = MoyaProvider<CategoryService>()
   
+  var nameCount = 0
+  var selectedNumber: Int?
+  var newCategoryName: String = ""
+  var colorIsSelected: Bool = false
+  
+  // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBar.isHidden = true
     layout()
     register()
-    attribute()
-    keyboardObserver()
+    self.categoryCollectionView.delegate = self
+    self.categoryCollectionView.dataSource = self
+    self.categoryNameTextField.delegate = self
     NotificationCenter.default.addObserver(self,
                                            selector: #selector(self.textDidChange(_:)),
                                            name: UITextField.textDidChangeNotification,
                                            object: self.categoryNameTextField)
+    self.confirmButton.isEnabled = false
   }
   override func viewDidLayoutSubviews() {
     super .viewDidLayoutSubviews()
@@ -50,6 +66,7 @@ class EditCategoryViewController: UIViewController {
     self.categoryNameTextField.clearButtonMode = .whileEditing
   }
 }
+
 // MARK: - Extensions
 extension EditCategoryViewController {
   
@@ -71,17 +88,16 @@ extension EditCategoryViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(29)
         $0.leading.equalTo(self.view.snp.leading).offset(31)
-        $0.width.equalTo(28)
-        $0.height.equalTo(28)
+        $0.width.equalTo(18)
+        $0.height.equalTo(18)
       }
     }
   }
   func layoutTitleLabel() {
     view.add(titleLabel) {
-      $0.setupLabel(text: "새 카테고리",
+      $0.setupLabel(text: "카테고리 수정",
                     color: .black,
-                    font: .notoSansKRMediumFont(fontSize: 20),
-                    align: .center)
+                    font: .notoSansKRRegularFont(fontSize: 20))
       $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
@@ -93,7 +109,7 @@ extension EditCategoryViewController {
     view.add(categoryNameLabel) {
       $0.setupLabel(text: "이름",
                     color: .black,
-                    font: .notoSansKRMediumFont(fontSize: 20))
+                    font: .notoSansKRBoldFont(fontSize: 15))
       $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.backButton.snp.leading)
@@ -155,7 +171,7 @@ extension EditCategoryViewController {
     view.add(categoryCollectionView) {
       $0.backgroundColor = .clear
       $0.snp.makeConstraints {
-        $0.leading.equalTo(self.view.snp.leading).offset(38)
+        $0.leading.equalTo(self.view.snp.leading).offset(33)
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.categoryNameTextField.snp.bottom).offset(60)
         $0.height.equalTo(119)
@@ -168,21 +184,63 @@ extension EditCategoryViewController {
       CategoryCollectionViewCell.self,
       forCellWithReuseIdentifier: CategoryCollectionViewCell.reuseIdentifier)
   }
-  func attribute() {
-    self.categoryCollectionView.delegate = self
-    self.categoryCollectionView.dataSource = self
-    self.categoryNameTextField.delegate = self
+  func enableConfirmButton() {
+    let categoryText = self.categoryNameTextField.text
+    if (categoryText?.isEmpty == false) && (colorIsSelected == true) {
+      confirmButton.isEnabled = true
+      confirmButton.setupButton(title: "완료", color: .white, font: .notoSansKRMediumFont(fontSize: 16), backgroundColor: .pointcolor1, state: .normal, radius: 24.5)
+    }
   }
-  func keyboardObserver(){
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-    
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+  func categoryEditService(colorIndex: Int, categoryName: String) {
+    print(#function)
+    print(colorIndex)
+    print(categoryName)
+    CategoryProvider.rx.request(.editCategory(colorIndex: colorIndex, categoryName: categoryName))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          print("success")
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(Response.self, from: response.data)
+//            let myPageVC = self.navigationController?.children[1]
+//            self.navigationController?.popViewController(animated: false, completion: {
+//              loginVC?.showGreenToast(message: "가입이 완료되었습니다.")
+//            })
+            self.navigationController?.popViewController(animated: false, completion: {
+              print(self.presentingViewController)
+              print(self.presentedViewController)
+            })
+            print("가입이 완료되었습니다")
+          }
+          catch {
+            print(error)
+          }
+        }
+        else {
+          do {
+//            let decoder = JSONDecoder()
+//            let data = try decoder.decode(Response.self, from: response.data)
+//            self.showGrayToast(message: data.message ?? "")
+          }
+          catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
   }
   @objc func clickedBackButton() {
     self.navigationController?.popViewController(animated: true)
   }
   @objc func clickedConfirmButton() {
     /// TOOD: Server Connection
+    print("confirmButton")
+    print(newCategoryName)
+    print(selectedNumber)
+    self.categoryEditService(colorIndex: self.selectedNumber ?? 0, categoryName: self.newCategoryName ?? "")
     self.navigationController?.viewControllers[0].dismiss(animated: false, completion: nil)
     self.navigationController?.popToRootViewController(animated: true)
   }
@@ -202,16 +260,15 @@ extension EditCategoryViewController {
     }
   }
   /// 뷰의 다른 곳 탭하면 키보드 내려가게
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    self.view.endEditing(true)
-    self.confirmButton.snp.remakeConstraints {
-      $0.centerX.equalToSuperview()
-      $0.bottom.equalTo(self.view.snp.bottom).offset(-260)
-      $0.width.equalTo(154)
-      $0.height.equalTo(49)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+      self.view.endEditing(true)
+      self.confirmButton.snp.remakeConstraints {
+        $0.centerX.equalToSuperview()
+        $0.bottom.equalTo(self.view.snp.bottom).offset(-260)
+        $0.width.equalTo(154)
+        $0.height.equalTo(49)
+      }
     }
-  }
-  
 }
 
 // MARK: - CategoryCollectionView DataSource
@@ -228,7 +285,18 @@ extension EditCategoryViewController: UICollectionViewDataSource {
       return UICollectionViewCell()
     }
     categoryCell.awakeFromNib()
+    categoryCell.colorView.image = UIImage(named: "colorchip\(indexPath.item+1)")
+    if selectedNumber == indexPath.item {
+      categoryCell.colorView.image = UIImage(named: "colorchipSelected\(indexPath.item+1)")
+      print(indexPath.item)
+      self.colorIsSelected = true
+      enableConfirmButton()
+    }
     return categoryCell
+  }
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    self.selectedNumber = indexPath.item
+    collectionView.reloadData()
   }
 }
 
@@ -242,12 +310,13 @@ extension EditCategoryViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-    return 0
+    let spacing = (UIScreen.main.bounds.width - 66 - 48*5)/4
+    return spacing
   }
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    return 0
+    return 17
   }
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
@@ -267,18 +336,12 @@ extension EditCategoryViewController: UITextFieldDelegate {
     }
     return true
   }
-  @objc func keyboardWillShow(_ notification: NSNotification) {
-    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-      UIView.animate(withDuration: 0.3, animations: { self.view.transform = CGAffineTransform(translationX: 0, y: 0) })
-      self.confirmButton.snp.remakeConstraints {
-        $0.centerX.equalToSuperview()
-        $0.top.equalTo(self.categoryCollectionView.snp.bottom).offset(55)
-        $0.width.equalTo(154)
-        $0.height.equalTo(49)
-      }
-    }
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    self.newCategoryName = textField.text ?? ""
+    enableConfirmButton()
   }
-  @objc func keyboardWillDisappear(_ notification: NSNotification){
-    self.view.transform = .identity
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    self.newCategoryName = textField.text ?? ""
+    enableConfirmButton()
   }
 }

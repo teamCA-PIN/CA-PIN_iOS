@@ -127,6 +127,8 @@ extension MyCategoryTableViewCell {
       )
   }
   func setCategoryData(colorCode: String, name: String, number: Int) {
+    print(#function)
+    print(number)
     let color = hexStringToUIColor(hex: colorCode)
     self.colorView.backgroundColor = color
     self.titleLabel.text = name
@@ -140,11 +142,14 @@ extension MyCategoryTableViewCell {
     let editAction: UIAlertAction
     editAction = UIAlertAction(title: "카테고리 수정", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in print("edit pressed")
       /// TODO 카테고리 수정 뷰로 이동
+      let editVC = EditCategoryViewController()
+      self.parentViewController?.navigationController?.pushViewController(editVC  , animated: false)
     })
     let deleteAction: UIAlertAction
     deleteAction = UIAlertAction(title: "카테고리 삭제", style: .destructive, handler: { (action: UIAlertAction) in
       let dvc = DeleteCategoryPopUpViewController()
-      dvc.modalPresentationStyle = .overFullScreen
+      dvc.categoryId = self.categoryID
+      dvc.modalPresentationStyle = .overCurrentContext
       self.parentViewController?.present(dvc, animated: false, completion: nil)
     })
 

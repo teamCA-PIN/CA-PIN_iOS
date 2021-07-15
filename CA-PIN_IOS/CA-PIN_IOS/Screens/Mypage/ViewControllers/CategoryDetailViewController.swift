@@ -52,11 +52,16 @@ class CategoryDetailViewController: UIViewController {
     attribute()
     layout()
     notificationCenter()
+    
+    self.viewDidAppear(true)
   }
   override func viewWillAppear(_ animated: Bool) {
     print("카테고리 디테일 뷰컨 viewwillappear")
     print(#function)
     cafeListTableView.reloadData()
+  }
+  override func viewDidAppear(_ animated: Bool) {
+    print(#function)
   }
 }
 
@@ -66,7 +71,8 @@ extension CategoryDetailViewController {
   func register() {
     /// 분기처리
     /// 카테고리 내의 핀이 0개일 때: EmptyCategoryTableViewCell
-    if pinNumber == 0{
+    if pinNumber == 0 {
+      print("register pinnumber = 0")
       self.cafeListTableView.register(EmptyCategoryTableViewCell.self, forCellReuseIdentifier: EmptyCategoryTableViewCell.reuseIdentifier)
     }
     /// 핀이 1개 이상일 때: CategoryCafeListTableViewCell
@@ -169,8 +175,6 @@ extension CategoryDetailViewController {
     if let index = notification.object as? Int {
       self.cafeIdArrayToDelete.append(self.cafeIdArray[index])
     }
-    print("추가")
-    print(cafeIdArrayToDelete)
   }
   @objc func removeDeleteArray(notification: Notification) {
     if let index = notification.object as? Int {
@@ -178,8 +182,6 @@ extension CategoryDetailViewController {
           cafeIdArrayToDelete.remove(at: firstIndex)
       }
     }
-    print("제거")
-    print(cafeIdArrayToDelete)
   }
   @objc func backButtonClicked() {
     self.navigationController?.popViewController(animated: false)
@@ -226,6 +228,9 @@ extension CategoryDetailViewController {
 
 extension CategoryDetailViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    if pinNumber == 0 {
+      return 405
+    }
     tableView.estimatedRowHeight = 500
     tableView.rowHeight = UITableView.automaticDimension
     return UITableView.automaticDimension
@@ -234,7 +239,12 @@ extension CategoryDetailViewController: UITableViewDelegate {
 
 extension CategoryDetailViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return pinNumber
+    if pinNumber == 0 {
+      return 1
+    }
+    else {
+      return pinNumber
+    }
   }
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     /// 분기처리
@@ -242,6 +252,7 @@ extension CategoryDetailViewController: UITableViewDataSource {
     /// 핀이 1개 이상일 때: CategoryCafeListTableViewCell
     if pinNumber == 0 {
       guard let emptyCell = tableView.dequeueReusableCell(withIdentifier: EmptyCategoryTableViewCell.reuseIdentifier, for: indexPath) as? EmptyCategoryTableViewCell else { return UITableViewCell() }
+      emptyCell.awakeFromNib()
       return emptyCell
     }
     guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: CategoryCafeListTableViewCell.reuseIdentifier, for: indexPath) as? CategoryCafeListTableViewCell else {return UITableViewCell() }
