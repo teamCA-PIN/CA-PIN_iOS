@@ -20,6 +20,7 @@ extension UserService: TargetType {
   
   private var token: String {
     return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
+
   }
   
   public var baseURL: URL {

@@ -103,6 +103,7 @@ class WriteReviewViewController: UIViewController {
                                            selector: #selector(DataDelete),
                                            name: NSNotification.Name("delete"),
                                            object: nil)
+    
     let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
     view.addGestureRecognizer(tap)
   }
@@ -597,6 +598,7 @@ extension WriteReviewViewController : UICollectionViewDataSource
     }
   }
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    print(#function)
     if indexPath.item == 0 {
       if changetiming == 0 { /// 올린 사진이 5장 미만일 때
         self.photoLibraryWork()

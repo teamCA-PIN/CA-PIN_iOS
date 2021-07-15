@@ -7,6 +7,9 @@
 
 import UIKit
 
+import Moya
+import RxMoya
+import RxSwift
 import SnapKit
 import SwiftyColor
 import Then
@@ -36,6 +39,8 @@ class CreateCategoryViewController: UIViewController {
   var nameCount = 0
   var selectedNumber: Int?
   
+  let disposeBag = DisposeBag()
+  let categoryProvider = MoyaProvider<CategoryService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -176,6 +181,15 @@ extension CreateCategoryViewController {
   }
   @objc func clickedConfirmButton() {
     /// TOOD: Server Connection
+    if self.selectedNumber == nil {
+      self.showGrayToast(message: "카테고리를 선택해주세요")
+    }
+    else if self.categoryNameTextField.hasText == false {
+      self.showGrayToast(message: "카테고리 이름을 입력해주세요")
+    }
+    else {
+      addCategory(colorIndex: self.selectedNumber!, categoryName: self.categoryNameTextField.text!)
+    }
     self.navigationController?.viewControllers[0].dismiss(animated: false, completion: nil)
     self.navigationController?.popToRootViewController(animated: true)
   }
@@ -193,6 +207,22 @@ extension CreateCategoryViewController {
         }
       }
     }
+  }
+  func addCategory(colorIndex: Int, categoryName: String) {
+    categoryProvider.rx.request(.createCategory(colorIndex: colorIndex, categoryName: categoryName))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            print(response.statusCode)
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
   }
 }
 

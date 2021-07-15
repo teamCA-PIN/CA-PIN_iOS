@@ -68,6 +68,9 @@
 		CC7BB2FB269C308E0079FC4F /* ReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FA269C308E0079FC4F /* ReviewService.swift */; };
 		CC7BB2FD269C57B90079FC4F /* CafeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FC269C57B90079FC4F /* CafeService.swift */; };
 		CC7BB2FF269C5D820079FC4F /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FE269C5D820079FC4F /* CategoryService.swift */; };
+		CC9C854D269EBFA1002A3321 /* MyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */; };
+		CC9C8550269EF82E002A3321 /* ReviewDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */; };
+		CC9C855326A051B4002A3321 /* MyMapListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C855226A051B3002A3321 /* MyMapListModel.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -210,6 +213,9 @@
 		CC7BB2FA269C308E0079FC4F /* ReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewService.swift; sourceTree = "<group>"; };
 		CC7BB2FC269C57B90079FC4F /* CafeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeService.swift; sourceTree = "<group>"; };
 		CC7BB2FE269C5D820079FC4F /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
+		CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoModel.swift; sourceTree = "<group>"; };
+		CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailModel.swift; sourceTree = "<group>"; };
+		CC9C855226A051B3002A3321 /* MyMapListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMapListModel.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -565,6 +571,30 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		CC9C854B269EBF86002A3321 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		CC9C854E269EF813002A3321 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		CC9C855126A051A0002A3321 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				CC9C855226A051B3002A3321 /* MyMapListModel.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		CCA85AE82688ED6E00C9A32C = {
 			isa = PBXGroup;
 			children = (
@@ -787,6 +817,9 @@
 			isa = PBXGroup;
 			children = (
 				E82E5AA5269F97A700DE5C23 /* CafeMenu */,
+				CC9C855126A051A0002A3321 /* Map */,
+				CC9C854B269EBF86002A3321 /* User */,
+				CC9C854E269EF813002A3321 /* Review */,
 				E82E5AA2269F32D000DE5C23 /* CafeTIModel */,
 				9253708D269D8F2600E2E5EA /* Signup */,
 				92537088269C95CB00E2E5EA /* Login */,
@@ -1117,6 +1150,7 @@
 				CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */,
 				E82E5AA7269F97CA00DE5C23 /* CafeMenuModel.swift in Sources */,
 				9253707D269A3B3300E2E5EA /* EmptyReviewTableViewCell.swift in Sources */,
+				CC9C8550269EF82E002A3321 /* ReviewDetailModel.swift in Sources */,
 				92413713269596660016D18F /* CategoryDetailViewController.swift in Sources */,
 				CCA85B582688F29700C9A32C /* UITableViewCell+.swift in Sources */,
 				CC6468D22698B8A000CF848A /* CafeDetailModel.swift in Sources */,
@@ -1160,6 +1194,7 @@
 				9253708F269D8F3800E2E5EA /* SignupModel.swift in Sources */,
 				925370792698F4DD00E2E5EA /* MyEmptyCategoryTableViewCell.swift in Sources */,
 				9292FFC82696352600BCD791 /* CategoryCafeListTableViewCell.swift in Sources */,
+				CC9C854D269EBFA1002A3321 /* MyInfoModel.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */,
 				CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */,
@@ -1185,6 +1220,7 @@
 				CC45A19226972D6E00E68817 /* DetailReviewTableViewCell.swift in Sources */,
 				CC7BB2F2269C2B790079FC4F /* MoyaNetworkLogger.swift in Sources */,
 				CCB6C663268DC88E00941E92 /* HamburgerViewController.swift in Sources */,
+				CC9C855326A051B4002A3321 /* MyMapListModel.swift in Sources */,
 				CCA85B2A2688F14600C9A32C /* KeyChainStorage.swift in Sources */,
 				9292FFCA26964AFA00BCD791 /* MyTagCollectionViewCell.swift in Sources */,
 				CCB6C66E268F498B00941E92 /* CategoryCollectionViewCell.swift in Sources */,
