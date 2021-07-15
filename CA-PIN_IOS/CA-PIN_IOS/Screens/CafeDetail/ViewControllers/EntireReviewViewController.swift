@@ -24,38 +24,25 @@ class EntireReviewViewController: UIViewController {
   let photoOptionLabel = UILabel()
   let filterLabel = UILabel()
   let filterButton = UIButton()
-  let saparatorView = UIView()
+  let separatorView = UIView()
   let reviewTableView = UITableView()
   
-  var reviewModel: [Review] = [Review(id: "1",
-                                      nickname: "쿼카",
-                                      date: "2021-01-20",
-                                      rating: 4.0,
-                                      recommend: [0,1],
-                                      content: "무엇보다 커피가 정말 맛있고, 디저트로 준비돼 있던 쿠키와 휘낭시에도 맛있었습니다.  브라운크림은 꼭 드세요 !",
-                                      imgs: ["1","1","1","1","1"]),
-                               Review(id: "1",
-                                      nickname: "쿼카",
-                                      date: "2021-01-20",
-                                      rating: 4.0,
-                                      recommend: [1],
-                                      content: "무엇보다 커피가 정말 맛있고, 디저트로 준비돼 있던 쿠키와 휘낭시에도 맛있었습니다.  브라운크림은 꼭 드세요 !",
-                                      imgs: ["1","1","1","1","1"]),
-                               Review(id: "1",
-                                      nickname: "쿼카",
-                                      date: "2021-01-20",
-                                      rating: 4.0,
-                                      recommend: [0],
-                                      content: "무엇보다 커피가 정말 맛있고, 디저트로 준비돼 있던 쿠키와 휘낭시에도 맛있었습니다.  브라운크림은 꼭 드세요 !",
-                                      imgs: ["1","1","1","1","1"])]
+  var reviewModel: [ServerReview] = [ServerReview(id: " ", cafeID: " ", writer: Writer(id: " ", nickname: " ", profileImg: " "), rating: 0, createdAt: " ", content: " ", recommend: [], imgs: [])]
+  
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
     layout()
+    dataBind()
     register()
     self.reviewTableView.dataSource = self
     self.reviewTableView.delegate = self
+  }
+  
+  override func viewWillLayoutSubviews() {
+    super.updateViewConstraints()
+    self.reviewTableView.heightConstraint?.constant = self.reviewTableView.contentSize.height
   }
 }
 
@@ -73,7 +60,7 @@ extension EntireReviewViewController {
     layoutPhotoOptionLabel()
     layoutFilterButton()
     layoutFilterLabel()
-    layoutSaparatorView()
+    layoutSeparatorView()
     layoutReviewTableView()
   }
   func layoutTopView() {
@@ -119,7 +106,6 @@ extension EntireReviewViewController {
   }
   func layoutReviewNumberLabel() {
     view.add(reviewNumberLabel) {
-      $0.setupLabel(text: "0", color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.entireReviewLabel.snp.trailing).offset(4)
         $0.centerY.equalTo(self.entireReviewLabel.snp.centerY)
@@ -166,8 +152,8 @@ extension EntireReviewViewController {
       }
     }
   }
-  func layoutSaparatorView() {
-    view.add(saparatorView) {
+  func layoutSeparatorView() {
+    view.add(separatorView) {
       $0.backgroundColor = .gray2
       $0.snp.makeConstraints {
         $0.top.equalTo(self.photoOptionButton.snp.bottom).offset(12)
@@ -181,7 +167,7 @@ extension EntireReviewViewController {
       $0.backgroundColor = .clear
       $0.showsVerticalScrollIndicator = false
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.saparatorView.snp.bottom)
+        $0.top.equalTo(self.separatorView.snp.bottom)
         $0.leading.equalTo(self.view.snp.leading).offset(16)
         $0.centerX.equalToSuperview()
         $0.bottom.equalTo(self.view.snp.bottom).offset(-55)
@@ -196,6 +182,9 @@ extension EntireReviewViewController {
   @objc func clickedBackButton() {
     self.navigationController?.popViewController(animated: false)
   }
+  func dataBind() {
+    self.reviewNumberLabel.setupLabel(text: "\(self.reviewModel.count)", color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
+  }
 }
 
 // MARK: - Extensions
@@ -203,7 +192,18 @@ extension EntireReviewViewController {
 // MARK: - ReviewTableView Delegate
 extension EntireReviewViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 240
+    if self.reviewModel[indexPath.row].imgs == nil && self.reviewModel[indexPath.row].recommend == nil{
+      return 110
+    }
+    else if self.reviewModel[indexPath.row].imgs == nil {
+      return 140
+    }
+    else if self.reviewModel[indexPath.row].recommend == nil {
+      return 198
+    }
+    else {
+      return 240
+    }
   }
 }
 
@@ -217,11 +217,12 @@ extension EntireReviewViewController: UITableViewDataSource {
     guard let detailCell = tableView.dequeueReusableCell(withIdentifier: DetailReviewTableViewCell.reuseIdentifier, for: indexPath) as? DetailReviewTableViewCell else {
       return UITableViewCell()
     }
-    detailCell.reviewModel = reviewModel[indexPath.row]
-    detailCell.dataBind(nickName: reviewModel[indexPath.row].nickname,
-                        date: reviewModel[indexPath.row].date,
-                        rating: reviewModel[indexPath.row].rating,
-                        content: reviewModel[indexPath.row].content)
+    detailCell.reviewModel = self.reviewModel[indexPath.row]
+    detailCell.reviewDataBind(nickName: reviewModel[indexPath.row].writer.nickname,
+                        date: reviewModel[indexPath.row].createdAt,
+                        rating: Float(reviewModel[indexPath.row].rating),
+                        content: reviewModel[indexPath.row].content,
+                        profileImg: reviewModel[indexPath.row].writer.profileImg)
     detailCell.rootViewController = self
     detailCell.awakeFromNib()
     return detailCell

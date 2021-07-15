@@ -68,6 +68,7 @@
 		CC7BB2FB269C308E0079FC4F /* ReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FA269C308E0079FC4F /* ReviewService.swift */; };
 		CC7BB2FD269C57B90079FC4F /* CafeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FC269C57B90079FC4F /* CafeService.swift */; };
 		CC7BB2FF269C5D820079FC4F /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FE269C5D820079FC4F /* CategoryService.swift */; };
+		CC9C8550269EF82E002A3321 /* ReviewDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -209,6 +210,7 @@
 		CC7BB2FA269C308E0079FC4F /* ReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewService.swift; sourceTree = "<group>"; };
 		CC7BB2FC269C57B90079FC4F /* CafeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeService.swift; sourceTree = "<group>"; };
 		CC7BB2FE269C5D820079FC4F /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
+		CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailModel.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -563,6 +565,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		CC9C854E269EF813002A3321 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
 		CCA85AE82688ED6E00C9A32C = {
 			isa = PBXGroup;
 			children = (
@@ -784,6 +794,7 @@
 		E8244CD026974603007E63ED /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CC9C854E269EF813002A3321 /* Review */,
 				E82E5AA2269F32D000DE5C23 /* CafeTIModel */,
 				9253708D269D8F2600E2E5EA /* Signup */,
 				92537088269C95CB00E2E5EA /* Login */,
@@ -1105,6 +1116,7 @@
 				CC05E029268B865400269427 /* UIFont+.swift in Sources */,
 				CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */,
 				9253707D269A3B3300E2E5EA /* EmptyReviewTableViewCell.swift in Sources */,
+				CC9C8550269EF82E002A3321 /* ReviewDetailModel.swift in Sources */,
 				92413713269596660016D18F /* CategoryDetailViewController.swift in Sources */,
 				CCA85B582688F29700C9A32C /* UITableViewCell+.swift in Sources */,
 				CC6468D22698B8A000CF848A /* CafeDetailModel.swift in Sources */,

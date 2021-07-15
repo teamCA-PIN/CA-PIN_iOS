@@ -38,14 +38,9 @@ class DetailReviewTableViewCell: UITableViewCell {
   }()
   
   var rootViewController: UIViewController?
-  var reviewModel = Review(id: "1",
-                            nickname: "쿼카",
-                            date: "2021-01-20",
-                            rating: 4.0,
-                            recommend: [0,1],
-                            content: "무엇보다 커피가 정말 맛있고, 디저트로 준비돼 있던 쿠키와 휘낭시에도 맛있었습니다.  브라운크림은 꼭 드세요 !",
-                            imgs: ["1","1","1","1","1"])
-                    
+  var reviewModel: ServerReview?
+  var isReviewed: Bool?
+  var tagCount: Int?
   
   // MARK: - LifeCycles
   override func awakeFromNib() {
@@ -143,11 +138,21 @@ extension DetailReviewTableViewCell {
   func layoutTagCollectionView() {
     containerView.add(tagCollectionView) {
       $0.backgroundColor = .clear
-      $0.snp.makeConstraints {
-        $0.top.equalTo(self.titleLabel.snp.bottom).offset(11)
-        $0.leading.equalTo(self.titleLabel.snp.leading)
-        $0.height.equalTo(22)
-        $0.trailing.equalTo(self.containerView.snp.trailing)
+      if self.reviewModel?.recommend == nil {
+        $0.snp.makeConstraints {
+          $0.top.equalTo(self.titleLabel.snp.bottom)
+          $0.leading.equalTo(self.titleLabel.snp.leading)
+          $0.height.equalTo(0)
+          $0.trailing.equalTo(self.containerView.snp.trailing)
+        }
+      }
+      else {
+        $0.snp.makeConstraints {
+          $0.top.equalTo(self.titleLabel.snp.bottom).offset(11)
+          $0.leading.equalTo(self.titleLabel.snp.leading)
+          $0.height.equalTo(22)
+          $0.trailing.equalTo(self.containerView.snp.trailing)
+        }
       }
     }
   }
@@ -164,12 +169,23 @@ extension DetailReviewTableViewCell {
   func layoutPhotoCollectionView() {
     containerView.add(photoCollectionView) {
       $0.backgroundColor = .clear
-      $0.snp.makeConstraints {
-        $0.top.equalTo(self.reviewContentLabel.snp.bottom).offset(21)
-        $0.leading.equalTo(self.profileImageView.snp.leading)
-        $0.trailing.equalTo(self.containerView.snp.trailing)
-        $0.bottom.equalTo(self.containerView.snp.bottom)
+      if self.reviewModel?.imgs == nil {
+        $0.snp.makeConstraints {
+          $0.top.equalTo(self.reviewContentLabel.snp.bottom)
+          $0.leading.equalTo(self.reviewContentLabel.snp.leading)
+          $0.trailing.equalTo(self.containerView.snp.trailing)
+          $0.height.equalTo(0)
+        }
       }
+      else {
+        $0.snp.makeConstraints {
+          $0.top.equalTo(self.reviewContentLabel.snp.bottom).offset(21)
+          $0.leading.equalTo(self.reviewContentLabel.snp.leading)
+          $0.trailing.equalTo(self.containerView.snp.trailing)
+          $0.bottom.equalTo(self.containerView.snp.bottom)
+        }
+      }
+     
     }
   }
   
@@ -183,7 +199,7 @@ extension DetailReviewTableViewCell {
       forCellWithReuseIdentifier: PhotoCollectionViewCell.reuseIdentifier)
   }
   
-  func dataBind(nickName: String, date: String, rating: Float, content: String) {
+  func reviewDataBind(nickName: String, date: String, rating: Float, content: String, profileImg: String) {
     titleLabel.setupLabel(text: nickName, color: .black, font: .notoSansKRMediumFont(fontSize: 12))
     dateLabel.setupLabel(text: date, color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
     ratingLabel.setupLabel(text: "\(rating)",
@@ -192,6 +208,7 @@ extension DetailReviewTableViewCell {
     reviewContentLabel.setupLabel(text: "\(content) 더 보기",
                                   color: .black,
                                   font: .notoSansKRRegularFont(fontSize: 12))
+    profileImageView.setImage(from: profileImg, UIImage(named: "profile")!)
   }
 }
 
@@ -200,25 +217,39 @@ extension DetailReviewTableViewCell: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     var width: CGFloat?
     var height: CGFloat?
-    if collectionView == tagCollectionView && reviewModel.recommend == [0] && indexPath.item == 0 {
+    if collectionView == tagCollectionView && reviewModel?.recommend == [0] && indexPath.item == 0 {
       width = 65
       height = 22
     }
-    if collectionView == tagCollectionView && reviewModel.recommend == [1] && indexPath.item == 0 {
+    if collectionView == tagCollectionView && reviewModel?.recommend == [1] && indexPath.item == 0 {
       width = 86
       height = 22
     }
-    if collectionView == tagCollectionView && reviewModel.recommend == [0, 1] && indexPath.item == 0 {
+    if collectionView == tagCollectionView && reviewModel?.recommend == [0, 1] && indexPath.item == 0 {
       width = 65
       height = 22
     }
-    if collectionView == tagCollectionView && reviewModel.recommend == [0, 1] && indexPath.item == 1 {
+    if collectionView == tagCollectionView && reviewModel?.recommend == [0, 1] && indexPath.item == 1 {
       width = 86
       height = 22
     }
-    if collectionView == photoCollectionView {
+    if collectionView == tagCollectionView && reviewModel?.recommend?.isEmpty == true {
+      width = 65
+      height = 0
+      self.tagCollectionView.snp.remakeConstraints {
+        $0.height.equalTo(0)
+      }
+    }
+    if collectionView == photoCollectionView && self.reviewModel?.imgs?.isEmpty == false {
       width = (self.contentView.frame.width-22)/4
-      height = 80
+      height = (self.contentView.frame.width-22)/4
+    }
+    if collectionView == photoCollectionView && self.reviewModel?.imgs?.isEmpty == true {
+      width = (self.contentView.frame.width-22)/4
+      height = 0
+      self.photoCollectionView.snp.remakeConstraints {
+        $0.height.equalTo(0)
+      }
     }
     return CGSize(width: width!, height: height!)
   }
@@ -239,12 +270,12 @@ extension DetailReviewTableViewCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     var number = 0
     if collectionView == tagCollectionView {
-      number = reviewModel.recommend?.count ?? 0
+      number = reviewModel?.recommend?.count ?? 0
     }
     if collectionView == photoCollectionView {
-      number = reviewModel.imgs?.count ?? 0
-      if number > 4 {
-        number = 4
+      number = reviewModel?.imgs?.count ?? 0
+      if number > 3 {
+        number = 3
       }
     }
     return number
@@ -255,7 +286,7 @@ extension DetailReviewTableViewCell: UICollectionViewDataSource {
       guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendTagCollectionViewCell.reuseIdentifier, for: indexPath) as? RecommendTagCollectionViewCell else {
         return UICollectionViewCell()
       }
-      tagCell.dataBind(tagNumber: reviewModel.recommend?[indexPath.item])
+      tagCell.dataBind(tagNumber: reviewModel?.recommend?[indexPath.item])
       tagCell.awakeFromNib()
       return tagCell
     }
@@ -263,13 +294,13 @@ extension DetailReviewTableViewCell: UICollectionViewDataSource {
       guard let photoCell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.reuseIdentifier, for: indexPath) as? PhotoCollectionViewCell else {
         return UICollectionViewCell()
       }
-      var moreNumber = (reviewModel.imgs?.count ?? 3) - 3
+      var moreNumber = (reviewModel?.imgs?.count ?? 2) - 2
       if moreNumber < 0 {
         moreNumber = 0
       }
-      photoCell.dataBind(imageName: reviewModel.imgs?[indexPath.item], moreNumber: moreNumber)
+      photoCell.dataBind(imageName: reviewModel?.imgs?[indexPath.item], moreNumber: moreNumber)
       photoCell.awakeFromNib()
-      if indexPath.item == 3 && moreNumber > 0 {
+      if indexPath.item == 2 && moreNumber > 0 {
         photoCell.photoImageView.isHidden = true
         photoCell.moreLabel.isHidden = false
       }
