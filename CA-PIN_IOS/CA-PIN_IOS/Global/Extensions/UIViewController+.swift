@@ -142,6 +142,66 @@ extension UIViewController {
     })
   }
   
+  func showShortGrayToast(message: String) {
+    
+    /// 뷰가 위치할 위치를 지정해준다. 여기서는 아래로부터 99만큼 떨어져있고, 너비는 양쪽에 20만큼 여백을 가지며, 높이는 48로
+    let toastView = UIView()
+    
+    let containerView = UIView() /// 이미지 . 메시지
+    
+    let iconImage = UIImageView()
+    iconImage.image = UIImage(named: "component40Eror")
+    
+    /// 사용하려는 라벨 크기 받아서 동적으로 크기 맞춰줄거임
+    let toastLabel = UILabel().then {
+      $0.textColor = UIColor.black
+      $0.letterSpacing = -0.7
+      $0.textAlignment = .center
+      $0.font = .notoSansKRRegularFont(fontSize: 14)
+      $0.text = message
+      $0.sizeToFit()
+    }
+    let width = toastLabel.frame.width
+    
+    self.view.addSubview(toastView)
+    toastView.addSubview(containerView)
+    containerView.addSubview(iconImage)
+    containerView.addSubview(toastLabel)
+    
+    toastView.translatesAutoresizingMaskIntoConstraints = false
+    toastView.widthAnchor.constraint(equalToConstant: view.frame.size.width-40).isActive = true
+    toastView.heightAnchor.constraint(equalToConstant: 49).isActive = true
+    toastView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
+    toastView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
+    toastView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -99).isActive = true
+    toastView.cornerRadius = 10
+    toastView.backgroundColor = .gray1
+    
+    containerView.translatesAutoresizingMaskIntoConstraints = false
+    containerView.widthAnchor.constraint(equalToConstant: 32+width).isActive = true
+    containerView.heightAnchor.constraint(equalToConstant: 24).isActive = true
+    containerView.centerXAnchor.constraint(equalTo: toastView.centerXAnchor).isActive = true
+    containerView.centerYAnchor.constraint(equalTo: toastView.centerYAnchor).isActive = true
+    containerView.backgroundColor = .clear
+    
+    iconImage.translatesAutoresizingMaskIntoConstraints = false
+    iconImage.widthAnchor.constraint(equalToConstant: 24).isActive = true
+    iconImage.heightAnchor.constraint(equalToConstant: 24).isActive = true
+    iconImage.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+    iconImage.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
+    iconImage.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+    
+    toastLabel.translatesAutoresizingMaskIntoConstraints = false
+    toastLabel.centerYAnchor.constraint(equalTo: iconImage.centerYAnchor).isActive = true
+    toastLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
+  
+    UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
+        toastView.alpha = 0.0
+    }, completion: { _ in
+        toastView.removeFromSuperview()
+    })
+  }
+  
   func showToast(_ message: String,
                  isBottom: Bool = true,
                  yAnchor: CGFloat = 0,

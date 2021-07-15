@@ -117,6 +117,7 @@
 		E8244CCB26974238007E63ED /* CafeMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8244CCA26974238007E63ED /* CafeMenuTableViewCell.swift */; };
 		E8244CD226974693007E63ED /* CafeMenuListDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */; };
 		E8244CD726983C01007E63ED /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8244CD626983C01007E63ED /* WriteReviewViewController.swift */; };
+		E82E5AA4269F32FE00DE5C23 /* CafeTIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E5AA3269F32FE00DE5C23 /* CafeTIModel.swift */; };
 		E83045B526957824004BD355 /* CAFETITest3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B426957824004BD355 /* CAFETITest3ViewController.swift */; };
 		E83045B726957835004BD355 /* CAFETITest4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B626957835004BD355 /* CAFETITest4ViewController.swift */; };
 		E83045B926957843004BD355 /* CAFETIResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B826957843004BD355 /* CAFETIResultViewController.swift */; };
@@ -254,6 +255,7 @@
 		E8244CCA26974238007E63ED /* CafeMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeMenuTableViewCell.swift; sourceTree = "<group>"; };
 		E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeMenuListDataModel.swift; sourceTree = "<group>"; };
 		E8244CD626983C01007E63ED /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
+		E82E5AA3269F32FE00DE5C23 /* CafeTIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTIModel.swift; sourceTree = "<group>"; };
 		E83045B0269577D3004BD355 /* CAFETITest21ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETITest21ViewController.swift; sourceTree = "<group>"; };
 		E83045B226957815004BD355 /* CAFETITest22ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETITest22ViewController.swift; sourceTree = "<group>"; };
 		E83045B426957824004BD355 /* CAFETITest3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETITest3ViewController.swift; sourceTree = "<group>"; };
@@ -648,8 +650,8 @@
 			isa = PBXGroup;
 			children = (
 				CC7BB2F3269C2C6F0079FC4F /* Services */,
-				CC7BB2F1269C2B790079FC4F /* MoyaNetworkLogger.swift */,
 				9253708B269C9CFB00E2E5EA /* ResponseType.swift */,
+				CC7BB2F1269C2B790079FC4F /* MoyaNetworkLogger.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -793,6 +795,7 @@
 			isa = PBXGroup;
 			children = (
 				CC9C854E269EF813002A3321 /* Review */,
+				E82E5AA2269F32D000DE5C23 /* CafeTIModel */,
 				9253708D269D8F2600E2E5EA /* Signup */,
 				92537088269C95CB00E2E5EA /* Login */,
 				E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */,
@@ -827,6 +830,14 @@
 				E8244CD626983C01007E63ED /* WriteReviewViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E82E5AA2269F32D000DE5C23 /* CafeTIModel */ = {
+			isa = PBXGroup;
+			children = (
+				E82E5AA3269F32FE00DE5C23 /* CafeTIModel.swift */,
+			);
+			path = CafeTIModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1142,6 +1153,7 @@
 				9241370F269457A80016D18F /* MyReviewTableViewCell.swift in Sources */,
 				CC4D163426978C4800F3F9B4 /* RecommendTagCollectionViewCell.swift in Sources */,
 				9241370F269457A80016D18F /* MyReviewTableViewCell.swift in Sources */,
+				E82E5AA4269F32FE00DE5C23 /* CafeTIModel.swift in Sources */,
 				CCB6C66C268F41E800941E92 /* CreateCategoryViewController.swift in Sources */,
 				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
