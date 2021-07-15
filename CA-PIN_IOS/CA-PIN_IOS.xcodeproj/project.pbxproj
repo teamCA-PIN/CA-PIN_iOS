@@ -201,7 +201,7 @@
 		CC4D163326978C4800F3F9B4 /* RecommendTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC4D163526978CA400F3F9B4 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC4D163726978E7900F3F9B4 /* ReviewListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListModel.swift; sourceTree = "<group>"; };
-		CC6468D32698B8A600CF848A /* ReviewListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewListModel.swift; sourceTree = "<group>"; };
+		CC6468D32698B8A600CF848A /* ReviewListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReviewListModel.swift; path = ../ReviewListModel.swift; sourceTree = "<group>"; };
 		CC6468D52699E6F200CF848A /* EntireReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntireReviewViewController.swift; sourceTree = "<group>"; };
 		CC7BB2F1269C2B790079FC4F /* MoyaNetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaNetworkLogger.swift; sourceTree = "<group>"; };
 		CC7BB2F4269C2CA10079FC4F /* UserAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthService.swift; sourceTree = "<group>"; };
@@ -382,6 +382,7 @@
 		92B20D6E269E210F0013D429 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				CC6468D32698B8A600CF848A /* ReviewListModel.swift */,
 				92B20D6F269E212E0013D429 /* CategoryListModel.swift */,
 				92B20D71269E53B10013D429 /* CafeInCategoryModel.swift */,
 			);
@@ -797,7 +798,6 @@
 				9253708D269D8F2600E2E5EA /* Signup */,
 				92537088269C95CB00E2E5EA /* Login */,
 				E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */,
-				CC6468D32698B8A600CF848A /* ReviewListModel.swift */,
 				E8818965269C2AF200B884FB /* ReviewPhotoModel.swift */,
 			);
 			path = Models;

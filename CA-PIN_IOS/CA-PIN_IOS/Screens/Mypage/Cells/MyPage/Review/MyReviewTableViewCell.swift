@@ -32,6 +32,7 @@ class MyReviewTableViewCell: UITableViewCell {
     layout.minimumInteritemSpacing = 5
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.translatesAutoresizingMaskIntoConstraints = false
+    collectionView.showsHorizontalScrollIndicator = false
     return collectionView
   }()
   let bottomView = UIView()
@@ -40,6 +41,8 @@ class MyReviewTableViewCell: UITableViewCell {
   var cafeName: String = "후엘고"
   var tagArray: [String] = ["맛 추천", "분위기 추천"] /// 서버 연결한 후 tagcollectionview에 사용 -> 여기가 아니라 reviewcollectionViewcell에 있어야함
   var imageArray: [String] = ["hihi"] /// 서버 연결한 후 reviewImageCollectionview에 사용 -> 여기가 아니라 reviewcollectionViewcell에 있어야함
+  
+  var test = 10
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
@@ -248,7 +251,7 @@ extension MyReviewTableViewCell: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     switch collectionView {
     case tagCollectionView: return 6
-    case imageCollectionView: return 0
+    case imageCollectionView: return 10 /// TODO: - 웅엥.count
     default: return 5
     }
   }
@@ -257,7 +260,7 @@ extension MyReviewTableViewCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     switch collectionView {
     case tagCollectionView: return tagArray.count
-    case imageCollectionView: return 3
+    case imageCollectionView: return test
     default: return 0
     }
   }
@@ -273,6 +276,13 @@ extension MyReviewTableViewCell: UICollectionViewDataSource {
       guard let imageCell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewImageCollectionViewCell.reuseIdentifier, for: indexPath) as? ReviewImageCollectionViewCell else { return UICollectionViewCell() }
       imageCell.awakeFromNib()
       // cell에서 이미지 넣는 함수 만들어서 쓰기
+      if test >= 4 { /// TODO: - 웅엥.count >= 4
+        print("사진이 4장 이상")
+        if indexPath.row == test-1 {
+          imageCell.overlayButton.isHidden = false
+          imageCell.overlayButton.isEnabled = true
+        }
+      }
       return imageCell
     default: return UICollectionViewCell()
     }

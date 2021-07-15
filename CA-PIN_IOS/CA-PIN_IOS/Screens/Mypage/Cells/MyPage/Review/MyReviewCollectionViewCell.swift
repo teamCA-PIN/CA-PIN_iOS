@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Moya
+import RxMoya
+import RxSwift
 
 class MyReviewCollectionViewCell: UICollectionViewCell {
   // MARK: - Components
@@ -14,6 +17,9 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
   let myReviewTableView = UITableView()
   var isEmpty: Bool = false /// 리뷰 존재하는지 체크하는 불
   var reviewNumber: Int = 10 /// 리뷰 개수
+  
+//  let disposeBag = DisposeBag()
+//  private let UserServiceProvider = MoyaProvider<>(UserService)
     
   // MARK: - LifeCycles
   override func awakeFromNib() {
@@ -25,6 +31,9 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
   }
 }
 extension MyReviewCollectionViewCell {
+  func getReviewListService() {
+
+  }
   func register() {
     /// 분기처리
     /// 리뷰가 0개일 때: EmptyReviewTableViewCell
