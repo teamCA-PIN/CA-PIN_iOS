@@ -117,10 +117,9 @@ extension CafeTIViewController {
     }
   }
   @objc func startButtonClicked() {
-//    let CafeTITest1ViewController = CafeTITest1ViewController()
-//    self.navigationController?.pushViewController(CafeTITest1ViewController, animated: false)
-    let writeVC = WriteReviewViewController()
-    self.navigationController?.pushViewController(writeVC, animated: false)
+    let  CafeMenuViewController = CafeMenuViewController()
+    self.navigationController?.pushViewController(CafeMenuViewController, animated: false)
+
     
   }
 }

@@ -8,7 +8,9 @@
 import UIKit
 
 import SnapKit
-import SwiftyColor
+import Moya
+import RxMoya
+import RxSwift
 import Then
 
 // MARK: - CafeMenuViewController
@@ -23,53 +25,62 @@ class CafeMenuViewController: UIViewController {
   private let cafemenuTableView = UITableView()
   var cafemenuList : [CafeMenuListDataModel] = []
   
+  let disposeBag = DisposeBag()
+  let CafeMenuProvider = MoyaProvider<CafeService>()
+  let cafeID = "60e96789868b7d75f394b00d"
+  
+  var resultData: [Menu]?
+  
   // MARK: - LifeCycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    print(self.navigationController)
+    showCafeMenuList()
     layout()
     register()
-    setCafemenuList()
     self.cafemenuTableView.delegate = self
     self.cafemenuTableView.dataSource = self
     cafemenuTableView.separatorStyle = .none
   }
   
+  override func viewWillLayoutSubviews() {
+    updateViewConstraints()
+  }
+  
   func setCafemenuList() {
     cafemenuList.append(contentsOf : [
       CafeMenuListDataModel(menuName : "커피",
-                            price : "this"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "커피ddd",
-                            price : "thisdddd"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "커피asdf",
-                            price : "thifafs"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "커피afaf",
-                            price : "thiafafafs"),
+                            price :00),
       CafeMenuListDataModel(menuName : "afafafaf커피",
-                            price : "thisasdfasdf"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "afafafaf커피",
-                            price : "thisasdfasdf"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "afafafaf커피",
-                            price : "thisasdfasdf"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "afafafaf커피",
-                            price : "thisasdfasdf"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "afafafaf커피",
-                            price : "thisasdfasdf"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "afafafaf커피",
-                            price : "thisasdfasdf"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "afafafaf커피",
-                            price : "thisasdfasdf"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "afafafaf커피",
-                            price : "thisasdfasdf"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "afafafaf커피",
-                            price : "thisasdfasdf"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "afafafaf커피",
-                            price : "thisasdfasdf"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "논커피",
-                            price : "that"),
+                            price : 00),
       CafeMenuListDataModel(menuName : "논커피",
-                            price : "that")
+                            price : 00)
     ])
   }
 }
@@ -144,6 +155,33 @@ extension CafeMenuViewController {
   @objc func clickedCloseButton() {
     self.dismiss(animated: false, completion: nil)
   }
+  //서버통신
+  func showCafeMenuList() {
+    CafeMenuProvider.rx.request(.cafeMenu(cafeId: cafeID))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(ResponseMenuArrayType<Menu>.self,
+                                          from: response.data)
+            guard let data = data.menus else { return }
+            for i in 0...data.count-1 {
+              self.cafemenuList.append(CafeMenuListDataModel(
+                                        menuName: data[i].name,
+                                        price: data[i].price))
+            }
+            print("성공")
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+        // to use like completion
+      }).disposed(by: disposeBag)
+  }
 }
 
 // MARK: - UIViewDelegate
@@ -165,15 +203,22 @@ extension CafeMenuViewController: UITableViewDataSource {
     else {
       tableView.isScrollEnabled = false
     }
+    print("hihihihihihi")
     return cafemenuList.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cafemenuCell = tableView.dequeueReusableCell(withIdentifier: CafeMenuTableViewCell.reuseIdentifier, for: indexPath) as? CafeMenuTableViewCell else {return UITableViewCell() }
+    
+    print("hihi")
+    print(cafemenuList[indexPath.row].menuName)
+    print(cafemenuList[indexPath.row].price)
+//    showCafeMenuList()
     cafemenuCell.setData(menuName : cafemenuList[indexPath.row].menuName,
                          price : cafemenuList[indexPath.row].price)
     cafemenuCell.awakeFromNib()
     return cafemenuCell
   }
+  
 }
 

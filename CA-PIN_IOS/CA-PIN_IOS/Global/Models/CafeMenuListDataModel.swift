@@ -13,5 +13,5 @@ import Then
 
 struct CafeMenuListDataModel {
   var menuName : String
-  var price : String
+  var price : Int
 }
