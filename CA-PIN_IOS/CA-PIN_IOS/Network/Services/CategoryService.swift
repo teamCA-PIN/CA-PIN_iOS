@@ -13,7 +13,7 @@ import SwiftKeychainWrapper
 enum CategoryService {
   case createCategory(colorIndex: Int, categoryName: String)
   case deleteCategory(categoryId: String)
-  case addCafe(categoryId: String, cafeIds: [String])
+  case addCafe(cafeId: String, categoryId: String?)
   case cafeListInCategory(categoryId: String)
   case deleteCafeInCategory(categoryId: String, cafeList: [String])
   case editCategory(colorIndex: Int, categoryName: String)
@@ -35,8 +35,8 @@ extension CategoryService: TargetType {
       return "/category"
     case .deleteCategory(categoryId: let categoryId):
       return "/category/\(categoryId)"
-    case .addCafe(categoryId: let categoryId, _):
-      return "/cateogry/\(categoryId)/archive"
+    case .addCafe(cafeId: let cafeId, _):
+      return "/cateogry/\(cafeId)/archive"
     case .cafeListInCategory(categoryId: let categoryId):
       return "/category/\(categoryId)/cafes"
     case .deleteCafeInCategory(categoryId: let categoryId, _):
@@ -77,10 +77,16 @@ extension CategoryService: TargetType {
     case .deleteCategory,
          .cafeListInCategory:
       return .requestPlain
-    case .addCafe(_, cafeIds: let cafeIds):
-      return .requestCompositeParameters(bodyParameters: ["cafeIds": cafeIds],
-                                         bodyEncoding: JSONEncoding.default,
-                                         urlParameters: .init())
+    case .addCafe(_, categoryId: let categoryId):
+      if categoryId == "" {
+        return .requestPlain
+      }
+      else {
+        return .requestCompositeParameters(bodyParameters: ["categoryId": categoryId],
+                                           bodyEncoding: JSONEncoding.default,
+                                           urlParameters: .init())
+      }
+     
     case .deleteCafeInCategory(_, cafeList: let cafeList):
       return .requestCompositeParameters(bodyParameters: ["cafeList": cafeList],
                                          bodyEncoding: JSONEncoding.default,

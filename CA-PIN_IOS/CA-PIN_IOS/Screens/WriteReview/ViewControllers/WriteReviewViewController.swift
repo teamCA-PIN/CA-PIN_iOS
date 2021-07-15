@@ -80,9 +80,11 @@ class WriteReviewViewController: UIViewController {
   let ratingContentLabel = UILabel()
   let ratingMaxLabel = UILabel()
   
+  let disposeBag = DisposeBag()
+  let reviewProvider = MoyaProvider<ReviewService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+  
   final let maxLength = 150
   var nameCount = 0
-  
   var ratingValue = 2.5
   
   var fetchResult: PHFetchResult<PHAsset>?
@@ -92,6 +94,8 @@ class WriteReviewViewController: UIViewController {
   
   var ratingtest = 0
   
+  var cafeId = ""
+  var recommend: [Int] = []
   let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
   
   // MARK: - LifeCycle
@@ -476,16 +480,17 @@ extension WriteReviewViewController {
       tasteButton.setTitleColor(.gray4, for: .normal)
     }
   }
-  
   @objc func feelButtonClicked() {
     feelButton.isSelected.toggle()
     if feelButton.isSelected == true {
       feelButton.backgroundColor = .pointcolor1
       feelButton.setTitleColor(.white, for: .normal)
+      
     }
     else {
       feelButton.backgroundColor = .gray1
       feelButton.setTitleColor(.gray4, for: .normal)
+     
     }
   }
   @objc func handleTap() {
@@ -519,8 +524,20 @@ extension WriteReviewViewController {
       if ratingtest == 0 {
         self.showGrayToast(message: "리뷰와 별점을 등록해주세요")
       } else {
-        print("넘어가")
-        //다음화면으로 넘어가게
+        if self.tasteButton.isSelected == true && self.feelButton.isSelected == true {
+          self.recommend = [0,1]
+        }
+        else if self.tasteButton.isSelected == true && self.feelButton.isSelected == false {
+          self.recommend = [0]
+        }
+        else if self.tasteButton.isSelected == false && self.feelButton.isSelected == true {
+          self.recommend = [1]
+        }
+        else {
+          self.recommend = []
+        }
+        print(self.recommend)
+        writeReview()
       }
     }
   }
@@ -578,6 +595,22 @@ extension WriteReviewViewController {
     self.ratingContentLabel.text = "\(rating)점"
   }
   
+  func writeReview() {
+    reviewProvider.rx.request(.writeReview(cafeId: self.cafeId, recommend: self.recommend, content: self.reviewTextView.text, rating: Float(self.ratingValue), images: self.canAccessImages))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 201 {
+          do {
+            self.navigationController?.popViewController(animated: false)
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
+  }
 }
 
 
