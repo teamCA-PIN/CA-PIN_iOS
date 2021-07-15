@@ -311,7 +311,7 @@ extension HamburgerViewController {
       }).disposed(by: disposeBag)
   }
   func infoDataBind() {
-//    self.profileImageView.setImage(from: self.infoData?.profileImg ?? "", UIImage(named: "image176")!)
+    self.profileImageView.setImage(from: self.infoData?.profileImg ?? "", UIImage(named: "image176")!)
     self.profileImageView.imageFromUrl(self.infoData?.profileImg ?? "", defaultImgPath: self.infoData?.cafeti.plainImg ?? "")
     self.profileImageView.setRounded(radius: self.profileImageView.frame.height/2)
     self.profileNameLabel.text = self.infoData?.nickname
