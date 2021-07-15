@@ -12,22 +12,21 @@ import SwiftKeychainWrapper
 
 enum ReviewService {
   case reviewList(cafeId: String)
-  case writeReview(cafeId: String, review: String, recommend: [Int]?, content: String, rating: Float, images: [UIImage]?)
-  case editReview(reviewId: String)
+  case writeReview(cafeId: String, recommend: [Int]?, content: String, rating: Float, images: [UIImage]?)
+  case editReview(reviewId: String, recommend: [Int]?, content: String, rating: Float, isAllDeleted: Bool, images: [UIImage]?)
   case deleteReview(reviewId: String)
 }
 
 extension ReviewService: TargetType {
-
+  
   private var token: String {
-//    return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
-    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGVjNjk0MTJkNGNhZDY0ZjBkNmVhNjgiLCJpYXQiOjE2MjYyODE2NTcsImV4cCI6MTYyNjM2ODA1N30.KrUpKHCZKmahakpFbZbt8cdUS9NB99lffupEpS8NQzo"
+        return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
   }
   
   public var baseURL: URL {
     return URL(string: "http://3.37.75.200:5000")!
   }
-
+  
   var path: String {
     switch self {
     case .reviewList(let cafeId):
@@ -40,7 +39,7 @@ extension ReviewService: TargetType {
       return "/reviews:\(reviewId)"
     }
   }
-
+  
   var method: Moya.Method {
     switch self {
     case .reviewList:
@@ -53,21 +52,64 @@ extension ReviewService: TargetType {
       return .delete
     }
   }
-
+  
   var sampleData: Data {
     return Data()
   }
-
+  
   var task: Task {
     switch self {
-
-    case .deleteReview, .editReview, .writeReview:
+    
+    case .deleteReview:
       return .requestPlain
     case .reviewList(cafeId: let cafeId):
       return .requestParameters(parameters: ["cafe": cafeId], encoding: URLEncoding(destination: .queryString, arrayEncoding: .noBrackets))
+      
+    case .writeReview(_, recommend: let recommend, content: let content, rating: let rating, images: let images):
+      var multiPartFormData: [MultipartFormData] = []
+      let review = [
+        "recommend": recommend,
+        "content": content,
+        "rating": rating
+      ] as [String : Any]
+      let data = try! JSONSerialization.data(withJSONObject: review, options: .prettyPrinted)
+      let jsonString = String(data: data, encoding: .utf8)!
+      let stringData = MultipartFormData(provider: .data(jsonString.data(using: String.Encoding.utf8)!), name: "review")
+      multiPartFormData.append(stringData)
+      if images != nil {
+        for image in images! {
+          let imageData = image.jpegData(compressionQuality: 1.0)
+          let imgData = MultipartFormData(provider: .data(imageData!), name: "imgs", fileName: "image", mimeType: "image/jpeg")
+          multiPartFormData.append(imgData)
+          
+        }
+      }
+      return .uploadMultipart(multiPartFormData)
+    case .editReview(_, recommend: let recommend, content: let content, rating: let rating, isAllDeleted: let isAllDeleted, images: let images):
+      var multiPartFormData: [MultipartFormData] = []
+      let review = [
+        "recommend": recommend,
+        "content": content,
+        "rating": rating,
+        "isAllDeleted": isAllDeleted
+      ] as [String : Any]
+      let data = try! JSONSerialization.data(withJSONObject: review, options: .prettyPrinted)
+      let jsonString = String(data: data, encoding: .utf8)!
+      let stringData = MultipartFormData(provider: .data(jsonString.data(using: String.Encoding.utf8)!), name: "review")
+      multiPartFormData.append(stringData)
+      if images != nil {
+        for image in images! {
+          let imageData = image.jpegData(compressionQuality: 1.0)
+          let imgData = MultipartFormData(provider: .data(imageData!), name: "imgs", fileName: "image", mimeType: "image/jpeg")
+          multiPartFormData.append(imgData)
+          
+        }
+      }
+      return .uploadMultipart(multiPartFormData)
     }
+    
   }
-
+  
   var headers: [String : String]? {
     switch self {
     case .reviewList,

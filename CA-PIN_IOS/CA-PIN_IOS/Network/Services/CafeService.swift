@@ -14,6 +14,7 @@ enum CafeService {
   case cafeList(tags: [Int]?)
   case cafeListMymap
   case cafeDetail(cafeId: String)
+  case cafeMenu(cafeId: String)
 }
 
 extension CafeService: TargetType {
@@ -22,8 +23,7 @@ extension CafeService: TargetType {
   
   
   private var token: String {
-//    return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
-    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGVjNjk0MTJkNGNhZDY0ZjBkNmVhNjgiLCJpYXQiOjE2MjYzMzMwMDMsImV4cCI6MTYyNjQxOTQwM30.W3VgorVwJPdQoHFaK0V8ieIgcN37no83XqeBzeGuP9g"
+    return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
 
   }
   
@@ -38,6 +38,8 @@ extension CafeService: TargetType {
       return "/cafes/myMap"
     case .cafeDetail(cafeId: let cafeId):
       return "/cafes/detail/\(cafeId)"
+    case .cafeMenu(cafeId: let cafeId):
+      return "/cafes/\(cafeId)/menus"
     default:
       return "/cafes"
     }
@@ -45,7 +47,7 @@ extension CafeService: TargetType {
   
   var method: Moya.Method {
     switch self {
-    case .cafeList, .cafeListMymap, .cafeDetail:
+    case .cafeList, .cafeListMymap, .cafeDetail, .cafeMenu:
       return .get
     }
   }
@@ -56,7 +58,7 @@ extension CafeService: TargetType {
   
   var task: Task {
     switch self {
-    case .cafeListMymap, .cafeDetail:
+    case .cafeListMymap, .cafeDetail, .cafeMenu:
       return .requestPlain
     case .cafeList(tags: let tags):
       return .requestParameters(parameters: ["tags": tags], encoding: URLEncoding(destination: .queryString, arrayEncoding: .noBrackets))
@@ -65,7 +67,7 @@ extension CafeService: TargetType {
   
   var headers: [String : String]? {
     switch self {
-    case .cafeList:
+    case .cafeList, .cafeMenu:
       return ["Content-Type": "application/json"]
     case .cafeListMymap,
          .cafeDetail:

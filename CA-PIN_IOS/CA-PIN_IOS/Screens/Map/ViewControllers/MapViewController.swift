@@ -44,10 +44,12 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
   var currentLatitude: Double?
   var currentLongitude: Double?
   var informationRevealed = false
+  var capinOrMyMap = 0
   var markers = [NMFMarker]()
   var currentMarkers = [NMFMarker]()
   var tags: [Int] = []
   var cafeListModel: [CafeLocation] = [CafeLocation(id: "1", latitude: 37.5260118, longitude: 127.0355868)]
+  var myMapCafeList: [MyMapCafe] = [MyMapCafe(id: "", latitude: 0, longitude: 0)]
   var cafeDetailModel: CafeServerDetail?
   var isSaved: Bool?
   var rating: Float = 0
@@ -69,7 +71,12 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    setupCafeList()
+    if self.capinOrMyMap == 0 {
+      setupCafeList()
+    }
+    else {
+      setupMyMapList()
+    }
     layout()
     if informationRevealed == true {
       informationView.isHidden = false
@@ -116,7 +123,7 @@ extension MapViewController {
   }
   func layoutTitleImageView() {
     topView.add(titleImageView) {
-      $0.image = UIImage(named: "logo")
+      $0.image = UIImage(named: "capinLogo")
       $0.snp.makeConstraints {
         $0.center.equalToSuperview()
         $0.width.equalTo(80)
@@ -184,10 +191,10 @@ extension MapViewController {
   func layoutToggleView() {
     mapView.add(toggleView) {
       $0.backgroundColor = .white
-      $0.setRounded(radius: 10)
+      $0.setRounded(radius: 24)
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
-        $0.bottom.equalTo(self.mapView.snp.bottom).offset(34)
+        $0.bottom.equalTo(self.mapView.snp.bottom).offset(-34)
         $0.width.equalTo(220)
         $0.height.equalTo(49)
       }
@@ -196,16 +203,17 @@ extension MapViewController {
   func layoutCapinMapButton() {
     toggleView.add(capinMapButton) {
       $0.setupButton(title: "카핀맵",
-                     color: .gray,
+                     color: .white,
                      font: .notoSansKRRegularFont(fontSize: 16),
-                     backgroundColor: .white,
+                     backgroundColor: .pointcolor1,
                      state: .normal,
-                     radius: 10)
+                     radius: 19)
+      $0.addTarget(self, action: #selector(self.clickedToggleButton(_:)), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.trailing.equalTo(self.toggleView.snp.centerX).offset(-2)
-        $0.top.equalTo(self.toggleView.snp.top).offset(2)
-        $0.leading.equalTo(self.toggleView.snp.leading).offset(2)
-        $0.bottom.equalTo(self.toggleView.snp.bottom).offset(-2)
+        $0.top.equalTo(self.toggleView.snp.top).offset(5)
+        $0.leading.equalTo(self.toggleView.snp.leading).offset(5)
+        $0.bottom.equalTo(self.toggleView.snp.bottom).offset(-5)
       }
     }
   }
@@ -216,12 +224,13 @@ extension MapViewController {
                      font: .notoSansKRRegularFont(fontSize: 16),
                      backgroundColor: .white,
                      state: .normal,
-                     radius: 10)
+                     radius: 19)
+      $0.addTarget(self, action: #selector(self.clickedToggleButton(_:)), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.toggleView.snp.centerX).offset(2)
-        $0.trailing.equalTo(self.toggleView.snp.trailing).offset(-2)
-        $0.top.equalTo(self.toggleView.snp.top).offset(2)
-        $0.bottom.equalTo(self.toggleView.snp.bottom).offset(-2)
+        $0.trailing.equalTo(self.toggleView.snp.trailing).offset(-5)
+        $0.top.equalTo(self.toggleView.snp.top).offset(5)
+        $0.bottom.equalTo(self.toggleView.snp.bottom).offset(-5)
       }
     }
   }
@@ -375,6 +384,26 @@ extension MapViewController {
     detailView.cafeModel = self.cafeDetailModel
     self.navigationController?.pushViewController(detailView, animated: false)
   }
+  @objc func clickedToggleButton(_ sender: UIButton?) {
+    if sender == self.capinMapButton {
+      sender?.backgroundColor = .pointcolor1
+      sender?.setTitleColor(.white, for: .normal)
+      self.myMapButton.backgroundColor = .white
+      self.myMapButton.setTitleColor(.gray4, for: .normal)
+      self.capinOrMyMap = 0
+      self.setupCafeList()
+      self.setupMarker()
+    }
+    else {
+      self.capinOrMyMap = 1
+      sender?.backgroundColor = .pointcolor1
+      sender?.setTitleColor(.white, for: .normal)
+      self.capinMapButton.backgroundColor = .white
+      self.capinMapButton.setTitleColor(.gray4, for: .normal)
+      self.setupMyMapList()
+      self.setupMarker()
+    }
+  }
   func setupMarker() {
     let handler = { (overlay: NMFOverlay) -> Bool in
       var id = ""
@@ -407,6 +436,7 @@ extension MapViewController {
       marker.mapView = self.mapView.mapView
     }
     self.mapView.mapView.layoutSubviews()
+    self.reloadInputViews()
     
   }
   func findCurrentMarker() {
@@ -434,6 +464,35 @@ extension MapViewController {
                 self.cafeListModel = data.cafeLocations ?? [CafeLocation(id: "1", latitude: 37.5260118, longitude: 127.0355868)]
                 self.coordinates.removeAll()
                 for cafe in self.cafeListModel {
+                  self.coordinates.append(NMGLatLng(lat: cafe.latitude, lng: cafe.longitude))
+                }
+                print(self.coordinates)
+              } catch {
+                print(error)
+              }
+            }
+          }, onError: { error in
+            print(error)
+          }, onCompleted: {
+            self.reloadInputViews()
+          }).disposed(by: disposeBag)
+  }
+  func setupMyMapList() {
+    listProvider.rx.request(.cafeListMymap)
+          .asObservable()
+          .subscribe(onNext: { response in
+            if response.statusCode == 200 {
+              do {
+                let decoder = JSONDecoder()
+                let data = try decoder.decode(MyMapListResponseType<MyMapLocation>.self,
+                                              from: response.data)
+                
+                let myMapListModel = data.myMapLocations
+                for cafeModel in myMapListModel! {
+                  self.myMapCafeList = cafeModel.cafes ?? [MyMapCafe(id: "", latitude: 0, longitude: 0)]
+                }
+                self.coordinates.removeAll()
+                for cafe in self.myMapCafeList {
                   self.coordinates.append(NMGLatLng(lat: cafe.latitude, lng: cafe.longitude))
                 }
                 print(self.coordinates)
@@ -476,6 +535,60 @@ extension MapViewController {
     informationContextLabel.text = self.cafeDetailModel?.address
     informationTagLabel.text = self.cafeDetailModel?.tags[0].name
     informationView.isHidden = false
+  }
+  func markerImage(colorCode: String, isActive: Int) -> String {
+    if isActive == 1 {
+      switch colorCode {
+      case "6492F5":
+        return "pinActiveCate1"
+      case "6BBC9A":
+        return "pinActiveCate2"
+      case "FFC24B":
+        return "pinActiveCate3"
+      case "816F7C":
+        return "pinActiveCate4"
+      case "FFC2D5":
+        return "pinActiveCate5"
+      case "C9D776":
+        return "pinActiveCate6"
+      case "B2B9E5":
+        return "pinActiveCate7"
+      case "FF8E8E":
+        return "pinActiveCate8"
+      case "EBEAEF":
+        return "pinActiveCate9"
+      case "9DC5E8":
+        return "pinActiveCate10"
+      default:
+        return "pinActiveDefault"
+      }
+    }
+    else {
+      switch colorCode {
+      case "6492F5":
+        return "pinInactiveCate1"
+      case "6BBC9A":
+        return "pinInactiveCate2"
+      case "FFC24B":
+        return "pinInactiveCate3"
+      case "816F7C":
+        return "pinInactiveCate4"
+      case "FFC2D5":
+        return "pinInactiveCate5"
+      case "C9D776":
+        return "pinInactiveCate6"
+      case "B2B9E5":
+        return "pinInactiveCate7"
+      case "FF8E8E":
+        return "pinInactiveCate8"
+      case "EBEAEF":
+        return "pinInactiveCate9"
+      case "9DC5E8":
+        return "pinInactiveCate10"
+      default:
+        return "pinInactiveDefault"
+      }
+    }
   }
 }
 
@@ -521,6 +634,11 @@ struct CafeDetailResponseType<T: Codable>: Codable {
     var cafeDetail: T?
   var isSaved: Bool
   var average: Float?
+}
+
+struct MyMapListResponseType<T: Codable>: Codable {
+  var message: String?
+  var myMapLocations: [T]?
 }
 
 
