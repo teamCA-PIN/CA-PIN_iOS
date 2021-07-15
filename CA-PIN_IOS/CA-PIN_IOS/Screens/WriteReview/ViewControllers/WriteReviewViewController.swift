@@ -28,7 +28,7 @@ class WriteReviewViewController: UIViewController {
     var temp = YPImagePickerConfiguration()
     temp.usesFrontCamera = false
     temp.screens = [.library, .photo]
-    temp.library.maxNumberOfItems = 10
+    temp.library.maxNumberOfItems = 1
     temp.library.defaultMultipleSelection = false
     temp.showsPhotoFilters = false
     temp.onlySquareImagesFromCamera = false
@@ -89,6 +89,8 @@ class WriteReviewViewController: UIViewController {
   var canAccessImages: [UIImage] = []
   
   var changetiming = 0
+  
+  var ratingtest = 0
   
   let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
   
@@ -455,7 +457,7 @@ extension WriteReviewViewController {
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.writeScrollContainerView.snp.leading).offset(20)
         $0.trailing.equalTo(self.writeScrollContainerView.snp.trailing).offset(-20)
-        $0.bottom.equalTo(self.writeScrollContainerView.snp.bottom).offset(-34)
+        $0.bottom.equalTo(self.writeScrollContainerView.snp.bottom)
         $0.height.equalTo(49)
       }
     }
@@ -514,9 +516,13 @@ extension WriteReviewViewController {
     if reviewwordcountLabel.text == "0/150" {
       self.showGrayToast(message: "리뷰와 별점을 등록해주세요")
     } else {
-      /// 다음 화면으로 넘어가게
+      if ratingtest == 0 {
+        self.showGrayToast(message: "리뷰와 별점을 등록해주세요")
+      } else {
+        print("넘어가")
+        //다음화면으로 넘어가게
+      }
     }
-    /// 별점 없을시 토스트 띄워주기
   }
   
   
@@ -568,6 +574,7 @@ extension WriteReviewViewController {
   }
   
   func didFinishTouchRatingView(_ rating: Double) {
+    self.ratingtest = 1
     self.ratingContentLabel.text = "\(rating)점"
   }
   

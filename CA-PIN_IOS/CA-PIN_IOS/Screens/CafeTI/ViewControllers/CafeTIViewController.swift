@@ -110,10 +110,10 @@ extension CafeTIViewController {
       $0.addTarget(self, action: #selector(self.startButtonClicked), for: .touchUpInside)
       $0.setRounded(radius: 24.5)
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.subtitleLabel.snp.bottom).offset(125)
         $0.centerX.equalToSuperview()
-        $0.leading.equalTo(self.view.snp.leading).offset(20)
         $0.height.equalTo(49)
+        $0.width.equalTo(335)
+        $0.bottom.equalTo(self.view.snp.bottom).offset(-34)
       }
     }
   }
