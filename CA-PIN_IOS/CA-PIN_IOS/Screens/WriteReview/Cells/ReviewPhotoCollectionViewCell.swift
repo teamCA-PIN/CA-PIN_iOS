@@ -19,7 +19,7 @@ class ReviewPhotoCollectionViewCell: UICollectionViewCell {
   
   var reviewPhotoImageView = UIImageView() {
     didSet {
-        self.reviewPhotoImageView.contentMode = .scaleAspectFill
+      self.reviewPhotoImageView.contentMode = .scaleAspectFill
     }
   }
   let photoDeleteButton = UIButton()
@@ -50,9 +50,9 @@ extension ReviewPhotoCollectionViewCell {
     }
   }
   func layoutPhotoDeleteButton(){
-    self.reviewPhotoImageView.add(photoDeleteButton) {
+    self.contentView.add(photoDeleteButton) {
       $0.setImage(UIImage(named: "iconDelete"), for: .normal)
-//      $0.addTarget(self, action: #selector(self.deleteButtonClicked), for: .touchUpInside)
+      $0.addTarget(self, action: #selector(self.deleteButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.reviewPhotoImageView.snp.top).offset(2)
         $0.leading.equalTo(self.reviewPhotoImageView.snp.leading).offset(58)
@@ -63,4 +63,12 @@ extension ReviewPhotoCollectionViewCell {
       }
     }
   }
+  @objc func deleteButtonClicked() {
+    let buttonIndex = getCollectionCellIndexPath()
+    NotificationCenter.default.post(name: NSNotification.Name("delete"), object: buttonIndex)
+  }
 }
+
+
+
+

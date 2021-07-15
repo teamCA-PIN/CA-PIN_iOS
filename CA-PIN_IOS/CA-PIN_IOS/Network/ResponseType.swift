@@ -21,6 +21,13 @@ struct ResponseType<T: Codable>: Codable {
     var loginData: T?
 }
 
+struct ResponseCafeTI<T: Codable>: Codable {
+    var status: Int?
+    var success: Bool?
+    var message: String?
+    var result: T?
+}
+
 struct Response: Codable {
     var status: Int?
     var success: Bool?

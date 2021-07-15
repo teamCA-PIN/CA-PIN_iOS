@@ -20,17 +20,26 @@ class CAFETIResultViewController: UIViewController {
   let CAFETIresultView = UIView()
   let CAFETIresultLabel = UILabel()
   let CAFETItitleLabel = UILabel()
+  let CAFETISubtitleLabel = UILabel()
   let CAFETIintroLabel = UILabel()
   let CAFETIagainLabel = UILabel()
   let CAFETIendButton = UIButton()
+  
+  var resultData: CafeTIResult?
   
   // MARK: - Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    setResultData()
     layout()
     self.navigationController?.navigationBar.isHidden = true
   }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super .viewWillAppear(animated)
+  }
+  
 }
 
 // MARK: - Extension
@@ -44,8 +53,8 @@ extension CAFETIResultViewController {
     layoutCAFETIResultView()
     layoutCAFETIResultLabel()
     layoutCAFETITitleLabel()
+    layoutCAFETISubTitleLabel()
     layoutCAFETIIntroLabel()
-    layoutCAFETIAgainLabel()
     layoutCAFETIEndButton()
   }
   func layoutTitleLabel() {
@@ -60,22 +69,20 @@ extension CAFETIResultViewController {
   }
   func layoutResultImageView() {
     self.view.add(self.resultImageView) {
-      $0.image = UIImage(named: "logo")
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.titleLabel.snp.bottom).offset(35)
-        $0.leading.equalTo(self.view.snp.leading).offset(3)
-        $0.trailing.equalTo(self.view.snp.trailing).offset(36.9)
-        $0.height.equalTo(302)
-        $0.width.equalTo(375)
+        $0.top.equalTo(self.titleLabel.snp.bottom).offset(34)
+        $0.centerX.equalToSuperview()
+        $0.width.equalTo(UIScreen.main.bounds.width)
+        $0.height.equalTo(320/375*UIScreen.main.bounds.width)
       }
     }
   }
   func layoutCAFETIResultView() {
     self.view.add(self.CAFETIresultView) {
-      $0.backgroundColor = 0xa98e7a.color
+      $0.backgroundColor = .pointcolor1
       $0.setRounded(radius: 13)
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.resultImageView.snp.bottom).offset(17)
+        $0.top.equalTo(self.resultImageView.snp.bottom)
         $0.centerX.equalToSuperview()
         $0.height.equalTo(25)
         $0.width.equalTo(62)
@@ -84,7 +91,6 @@ extension CAFETIResultViewController {
   }
   func layoutCAFETIResultLabel() {
     self.CAFETIresultView.add(self.CAFETIresultLabel) {
-      $0.setupLabel(text: "WBFJ", color: .white, font: UIFont.notoSansKRMediumFont(fontSize: 16))
       $0.snp.makeConstraints {
         $0.centerX.equalTo(self.CAFETIresultView)
         $0.centerY.equalTo(self.CAFETIresultView)
@@ -93,35 +99,29 @@ extension CAFETIResultViewController {
   }
   func layoutCAFETITitleLabel() {
     self.view.add(self.CAFETItitleLabel) {
-      $0.setupLabel(text: "차분한 기린씨", color: 0x6b513d.color, font: UIFont.notoSansKRMediumFont(fontSize: 26))
       $0.snp.makeConstraints {
         $0.top.equalTo(self.CAFETIresultView.snp.bottom).offset(5)
         $0.centerX.equalToSuperview()
       }
     }
   }
-  func layoutCAFETIIntroLabel() {
-    self.view.add(self.CAFETIintroLabel) {
-      $0.setupLabel(text: "이제 카핀맵에서 ‘나를위한’ 버튼을 통해\n내 CAFETI 에 딱 맞는 카페를 모아보세요 !",
-                    color: 0x91c2de.color,
-                    font: UIFont.notoSansKRRegularFont(fontSize: 14))
-      $0.numberOfLines = 2
-      $0.textAlignment = .center
+  func layoutCAFETISubTitleLabel() {
+    self.view.add(self.CAFETISubtitleLabel) {
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.CAFETItitleLabel.snp.bottom).offset(11)
+        $0.top.equalTo(self.CAFETItitleLabel.snp.bottom)
         $0.centerX.equalToSuperview()
       }
     }
   }
-  func layoutCAFETIAgainLabel() {
-    self.view.add(self.CAFETIagainLabel) {
+  func layoutCAFETIIntroLabel() {
+    self.view.add(self.CAFETIintroLabel) {
       $0.setupLabel(text: "CAFETI는 프로필 수정페이지에서\n다시 검사하실 수 있습니다.",
-                    color: 0xc4c4c4.color,
-                    font: UIFont.notoSansKRRegularFont(fontSize: 12))
+                    color: .subcolorBlue4,
+                    font: UIFont.notoSansKRRegularFont(fontSize: 14))
       $0.numberOfLines = 2
       $0.textAlignment = .center
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.CAFETIintroLabel.snp.bottom).offset(47)
+        $0.top.equalTo(self.CAFETISubtitleLabel.snp.bottom).offset(20)
         $0.centerX.equalToSuperview()
       }
     }
@@ -130,12 +130,11 @@ extension CAFETIResultViewController {
     self.view.add(self.CAFETIendButton) {
       $0.setTitle("검사 종료", for: .normal)
       $0.setTitleColor(.white, for: .normal)
-      $0.backgroundColor = 0xa98e7a.color
+      $0.backgroundColor = .pointcolor1
       $0.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.endButtonClicked), for: .touchUpInside)
       $0.setRounded(radius: 24.5)
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.CAFETIagainLabel.snp.bottom).offset(94)
         $0.centerX.equalToSuperview()
         $0.height.equalTo(49)
         $0.width.equalTo(335)
@@ -148,5 +147,13 @@ extension CAFETIResultViewController {
       self.navigationController?.pushViewController(MapViewController, animated: false)
           
       }
+  func setResultData() {
+    print(self.resultData)
+    self.resultImageView.imageFromUrl(self.resultData?.img, defaultImgPath: "https://capin.s3.ap-northeast-2.amazonaws.com/cafeti/Deer_coffee%402x.png")
+    self.CAFETIresultLabel.setupLabel(text: self.resultData?.type ?? "", color: .white, font: UIFont.notoSansKRMediumFont(fontSize: 16))
+    self.CAFETItitleLabel.setupLabel(text: self.resultData?.modifier ?? "", color: .subcolorBrown4, font: UIFont.notoSansKRMediumFont(fontSize: 26))
+    self.CAFETISubtitleLabel.setupLabel(text: self.resultData?.modifierDetail ?? "", color: .gray3, font: UIFont.notoSansKRRegularFont(fontSize: 14))
+    self.reloadInputViews()
+    
+  }
 }
-

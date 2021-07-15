@@ -25,7 +25,7 @@ class WriteReviewViewController: UIViewController {
     temp.usesFrontCamera = false
     temp.screens = [.library, .photo]
     temp.library.maxNumberOfItems = 10
-    temp.library.defaultMultipleSelection = true
+    temp.library.defaultMultipleSelection = false
     temp.showsPhotoFilters = false
     temp.onlySquareImagesFromCamera = false
     temp.hidesBottomBar = false
@@ -72,6 +72,8 @@ class WriteReviewViewController: UIViewController {
   var fetchResult: PHFetchResult<PHAsset>?
   var canAccessImages: [UIImage] = []
   
+  var changetiming = 0
+  
   // MARK: - LifeCycle
   
   override func viewDidLoad() {
@@ -86,16 +88,18 @@ class WriteReviewViewController: UIViewController {
                                            selector: #selector(self.textDidChange(_:)),
                                            name: UITextView.textDidChangeNotification,
                                            object: self.reviewTextView)
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(DataDelete),
+                                           name: NSNotification.Name("delete"),
+                                           object: nil)
+    let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+            view.addGestureRecognizer(tap) // Add gesture recognizer to background view
   }
 }
 
 // MARK: - Extension
 
 extension WriteReviewViewController {
-  
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    self.view.endEditing(true)
-  }
   
   // MARK: - Helpers
   
@@ -175,6 +179,7 @@ extension WriteReviewViewController {
   func layoutBackButton() {
     self.contentcontainerview.add(self.backButton) {
       $0.setImage(UIImage(named: "iconBackBlack"), for: .normal)
+      $0.addTarget(self, action: #selector(self.backButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.contentcontainerview.snp.top).offset(1)
         $0.leading.equalTo(self.contentcontainerview.snp.leading).offset(20)
@@ -408,22 +413,36 @@ extension WriteReviewViewController {
       feelButton.setTitleColor(.gray4, for: .normal)
     }
   }
+  @objc func handleTap() {
+          reviewTextView.resignFirstResponder() // dismiss keyoard
+      }
+  
+  ///back button 누르면 돌아가게
+  @objc func backButtonClicked() {}
   
   @objc func textDidChange(_ notification: Notification) {
-    if let textField = notification.object as? UITextView {
-      if let text = textField.text {
+    if let textview = notification.object as? UITextView {
+      if let text = textview.text {
         if text.isEmpty == false {
           self.reviewwordcountLabel.text = "\(text.count)/150"
         }
         if text.count > self.maxLength {
-          textField.resignFirstResponder()
+          textview.resignFirstResponder()
         }
         if text.count >= maxLength {
           let index = text.index(text.startIndex, offsetBy: maxLength)
           let newString = text[text.startIndex..<index]
-          textField.text = String(newString)
+          textview.text = String(newString)
         }
       }
+    }
+  }
+  /// 선택한 사진 삭제
+  @objc func DataDelete(Notification: NSNotification) {
+    if let index = Notification.object as? Int {
+      canAccessImages.remove(at: index-1)
+      self.changetiming = 0
+      reviewphotoCollectionView.reloadData()
     }
   }
   
@@ -450,10 +469,8 @@ extension WriteReviewViewController {
           print(photo.image)
           if !self.canAccessImages.contains(photo.image){
             self.canAccessImages.append(photo.image)
-            if items.count > 5 {
-              print("ASD")
-              // 토스트 메세지
-              // 추가 안되게 !
+            if self.canAccessImages.count == 5 {
+              self.changetiming = 1
             }
           }
         case .video(v: _):
@@ -521,26 +538,29 @@ extension WriteReviewViewController : UICollectionViewDataSource
       emptyCell.awakeFromNib()
       return emptyCell
     } else {
+      print(canAccessImages)
       photocell.reviewPhotoImageView.image = self.canAccessImages[indexPath.item-1]
       photocell.setRounded(radius: 5)
-      if canAccessImages.count > 5 {
-      }
       photocell.awakeFromNib()
       return photocell
     }
   }
-  
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if indexPath.item == 0 {
-      self.photoLibraryWork()
+      if changetiming == 0 { /// 올린 사진이 5장 미만일 때
+        self.photoLibraryWork()
+      } else { /// 올린 사진이 5장일 때
+        
+        self.showGrayToast(message: "사진은 최대 5장까지 등록가능합니다.")
+        self.reviewphotoCollectionView.allowsSelection = false
+      }
+      self.reviewphotoCollectionView.allowsSelection = true
     }
-    
   }
 }
 
 
-extension WriteReviewViewController : UICollectionViewDelegateFlowLayout
-{
+extension WriteReviewViewController : UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     //    let width = UIScreen.main.bounds.width
     let cellWidth = 80
@@ -554,6 +574,5 @@ extension WriteReviewViewController : UICollectionViewDelegateFlowLayout
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     return 3
   }
-  
 }
 

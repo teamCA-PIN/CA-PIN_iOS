@@ -69,6 +69,7 @@
 		CC7BB2FD269C57B90079FC4F /* CafeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FC269C57B90079FC4F /* CafeService.swift */; };
 		CC7BB2FF269C5D820079FC4F /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FE269C5D820079FC4F /* CategoryService.swift */; };
 		CC9C854D269EBFA1002A3321 /* MyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */; };
+		CC9C8550269EF82E002A3321 /* ReviewDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */; };
 		CCA85AF52688ED6F00C9A32C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */; };
 		CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */; };
 		CCA85AF92688ED6F00C9A32C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA85AF82688ED6F00C9A32C /* ViewController.swift */; };
@@ -117,6 +118,7 @@
 		E8244CCB26974238007E63ED /* CafeMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8244CCA26974238007E63ED /* CafeMenuTableViewCell.swift */; };
 		E8244CD226974693007E63ED /* CafeMenuListDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */; };
 		E8244CD726983C01007E63ED /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8244CD626983C01007E63ED /* WriteReviewViewController.swift */; };
+		E82E5AA4269F32FE00DE5C23 /* CafeTIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E5AA3269F32FE00DE5C23 /* CafeTIModel.swift */; };
 		E83045B526957824004BD355 /* CAFETITest3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B426957824004BD355 /* CAFETITest3ViewController.swift */; };
 		E83045B726957835004BD355 /* CAFETITest4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B626957835004BD355 /* CAFETITest4ViewController.swift */; };
 		E83045B926957843004BD355 /* CAFETIResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B826957843004BD355 /* CAFETIResultViewController.swift */; };
@@ -210,6 +212,7 @@
 		CC7BB2FC269C57B90079FC4F /* CafeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeService.swift; sourceTree = "<group>"; };
 		CC7BB2FE269C5D820079FC4F /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoModel.swift; sourceTree = "<group>"; };
+		CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailModel.swift; sourceTree = "<group>"; };
 		CCA85AF12688ED6F00C9A32C /* CA-PIN_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CA-PIN_IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA85AF42688ED6F00C9A32C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCA85AF62688ED6F00C9A32C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -254,6 +257,7 @@
 		E8244CCA26974238007E63ED /* CafeMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeMenuTableViewCell.swift; sourceTree = "<group>"; };
 		E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeMenuListDataModel.swift; sourceTree = "<group>"; };
 		E8244CD626983C01007E63ED /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
+		E82E5AA3269F32FE00DE5C23 /* CafeTIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTIModel.swift; sourceTree = "<group>"; };
 		E83045B0269577D3004BD355 /* CAFETITest21ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETITest21ViewController.swift; sourceTree = "<group>"; };
 		E83045B226957815004BD355 /* CAFETITest22ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETITest22ViewController.swift; sourceTree = "<group>"; };
 		E83045B426957824004BD355 /* CAFETITest3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAFETITest3ViewController.swift; sourceTree = "<group>"; };
@@ -569,6 +573,14 @@
 				CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */,
 			);
 			path = User;
+      sourceTree = "<group>";
+    };
+		CC9C854E269EF813002A3321 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */,
+			);
+			path = Review;
 			sourceTree = "<group>";
 		};
 		CCA85AE82688ED6E00C9A32C = {
@@ -648,8 +660,8 @@
 			isa = PBXGroup;
 			children = (
 				CC7BB2F3269C2C6F0079FC4F /* Services */,
-				CC7BB2F1269C2B790079FC4F /* MoyaNetworkLogger.swift */,
 				9253708B269C9CFB00E2E5EA /* ResponseType.swift */,
+				CC7BB2F1269C2B790079FC4F /* MoyaNetworkLogger.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -793,6 +805,8 @@
 			isa = PBXGroup;
 			children = (
 				CC9C854B269EBF86002A3321 /* User */,
+				CC9C854E269EF813002A3321 /* Review */,
+				E82E5AA2269F32D000DE5C23 /* CafeTIModel */,
 				9253708D269D8F2600E2E5EA /* Signup */,
 				92537088269C95CB00E2E5EA /* Login */,
 				E8244CD126974693007E63ED /* CafeMenuListDataModel.swift */,
@@ -827,6 +841,14 @@
 				E8244CD626983C01007E63ED /* WriteReviewViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E82E5AA2269F32D000DE5C23 /* CafeTIModel */ = {
+			isa = PBXGroup;
+			children = (
+				E82E5AA3269F32FE00DE5C23 /* CafeTIModel.swift */,
+			);
+			path = CafeTIModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1105,6 +1127,7 @@
 				CC05E029268B865400269427 /* UIFont+.swift in Sources */,
 				CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */,
 				9253707D269A3B3300E2E5EA /* EmptyReviewTableViewCell.swift in Sources */,
+				CC9C8550269EF82E002A3321 /* ReviewDetailModel.swift in Sources */,
 				92413713269596660016D18F /* CategoryDetailViewController.swift in Sources */,
 				CCA85B582688F29700C9A32C /* UITableViewCell+.swift in Sources */,
 				CC6468D22698B8A000CF848A /* CafeDetailModel.swift in Sources */,
@@ -1141,6 +1164,7 @@
 				9241370F269457A80016D18F /* MyReviewTableViewCell.swift in Sources */,
 				CC4D163426978C4800F3F9B4 /* RecommendTagCollectionViewCell.swift in Sources */,
 				9241370F269457A80016D18F /* MyReviewTableViewCell.swift in Sources */,
+				E82E5AA4269F32FE00DE5C23 /* CafeTIModel.swift in Sources */,
 				CCB6C66C268F41E800941E92 /* CreateCategoryViewController.swift in Sources */,
 				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,

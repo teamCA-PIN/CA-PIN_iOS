@@ -55,7 +55,7 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
   var selectedMarker: NMFMarker?
   let locationComponent = NMFLocationManager.sharedInstance()
   let disposeBag = DisposeBag()
-  let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+  let listProvider = MoyaProvider<CafeService>()
   
   // MARK: - LifeCycles
   override func viewDidLoad() {

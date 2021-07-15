@@ -8,6 +8,9 @@
 import UIKit
 
 import CollectionViewCenteredFlowLayout
+import Moya
+import RxMoya
+import RxSwift
 import SnapKit
 import Then
 
@@ -58,47 +61,31 @@ class CafeDetailViewController: UIViewController {
   var rating: Float?
   var isSaved: Bool?
   var threshold = true
-//  var cafeModel: CafeDetail = CafeDetail(tags: [Tag(id: "a", name: "커피맛집"),
-//                                                Tag(id: "b", name: "디저트맛집"),
-//                                                Tag(id: "c", name: "그루비"),
-//                                                Tag(id: "d", name: "작업하기좋은"),
-//                                                Tag(id: "e", name: "조용한"),
-//                                                Tag(id: "f", name: "친절한"),
-//                                                Tag(id: "g", name: "채광좋은"),],
-//                                         offday: [0],
-//                                         id: "1",
-//                                         name: "후엘고",
-//                                         cafeImg: "adsf",
-//                                         address: "서울 마포구 마포대로11길 118 1층 (염리동)",
-//                                         latitude: 123,
-//                                         longitude: 213,
-//                                         insta: "@huelgocoffee",
-//                                         opentime: "11:00",
-//                                         closetime: "22:00",
-//                                         isSaved: true,
-//                                         rating: 4.5)
+  
+  let disposeBag = DisposeBag()
+  let reviewProvider = MoyaProvider<ReviewService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+  //  var cafeModel: CafeDetail = CafeDetail(tags: [Tag(id: "a", name: "커피맛집"),
+  //                                                Tag(id: "b", name: "디저트맛집"),
+  //                                                Tag(id: "c", name: "그루비"),
+  //                                                Tag(id: "d", name: "작업하기좋은"),
+  //                                                Tag(id: "e", name: "조용한"),
+  //                                                Tag(id: "f", name: "친절한"),
+  //                                                Tag(id: "g", name: "채광좋은"),],
+  //                                         offday: [0],
+  //                                         id: "1",
+  //                                         name: "후엘고",
+  //                                         cafeImg: "adsf",
+  //                                         address: "서울 마포구 마포대로11길 118 1층 (염리동)",
+  //                                         latitude: 123,
+  //                                         longitude: 213,
+  //                                         insta: "@huelgocoffee",
+  //                                         opentime: "11:00",
+  //                                         closetime: "22:00",
+  //                                         isSaved: true,
+  //                                         rating: 4.5)
   var cafeModel: CafeServerDetail?
-  var reviewModel: [Review] = [Review(id: "1",
-                                      nickname: "쿼카",
-                                      date: "2021-01-20",
-                                      rating: 4.0,
-                                      recommend: [0,1],
-                                      content: "무엇보다 커피가 정말 맛있고, 디저트로 준비돼 있던 쿠키와 휘낭시에도 맛있었습니다.  브라운크림은 꼭 드세요 !",
-                                      imgs: ["1","1","1","1","1"]),
-                               Review(id: "1",
-                                      nickname: "쿼카",
-                                      date: "2021-01-20",
-                                      rating: 4.0,
-                                      recommend: [1],
-                                      content: "무엇보다 커피가 정말 맛있고, 디저트로 준비돼 있던 쿠키와 휘낭시에도 맛있었습니다.  브라운크림은 꼭 드세요 !",
-                                      imgs: ["1","1","1","1","1"]),
-                               Review(id: "1",
-                                      nickname: "쿼카",
-                                      date: "2021-01-20",
-                                      rating: 4.0,
-                                      recommend: [0],
-                                      content: "무엇보다 커피가 정말 맛있고, 디저트로 준비돼 있던 쿠키와 휘낭시에도 맛있었습니다.  브라운크림은 꼭 드세요 !",
-                                      imgs: ["1","1","1","1","1"])]
+  var reviewModel: [ServerReview]?
+  var isReviewed: Bool?
   var offdays = ["일요일 휴무",
                  "월요일 휴무",
                  "화요일 휴무",
@@ -107,12 +94,17 @@ class CafeDetailViewController: UIViewController {
                  "금요일 휴무",
                  "토요일 휴무"]
   
+  var count138 = 0
+  var count160 = 0
+  var count218 = 0
+  var count240 = 0
+  
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.setupReviewData(cafeId: self.cafeModel!.id)
     dataBind()
-    layout()
     register()
     self.tagCollectionView.delegate = self
     self.tagCollectionView.dataSource = self
@@ -121,9 +113,14 @@ class CafeDetailViewController: UIViewController {
     self.cafeScrollView.delegate = self
   }
   
-  override func viewDidLayoutSubviews() {
-    super .viewDidLayoutSubviews()
-    reviewTableView.reloadData()
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+  
+  }
+  
+  override func viewWillLayoutSubviews() {
+    super.updateViewConstraints()
+    self.reviewTableView.heightConstraint?.constant = self.reviewTableView.contentSize.height
   }
 }
 
@@ -332,7 +329,7 @@ extension CafeDetailViewController {
   }
   func layoutMenuImageView() {
     informationView.add(menuImageView) {
-      $0.image = UIImage(named: "iconMenu")
+      $0.image = UIImage(named: "iconCafeMenu")
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.instagramLogoImageView.snp.leading)
         $0.top.equalTo(self.clockImageView.snp.bottom).offset(18)
@@ -475,13 +472,13 @@ extension CafeDetailViewController {
       $0.estimatedRowHeight = 300
       $0.isScrollEnabled = false
       $0.rowHeight = UITableView.automaticDimension
-      $0.separatorStyle = .none
+      $0.separatorStyle = .singleLine
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.cafeScrollContainerView.snp.leading).offset(15)
         $0.trailing.equalTo(self .cafeScrollContainerView.snp.trailing).offset(-15)
         $0.top.equalTo(self.reviewHeaderView.snp.bottom)
         $0.bottom.equalTo(self.cafeScrollContainerView.snp.bottom).offset(-50)
-        $0.height.equalTo(self.reviewModel.count * 240)
+        $0.height.equalTo((self.reviewModel?.count ?? 0) * 240)
       }
     }
   }
@@ -492,9 +489,9 @@ extension CafeDetailViewController {
     self.cafeTitleLabel.setupLabel(text: self.cafeModel?.name ?? "", color: .black, font: .notoSansKRMediumFont(fontSize: 26))
     self.starRatingLabel.setupLabel(text: "\(self.rating ?? 0)/5", color: .pointcolorYellow, font: .notoSansKRMediumFont(fontSize: 20))
     self.addressLabel.setupLabel(text: self.cafeModel?.address ?? "", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
-    self.instagramLabel.setupLabel(text: self.cafeModel?.instagram ?? "", color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
+    self.instagramLabel.setupLabel(text: "@\(self.cafeModel?.instagram ?? "")", color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
     self.clockLabel.setupLabel(
-      text: "\(self.cafeModel?.opentime)-\(self.cafeModel?.closetime)(\(self.cafeModel?.offday?[0])휴무",
+      text: "\(self.cafeModel?.opentime ?? "")-\(self.cafeModel?.closetime ?? "") (\(self.cafeModel?.offday?[0] ?? "") 휴무)",
       color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
   }
   func register() {
@@ -521,6 +518,7 @@ extension CafeDetailViewController {
   }
   @objc func clickedEntireReviewButton() {
     let entireVC = EntireReviewViewController()
+    entireVC.reviewModel = self.reviewModel!
     self.navigationController?.pushViewController(entireVC, animated: false)
   }
   @objc func clickedAddPinButton() {
@@ -530,6 +528,29 @@ extension CafeDetailViewController {
     pinNavigationController.view.backgroundColor = .clear
     pinNavigationController.modalPresentationStyle = .overFullScreen
     self.present(pinNavigationController, animated: true, completion: nil)
+  }
+  func setupReviewData(cafeId: String) {
+    reviewProvider.rx.request(.reviewList(cafeId: cafeId))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(ReviewListResponseType<ServerReview>.self,
+                                          from: response.data)
+            self.reviewModel = data.reviews
+            self.isReviewed = data.isReviewed
+            self.layout()
+            self.tagCollectionView.reloadData()
+            self.reviewTableView.reloadData()
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
   }
 }
 
@@ -584,28 +605,43 @@ extension CafeDetailViewController: UICollectionViewDataSource {
 // MARK: - ReviewTableView Delegate
 extension CafeDetailViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 240
+    if self.reviewModel?[indexPath.row].imgs == nil && self.reviewModel?[indexPath.row].recommend == nil{
+      return 110
+    }
+    else if self.reviewModel?[indexPath.row].imgs == nil {
+      return 140
+    }
+    else if self.reviewModel?[indexPath.row].recommend == nil {
+      return 198
+    }
+    else {
+      return 240
+    }
   }
 }
 
 // MARK: - ReviewTableView DataSource {
 extension CafeDetailViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return reviewModel.count
+    return reviewModel?.count ?? 0
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let detailCell = tableView.dequeueReusableCell(withIdentifier: DetailReviewTableViewCell.reuseIdentifier, for: indexPath) as? DetailReviewTableViewCell else {
       return UITableViewCell()
     }
-    detailCell.reviewModel = reviewModel[indexPath.row]
-    detailCell.dataBind(nickName: reviewModel[indexPath.row].nickname,
-                        date: reviewModel[indexPath.row].date,
-                        rating: reviewModel[indexPath.row].rating,
-                        content: reviewModel[indexPath.row].content)
+    detailCell.reviewModel = reviewModel?[indexPath.row]
+    detailCell.reviewDataBind(nickName: reviewModel![indexPath.row].writer.nickname,
+                              date: (reviewModel?[indexPath.row].createdAt)!,
+                              rating: Float(reviewModel![indexPath.row].rating),
+                              content: reviewModel![indexPath.row].content,
+                              profileImg: reviewModel![indexPath.row].writer.profileImg)
     detailCell.rootViewController = self
     detailCell.awakeFromNib()
     return detailCell
+  }
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    self.viewWillLayoutSubviews()
   }
 }
 
@@ -627,4 +663,12 @@ extension CafeDetailViewController: UIScrollViewDelegate {
       backButton.setBackgroundImage(UIImage(named: "iconBackWhite"), for: .normal)
     }
   }
+}
+
+struct ReviewListResponseType<T: Codable>: Codable {
+  var status: Int?
+  var success: Bool?
+  var message: String?
+  var reviews: [T]?
+  var isReviewed: Bool?
 }

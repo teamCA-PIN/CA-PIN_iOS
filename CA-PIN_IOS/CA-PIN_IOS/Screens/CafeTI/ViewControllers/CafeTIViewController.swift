@@ -72,18 +72,16 @@ extension CafeTIViewController {
   }
   func layoutQuestionImageView() {
     self.view.add(self.questionImageView) {
-      $0.image = UIImage(named: "logo")
+      $0.image = UIImage(named: "frame139")
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.cafetititleLabel.snp.bottom).offset(70)
-        $0.leading.equalTo(self.view.snp.leading).offset(7)
-        $0.width.equalTo(321)
-        $0.height.equalTo(300)
+        $0.top.equalTo(self.cafetititleLabel.snp.bottom).offset(103)
+        $0.centerX.equalToSuperview()
       }
     }
   }
   func layoutTitleLabel() {
     self.view.add(self.titleLabel) {
-      $0.setupLabel(text: "당신의 카페 취향은?", color: .brown, font: UIFont.notoSansKRRegularFont(fontSize: 26))
+      $0.setupLabel(text: "당신의 카페 취향은?", color: .pointcolor1, font: UIFont.notoSansKRRegularFont(fontSize: 26))
       $0.snp.makeConstraints {
         $0.top.equalTo(self.questionImageView.snp.bottom).offset(51)
         $0.centerX.equalToSuperview()
@@ -93,7 +91,7 @@ extension CafeTIViewController {
   }
   func layoutSubTitleLabel() {
     self.view.add(self.subtitleLabel) {
-      $0.setupLabel(text: "캐릭터로 알아보는\nCAFETI 카페이용유형 검사", color: .gray, font: UIFont.notoSansKRRegularFont(fontSize: 16))
+      $0.setupLabel(text: "캐릭터로 알아보는\nCAFETI 카페이용유형 검사", color: .gray3, font: UIFont.notoSansKRRegularFont(fontSize: 16))
       $0.numberOfLines = 2
       $0.textAlignment = .center
       $0.snp.makeConstraints {
@@ -106,7 +104,7 @@ extension CafeTIViewController {
     self.view.add(self.startButton) {
       $0.setTitle("시작하기", for: .normal)
       $0.setTitleColor(.white, for: .normal)
-      $0.backgroundColor = .brown
+      $0.backgroundColor = .pointcolor1
       $0.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.startButtonClicked), for: .touchUpInside)
       $0.setRounded(radius: 24.5)
@@ -119,8 +117,8 @@ extension CafeTIViewController {
     }
   }
   @objc func startButtonClicked() {
-    let WriteReviewViewController = WriteReviewViewController()
-    self.navigationController?.pushViewController(WriteReviewViewController, animated: false)
+    let CafeTITest1ViewController = CafeTITest1ViewController()
+    self.navigationController?.pushViewController(CafeTITest1ViewController, animated: false)
     
   }
 }
