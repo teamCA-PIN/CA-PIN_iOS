@@ -7,6 +7,9 @@
 
 import UIKit
 
+import Moya
+import RxMoya
+import RxSwift
 import SnapKit
 import SwiftyColor
 import Then
@@ -22,6 +25,13 @@ class PinPopupViewController: UIViewController {
   let categoryTableView = UITableView()
   let cancelButton = UIButton()
   let confirmButton = UIButton()
+  
+  var categoryArray: [MyCategoryList] = []
+  var selectedIndex: Int?
+  var cafeId = ""
+  
+  let categoryProvier = MoyaProvider<CategoryService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+  let disposeBag = DisposeBag()
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -183,7 +193,60 @@ extension PinPopupViewController {
     }
   }
   @objc func clickedConfirmButton() {
-    // TODO: Server Connection
+    var categoryId = ""
+    
+    if selectedIndex != 100 && selectedIndex != nil {
+      categoryId = self.categoryArray[selectedIndex!-1].id
+    }
+    if selectedIndex == nil {
+      self.showGrayToast(message: "카테고리를 선택해 주세요")
+    }
+    else {
+      categoryProvier.rx.request(.addCafe(cafeId: self.cafeId, categoryId: categoryId))
+        .asObservable()
+        .subscribe(onNext: { response in
+          if response.statusCode == 200 {
+            do {
+              let mapVC = self.navigationController?.presentingViewController?.children[2] as? MapViewController
+              self.dismiss(animated: false) {
+                mapVC?.showGreenToast(message: "카테고리에 저장되었습니다.")
+              }
+            } catch {
+              print(error)
+            }
+          }
+        }, onError: { error in
+          print(error)
+        }, onCompleted: {
+        }).disposed(by: disposeBag)
+    }
+  }
+  func colorViewImage(colorCode: String) -> String {
+    switch colorCode {
+    case "6492F5":
+      return "colorchip1"
+    case "6BBC9A":
+      return "colorchip2"
+    case "FFC24B":
+      return "colorchip3"
+    case "816F7C":
+      return "colorchip4"
+    case "FFC2D5":
+      return "colorchip5"
+    case "C9D776":
+      return "colorchip6"
+    case "B2B9E5":
+      return "colorchip7"
+    case "FF8E8E":
+      return "colorchip8"
+    case "EBEAEF":
+      return "colorchip9"
+    case "9DC5E8":
+      return "colorchip10"
+    default:
+      return "colorchip1"
+      
+    }
   }
 }
 
@@ -191,7 +254,7 @@ extension PinPopupViewController {
 extension PinPopupViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView,
                  numberOfRowsInSection section: Int) -> Int {
-    return 5
+    return self.categoryArray.count+1
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -202,12 +265,21 @@ extension PinPopupViewController: UITableViewDataSource {
     }
     categoryCell.awakeFromNib()
     if indexPath.row == 0 {
+      
       categoryCell.tagImageView.image = UIImage(named: "iconPlus")
       categoryCell.categoryTitleLabel.text = "새 카테고리"
       categoryCell.selectbutton.isHidden = true
     }
     else {
-      categoryCell.categoryTitleLabel.text = "카테고리\(indexPath.row)"
+      categoryCell.rootViewController = self
+      if (selectedIndex ?? 100) == indexPath.row {
+        categoryCell.selectbutton.isSelected = true
+      }
+      else {
+        categoryCell.selectbutton.isSelected = false
+      }
+      categoryCell.tagImageView.image = UIImage(named: self.colorViewImage(colorCode: self.categoryArray[indexPath.row-1].color))
+      categoryCell.categoryTitleLabel.text = self.categoryArray[indexPath.row-1].name
     }
     return categoryCell
   }

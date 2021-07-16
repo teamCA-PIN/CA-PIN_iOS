@@ -27,6 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       rootVC.hidesBottomBarWhenPushed = false
       
       rootNav.viewControllers = [rootVC]
+      rootNav.view.backgroundColor = .subcolorBlue3
       window.rootViewController = rootNav
       self.window = window
       window.makeKeyAndVisible()

@@ -19,6 +19,8 @@ class PinPopupTableViewCell: UITableViewCell {
   let categoryTitleLabel = UILabel()
   let selectbutton = UIButton()
   
+  var rootViewController = UIViewController()
+  
   // MARK: - LifeCycles
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -72,11 +74,28 @@ extension PinPopupTableViewCell {
     containerView.add(selectbutton) {
       $0.setBackgroundImage(UIImage(named: "checkboxInactive"), for: .normal)
       $0.setBackgroundImage(UIImage(named: "checkboxActive"), for: .selected)
+      $0.addTarget(self, action: #selector(self.clickedSelectButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerY.equalTo(self.tagImageView.snp.centerY)
         $0.trailing.equalTo(self.containerView.snp.trailing).offset(-30)
         $0.width.height.equalTo(28)
       }
+    }
+  }
+  
+  // MARK: - General Helpers
+  @objc func clickedSelectButton() {
+    self.selectbutton.isSelected.toggle()
+    guard let pinVC = self.rootViewController as? PinPopupViewController else { return }
+    if self.selectbutton.isSelected == true {
+      pinVC.selectedIndex = getTableCellIndexPath()
+      print(#function)
+      print(getTableCellIndexPath())
+      print(pinVC)
+      pinVC.categoryTableView.reloadData()
+    }
+    else {
+      pinVC.selectedIndex = 100
     }
   }
 }
