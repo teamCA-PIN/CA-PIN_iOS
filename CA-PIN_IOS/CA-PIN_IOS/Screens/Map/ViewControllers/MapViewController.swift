@@ -95,8 +95,8 @@ extension MapViewController {
   // MARK: - Layout Helpers
   func layout() {
     layoutMapView()
-    layoutLocationButton()
-    layoutZoomControlView()
+//    layoutLocationButton()
+//    layoutZoomControlView()
     layoutTopView()
     layoutTitleImageView()
     layoutMenuButton()
@@ -131,7 +131,7 @@ extension MapViewController {
       $0.image = UIImage(named: "capinLogo")
       $0.snp.makeConstraints {
         $0.center.equalToSuperview()
-        $0.width.equalTo(80)
+        $0.width.equalTo(106)
         $0.height.equalTo(30)
       }
     }
@@ -167,11 +167,16 @@ extension MapViewController {
     view.add(mapView) {
       self.currentCoordinate()
       $0.mapView.positionMode = .normal
+      $0.showZoomControls = true
+      $0.showLocationButton = true
       $0.mapView.locationOverlay.location =
         NMGLatLng(lat: self.currentLatitude ?? self.mapView.mapView.latitude,
                   lng: self.currentLongitude ?? self.mapView.mapView.longitude)
       $0.snp.makeConstraints {
-        $0.edges.equalTo(self.view.safeAreaLayoutGuide.snp.edges)
+        $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
+        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset((self.navigationController?.navigationBar.bounds.height)!)
+        $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
+        $0.bottom.equalTo(self.view.snp.bottom)
       }
     }
   }

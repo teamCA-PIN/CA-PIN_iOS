@@ -59,7 +59,9 @@ class MyReviewTableViewCell: UITableViewCell {
     attribute()
     layout()
     self.recommendList = self.reviewModel?.recommend ?? [10]
-    self.imageList = self.reviewModel?.imgs ?? ["hi"]
+    self.imageList = self.reviewModel?.imgs ?? [""]
+    print("우웩")
+    print(imageList)
 //    bindTagList(tag: recommendList)
   }
 }
@@ -301,14 +303,19 @@ extension MyReviewTableViewCell: UICollectionViewDelegateFlowLayout {
 }
 extension MyReviewTableViewCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    var count = 0
     switch collectionView {
-    case tagCollectionView: return reviewModel?.recommend?.count ?? 0
+    case tagCollectionView:
+      count = reviewModel?.recommend?.count ?? 0
     case imageCollectionView:
-      let count = reviewModel?.imgs?.count ?? 0
-      if count < 3 {return count}
-      return 3
-    default: return 0
+      count = reviewModel?.imgs?.count ?? 0
+      if count > 3 {
+        count = 3
+      }
+    default:
+      return count
     }
+    return count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -322,6 +329,7 @@ extension MyReviewTableViewCell: UICollectionViewDataSource {
       guard let imageCell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewImageCollectionViewCell.reuseIdentifier, for: indexPath) as? ReviewImageCollectionViewCell else { return UICollectionViewCell() }
       imageCell.awakeFromNib()
       // cell에서 이미지 넣는 함수 만들어서 쓰기
+      imageCell.reviewImageView.setImage(from: self.reviewModel!.imgs![indexPath.item], UIImage(named: "capinLogo")!)
       let count = reviewModel?.imgs?.count ?? 0
       if count >= 4 { /// TODO: - 웅엥.count >= 4
         if indexPath.row == 2 {

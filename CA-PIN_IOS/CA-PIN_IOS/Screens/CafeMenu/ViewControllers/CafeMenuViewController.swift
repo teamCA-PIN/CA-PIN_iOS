@@ -27,7 +27,7 @@ class CafeMenuViewController: UIViewController {
   
   let disposeBag = DisposeBag()
   let CafeMenuProvider = MoyaProvider<CafeService>()
-  let cafeID = "60e96789868b7d75f394b00d"
+  var cafeID = "60e96789868b7d75f394b00d"
   
   var resultData: [Menu]?
   

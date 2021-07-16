@@ -16,11 +16,9 @@ import RxSwift
 import SnapKit
 import SwiftyColor
 import Then
-
 import YPImagePicker
 
 // MARK: - WriteReviewViewController
-
 class WriteReviewViewController: UIViewController {
   
   // MARK: - Components
@@ -102,7 +100,6 @@ class WriteReviewViewController: UIViewController {
   let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
   
   // MARK: - LifeCycle
-  
   override func viewDidLoad() {
     self.view.backgroundColor = .white
     super.viewDidLoad()
