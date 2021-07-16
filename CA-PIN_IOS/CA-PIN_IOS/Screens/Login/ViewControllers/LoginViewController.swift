@@ -22,11 +22,9 @@ class LoginViewController: UIViewController {
   let logoImageView = UIImageView()
   let emailLabel = UILabel()
   let emailTextField = fourInsetTextField.textFieldWithInsets(insets: UIEdgeInsets(top: 6, left: 2, bottom: 6, right: 2))
-  let cancelEmailTextingButton = UIButton()
   let emailBorderView = UIView()
   let passwordLabel = UILabel()
   let passwordTextField = fourInsetTextField.textFieldWithInsets(insets: UIEdgeInsets(top: 6, left: 2, bottom: 6, right: 2))
-  let cancelPasswordTextingButton = UIButton()
   let passwordBorderView = UIView()
   let loginButton = UIButton()
   let buttonContainerView = UIView()
@@ -43,45 +41,40 @@ class LoginViewController: UIViewController {
     self.view.backgroundColor = .white
     self.navigationController?.navigationBar.isHidden = true
     layout()
-    makeDelegate()
+    setTextField()
     keyboardObserver()
-    textFieldEditingCheck()
-    cancelButtonNotVisible()
   }
 }
 
 // MARK: - Extensions
 extension LoginViewController {
+  func setTextField() {
+    self.emailTextField.clearButtonMode = .whileEditing
+    self.passwordTextField.clearButtonMode = .whileEditing
+    self.emailTextField.keyboardType = .emailAddress
+    self.passwordTextField.isSecureTextEntry = true
+    self.emailTextField.delegate = self
+    self.passwordTextField.delegate = self
+  }
   
   // MARK: - Helpers
   func layout() {
     layoutLogoImageView()
     layoutEmailLabel()
     layoutEmailTextField()
-    layoutEmailCancelButton()
     layoutEmailBorderView()
     layoutPasswordLabel()
     layoutPasswordTextField()
-    layoutPasswordCancleButton()
     layoutPasswordBorderView()
     layoutLoginButton()
     layoutButtonContainerView()
     layoutFindPasswordButton()
     layoutSignupButton()
   }
-  func makeDelegate() {
-    emailTextField.delegate = self
-    passwordTextField.delegate = self
-  }
   func keyboardObserver(){
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-  }
-  func cancelButtonNotVisible() {
-    cancelEmailTextingButton.isHidden = true
-    cancelPasswordTextingButton.isHidden = true
-    loginButton.isEnabled = false
   }
   
   /// 로그인 서버 연결
@@ -102,19 +95,19 @@ extension LoginViewController {
             KeychainWrapper.standard.set(passwordText, forKey: "loginPassword")
             KeychainWrapper.standard.set(data.loginData!.token, forKey: "accessToken")
 
-            let cafeTI = UserDefaults.standard.string(forKey: "userCafeTI")
-            if (cafeTI != nil) == true {
-              let mapVC = MapViewController()
-              self.navigationController?.pushViewController(mapVC, animated: false)
-            }
-            else {
-              let myPageVC = CafeTIViewController()
-              self.navigationController?.pushViewController(myPageVC, animated: false)
-            }
+//            let cafeTI = UserDefaults.standard.string(forKey: "userCafeTI")
+//            if (cafeTI != nil) == true {
+//              let mapVC = MapViewController()
+//              self.navigationController?.pushViewController(mapVC, animated: false)
+//            }
+//            else {
+//              let myPageVC = CafeTIViewController()
+//              self.navigationController?.pushViewController(myPageVC, animated: false)
+//            }
 //
-            // 지수코드
-//            let myPageVC = CafeTIViewController()
-//            self.navigationController?.pushViewController(myPageVC, animated: false)
+//             지수코드
+            let myPageVC = CafeTIViewController()
+            self.navigationController?.pushViewController(myPageVC, animated: false)
             
           } catch {
             print(error)
@@ -137,57 +130,10 @@ extension LoginViewController {
   }
   
   @objc func signUpButtonClicked() {
-    let dvc = SignUpViewController()
-    self.navigationController?.pushViewController(dvc, animated: false)
-//    self.showGrayToast(message: "안녕")
+    let signUpVC = SignUpViewController()
+    self.navigationController?.pushViewController(signUpVC, animated: false)
   }
-  
-  /// TextField 입력 체크하는 함수
-  private func textFieldEditingCheck() {
-    /// 텍스트가 입력중일 때 동작
-    emailTextField.addTarget(self, action: #selector(emailTextIsEditing(_:)), for: .editingChanged)
-    passwordTextField.addTarget(self, action: #selector(passwordTextIsEditing(_:)), for: .editingChanged)
-    
-    /// 텍스트 입력 끝났을 때 동작
-    emailTextField.addTarget(self, action: #selector(emailTextIsEndEditing(_:)), for: .editingDidEnd)
-    passwordTextField.addTarget(self, action: #selector(passwordTextIsEndEditing(_:)), for: .editingDidEnd)
-  }
-  ///emailTextField가 입력중일 때
-  @objc func emailTextIsEditing(_ TextLabel: UITextField) {
-    /// emailTextfield에 텍스트가 입력되면
-    if emailTextField.text!.count > 0 {
-      //취소버튼을 보이게 한다
-      cancelEmailTextingButton.isHidden = false
-    }
-    enableLoginButton()
-  }
-  ///pwTextField가 입력중일 때
-  @objc func passwordTextIsEditing(_ TextLabel: UITextField) {
-    /// pwTextfield에 텍스트가 입력되면
-    if passwordTextField.text!.count > 0 {
-      //취소버튼을 보이게 한다
-      cancelPasswordTextingButton.isHidden = false
-    }
-    enableLoginButton()
-  }
-  ///emailTextField 입력 끝났을 때
-  @objc func emailTextIsEndEditing(_ TextLabel: UITextField) {
-    /// emailTextfield에 텍스트가 없으면
-    if emailTextField.text!.count == 0 {
-      //취소버튼을 숨긴다
-      cancelEmailTextingButton.isHidden = true
-    }
-    enableLoginButton()
-  }
-  ///: - pwTextField 입력 끝났을 때
-  @objc func passwordTextIsEndEditing(_ TextLabel: UITextField) {
-    /// pwTextfield에 텍스트가 없으면
-    if passwordTextField.text!.count == 0 {
-      //취소버튼을 숨긴다
-      cancelPasswordTextingButton.isHidden = true
-    }
-    enableLoginButton()
-  }
+
   func enableLoginButton() {
     if emailTextField.text?.isEmpty == false && passwordTextField.text?.isEmpty == false {
       self.loginButton.isEnabled = true
@@ -203,16 +149,6 @@ extension LoginViewController {
   /// 뷰의 다른 곳 탭하면 키보드 내려가게
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     self.view.endEditing(true)
-  }
-  @objc func emailCancelButtonClicked() {
-    // emailTextField의 텍스트 전부를 지우고, 취소버튼을 사라지게 한다
-    emailTextField.text?.removeAll()
-    cancelEmailTextingButton.isHidden = true
-  }
-  @objc func passwordCancelButtonClicked() {
-    // pwTextField의 텍스트 전부를 지우고, 취소버튼을 사라지게 한다
-    passwordTextField.text?.removeAll()
-    cancelPasswordTextingButton.isHidden = true
   }
   
   // MARK: - Layout Helpers
@@ -244,22 +180,9 @@ extension LoginViewController {
       $0.font = UIFont.notoSansKRRegularFont(fontSize: 16)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.emailLabel.snp.bottom).offset(10)
-        $0.leading.equalTo(self.emailLabel.snp.leading)
-//        $0.trailing.equalTo(self.view.snp.trailing).offset(-49)
+        $0.leading.equalTo(self.view.snp.leading).offset(48)
         $0.centerX.equalToSuperview()
         $0.height.equalTo(35)
-      }
-    }
-  }
-  func layoutEmailCancelButton() {
-    self.emailTextField.add(self.cancelEmailTextingButton) {
-      $0.setImage(UIImage(named: "iconDelete1616"), for: .normal)
-      $0.addTarget(self, action: #selector(self.emailCancelButtonClicked), for: .touchUpInside)
-      $0.snp.makeConstraints {
-        $0.width.equalTo(28)
-        $0.height.equalTo(28)
-        $0.trailing.equalTo(self.emailTextField.snp.trailing)
-        $0.bottom.equalTo(self.emailTextField.snp.bottom).offset(-2)
       }
     }
   }
@@ -268,9 +191,9 @@ extension LoginViewController {
       $0.backgroundColor = .pointcolor1
       $0.snp.makeConstraints {
         $0.height.equalTo(1)
-        $0.width.equalTo(278)
         $0.top.equalTo(self.emailTextField.snp.bottom).offset(1)
         $0.leading.equalToSuperview().offset(48)
+        $0.trailing.equalToSuperview().offset(-48)
       }
     }
   }
@@ -291,22 +214,9 @@ extension LoginViewController {
       $0.isSecureTextEntry = true
       $0.snp.makeConstraints {
         $0.top.equalTo(self.passwordLabel.snp.bottom).offset(10)
-        $0.leading.equalTo(self.passwordLabel.snp.leading)
-//        $0.trailing.equalTo(self.view.snp.trailing).offset(-49)
+        $0.leading.equalTo(self.view.snp.leading).offset(48)
         $0.centerX.equalToSuperview()
-        $0.height.equalTo(32)
-      }
-    }
-  }
-  func layoutPasswordCancleButton() {
-    self.passwordTextField.add(self.cancelPasswordTextingButton) {
-      $0.setImage(UIImage(named: "iconDelete1616"), for: .normal)
-      $0.addTarget(self, action: #selector(self.passwordCancelButtonClicked), for: .touchUpInside)
-      $0.snp.makeConstraints {
-        $0.width.equalTo(28)
-        $0.height.equalTo(28)
-        $0.trailing.equalTo(self.passwordTextField.snp.trailing)
-        $0.bottom.equalTo(self.passwordTextField.snp.bottom).offset(-2)
+        $0.height.equalTo(35)
       }
     }
   }
@@ -315,9 +225,9 @@ extension LoginViewController {
       $0.backgroundColor = .pointcolor1
       $0.snp.makeConstraints {
         $0.height.equalTo(1)
-        $0.width.equalTo(278)
         $0.top.equalTo(self.passwordTextField.snp.bottom).offset(1)
         $0.leading.equalToSuperview().offset(48)
+        $0.trailing.equalToSuperview().offset(-48)
       }
     }
   }
@@ -378,6 +288,10 @@ extension LoginViewController {
 }
 //MARK: - UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
+  
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    enableLoginButton()
+  }
   
   @objc func handleTapTextField(_ sender: UITapGestureRecognizer) {
     self.emailTextField.resignFirstResponder()

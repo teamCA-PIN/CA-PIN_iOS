@@ -130,6 +130,7 @@ extension DeleteCategoryPopUpViewController {
         if response.statusCode == 200 { /// 삭제 성공
           do {
             self.dismiss(animated: false, completion: {
+              print("삭제삭제삭제")
               self.presentedViewController?.navigationController?.popViewController(animated: false)
             })
 //            self.navigationController?.popViewController(animated: false)

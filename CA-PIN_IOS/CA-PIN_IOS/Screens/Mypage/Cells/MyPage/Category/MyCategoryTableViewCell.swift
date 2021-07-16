@@ -138,6 +138,7 @@ extension MyCategoryTableViewCell {
     editAction = UIAlertAction(title: "카테고리 수정", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
       /// TODO 카테고리 수정 뷰로 이동
       let editVC = EditCategoryViewController()
+      editVC.categoryId = self.categoryID
       self.parentViewController?.navigationController?.pushViewController(editVC  , animated: false)
     })
     let deleteAction: UIAlertAction

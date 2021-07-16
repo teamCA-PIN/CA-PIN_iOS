@@ -41,7 +41,7 @@ class MyCategoryCollectionViewCell: UICollectionViewCell {
     associate()
     getCategoryData()
     layout()
-    myCategoryTableView.reloadData()
+//    myCategoryTableView.reloadData()
     self.myCategoryTableView.separatorStyle = .none
   }
 }
@@ -122,12 +122,13 @@ extension MyCategoryCollectionViewCell {
             let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
                                           from: response.data)
             self.categoryArray = data.myCategoryList!
+            print("mycategorytableview.reload")
             self.myCategoryTableView.reloadData()
             for i in 0...self.categoryArray.count-1 {
               self.categoryIdArray.append(self.categoryArray[i].id)
             }
-            self.myCategoryTableView.reloadData()
             let mypageVC = self.rootViewController as? MypageViewController
+            print("mypage.page.reload")
             mypageVC?.pageCollectionView.reloadData()
           } catch {
             print(error)
@@ -168,7 +169,6 @@ extension MyCategoryCollectionViewCell {
             if data.cafeDetail?.count == 0 {
               
             }
-            
             parentViewController.navigationController?.pushViewController(dvc, animated: false)
           } catch {
             print(error)
@@ -192,6 +192,7 @@ extension MyCategoryCollectionViewCell {
 }
 extension MyCategoryCollectionViewCell: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//    getCategoryData()
     if categoryArray.count == 1 {
       if indexPath.section == 0 {
         return 53
@@ -249,5 +250,12 @@ extension MyCategoryCollectionViewCell: UITableViewDataSource {
     self.selectedCategoryIndex = indexPath.row
     self.customizedCategoryTitle = self.categoryArray[indexPath.row].name
     self.getCafeDataInCategory(index: selectedCategoryIndex)
+    let detailVC = CategoryDetailViewController()
+    detailVC.categoryTitle = self.customizedCategoryTitle /// 디테일뷰 타이틀을 바꿔준다
+//    detailVC.pinNumber = data.cafeDetail?.count ?? 100 /// 디테일뷰 핀 개수를 바꿔준다
+//    detailVC.cafeDetailArray = data.cafeDetail ?? []
+//    detailVC.categoryId = self.categoryIdArray[index]
+    detailVC.categoryData = categoryArray[indexPath.row]
+//    self.parentViewController?.navigationController?.pushViewController(detailVC, animated: false)
   }
 }

@@ -42,10 +42,4 @@ extension TabbarCollectionViewCell {
   func setImage(name: String) {
     self.tabImageView.image = UIImage(named: name)
   }
-  @objc func categoryTabAction() {
-    
-  }
-  @objc func reviewTabAction() {
-    
-  }
 }

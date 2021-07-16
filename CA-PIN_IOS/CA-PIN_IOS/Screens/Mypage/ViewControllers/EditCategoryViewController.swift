@@ -44,6 +44,7 @@ class EditCategoryViewController: UIViewController {
   var selectedNumber: Int?
   var newCategoryName: String = ""
   var colorIsSelected: Bool = false
+  var categoryId: String = ""
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -162,7 +163,7 @@ extension EditCategoryViewController {
                    for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
-        $0.bottom.equalTo(self.view.snp.bottom).offset(-260)
+        $0.bottom.equalTo(self.view.snp.bottom).offset(-40)
         $0.width.equalTo(154)
         $0.height.equalTo(49)
       }
@@ -200,9 +201,9 @@ extension EditCategoryViewController {
           do {
             let decoder = JSONDecoder()
             let data = try decoder.decode(Response.self, from: response.data)
-            self.navigationController?.popViewController(animated: false, completion: {
-              
-            })
+            let myPageVC = self.navigationController?.children[0] as? MypageViewController
+            self.navigationController?.popToViewController(myPageVC!, animated: false)
+            myPageVC?.showGreenToast(message: "카테고리가 수정되었습니다.")
           }
           catch {
             print(error)
@@ -225,8 +226,15 @@ extension EditCategoryViewController {
     self.navigationController?.popViewController(animated: true)
   }
   @objc func clickedConfirmButton() {
-    self.categoryEditService(categoryId: "60efd5579c891a2c9173a439", colorIndex: self.selectedNumber ?? 0, categoryName: self.newCategoryName ?? "")
-   
+    if self.selectedNumber == nil {
+      self.showGrayToast(message: "카테고리를 선택해주세요")
+    }
+    else if self.categoryNameTextField.hasText == false {
+      self.showGrayToast(message: "카테고리 이름을 입력해주세요")
+    }
+    else {
+      self.categoryEditService(categoryId: self.categoryId, colorIndex: self.selectedNumber ?? 0, categoryName: self.newCategoryName ?? "")
+    }
   }
   @objc func textDidChange(_ notification: Notification) {
     if let textField = notification.object as? UITextField {
@@ -321,10 +329,22 @@ extension EditCategoryViewController: UITextFieldDelegate {
   }
   func textFieldDidEndEditing(_ textField: UITextField) {
     self.newCategoryName = textField.text ?? ""
+    self.confirmButton.snp.remakeConstraints {
+      $0.centerX.equalToSuperview()
+      $0.bottom.equalTo(self.view.snp.bottom).offset(-40)
+      $0.width.equalTo(154)
+      $0.height.equalTo(49)
+    }
     enableConfirmButton()
   }
   func textFieldDidBeginEditing(_ textField: UITextField) {
     self.newCategoryName = textField.text ?? ""
+    self.confirmButton.snp.remakeConstraints {
+      $0.centerX.equalToSuperview()
+      $0.top.equalTo(self.categoryCollectionView.snp.bottom).offset(40)
+      $0.width.equalTo(154)
+      $0.height.equalTo(49)
+    }
     enableConfirmButton()
   }
 }

@@ -6,7 +6,9 @@
 //
 
 import UIKit
-
+import Moya
+import RxMoya
+import RxSwift
 import SnapKit
 import Then
 
@@ -47,6 +49,8 @@ class MypageViewController: UIViewController {
   }()
   let indicatorView = UIView()
   
+  let disposeBag = DisposeBag()
+  private let UserServiceProvider = MoyaProvider<UserService>()
   
   // MARK: - Variables
   
@@ -57,6 +61,11 @@ class MypageViewController: UIViewController {
   var trigger = true
   var profileImage: String = ""
   var plainImage: String = ""
+  
+  var reviewList: [Review] = [Review(id: "", cafeName: "", cafeID: "", content: "", rating: 0, createAt: "", imgs: [], recommend: [])] /// 서버에서 리뷰 받아올 배열
+  var cafeNameList: [String] = [] /// 서버에서 받아온 값 중에 카페 이름만 저장
+  var ratingList: [Double] = [] /// 서버에서 별점 값만ㄴ 받아올 배열
+  var reviewTextList: [String] = []
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
@@ -72,7 +81,7 @@ class MypageViewController: UIViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
-    self.pageCollectionView.reloadData()
+//    self.pageCollectionView.reloadData()
   }
   
   override func viewDidLayoutSubviews() {
@@ -92,6 +101,33 @@ extension MypageViewController {
   }
   func scroll(to index: Int) {
     tabbarCollectionView.selectItem(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: [])
+  }
+  func getReviewListService() {
+    UserServiceProvider.rx.request(.reviews)
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(ReviewResponseArrayType<Review>.self,
+                                          from: response.data)
+            self.reviewList = data.reviews!
+            for i in 0..<self.reviewList.count {
+              self.cafeNameList.append(self.reviewList[i].cafeName)
+              self.ratingList.append(self.reviewList[i].rating)
+            }
+          } catch {
+            print(error)
+          }
+        }
+        else {
+          
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+        
+      }).disposed(by: disposeBag)
   }
   // MARK: - Layout Helper
   func layout() {
@@ -262,6 +298,7 @@ extension MypageViewController {
 
 extension MypageViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
     switch collectionView {
     case self.tabbarCollectionView:
       return CGSize(width: self.screenWidth/2, height: collectionView.frame.height)
@@ -280,10 +317,12 @@ extension MypageViewController: UICollectionViewDelegateFlowLayout {
       case 0:
         self.trigger = true
         self.tabbarCollectionView.reloadData()
+        print("tabbar.reload")
         self.categorySelected()
       case 1:
         self.trigger = false
         self.tabbarCollectionView.reloadData()
+        print("tabbar.reload")
         self.reviewSelected()
       default: break
       }
@@ -336,14 +375,15 @@ extension MypageViewController: UICollectionViewDataSource {
         guard let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCategoryCollectionViewCell.reuseIdentifier, for: indexPath) as? MyCategoryCollectionViewCell else { return UICollectionViewCell() }
         categoryCell.rootViewController = self
         categoryCell.awakeFromNib()
-        categoryCell.myCategoryTableView.reloadData()
+//        categoryCell.myCategoryTableView.reloadData()
         categoryCell.backgroundColor = .white
         return categoryCell
       } else {
         guard let reviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.reuseIdentifier, for: indexPath) as? MyReviewCollectionViewCell else { return UICollectionViewCell() }
         reviewCell.rootViewController = self
         reviewCell.awakeFromNib()
-        reviewCell.myReviewTableView.reloadData()
+        reviewCell.reviewList = self.reviewList
+//        reviewCell.myReviewTableView.reloadData()
         reviewCell.backgroundColor = .white
         return reviewCell
       }
@@ -357,11 +397,13 @@ extension MypageViewController: UICollectionViewDataSource {
       if indexPath.item == 0 {
         trigger = true
         tabbarCollectionView.reloadData()
+        print("tabbarreload")
         categorySelected()
       }
       if indexPath.item == 1 {
         trigger = false
         tabbarCollectionView.reloadData()
+        print("tabbar.reload")
         reviewSelected()
       }
     }

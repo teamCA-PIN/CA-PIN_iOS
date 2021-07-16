@@ -45,6 +45,7 @@ class HamburgerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
+    self.archiveNextButton.isEnabled = false
     layout()
   }
   
@@ -198,7 +199,7 @@ extension HamburgerViewController {
   }
   func layoutArchiveFeedTitleLabel() {
     archiveContainerView.add(archiveFeedTitleLabel) {
-      $0.setupLabel(text: "피드",
+      $0.setupLabel(text: "리뷰",
                     color: .black,
                     font: .notoSansKRRegularFont(fontSize: 14))
       $0.snp.makeConstraints {
@@ -300,6 +301,7 @@ extension HamburgerViewController {
             self.infoData = data.myInfo
             self.infoDataBind()
             self.reloadInputViews()
+            self.archiveNextButton.isEnabled = true
           } catch {
             print(error)
           }

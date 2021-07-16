@@ -33,11 +33,13 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
   // MARK: - LifeCycles
   override func awakeFromNib() {
     super.awakeFromNib()
+    getReviewListService()
     register()
     associate()
     myReviewTableView.reloadData()
     layout()
-    getReviewListService()
+    print("~~~")
+    print(reviewList)
     self.myReviewTableView.separatorStyle = .none
   }
 }
@@ -58,6 +60,9 @@ extension MyReviewCollectionViewCell {
               self.cafeNameList.append(self.reviewList[i].cafeName)
               self.ratingList.append(self.reviewList[i].rating)
             }
+            print("hihihihhi")
+            print(self.cafeNameList)
+            print(self.cafeNameList.count)
             self.myReviewTableView.reloadData()
             let mypageVC = self.rootViewController as? MypageViewController
             mypageVC?.pageCollectionView.reloadData()
@@ -78,16 +83,13 @@ extension MyReviewCollectionViewCell {
     /// 분기처리
     /// 리뷰가 0개일 때: EmptyReviewTableViewCell
     /// 리뷰가 1개 이상일 때: MyReviewTableViewCell
-    
     self.myReviewTableView.register(EmptyReviewTableViewCell.self, forCellReuseIdentifier: EmptyReviewTableViewCell.reuseIdentifier)
-    self.myReviewTableView.register(MyReviewTableViewCell.self, forCellReuseIdentifier: MyReviewTableViewCell.reuseIdentifier)
-    
     self.myReviewTableView.register(MyReviewTableViewCell.self, forCellReuseIdentifier: MyReviewTableViewCell.reuseIdentifier)
   }
   func associate() {
     self.myReviewTableView.delegate = self
     self.myReviewTableView.dataSource = self
-    if isEmpty == false { /// 리뷰가 1개 이상일 때에만 헤더뷰 등록
+    if cafeNameList.count != 0 { /// 리뷰가 1개 이상일 때에만 헤더뷰 등록
       self.myReviewTableView.tableHeaderView = headerView
     }
   }
@@ -125,21 +127,29 @@ extension MyReviewCollectionViewCell {
 }
 extension MyReviewCollectionViewCell: UITableViewDelegate {
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    //    tableView.estimatedRowHeight = 500
-    //    tableView.rowHeight = UITableView.automaticDimension
-    //    return UITableView.automaticDimension
-    if self.reviewList[indexPath.row].imgs == nil && self.reviewList[indexPath.row].recommend == nil{
-      return 110
+    print("우웩")
+    print(cafeNameList.count)
+    if cafeNameList.count == 0 {
+      return 257
     }
-    else if self.reviewList[indexPath.row].imgs == nil {
-      return 140
-    }
-    else if self.reviewList[indexPath.row].recommend == nil {
-      return 198
-    }
-    else {
-      return 240
-    }
+    
+    tableView.estimatedRowHeight = 500
+    tableView.rowHeight = UITableView.automaticDimension
+    return UITableView.automaticDimension
+
+    
+//    if self.reviewList[indexPath.row].imgs == nil && self.reviewList[indexPath.row].recommend == nil{
+//      return 110
+//    }
+//    else if self.reviewList[indexPath.row].imgs == nil {
+//      return 140
+//    }
+//    else if self.reviewList[indexPath.row].recommend == nil {
+//      return 198
+//    }
+//    else {
+//      return 240
+//    }
   }
 }
   func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -148,6 +158,9 @@ extension MyReviewCollectionViewCell: UITableViewDelegate {
   
 extension MyReviewCollectionViewCell: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if reviewList.count == 0{
+      return 1
+    }
     return reviewList.count
   }
   
@@ -159,9 +172,14 @@ extension MyReviewCollectionViewCell: UITableViewDataSource {
     guard let reviewCell = tableView.dequeueReusableCell(withIdentifier: MyReviewTableViewCell.reuseIdentifier, for: indexPath) as? MyReviewTableViewCell else { return UITableViewCell() }
     
     if reviewList.count == 0 {
+      print("emptyCell?")
       emptycell.awakeFromNib()
       return emptycell
     }
+    
+    print("reviewCell?")
+    
+    print(reviewList)
     reviewCell.awakeFromNib()
     reviewCell.reviewModel = reviewList[indexPath.row]
     reviewCell.nameLabel.text = reviewList[indexPath.row].cafeName

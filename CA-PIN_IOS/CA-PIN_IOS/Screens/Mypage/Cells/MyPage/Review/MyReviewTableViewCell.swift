@@ -40,10 +40,11 @@ class MyReviewTableViewCell: UITableViewCell {
   // MARK: - Variables
   var cafeName: String = "후엘고"
   var tagArray: [String] = [] /// 서버 연결한 후 tagcollectionview에 사용 -> 여기가 아니라 reviewcollectionViewcell에 있어야함
+  var tagIndex: [Int]?
   var imageArray: [String] = ["hihi"] /// 서버 연결한 후 reviewImageCollectionview에 사용 -> 여기가 아니라 reviewcollectionViewcell에 있어야함
   var recommendList: [Int] = []
-  var imageList: [String] = []
-  var reviewList: [Review] = []
+  var imageList: [String]?
+  var reviewList: [Review] = [Review(id: "", cafeName: "", cafeID: "", content: "", rating: 0, createAt: "", imgs: [], recommend: [])]
   var reviewModel: Review?
   
   override func setSelected(_ selected: Bool, animated: Bool) {
@@ -55,11 +56,14 @@ class MyReviewTableViewCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
 //    let parentViewController: UIViewController = self.parentViewController!
+    bindData()
     register()
     attribute()
     layout()
     self.recommendList = self.reviewModel?.recommend ?? [10]
     self.imageList = self.reviewModel?.imgs ?? [""]
+//    bindTagList(tag: recommendList)
+
   }
 }
 extension MyReviewTableViewCell {
@@ -67,6 +71,28 @@ extension MyReviewTableViewCell {
   func register() {
     self.tagCollectionView.register(MyTagCollectionViewCell.self, forCellWithReuseIdentifier: MyTagCollectionViewCell.reuseIdentifier)
     self.imageCollectionView.register(ReviewImageCollectionViewCell.self, forCellWithReuseIdentifier: ReviewImageCollectionViewCell.reuseIdentifier)
+  }
+  func bindData() {
+    print("bind data")
+    print(self.reviewModel?.recommend)
+    if self.reviewModel?.recommend?.count != 0 {
+      print("찍힘?")
+      self.tagIndex = (self.reviewModel?.recommend)!
+      print(tagIndex)
+      for i in 0...tagIndex!.count-1 {
+        switch tagIndex![i] {
+        case 0: tagArray.append("맛이 좋은")
+        case 1: tagArray.append("분위기가 좋은")
+        default: break
+        }
+      }
+    }
+    print(tagArray)
+    
+    if self.reviewModel?.imgs != nil {
+      self.imageList = (self.reviewModel?.imgs)!
+    }
+    print(imageList)
   }
   func attribute() {
     self.tagCollectionView.delegate = self
@@ -82,11 +108,11 @@ extension MyReviewTableViewCell {
   }
 
   func bindTagList(tag: [Int]) {
-    if tag.count != 0 {
-      for i in 0...tag.count-1 {
-        tagArray.append(tag[i] == 0 ? "맛 추천" : "분위기 추천")
-      }
-    }
+//    if tag.count != 0 {
+//      for i in 0...tag.count-1 {
+//        tagArray.append(tag[i] == 0 ? "맛 추천" : "분위기 추천")
+//      }
+//    }
   }
   
   // MARK: - layoutHelpers
@@ -262,7 +288,7 @@ extension MyReviewTableViewCell: UICollectionViewDelegateFlowLayout {
     
     if collectionView == tagCollectionView {
       /// 사용하려는 라벨 크기 받아서 동적으로 셀 크기 맞춰줄거임
-      bindTagList(tag: recommendList)
+//      bindTagList(tag: recommendList)
 
       let label = UILabel().then {
         $0.font = .notoSansKRMediumFont(fontSize: 12)
@@ -324,7 +350,8 @@ extension MyReviewTableViewCell: UICollectionViewDataSource {
       guard let imageCell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewImageCollectionViewCell.reuseIdentifier, for: indexPath) as? ReviewImageCollectionViewCell else { return UICollectionViewCell() }
       imageCell.awakeFromNib()
       // cell에서 이미지 넣는 함수 만들어서 쓰기
-      imageCell.reviewImageView.setImage(from: self.reviewModel!.imgs![indexPath.item], UIImage(named: "capinLogo")!)
+      imageCell.reviewImageView.setImage(from: self.imageList![indexPath.row], UIImage(named: "capinLogo")!)
+//      imageCell.reviewImageView.setImage(from: self.reviewModel!.imgs![indexPath.item], UIImage(named: "capinLogo")!)
       let count = reviewModel?.imgs?.count ?? 0
       if count >= 4 { /// TODO: - 웅엥.count >= 4
         if indexPath.row == 2 {
