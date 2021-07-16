@@ -132,8 +132,9 @@ extension CafeMenuViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.menuallLabel.snp.bottom).offset(48)
         $0.centerX.equalToSuperview()
-        $0.height.equalTo(650)
-        $0.width.equalTo(335)
+        $0.width.equalTo(UIScreen.main.bounds.width-40)
+        $0.height.equalTo(49*UIScreen.main.bounds.width/375)
+        
       }
     }
   }

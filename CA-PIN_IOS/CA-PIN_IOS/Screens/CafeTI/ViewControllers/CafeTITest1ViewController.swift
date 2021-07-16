@@ -25,7 +25,6 @@ class CafeTITest1ViewController: UIViewController {
   let buttonContainerView = UIView()
   let backButton = UIButton()
   let nextButton = UIButton()
-  
   var selectedIndex = 10
   var buttons: [UIButton] = []
   var pagingnum = 0
@@ -100,7 +99,9 @@ extension CafeTITest1ViewController {
         $0.top.equalTo(self.contentLabel.snp.bottom).offset(113)
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(20)
-        $0.height.equalTo(50)
+        $0.width.equalTo(UIScreen.main.bounds.width-40)
+        $0.height.equalTo(50*UIScreen.main.bounds.width/335
+        )
       }
     }
   }
@@ -116,7 +117,8 @@ extension CafeTITest1ViewController {
         $0.top.equalTo(self.questiononeButton.snp.bottom).offset(10)
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(20)
-        $0.height.equalTo(50)
+        $0.width.equalTo(UIScreen.main.bounds.width-40)
+        $0.height.equalTo(50*UIScreen.main.bounds.width/335)
       }
     }
   }
@@ -129,9 +131,9 @@ extension CafeTITest1ViewController {
       $0.backgroundColor = .clear
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
-        $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-34)
-        $0.width.equalTo(318)
-        $0.height.equalTo(49)
+        $0.bottom.equalTo(self.view.snp.bottom).offset(-34)
+        $0.width.equalTo(UIScreen.main.bounds.width-58)
+        $0.height.equalTo(49*UIScreen.main.bounds.width/375)
       }
     }
   }
@@ -142,12 +144,12 @@ extension CafeTITest1ViewController {
       $0.backgroundColor = .gray2
       $0.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.backButtonClicked), for: .touchUpInside)
-      $0.setRounded(radius: 24.5)
+      $0.setRounded(radius: 25)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.buttonContainerView.snp.top)
         $0.bottom.equalTo(self.buttonContainerView.snp.bottom)
         $0.leading.equalTo(self.buttonContainerView.snp.leading)
-        $0.width.equalTo(154)
+        $0.width.equalTo((UIScreen.main.bounds.width-68)/2)
       }
     }
   }
@@ -158,12 +160,12 @@ extension CafeTITest1ViewController {
       $0.backgroundColor = .subcolorBlue2
       $0.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.nextButtonClicked), for: .touchUpInside)
-      $0.setRounded(radius: 24.5)
+      $0.setRounded(radius: 25)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.buttonContainerView.snp.top)
         $0.bottom.equalTo(self.buttonContainerView.snp.bottom)
         $0.trailing.equalTo(self.buttonContainerView.snp.trailing)
-        $0.width.equalTo(154)
+        $0.width.equalTo((UIScreen.main.bounds.width-68)/2)
       }
     }
   }
