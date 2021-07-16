@@ -145,7 +145,7 @@ CA-PIN_iOS.xcodeproj
 
 | 기능 | 개발 여부 | 담당자 |
 |:----------|:----------:|:----:|
-| 카페맵 | <img width=12px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 노한솔 |
+| 카핀맵 | <img width=12px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 노한솔 |
 | 마이맵 | <img width=12px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 노한솔 |
 | 카페디테일 | <img width=12px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 노한솔,김지수 |
 | 회원가입/로그인 | <img width=12px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 장서현 |
