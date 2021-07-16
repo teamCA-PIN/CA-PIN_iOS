@@ -25,6 +25,8 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
 //  var imageURL:  /// 서버에서 받아온 값 중에 이미지 url만 저장
 //  var recommendtTagList:  /// 서버에서 받아온 값 중에 태그 인트 값만 저장
   
+  var rootViewController = UIViewController()
+  
   let disposeBag = DisposeBag()
   private let UserServiceProvider = MoyaProvider<UserService>()
     
@@ -33,6 +35,7 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     super.awakeFromNib()
     register()
     associate()
+    myReviewTableView.reloadData()
     layout()
     getReviewListService()
     self.myReviewTableView.separatorStyle = .none
@@ -51,12 +54,16 @@ extension MyReviewCollectionViewCell {
             self.reviewList = data.reviews!
             self.reviewNumber = data.reviews!.count
             self.headerLabel.text = "총 \(self.reviewList.count)개의 리뷰"
-            self.myReviewTableView.reloadData()
             self.reviewList = data.reviews!
             for i in 0...self.reviewList.count-1 {
               self.cafeNameList.append(self.reviewList[i].cafeName)
               self.ratingList.append(self.reviewList[i].rating)
             }
+            print("별점 리스트")
+            print(self.ratingList)
+            self.myReviewTableView.reloadData()
+            let mypageVC = self.rootViewController as? MypageViewController
+            mypageVC?.pageCollectionView.reloadData()
           } catch {
             print(error)
           }
@@ -121,15 +128,31 @@ extension MyReviewCollectionViewCell {
 }
 extension MyReviewCollectionViewCell: UITableViewDelegate {
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    tableView.estimatedRowHeight = 500
-    tableView.rowHeight = UITableView.automaticDimension
-    return UITableView.automaticDimension
+    //    tableView.estimatedRowHeight = 500
+    //    tableView.rowHeight = UITableView.automaticDimension
+    //    return UITableView.automaticDimension
+    if self.reviewList[indexPath.row].imgs == nil && self.reviewList[indexPath.row].recommend == nil{
+      print("이미지 없고 태그 없고")
+      return 110
+    }
+    else if self.reviewList[indexPath.row].imgs == nil {
+      print("이미지 없고")
+      return 140
+    }
+    else if self.reviewList[indexPath.row].recommend == nil {
+      print("태그 없고")
+      return 198
+    }
+    else {
+      print("둘 다 있는")
+      return 240
+    }
   }
+}
   func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
     return 30
   }
   
-}
 extension MyReviewCollectionViewCell: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return reviewList.count

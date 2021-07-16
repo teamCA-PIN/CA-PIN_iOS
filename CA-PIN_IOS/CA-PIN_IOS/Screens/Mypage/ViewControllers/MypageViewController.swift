@@ -334,12 +334,16 @@ extension MypageViewController: UICollectionViewDataSource {
     case self.pageCollectionView:
       if indexPath.section == 0 {
         guard let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCategoryCollectionViewCell.reuseIdentifier, for: indexPath) as? MyCategoryCollectionViewCell else { return UICollectionViewCell() }
+        categoryCell.rootViewController = self
         categoryCell.awakeFromNib()
+        categoryCell.myCategoryTableView.reloadData()
         categoryCell.backgroundColor = .white
         return categoryCell
       } else {
         guard let reviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.reuseIdentifier, for: indexPath) as? MyReviewCollectionViewCell else { return UICollectionViewCell() }
+        reviewCell.rootViewController = self
         reviewCell.awakeFromNib()
+        reviewCell.myReviewTableView.reloadData()
         reviewCell.backgroundColor = .white
         return reviewCell
       }

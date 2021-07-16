@@ -123,7 +123,7 @@ extension EditCategoryViewController {
       $0.configureTextField(textColor: .black,
                             font: .notoSansKRRegularFont(fontSize: 15))
       $0.attributedPlaceholder =
-        NSAttributedString(string: "새 카테고리 이름",
+        NSAttributedString(string: "수정할 카테고리명 입력",
                            attributes:
                             [NSAttributedString.Key.font:
                               UIFont.notoSansKRRegularFont(fontSize: 15),

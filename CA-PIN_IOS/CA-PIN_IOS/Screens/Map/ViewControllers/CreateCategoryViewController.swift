@@ -83,8 +83,8 @@ extension CreateCategoryViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(29)
         $0.leading.equalTo(self.view.snp.leading).offset(31)
-        $0.width.equalTo(10)
-        $0.height.equalTo(18)
+        $0.width.equalTo(28)
+        $0.height.equalTo(28)
       }
     }
   }
@@ -115,7 +115,7 @@ extension CreateCategoryViewController {
       $0.configureTextField(textColor: .black,
                             font: .notoSansKRRegularFont(fontSize: 15))
       $0.attributedPlaceholder =
-        NSAttributedString(string: "새 카테고리 이름",
+        NSAttributedString(string: "새 카테고리명 입력",
                            attributes:
                             [NSAttributedString.Key.font:
                               UIFont.notoSansKRRegularFont(fontSize: 15),
@@ -206,6 +206,10 @@ extension CreateCategoryViewController {
         }
       }
     }
+  }
+  /// 뷰의 다른 곳 탭하면 키보드 내려가게
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    self.view.endEditing(true)
   }
   func addCategory(colorIndex: Int, categoryName: String) {
     categoryProvider.rx.request(.createCategory(colorIndex: colorIndex, categoryName: categoryName))
