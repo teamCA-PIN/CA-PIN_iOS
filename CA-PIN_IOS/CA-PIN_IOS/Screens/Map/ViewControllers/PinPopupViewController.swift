@@ -266,7 +266,7 @@ extension PinPopupViewController: UITableViewDataSource {
     categoryCell.awakeFromNib()
     if indexPath.row == 0 {
       
-      categoryCell.tagImageView.image = UIImage(named: "iconPlus")
+      categoryCell.tagImageView.image = UIImage(named: "plusCategory")
       categoryCell.categoryTitleLabel.text = "새 카테고리"
       categoryCell.selectbutton.isHidden = true
     }

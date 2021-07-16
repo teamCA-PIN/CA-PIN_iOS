@@ -41,10 +41,10 @@ class EntireReviewViewController: UIViewController {
     self.reviewTableView.delegate = self
   }
   
-  override func viewWillLayoutSubviews() {
-    super.updateViewConstraints()
-    self.reviewTableView.heightConstraint?.constant = self.reviewTableView.contentSize.height
-  }
+//  override func viewWillLayoutSubviews() {
+//    super.updateViewConstraints()
+//    self.reviewTableView.heightConstraint?.constant = self.reviewTableView.contentSize.height
+//  }
 }
 
 // MARK: - Extensions
@@ -192,19 +192,10 @@ extension EntireReviewViewController {
 
 // MARK: - ReviewTableView Delegate
 extension EntireReviewViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    if self.reviewModel[indexPath.row].imgs == nil && self.reviewModel[indexPath.row].recommend == nil{
-      return 110
-    }
-    else if self.reviewModel[indexPath.row].imgs == nil {
-      return 140
-    }
-    else if self.reviewModel[indexPath.row].recommend == nil {
-      return 198
-    }
-    else {
-      return 240
-    }
+  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    tableView.estimatedRowHeight = 500
+    tableView.rowHeight = UITableView.automaticDimension
+    return UITableView.automaticDimension
   }
 }
 

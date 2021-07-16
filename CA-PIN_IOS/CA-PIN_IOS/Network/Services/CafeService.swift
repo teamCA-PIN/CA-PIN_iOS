@@ -12,7 +12,7 @@ import SwiftKeychainWrapper
 
 enum CafeService {
   case cafeList(tags: [Int]?)
-  case cafeListMymap
+  case cafeListMymap(tags: [Int]?)
   case cafeDetail(cafeId: String)
   case cafeMenu(cafeId: String)
 }
@@ -58,9 +58,9 @@ extension CafeService: TargetType {
   
   var task: Task {
     switch self {
-    case .cafeListMymap, .cafeDetail, .cafeMenu:
+    case .cafeDetail, .cafeMenu:
       return .requestPlain
-    case .cafeList(tags: let tags):
+    case .cafeList(tags: let tags), .cafeListMymap(tags: let tags):
       return .requestParameters(parameters: ["tags": tags], encoding: URLEncoding(destination: .queryString, arrayEncoding: .noBrackets))
     }
   }
