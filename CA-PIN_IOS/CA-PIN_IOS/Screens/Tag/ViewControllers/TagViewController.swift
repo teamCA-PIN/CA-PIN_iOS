@@ -123,7 +123,7 @@ extension TagViewController {
       $0.addTarget(self, action: #selector(self.pop), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.leading.trailing.equalToSuperview()
-        $0.bottom.equalTo(self.view.snp.bottom).offset(-self.view.safeAreaInsets.bottom-50)
+        $0.bottom.equalTo(self.view.snp.bottom).offset(-self.view.safeAreaInsets.bottom)
         $0.height.equalTo(83)
       }
     }
@@ -132,13 +132,14 @@ extension TagViewController {
     view.add(tagTableView) {
       $0.separatorStyle = .none
       $0.allowsMultipleSelection = true
+      $0.showsVerticalScrollIndicator = false
       $0.backgroundColor = .white
-      $0.isScrollEnabled = false
+      $0.isScrollEnabled = true
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(77)
         $0.top.equalTo(self.descriptionLabel.snp.bottom).offset(57)
-        $0.bottom.equalTo(self.resultButton.snp.top).offset(-52)
+        $0.bottom.equalTo(self.resultButton.snp.top).offset(-10)
       }
     }
   }
@@ -170,7 +171,7 @@ extension TagViewController {
             self.resultButton.setupButton(title: "\(data.cafeLocations?.count ?? 0)건의 검색결과 보기",
                                           color: .white,
                                           font: .notoSansKRMediumFont(fontSize: 20),
-                                          backgroundColor: .subcolorBrown3,
+                                          backgroundColor: .pointcolor1,
                                           state: .normal,
                                           radius: 0)
             

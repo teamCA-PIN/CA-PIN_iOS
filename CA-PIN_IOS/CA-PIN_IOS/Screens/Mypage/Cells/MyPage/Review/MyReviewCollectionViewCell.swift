@@ -54,8 +54,7 @@ extension MyReviewCollectionViewCell {
             self.reviewList = data.reviews!
             self.reviewNumber = data.reviews!.count
             self.headerLabel.text = "총 \(self.reviewList.count)개의 리뷰"
-            self.reviewList = data.reviews!
-            for i in 0...self.reviewList.count-1 {
+            for i in 0..<self.reviewList.count {
               self.cafeNameList.append(self.reviewList[i].cafeName)
               self.ratingList.append(self.reviewList[i].rating)
             }
@@ -170,7 +169,9 @@ extension MyReviewCollectionViewCell: UITableViewDataSource {
       return emptycell
     }
     reviewCell.awakeFromNib()
-    
+    print("여기야여기")
+    print(indexPath.row)
+    print(reviewList[indexPath.row])
     reviewCell.reviewModel = reviewList[indexPath.row]
     reviewCell.nameLabel.text = reviewList[indexPath.row].cafeName
     reviewCell.scoreLabel.text = "\(reviewList[indexPath.row].rating)"
