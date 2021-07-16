@@ -29,7 +29,6 @@ class DeleteCategoryPopUpViewController: UIViewController {
     super.viewDidLoad()
     self.view.backgroundColor = .white
     layout()
-    print(categoryId)
     // Do any additional setup after loading the view.
   }
 }
@@ -125,7 +124,6 @@ extension DeleteCategoryPopUpViewController {
   }
   
   func deleteService(categoryId: String) {
-    print("삭제 함수")
     CategoryService.rx.request(.deleteCategory(categoryId: categoryId))
       .asObservable()
       .subscribe(onNext: { response in
@@ -159,7 +157,6 @@ extension DeleteCategoryPopUpViewController {
     self.dismiss(animated: false, completion: nil)
   }
   @objc func clickedDeleteButton() {
-    print("삭제 ㄷ ㄷ ㄷ")
     deleteService(categoryId: categoryId)
     /// 삭제 서버 연결
   }

@@ -39,7 +39,6 @@ class CategoryCafeListTableViewCell: UITableViewCell {
   // MARK: - LifeCycle
   override func awakeFromNib() {
     super.awakeFromNib()
-    print(#function)
     register()
     attribute()
     layout()

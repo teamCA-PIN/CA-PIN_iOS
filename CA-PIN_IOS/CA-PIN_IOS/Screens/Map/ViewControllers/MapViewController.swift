@@ -436,7 +436,6 @@ extension MapViewController {
     }
     currentMarkers.removeAll()
     self.markers.removeAll()
-    print("구분선")
     for index in 0..<self.coordinates.count {
       if selectedMarker?.position != self.coordinates[index].coordinates {
         let marker = NMFMarker(position: self.coordinates[index].coordinates)

@@ -58,8 +58,6 @@ extension MyReviewCollectionViewCell {
               self.cafeNameList.append(self.reviewList[i].cafeName)
               self.ratingList.append(self.reviewList[i].rating)
             }
-            print("별점 리스트")
-            print(self.ratingList)
             self.myReviewTableView.reloadData()
             let mypageVC = self.rootViewController as? MypageViewController
             mypageVC?.pageCollectionView.reloadData()
@@ -131,19 +129,15 @@ extension MyReviewCollectionViewCell: UITableViewDelegate {
     //    tableView.rowHeight = UITableView.automaticDimension
     //    return UITableView.automaticDimension
     if self.reviewList[indexPath.row].imgs == nil && self.reviewList[indexPath.row].recommend == nil{
-      print("이미지 없고 태그 없고")
       return 110
     }
     else if self.reviewList[indexPath.row].imgs == nil {
-      print("이미지 없고")
       return 140
     }
     else if self.reviewList[indexPath.row].recommend == nil {
-      print("태그 없고")
       return 198
     }
     else {
-      print("둘 다 있는")
       return 240
     }
   }

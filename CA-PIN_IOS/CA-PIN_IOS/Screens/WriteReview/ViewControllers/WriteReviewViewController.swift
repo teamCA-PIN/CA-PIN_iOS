@@ -592,7 +592,6 @@ extension WriteReviewViewController {
       for item in items {
         switch item {
         case .photo(let photo):
-          print(photo.image)
           if !self.canAccessImages.contains(photo.image){
             self.canAccessImages.append(photo.image)
             if self.canAccessImages.count == 5 {
@@ -600,7 +599,7 @@ extension WriteReviewViewController {
             }
           }
         case .video(v: _):
-          print("비디오")
+          break
         }
       }
       self.reviewphotoCollectionView.reloadData()
@@ -708,7 +707,6 @@ extension WriteReviewViewController : UICollectionViewDataSource
       emptyCell.awakeFromNib()
       return emptyCell
     } else {
-      print(canAccessImages)
       photocell.reviewPhotoImageView.image = self.canAccessImages[indexPath.item-1]
       photocell.setRounded(radius: 5)
       photocell.awakeFromNib()
@@ -716,7 +714,6 @@ extension WriteReviewViewController : UICollectionViewDataSource
     }
   }
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    print(#function)
     if indexPath.item == 0 {
       if changetiming == 0 { /// 올린 사진이 5장 미만일 때
         self.photoLibraryWork()

@@ -45,7 +45,6 @@ class CategoryDetailViewController: UIViewController {
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
-    print(#function)
     super.viewDidLoad()
     self.view.backgroundColor = .white
     self.navigationController?.navigationBar.isHidden = true
@@ -57,13 +56,10 @@ class CategoryDetailViewController: UIViewController {
     self.viewDidAppear(true)
   }
   override func viewWillAppear(_ animated: Bool) {
-    print("카테고리 디테일 뷰컨 viewwillappear")
-    print(#function)
     cafeListTableView.reloadData()
     
   }
   override func viewDidAppear(_ animated: Bool) {
-    print(#function)
   }
 }
 
@@ -74,7 +70,6 @@ extension CategoryDetailViewController {
     /// 분기처리
     /// 카테고리 내의 핀이 0개일 때: EmptyCategoryTableViewCell
     if pinNumber == 0 {
-      print("register pinnumber = 0")
       self.cafeListTableView.register(EmptyCategoryTableViewCell.self, forCellReuseIdentifier: EmptyCategoryTableViewCell.reuseIdentifier)
     }
     /// 핀이 1개 이상일 때: CategoryCafeListTableViewCell

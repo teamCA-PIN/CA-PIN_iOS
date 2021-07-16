@@ -28,7 +28,6 @@ class EmptyCategoryTableViewCell: UITableViewCell {
 
 extension EmptyCategoryTableViewCell {
   func layout() {
-    print("layout")
     layoutEmptyImageView()
     layoutExplainLabel()
   }

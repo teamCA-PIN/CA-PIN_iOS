@@ -115,8 +115,6 @@ extension DeleteReviewViewController {
       .subscribe(onNext: { response in
         if response.statusCode == 200 { /// 삭제 성공
           do {
-            print("삭제성공")
-            print(self.navigationController?.presentingViewController)
             self.dismiss(animated: false) {
               let mypageVC = self.presentingViewController?.children[0] as? MypageViewController
               mypageVC?.pageCollectionView.reloadData()
@@ -146,8 +144,6 @@ extension DeleteReviewViewController {
     self.dismiss(animated: false, completion: nil)
   }
   @objc func clickedConfirmButton() {
-    print("확인 ㄷ ㄷ ㄷ")
-    print(self.reviewId)
     /// 삭제 서버 연결
     reviewDeleteService(reviewId: reviewId)
   }

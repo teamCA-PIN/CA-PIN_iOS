@@ -271,8 +271,6 @@ extension CAFETITest4ViewController {
     if pagingnum == 1 {
       /// server
       self.resultAnswer.append(selectedIndex)
-      print("여기야여기")
-      print(resultAnswer)
       showResult(answerArray: self.resultAnswer)
       
     } else {
@@ -295,7 +293,6 @@ extension CAFETITest4ViewController {
             
             /// 서현코드
             UserDefaults.standard.set(data.type, forKey: "userCafeTI")
-            print(UserDefaults.standard.string(forKey: "userCafeTI"))
             self.navigationController?.pushViewController(resultVC
                                                           , animated: false)
             
