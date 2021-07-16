@@ -16,10 +16,17 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
   let headerLabel = UILabel()
   let myReviewTableView = UITableView()
   var isEmpty: Bool = false /// 리뷰 존재하는지 체크하는 불
-  var reviewNumber: Int = 10 /// 리뷰 개수
+  var reviewNumber: Int = 0 /// 리뷰 개수
   
-//  let disposeBag = DisposeBag()
-//  private let UserServiceProvider = MoyaProvider<>(UserService)
+  var reviewList: [Review] = [Review(id: "", cafeName: "", cafeID: "", content: "", rating: 0, createAt: "", imgs: [], recommend: [])] /// 서버에서 리뷰 받아올 배열
+  var cafeNameList: [String] = [] /// 서버에서 받아온 값 중에 카페 이름만 저장
+  var ratingList: [Double] = [] /// 서버에서 별점 값만ㄴ 받아올 배열
+  var reviewTextList: [String] = []
+//  var imageURL:  /// 서버에서 받아온 값 중에 이미지 url만 저장
+//  var recommendtTagList:  /// 서버에서 받아온 값 중에 태그 인트 값만 저장
+  
+  let disposeBag = DisposeBag()
+  private let UserServiceProvider = MoyaProvider<UserService>()
     
   // MARK: - LifeCycles
   override func awakeFromNib() {
@@ -27,18 +34,50 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     register()
     associate()
     layout()
+    getReviewListService()
     self.myReviewTableView.separatorStyle = .none
   }
 }
 extension MyReviewCollectionViewCell {
   func getReviewListService() {
-
+    UserServiceProvider.rx.request(.reviews)
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(ReviewResponseArrayType<Review>.self,
+                                          from: response.data)
+            self.reviewList = data.reviews!
+            self.reviewNumber = data.reviews!.count
+            self.headerLabel.text = "총 \(self.reviewList.count)개의 리뷰"
+            self.myReviewTableView.reloadData()
+            self.reviewList = data.reviews!
+            for i in 0...self.reviewList.count-1 {
+              self.cafeNameList.append(self.reviewList[i].cafeName)
+              self.ratingList.append(self.reviewList[i].rating)
+            }
+          } catch {
+            print(error)
+          }
+        }
+        else {
+          
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+        
+      }).disposed(by: disposeBag)
   }
   func register() {
     /// 분기처리
     /// 리뷰가 0개일 때: EmptyReviewTableViewCell
     /// 리뷰가 1개 이상일 때: MyReviewTableViewCell
-//    self.myReviewTableView.register(EmptyReviewTableViewCell.self, forCellReuseIdentifier: EmptyReviewTableViewCell.reuseIdentifier)
+    
+    self.myReviewTableView.register(EmptyReviewTableViewCell.self, forCellReuseIdentifier: EmptyReviewTableViewCell.reuseIdentifier)
+    self.myReviewTableView.register(MyReviewTableViewCell.self, forCellReuseIdentifier: MyReviewTableViewCell.reuseIdentifier)
+    
     self.myReviewTableView.register(MyReviewTableViewCell.self, forCellReuseIdentifier: MyReviewTableViewCell.reuseIdentifier)
   }
   func associate() {
@@ -58,7 +97,7 @@ extension MyReviewCollectionViewCell {
   }
   func layoutHeaderLabel() {
     self.headerView.add(self.headerLabel) {
-      $0.setupLabel(text: "총 \(self.reviewNumber)개의 리뷰", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
+      $0.setupLabel(text: "총 \(self.reviewList.count)개의 리뷰", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
       $0.letterSpacing = -0.7
       $0.sizeToFit()
       $0.snp.makeConstraints {
@@ -93,21 +132,27 @@ extension MyReviewCollectionViewCell: UITableViewDelegate {
 }
 extension MyReviewCollectionViewCell: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    /// 분기처리
-    /// 리뷰가 0개면 1, 아니면 ReviewNumber
-//    return 1
-    return 10
+    return reviewList.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     /// 분기처리
     /// 리뷰가 0개일 때: EmptyReviewTableViewCell
     /// 리뷰가 1개 이상일 때: MyReviewTableViewCell
-//    guard let emptycell = tableView.dequeueReusableCell(withIdentifier: EmptyReviewTableViewCell.reuseIdentifier, for: indexPath) as? EmptyReviewTableViewCell else { return UITableViewCell() }
-//    emptycell.awakeFromNib()
-//    return emptycell
+    guard let emptycell = tableView.dequeueReusableCell(withIdentifier: EmptyReviewTableViewCell.reuseIdentifier, for: indexPath) as? EmptyReviewTableViewCell else { return UITableViewCell() }
     guard let reviewCell = tableView.dequeueReusableCell(withIdentifier: MyReviewTableViewCell.reuseIdentifier, for: indexPath) as? MyReviewTableViewCell else { return UITableViewCell() }
+    
+    if reviewList.count == 0 {
+      emptycell.awakeFromNib()
+      return emptycell
+    }
     reviewCell.awakeFromNib()
+    
+    reviewCell.reviewModel = reviewList[indexPath.row]
+    reviewCell.nameLabel.text = reviewList[indexPath.row].cafeName
+    reviewCell.scoreLabel.text = "\(reviewList[indexPath.row].rating)"
+    reviewCell.reviewText.text = reviewList[indexPath.row].content
+    
     return reviewCell
   }
 }

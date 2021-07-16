@@ -72,8 +72,6 @@ class MypageViewController: UIViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
-    print("MyPageViewController")
-    print(#function)
     self.pageCollectionView.reloadData()
   }
   
@@ -134,7 +132,7 @@ extension MypageViewController {
   }
   func layoutProfileImageView() {
     self.profileContainerView.add(self.profileImageView) {
-      $0.image = UIImage(named: "colorchip7")
+      $0.imageFromUrl(self.profileImage, defaultImgPath: "colorchip7")
       $0.snp.makeConstraints {
         $0.top.equalTo(self.profileContainerView.snp.top)
         $0.leading.equalTo(self.profileContainerView.snp.leading)

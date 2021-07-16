@@ -16,7 +16,7 @@ enum CategoryService {
   case addCafe(cafeId: String, categoryId: String?)
   case cafeListInCategory(categoryId: String)
   case deleteCafeInCategory(categoryId: String, cafeList: [String])
-  case editCategory(colorIndex: Int, categoryName: String)
+  case editCategory(categoryId: String, colorIndex: Int, categoryName: String)
 }
 
 extension CategoryService: TargetType {
@@ -41,7 +41,7 @@ extension CategoryService: TargetType {
       return "/category/\(categoryId)/cafes"
     case .deleteCafeInCategory(categoryId: let categoryId, _):
       return "/category/\(categoryId)/archive"
-    case .editCategory(categoryId: let categoryId):
+    case .editCategory(categoryId: let categoryId, _, _):
       return "/category/\(categoryId)"
     }
   }
@@ -57,7 +57,7 @@ extension CategoryService: TargetType {
       return .get
     case .deleteCafeInCategory:
       return .delete
-    case .editCategory(colorIndex: let colorIndex, categoryName: let categoryName):
+    case .editCategory:
       return .put
     }
   }
@@ -91,7 +91,7 @@ extension CategoryService: TargetType {
       return .requestCompositeParameters(bodyParameters: ["cafeList": cafeList],
                                          bodyEncoding: JSONEncoding.default,
                                          urlParameters: .init())
-    case .editCategory(colorIndex: let colorIndex, categoryName: let categoryName):
+    case .editCategory(_, colorIndex: let colorIndex, categoryName: let categoryName):
       return .requestCompositeParameters(bodyParameters: ["colorIdx": colorIndex,
                                                           "categoryName": categoryName],
                                          bodyEncoding: JSONEncoding.default,

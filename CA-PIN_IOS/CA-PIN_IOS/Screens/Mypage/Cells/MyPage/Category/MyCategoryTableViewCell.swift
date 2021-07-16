@@ -16,9 +16,6 @@ class MyCategoryTableViewCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     layout()
-    print("tableviewcell")
-    print(self.categoryID)
-//    getCafeDataInCategory()
   }
   
   // MARK: - Components
@@ -127,8 +124,6 @@ extension MyCategoryTableViewCell {
       )
   }
   func setCategoryData(colorCode: String, name: String, number: Int) {
-    print(#function)
-    print(number)
     let color = hexStringToUIColor(hex: colorCode)
     self.colorView.backgroundColor = color
     self.titleLabel.text = name
@@ -140,7 +135,7 @@ extension MyCategoryTableViewCell {
     alertController = UIAlertController(title: "카테고리 편집", message: nil, preferredStyle: .actionSheet)
 
     let editAction: UIAlertAction
-    editAction = UIAlertAction(title: "카테고리 수정", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in print("edit pressed")
+    editAction = UIAlertAction(title: "카테고리 수정", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
       /// TODO 카테고리 수정 뷰로 이동
       let editVC = EditCategoryViewController()
       self.parentViewController?.navigationController?.pushViewController(editVC  , animated: false)

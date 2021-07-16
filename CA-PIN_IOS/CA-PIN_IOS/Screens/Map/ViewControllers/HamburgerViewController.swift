@@ -284,7 +284,7 @@ extension HamburgerViewController {
     mypageVC.cafeTI = self.infoData!.cafeti.type
     mypageVC.plainImage = self.infoData!.cafeti.plainImg
     let mypageNavigation = UINavigationController()
-    mypageNavigation.modalPresentationStyle = .overCurrentContext
+    mypageNavigation.modalPresentationStyle = .currentContext
     mypageNavigation.addChild(mypageVC)
     self.present(mypageNavigation, animated: false, completion: nil)
   }
@@ -311,7 +311,7 @@ extension HamburgerViewController {
       }).disposed(by: disposeBag)
   }
   func infoDataBind() {
-//    self.profileImageView.setImage(from: self.infoData?.profileImg ?? "", UIImage(named: "image176")!)
+    self.profileImageView.setImage(from: self.infoData?.profileImg ?? "", UIImage(named: "image176")!)
     self.profileImageView.imageFromUrl(self.infoData?.profileImg ?? "", defaultImgPath: self.infoData?.cafeti.plainImg ?? "")
     self.profileImageView.setRounded(radius: self.profileImageView.frame.height/2)
     self.profileNameLabel.text = self.infoData?.nickname

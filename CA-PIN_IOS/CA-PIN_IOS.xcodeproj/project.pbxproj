@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		411F7BF12A6685CEA7A9189F /* Pods_CA_PIN_IOS_CA_PIN_IOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D30FA22FBCC69E92AAED0BE /* Pods_CA_PIN_IOS_CA_PIN_IOSUITests.framework */; };
 		7B80170D951C27BD4B4456D6 /* Pods_CA_PIN_IOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 259477F0E447DE04609449E5 /* Pods_CA_PIN_IOS.framework */; };
+		921FEFE026A158AC00FEBEC9 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921FEFDF26A158AB00FEBEC9 /* SplashViewController.swift */; };
 		92413707269432F00016D18F /* TabbarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413706269432F00016D18F /* TabbarCollectionViewCell.swift */; };
 		9241370F269457A80016D18F /* MyReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9241370E269457A80016D18F /* MyReviewTableViewCell.swift */; };
 		92413711269457C50016D18F /* MyCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413710269457C50016D18F /* MyCategoryTableViewCell.swift */; };
@@ -156,6 +157,7 @@
 		4C54DEA8F4DE6F401F16C8D9 /* Pods-CA-PIN_IOS-CA-PIN_IOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS-CA-PIN_IOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6487D4BF3EFFAB9B4F67E2B1 /* Pods-CA-PIN_IOS-CA-PIN_IOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS-CA-PIN_IOSUITests.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS-CA-PIN_IOSUITests/Pods-CA-PIN_IOS-CA-PIN_IOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7D30FA22FBCC69E92AAED0BE /* Pods_CA_PIN_IOS_CA_PIN_IOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CA_PIN_IOS_CA_PIN_IOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		921FEFDF26A158AB00FEBEC9 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		92413706269432F00016D18F /* TabbarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCollectionViewCell.swift; sourceTree = "<group>"; };
 		9241370E269457A80016D18F /* MyReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewTableViewCell.swift; sourceTree = "<group>"; };
 		92413710269457C50016D18F /* MyCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 			isa = PBXGroup;
 			children = (
 				CCF78449268B71CD005FDF1D /* LoginViewController.swift */,
+				921FEFDF26A158AB00FEBEC9 /* SplashViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1159,6 +1162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				921FEFE026A158AC00FEBEC9 /* SplashViewController.swift in Sources */,
 				9292FFCD26964DF400BCD791 /* EmptyCategoryTableViewCell.swift in Sources */,
 				CC05E029268B865400269427 /* UIFont+.swift in Sources */,
 				CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */,

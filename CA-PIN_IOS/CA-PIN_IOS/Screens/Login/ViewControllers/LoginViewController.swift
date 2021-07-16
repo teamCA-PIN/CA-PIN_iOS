@@ -101,13 +101,17 @@ extension LoginViewController {
             KeychainWrapper.standard.set(emailText, forKey: "loginEmail")
             KeychainWrapper.standard.set(passwordText, forKey: "loginPassword")
             KeychainWrapper.standard.set(data.loginData!.token, forKey: "accessToken")
+
+            let cafeTI = UserDefaults.standard.string(forKey: "userCafeTI")
+            if (cafeTI != nil) == true {
+              let mapVC = MapViewController()
+              self.navigationController?.pushViewController(mapVC, animated: false)
+            }
+            else {
+              let myPageVC = CafeTIViewController()
+              self.navigationController?.pushViewController(myPageVC, animated: false)
+            }
             
-            /// 이게 원래
-    //        let mapVC = MapViewController()
-    //        self.navigationController?.pushViewController(mapVC, animated: false)
-            /// 뷰 연결 전 테스트용
-            let myPageVC = CafeTIViewController()
-            self.navigationController?.pushViewController(myPageVC, animated: false)
           } catch {
             print(error)
           }
@@ -198,7 +202,6 @@ extension LoginViewController {
   }
   @objc func emailCancelButtonClicked() {
     // emailTextField의 텍스트 전부를 지우고, 취소버튼을 사라지게 한다
-    print("clickclick")
     emailTextField.text?.removeAll()
     cancelEmailTextingButton.isHidden = true
   }
@@ -238,7 +241,8 @@ extension LoginViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.emailLabel.snp.bottom).offset(10)
         $0.leading.equalTo(self.emailLabel.snp.leading)
-        $0.trailing.equalTo(self.view.snp.trailing).offset(-49)
+//        $0.trailing.equalTo(self.view.snp.trailing).offset(-49)
+        $0.centerX.equalToSuperview()
         $0.height.equalTo(35)
       }
     }
@@ -284,7 +288,8 @@ extension LoginViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.passwordLabel.snp.bottom).offset(10)
         $0.leading.equalTo(self.passwordLabel.snp.leading)
-        $0.trailing.equalTo(self.view.snp.trailing).offset(-49)
+//        $0.trailing.equalTo(self.view.snp.trailing).offset(-49)
+        $0.centerX.equalToSuperview()
         $0.height.equalTo(32)
       }
     }
