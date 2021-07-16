@@ -83,8 +83,8 @@ extension CreateCategoryViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(29)
         $0.leading.equalTo(self.view.snp.leading).offset(31)
-        $0.width.equalTo(10)
-        $0.height.equalTo(18)
+        $0.width.equalTo(28)
+        $0.height.equalTo(28)
       }
     }
   }
@@ -164,7 +164,7 @@ extension CreateCategoryViewController {
     view.add(categoryCollectionView) {
       $0.backgroundColor = .clear
       $0.snp.makeConstraints {
-        $0.leading.equalTo(self.view.snp.leading).offset(38)
+        $0.leading.equalTo(self.view.snp.leading).offset(33)
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.categoryNameTextField.snp.bottom).offset(60)
         $0.height.equalTo(119)
@@ -260,17 +260,18 @@ extension CreateCategoryViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: 60, height: 68)
+    return CGSize(width: 48, height: 48)
   }
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-    return 0
+    let spacing = (UIScreen.main.bounds.width - 66 - 48*5)/4
+    return spacing
   }
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    return 0
+    return  17
   }
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,

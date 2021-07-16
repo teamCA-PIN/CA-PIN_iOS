@@ -82,9 +82,20 @@ extension CAFETITest4ViewController {
   func layoutCoffeeImageView() {
     self.view.add(self.coffeeImageView) {
       $0.image = UIImage(named: "frame134")
-      $0.snp.makeConstraints {
-        $0.top.equalTo(self.questiontitleLabel.snp.bottom).offset(3)
-        $0.centerX.equalToSuperview()
+      if (UIScreen.main.bounds.width)*2 < UIScreen.main.bounds.height {
+        $0.snp.makeConstraints {
+          $0.top.equalTo(self.questiontitleLabel.snp.bottom).offset(3)
+          $0.centerX.equalToSuperview()
+          $0.width.equalTo(375)
+          $0.height.equalTo(233)
+        }
+      } else {
+        $0.snp.makeConstraints {
+          $0.top.equalTo(self.questiontitleLabel.snp.bottom).offset(3)
+          $0.centerX.equalToSuperview()
+          $0.width.equalTo(375*0.8)
+          $0.height.equalTo(233*0.8)
+        }
       }
     }
   }
@@ -109,8 +120,7 @@ extension CAFETITest4ViewController {
         $0.top.equalTo(self.contentLabel.snp.bottom).offset(56)
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(20)
-        $0.width.equalTo(UIScreen.main.bounds.width-40)
-        $0.height.equalTo(50*UIScreen.main.bounds.width/335)
+        $0.height.equalTo(50)
       }
     }
   }
@@ -126,8 +136,7 @@ extension CAFETITest4ViewController {
         $0.top.equalTo(self.questiononeButton.snp.bottom).offset(10)
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(20)
-        $0.width.equalTo(UIScreen.main.bounds.width-40)
-        $0.height.equalTo(50*UIScreen.main.bounds.width/335)
+        $0.height.equalTo(50)
       }
     }
   }
@@ -143,8 +152,7 @@ extension CAFETITest4ViewController {
         $0.top.equalTo(self.questiontwoButton.snp.bottom).offset(10)
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(20)
-        $0.width.equalTo(UIScreen.main.bounds.width-40)
-        $0.height.equalTo(50*UIScreen.main.bounds.width/335)
+        $0.height.equalTo(50)
       }
     }
   }
@@ -160,8 +168,7 @@ extension CAFETITest4ViewController {
         $0.top.equalTo(self.questionthreeButton.snp.bottom).offset(10)
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(20)
-        $0.width.equalTo(UIScreen.main.bounds.width-40)
-        $0.height.equalTo(50*UIScreen.main.bounds.width/335)
+        $0.height.equalTo(50)
       }
     }
   }

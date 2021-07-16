@@ -73,9 +73,20 @@ extension CafeTIViewController {
   func layoutQuestionImageView() {
     self.view.add(self.questionImageView) {
       $0.image = UIImage(named: "frame139")
+      if (UIScreen.main.bounds.width)*2 < UIScreen.main.bounds.height {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.cafetititleLabel.snp.bottom).offset(97)
         $0.centerX.equalToSuperview()
+        $0.width.equalTo(375)
+        $0.height.equalTo(325)
+      }
+      } else {
+        $0.snp.makeConstraints {
+          $0.top.equalTo(self.cafetititleLabel.snp.bottom).offset(97)
+          $0.centerX.equalToSuperview()
+          $0.width.equalTo(375*0.8)
+          $0.height.equalTo(325*0.8)
+        }
       }
     }
   }
@@ -110,8 +121,8 @@ extension CafeTIViewController {
       $0.setRounded(radius: 24.5)
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
-        $0.width.equalTo(UIScreen.main.bounds.width-40)
-        $0.height.equalTo(49*UIScreen.main.bounds.width/335)
+        $0.width.equalTo(335)
+        $0.height.equalTo(49)
         $0.bottom.equalTo(self.view.snp.bottom).offset(-34)
       }
     }
