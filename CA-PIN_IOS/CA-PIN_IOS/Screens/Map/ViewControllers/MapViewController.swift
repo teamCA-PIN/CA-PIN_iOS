@@ -442,7 +442,6 @@ extension MapViewController {
         marker.touchHandler = handler
         
         if capinOrMyMap == 1 {
-          print(coordinates[index].colorCode)
         }
         marker.iconImage = NMFOverlayImage(name: markerImage(colorCode: self.coordinates[index].colorCode, isActive: 0))
         markers.append(marker)
