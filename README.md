@@ -1,44 +1,33 @@
 # CA-PIN_iOS
-🍎아요왕국👨‍👧‍👧의 카핀프린(세)스👑🍎
-
-## 서비스 소개
-믿고보는 카페맵 CA:PIN </br>
-오늘도 '카페 어디가지?' 하고 고민하는 당신을 위한 선정한 좋은 카페들, </br>
-지도에 전부 다 보여드릴게요!
-
 <img src="https://user-images.githubusercontent.com/63863135/125908158-2edbf7c7-90b6-4b43-85ab-b233705d0a96.png">
 
 <br>
 
-## <img width=20px src=https://user-images.githubusercontent.com/63863135/125911475-86dbae5c-91c8-4d6b-8c35-6ab1ce2d491d.png>  Project
+## <img width=40px src=https://user-images.githubusercontent.com/63863135/125911475-86dbae5c-91c8-4d6b-8c35-6ab1ce2d491d.png>  Project
 **믿고 보는 카페맵, CA-PIN**
 > **SOPT 28th APPJAM**  
-> **오늘도 '카페 어디가지?' 하고 고민하는 당신을 위한 선정한 좋은 카페들,
-> **지도에 전부 다 보여드릴게요!
+> **오늘도 '카페 어디가지?' 하고 고민하는 당신을 위한 선정한 좋은 카페들,**
+> **지도에 전부 다 보여드릴게요!**
 > **프로젝트 기간: 2021.06.26 ~ 2021.07.17**  
 
 
 <br>
 
-## CA-PIN_iOS Developers
+## 🍎CA-PIN_iOS Developers
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/hwangji-dev"><img src="https://user-images.githubusercontent.com/63224278/103209152-b436e680-4945-11eb-91e4-bd8622e442e2.png" width="100px;" alt=""/><br /><sub><b>hansolnoh95</b></sub></a><br /><a href="https://github.com/teamCA-PIN/CA-PIN_iOS/commits?author=hansolnoh95" title="Code">📱</a></td>
-    <td align="center"><a href="https://github.com/seohyun-106"><img src="https://user-images.githubusercontent.com/63224278/103281341-e9ab0500-4a15-11eb-877b-e9c384c7de88.png" width="100px;" alt=""/><br /><sub><b>seohyun-106</b></sub></a><br /><a href="https://https://github.com/teamCA-PIN/CA-PIN_iOS/commits?author=seohyun-106" title="Code">📱</a></td>
-    <td align="center"><a href="https://github.com/snowedev"><img src="https://user-images.githubusercontent.com/63224278/103280936-ee22ee00-4a14-11eb-9161-aa5249d74f20.png" width="100px;" alt=""/><br /><sub><b>Kim-jisoo11</b></sub></a><br /><a href="https://github.com/teamCA-PIN/CA-PIN_iOS/commits?author=Kim-jisoo11" title="Code">📱</a></td>
+    <td align="center"><a href="https://github.com/hansolnoh95"><img src="https://user-images.githubusercontent.com/63863135/125927447-d1b8c6e1-9ac8-4c35-a3e1-a64c5e38932a.png" width="321px;" alt=""/><br /><sub><b>hansolnoh95</b></sub></a><br /><a href="https://github.com/teamCA-PIN/CA-PIN_iOS/commits?author=hansolnoh95" title="Code">📱</a></td>
+    <td align="center"><a href="https://github.com/seohyun-106"><img src="https://user-images.githubusercontent.com/63863135/125927457-1e0c908e-48fe-4ecb-a837-5c46b5aa508c.png" width="321px;" alt=""/><br /><sub><b>seohyun-106</b></sub></a><br /><a href="https://https://github.com/teamCA-PIN/CA-PIN_iOS/commits?author=seohyun-106" title="Code">📱</a></td>
+    <td align="center"><a href="https://github.com/Kim-jisoo11"><img src="https://user-images.githubusercontent.com/63863135/125927458-b5e0058c-6f39-4c3c-9d0d-8e92fa200e7b.png" width="321px;" alt=""/><br /><sub><b>Kim-jisoo11</b></sub></a><br /><a href="https://github.com/teamCA-PIN/CA-PIN_iOS/commits?author=Kim-jisoo11" title="Code">📱</a></td>
   </tr>
 </table>
 
 <br>
 ## Development Environment and Using Library
-
-* Development Environment  
-![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg) ![iOS](https://img.shields.io/badge/Platform-iOS-black.svg)
-
 
 * Using Library  
 
@@ -126,21 +115,16 @@ CA-PIN_iOS.xcodeproj
 
 
 ## CA-PIN iOS Notion
-<details>
   
 [🍎아요왕국👨‍👧‍👧의 카핀프린(세)스👑🍎의 Notion 보러가기](https://www.notion.so/i-O-S-9b5639cc51644ad0be36e7c50a37eea3)   
 
-</details>
- 
 <br>
 
 ## CA-PIN iOS 화목한 가족사진
-<details>
-  
+
 [🍎아요왕국👨‍👧‍👧의 카핀프린(세)스👑🍎의 화목한 가족사진 보러가기](https://www.notion.so/16a0742c8d1f4127aeab04ce3e5e8b7f)   
 
-</details>
- 
+
 <br>
 
 
@@ -150,15 +134,17 @@ CA-PIN_iOS.xcodeproj
 <br>
  
 ## Task
-> [Cherish iOS 개발 일지📔 및 칸반보드👨‍🏫 ](https://www.notion.so/iOS-6d2c0ea99df5403eaa7154b42a1cae4c)
+> [🍎아요왕국👨‍👧‍👧의 카핀프린(세)스👑🍎의 타임테이블 보러가기](https://www.notion.so/6603c8b01566488ebbb107ba7940645f?v=1338b5285cb64e0a88695fa8275bae54)
+> [🍎아요왕국👨‍👧‍👧의 카핀프린(세)스👑🍎의 칸반보드 보러가기](https://www.notion.so/f507ce86d200449484d0b53667f95489?v=25286bd4a7874233b754074ea4375e7d)
 
 
 | 기능 | 개발 여부 | 담당자 |
 |:----------|:----------:|:----:|
 | 카페맵 | <img width=10px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 노한솔 |
-| 마이맵 | <img width=10px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 이원석 |
-| 카페디테일 | <img width=10px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 황지은 |
-| 회원가입/로그인 | <img width=10px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 황지은 |
-| CAFETI | <img width=10px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 황지은 |
+| 마이맵 | <img width=10px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 노한솔 |
+| 카페디테일 | <img width=10px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 노한솔,김지수 |
+| 회원가입/로그인 | <img width=10px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 장서현 |
+| 마이페이지 | <img width=10px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 장서현 |
+| CAFETI | <img width=10px src=https://user-images.githubusercontent.com/63863135/125923367-55c170da-a3b1-40c6-92c1-cc0c40b97e2c.png> | 김지수 |
 
 <br>
