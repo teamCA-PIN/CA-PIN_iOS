@@ -93,9 +93,12 @@ class WriteReviewViewController: UIViewController {
   var changetiming = 0
   
   var ratingtest = 0
-  
+  var titleContent = "리뷰작성하기"
+  var confirmTitle = "리뷰등록하기"
+  var content = "리뷰를 작성하세요"
   var cafeId = ""
   var recommend: [Int] = []
+  var reviewId = ""
   let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
   
   // MARK: - LifeCycle
@@ -103,6 +106,7 @@ class WriteReviewViewController: UIViewController {
   override func viewDidLoad() {
     self.view.backgroundColor = .white
     super.viewDidLoad()
+    dataBind(rating: ratingValue, title: titleContent, recommend: recommend, content: content, confirmTitle: confirmTitle)
     layout()
     register()
     self.reviewphotoCollectionView.delegate = self
@@ -225,7 +229,6 @@ extension WriteReviewViewController {
   }
   func layoutWritereviewtitleLabel() {
     self.contentcontainerview.add(self.writereviewtitleLabel) {
-      $0.setupLabel(text: "리뷰 작성하기", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.snp.makeConstraints {
         $0.top.equalTo(self.contentcontainerview.snp.top)
         $0.centerX.equalTo(self.contentcontainerview)
@@ -363,9 +366,7 @@ extension WriteReviewViewController {
       $0.autocapitalizationType = .none
       $0.setBorder(borderColor: .gray3, borderWidth: 1)
       $0.setRounded(radius: 5)
-      $0.text = "리뷰를 작성하세요."
       $0.font = .notoSansKRRegularFont(fontSize: 14)
-      $0.textColor = .gray3
       $0.tintColor = .black
       $0.backgroundColor = .clear
       $0.textContainerInset = UIEdgeInsets(top: 15, left: 18, bottom: 20, right: 18)
@@ -450,10 +451,6 @@ extension WriteReviewViewController {
   }
   func layoutWriteReviewButton() {
     self.writeScrollContainerView.add(self.writereviewButton) {
-      $0.setTitle("리뷰등록하기", for: .normal)
-      $0.setTitleColor(.white, for: .normal)
-      $0.backgroundColor = .pointcolor1
-      $0.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.writereviewButtonClicked), for: .touchUpInside)
       $0.setRounded(radius: 24.5)
       $0.snp.makeConstraints {
@@ -468,7 +465,25 @@ extension WriteReviewViewController {
   }
   
   // MARK: - General Helpers
-  
+  func dataBind(rating: Double, title: String, recommend: [Int]?, content: String, confirmTitle: String) {
+    self.writereviewtitleLabel.setupLabel(text: title, color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+    self.ratingContentLabel.text = "\(rating)점"
+    self.recommend = recommend ?? []
+    self.reviewTextView.text = content
+    self.reviewTextView.textColor = .black
+    self.writereviewButton.setupButton(title: confirmTitle, color: .white, font: .notoSansKRMediumFont(fontSize: 16), backgroundColor: .pointcolor1, state: .normal, radius: 24.5)
+    self.ratingView.rating = self.ratingValue
+    if self.recommend == [0] {
+      self.tasteButton.isSelected = true
+    }
+    if self.recommend == [1] {
+      self.feelButton.isSelected = true
+    }
+    if self.recommend == [0,1] {
+      self.tasteButton.isSelected = true
+      self.feelButton.isSelected = true
+    }
+  }
   @objc func tasteButtonClicked() {
     tasteButton.isSelected.toggle()
     if tasteButton.isSelected == true {
@@ -498,7 +513,10 @@ extension WriteReviewViewController {
   }
   
   ///back button 누르면 돌아가게
-  @objc func backButtonClicked() {}
+  @objc func backButtonClicked() {
+    self.navigationController?.popViewController(animated: false)
+  }
+  
   
   @objc func textDidChange(_ notification: Notification) {
     if let textview = notification.object as? UITextView {
@@ -537,8 +555,12 @@ extension WriteReviewViewController {
         else {
           self.recommend = []
         }
-        print(self.recommend)
-        writeReview()
+        if writereviewtitleLabel.text == "리뷰수정하기" {
+          editReview()
+        }
+        if writereviewtitleLabel.text == "리뷰작성하기" {
+          writeReview()
+        }
       }
     }
   }
@@ -597,7 +619,28 @@ extension WriteReviewViewController {
   }
   
   func writeReview() {
-    reviewProvider.rx.request(.writeReview(cafeId: self.cafeId, recommend: self.recommend, content: self.reviewTextView.text, rating: Float(self.ratingValue), images: self.canAccessImages))
+    reviewProvider.rx.request(.writeReview(cafeId: self.cafeId, recommend: self.recommend, content: self.reviewTextView.text, rating: Float(self.ratingView.rating), images: self.canAccessImages))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 201 {
+          do {
+            self.navigationController?.popViewController(animated: false)
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
+  }
+  
+  func editReview() {
+    var isAlldeleted = false
+    if self.canAccessImages == [] {
+      isAlldeleted = true
+    }
+    reviewProvider.rx.request(.editReview(reviewId: self.reviewId, recommend: self.recommend, content: self.reviewTextView.text, rating: Float(self.ratingView.rating), isAllDeleted: isAlldeleted, images: self.canAccessImages))
       .asObservable()
       .subscribe(onNext: { response in
         if response.statusCode == 201 {

@@ -51,6 +51,7 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
   var cafeListModel: [CafeLocation] = [CafeLocation(id: "1", latitude: 37.5260118, longitude: 127.0355868)]
   var myMapCafeList: [MyMapCafe] = [MyMapCafe(id: "", latitude: 0, longitude: 0)]
   var cafeDetailModel: CafeServerDetail?
+  var categoryArray: [MyCategoryList] = []
   var isSaved: Bool?
   var rating: Float = 0
 //  var coordinates: [NMGLatLng] = [NMGLatLng(lat: 36.1, lng: 107.2)]
@@ -59,6 +60,8 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
   let locationComponent = NMFLocationManager.sharedInstance()
   let disposeBag = DisposeBag()
   let listProvider = MoyaProvider<CafeService>()
+  let userProvider = MoyaProvider<UserService>()
+  var selectedCafeId = ""
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -66,7 +69,7 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
     self.view.backgroundColor = .white
     self.navigationController?.navigationBar.isHidden = true
     self.mapView.mapView.touchDelegate = self
-    setupMarker()
+//    setupMarker()
     self.mapView.mapView.addCameraDelegate(delegate: self)
     locationComponent?.add(self)
   }
@@ -374,12 +377,8 @@ extension MapViewController {
     self.navigationController?.pushViewController(tagVC, animated: false)
   }
   @objc func clickedAddCategoryButton() {
-    let pinNavigationController = UINavigationController()
-    let pinPopupVC = PinPopupViewController()
-    pinNavigationController.addChild(pinPopupVC)
-    pinNavigationController.view.backgroundColor = .clear
-    pinNavigationController.modalPresentationStyle = .overFullScreen
-    self.present(pinNavigationController, animated: true, completion: nil)
+    setupCategory()
+    
   }
   @objc func tappedInformationView() {
     let detailView = CafeDetailViewController()
@@ -394,7 +393,7 @@ extension MapViewController {
       self.myMapButton.setTitleColor(.gray4, for: .normal)
       self.capinOrMyMap = 0
       self.setupCafeList()
-      self.setupMarker()
+
     }
     else {
       self.capinOrMyMap = 1
@@ -403,7 +402,7 @@ extension MapViewController {
       self.capinMapButton.backgroundColor = .white
       self.capinMapButton.setTitleColor(.gray4, for: .normal)
       self.setupMyMapList()
-      self.setupMarker()
+ 
     }
   }
   func setupMarker() {
@@ -413,6 +412,7 @@ extension MapViewController {
       if let marker = overlay as? NMFMarker {
         for coordinate in self.coordinates {
           if marker.position == coordinate.coordinates {
+            self.selectedCafeId = coordinate.id
             id = coordinate.id
             colorCode = coordinate.colorCode
           }
@@ -424,13 +424,22 @@ extension MapViewController {
       self.setupCafeInformation(cafeId: id)
       return true
     }
-    
+    for marker in currentMarkers {
+      if marker != selectedMarker {
+        marker.mapView = nil
+      }
+    }
+    currentMarkers.removeAll()
     self.markers.removeAll()
-    
+    print("구분선")
     for index in 0..<self.coordinates.count {
       if selectedMarker?.position != self.coordinates[index].coordinates {
         let marker = NMFMarker(position: self.coordinates[index].coordinates)
         marker.touchHandler = handler
+        
+        if capinOrMyMap == 1 {
+          print(coordinates[index].colorCode)
+        }
         marker.iconImage = NMFOverlayImage(name: markerImage(colorCode: self.coordinates[index].colorCode, isActive: 0))
         markers.append(marker)
       }
@@ -440,8 +449,8 @@ extension MapViewController {
     for marker in currentMarkers {
       marker.mapView = self.mapView.mapView
     }
-    self.mapView.mapView.layoutSubviews()
-    self.reloadInputViews()
+//    self.mapView.mapView.layoutSubviews()
+//    self.reloadInputViews()
     
   }
   func findCurrentMarker() {
@@ -471,7 +480,7 @@ extension MapViewController {
             for cafe in self.cafeListModel {
               self.coordinates.append(MapCoordinates(coordinates: NMGLatLng(lat: cafe.latitude, lng: cafe.longitude), colorCode: "", id: cafe.id))
             }
-            print(self.coordinates)
+            self.setupMarker()
           } catch {
             print(error)
           }
@@ -491,18 +500,19 @@ extension MapViewController {
             let decoder = JSONDecoder()
             let data = try decoder.decode(MyMapListResponseType<MyMapLocation>.self,
                                           from: response.data)
-            
+            self.coordinates.removeAll()
             let myMapListModel = data.myMapLocations
             var colorCode = ""
             for cafeModel in myMapListModel! {
               self.myMapCafeList = cafeModel.cafes ?? [MyMapCafe(id: "", latitude: 0, longitude: 0)]
               colorCode = cafeModel.color
+              for cafe in self.myMapCafeList {
+                self.coordinates.append(MapCoordinates(coordinates: NMGLatLng(lat: cafe.latitude, lng: cafe.longitude), colorCode: colorCode, id: cafe.id))
+              }
             }
-            self.coordinates.removeAll()
-            for cafe in self.myMapCafeList {
-              self.coordinates.append(MapCoordinates(coordinates: NMGLatLng(lat: cafe.latitude, lng: cafe.longitude), colorCode: colorCode, id: cafe.id))
-            }
-            print(self.coordinates)
+            self.setupMarker()
+          
+          
           } catch {
             print(error)
           }
@@ -596,6 +606,37 @@ extension MapViewController {
       }
     }
   }
+  func setupCategory() {
+    userProvider.rx.request(.categoryList)
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
+                                          from: response.data)
+            self.categoryArray = data.myCategoryList!
+            let pinNavigationController = UINavigationController()
+            let pinPopupVC = PinPopupViewController()
+            pinPopupVC.cafeId = self.selectedCafeId
+            pinPopupVC.categoryArray = self.categoryArray
+            pinNavigationController.addChild(pinPopupVC)
+            pinNavigationController.view.backgroundColor = .clear
+            pinNavigationController.modalPresentationStyle = .overCurrentContext
+            self.present(pinNavigationController, animated: true, completion: nil)
+          } catch {
+            print(error)
+          }
+        }
+        else {
+          
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+        
+      }).disposed(by: disposeBag)
+  }
 }
 
 
@@ -623,12 +664,6 @@ extension MapViewController: NMFMapViewTouchDelegate {
 
 extension MapViewController: NMFMapViewCameraDelegate {
   func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
-    for marker in currentMarkers {
-      if marker != selectedMarker {
-        marker.mapView = nil
-      }
-    }
-    currentMarkers.removeAll()
     self.setupMarker()
   }
 }

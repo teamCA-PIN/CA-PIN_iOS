@@ -39,6 +39,7 @@ extension ReviewService: TargetType {
     case .writeReview:
       return ""
     case .editReview(let reviewId):
+    case .editReview(let reviewId, _, _, _, _, _):
       return "/reviews/\(reviewId)"
     case .deleteReview(let reviewId):
       return "/reviews/\(reviewId)"
@@ -105,16 +106,30 @@ extension ReviewService: TargetType {
       return .uploadMultipart(multiPartFormData)
     case .editReview(_, recommend: let recommend, content: let content, rating: let rating, isAllDeleted: let isAllDeleted, images: let images):
       var multiPartFormData: [MultipartFormData] = []
-      let review = [
-        "recommend": recommend,
-        "content": content,
-        "rating": rating,
-        "isAllDeleted": isAllDeleted
-      ] as [String : Any]
-      let data = try! JSONSerialization.data(withJSONObject: review, options: .prettyPrinted)
-      let jsonString = String(data: data, encoding: .utf8)!
-      let stringData = MultipartFormData(provider: .data(jsonString.data(using: String.Encoding.utf8)!), name: "review")
-      multiPartFormData.append(stringData)
+      if recommend == [] {
+        print("recommend 없음")
+        let review = [
+          "content": content,
+          "rating": rating,
+          "isAllDeleted": isAllDeleted
+        ] as [String: Any]
+        let data = try! JSONSerialization.data(withJSONObject: review, options: .prettyPrinted)
+        let jsonString = String(data: data, encoding: .utf8)!
+        let stringData = MultipartFormData(provider: .data(jsonString.data(using: String.Encoding.utf8)!), name: "review")
+        multiPartFormData.append(stringData)
+      }
+      else {
+        let review = [
+          "recommend": recommend,
+          "content": content,
+          "rating": rating,
+          "isAllDeleted": isAllDeleted
+        ] as [String : Any]
+        let data = try! JSONSerialization.data(withJSONObject: review, options: .prettyPrinted)
+        let jsonString = String(data: data, encoding: .utf8)!
+        let stringData = MultipartFormData(provider: .data(jsonString.data(using: String.Encoding.utf8)!), name: "review")
+        multiPartFormData.append(stringData)
+      }
       if images != nil {
         for image in images! {
           let imageData = image.jpegData(compressionQuality: 1.0)

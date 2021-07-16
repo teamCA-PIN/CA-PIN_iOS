@@ -81,14 +81,7 @@ extension MyReviewTableViewCell {
     parentViewController?.navigationController?.pushViewController(cafeDetailVC, animated: false)
     
   }
-//  @objc func editButtonClicked() {
-//    /// TODO: - 리뷰 수정으로 이동
-//    print("짭")
-//    let dvc = WriteReviewViewController()
-//
-//
-//    parentViewController?.navigationController?.pushViewController(dvc, animated: false)
-//  }
+
   func bindTagList(tag: [Int]) {
     if tag.count != 0 {
       for i in 0...tag.count-1 {
@@ -158,7 +151,7 @@ extension MyReviewTableViewCell {
   func layoutEditButton() {
     self.contentView.add(self.editButton) {
       $0.setImage(UIImage(named: "iconEdit"), for: .normal)
-      $0.addTarget(self, action: #selector(self.editButtonClicekd), for: .touchUpInside)
+      $0.addTarget(self, action: #selector(self.editButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.width.equalTo(28)
         $0.height.equalTo(28)
@@ -216,7 +209,7 @@ extension MyReviewTableViewCell {
       }
     }
   }
-  @objc func editButtonClicekd() {
+  @objc func editButtonClicked() {
     /// 액션시트
     let alertController: UIAlertController
     alertController = UIAlertController(title: "리뷰 편집", message: nil, preferredStyle: .actionSheet)
@@ -224,6 +217,21 @@ extension MyReviewTableViewCell {
     let editAction: UIAlertAction
     editAction = UIAlertAction(title: "리뷰 수정", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
       /// 리뷰 수정 뷰로 이동
+      let writeVC = WriteReviewViewController()
+      writeVC.titleContent = "리뷰수정하기"
+      writeVC.confirmTitle = "리뷰수정하기"
+      writeVC.content = (self.reviewModel?.content)!
+      writeVC.ratingValue = self.reviewModel!.rating
+      writeVC.reviewId = self.reviewModel!.id
+      if self.reviewModel?.imgs == [] {
+        for imagePath in (self.reviewModel!.imgs)! {
+          let image = UIImageView()
+          image.setImage(from: imagePath, UIImage(named: "capinLogo")!)
+          writeVC.canAccessImages.append((image.image)!)
+        }
+      }
+      writeVC.recommend = self.reviewModel?.recommend ?? []
+      self.parentViewController?.navigationController?.pushViewController(writeVC, animated: false)
     })
     let deleteAction: UIAlertAction
     deleteAction = UIAlertAction(title: "리뷰 삭제", style: .destructive, handler: { (action: UIAlertAction) in

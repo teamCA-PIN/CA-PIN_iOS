@@ -36,7 +36,7 @@ extension CategoryService: TargetType {
     case .deleteCategory(categoryId: let categoryId):
       return "/category/\(categoryId)"
     case .addCafe(cafeId: let cafeId, _):
-      return "/cateogry/\(cafeId)/archive"
+      return "/category/\(cafeId)/archive"
     case .cafeListInCategory(categoryId: let categoryId):
       return "/category/\(categoryId)/cafes"
     case .deleteCafeInCategory(categoryId: let categoryId, _):
