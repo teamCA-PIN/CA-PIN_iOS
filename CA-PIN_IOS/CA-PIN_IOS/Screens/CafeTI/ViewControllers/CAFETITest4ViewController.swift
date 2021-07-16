@@ -281,6 +281,10 @@ extension CAFETITest4ViewController {
             self.resultData = data
             let resultVC = CAFETIResultViewController()
             resultVC.resultData = self.resultData
+            
+            /// 서현코드
+            UserDefaults.standard.set(data.type, forKey: "userCafeTI")
+            print(UserDefaults.standard.string(forKey: "userCafeTI"))
             self.navigationController?.pushViewController(resultVC
                                                           , animated: false)
             

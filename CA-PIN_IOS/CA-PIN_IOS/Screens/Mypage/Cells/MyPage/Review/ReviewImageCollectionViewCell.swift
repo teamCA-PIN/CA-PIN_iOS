@@ -44,10 +44,16 @@ extension ReviewImageCollectionViewCell {
     self.contentView.add(self.overlayButton) {
       let photoCover = UIColor(red: 71/255, green: 71/255, blue: 71/255, alpha: 0.4)
       $0.setupButton(title: "+\(self.moreNumber)", color: .white, font: .notoSansKRRegularFont(fontSize: 14), backgroundColor: photoCover, state: .normal, radius: 5)
+      $0.addTarget(self, action: #selector(self.overlayButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerX.centerY.equalToSuperview()
         $0.top.leading.bottom.trailing.equalToSuperview()
       }
     }
+  }
+  @objc func overlayButtonClicked() {
+    let previewVC = PhotoPreviewViewController()
+    previewVC.modalPresentationStyle = .overCurrentContext
+    self.parentViewController?.present(previewVC, animated: false, completion: nil)
   }
 }

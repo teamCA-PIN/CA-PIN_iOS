@@ -42,6 +42,13 @@ struct CategoryResponseArrayType<T: Codable>: Codable {
     var myCategoryList: [T]?
 }
 
+struct ReviewResponseArrayType<T: Codable>: Codable {
+    var status: Int?
+    var success: Bool?
+    var message: String?
+    var reviews: [T]?
+}
+
 struct CafeInCategoryResponseArrayType<T: Codable>: Codable {
     var status: Int?
     var success: Bool?

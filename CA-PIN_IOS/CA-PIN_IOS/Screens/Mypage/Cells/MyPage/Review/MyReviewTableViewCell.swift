@@ -20,7 +20,7 @@ class MyReviewTableViewCell: UITableViewCell {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
     layout.minimumLineSpacing = 0
-    layout.minimumInteritemSpacing = 0
+    layout.minimumInteritemSpacing = 6
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.translatesAutoresizingMaskIntoConstraints = false
     return collectionView
@@ -39,10 +39,12 @@ class MyReviewTableViewCell: UITableViewCell {
   
   // MARK: - Variables
   var cafeName: String = "후엘고"
-  var tagArray: [String] = ["맛 추천", "분위기 추천"] /// 서버 연결한 후 tagcollectionview에 사용 -> 여기가 아니라 reviewcollectionViewcell에 있어야함
+  var tagArray: [String] = [] /// 서버 연결한 후 tagcollectionview에 사용 -> 여기가 아니라 reviewcollectionViewcell에 있어야함
   var imageArray: [String] = ["hihi"] /// 서버 연결한 후 reviewImageCollectionview에 사용 -> 여기가 아니라 reviewcollectionViewcell에 있어야함
-  
-  var test = 10
+  var recommendList: [Int] = []
+  var imageList: [String] = []
+  var reviewList: [Review] = []
+  var reviewModel: Review?
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
@@ -56,7 +58,9 @@ class MyReviewTableViewCell: UITableViewCell {
     register()
     attribute()
     layout()
-    // Initialization code
+    self.recommendList = self.reviewModel?.recommend ?? [10]
+    self.imageList = self.reviewModel?.imgs ?? ["hi"]
+//    bindTagList(tag: recommendList)
   }
 }
 extension MyReviewTableViewCell {
@@ -72,14 +76,24 @@ extension MyReviewTableViewCell {
     self.imageCollectionView.dataSource = self
   }
   @objc func moreButtonClicked() {
-    /// 리뷰 상세보기로 이동
+    /// TODO: - 카페 상세보기로 이동
+    let cafeDetailVC = CafeDetailViewController()
+    parentViewController?.navigationController?.pushViewController(cafeDetailVC, animated: false)
+    
+  }
+  @objc func editButtonClicked() {
+    /// TODO: - 리뷰 수정으로 이동
     let dvc = WriteReviewViewController()
     parentViewController?.navigationController?.pushViewController(dvc, animated: false)
   }
-  @objc func editButtonClicked() {
-    /// 리뷰 수정으로 이동
-    let dvc = WriteReviewViewController()
-    parentViewController?.navigationController?.pushViewController(dvc, animated: false)
+  func bindTagList(tag: [Int]) {
+    if tag.count != 0 {
+      for i in 0...tag.count-1 {
+        print(tag[i])
+        tagArray.append(tag[i] == 0 ? "맛 추천" : "분위기 추천")
+        print(tagArray)
+      }
+    }
   }
   
   // MARK: - layoutHelpers
@@ -205,11 +219,11 @@ extension MyReviewTableViewCell {
     alertController = UIAlertController(title: "리뷰 편집", message: nil, preferredStyle: .actionSheet)
 
     let editAction: UIAlertAction
-    editAction = UIAlertAction(title: "리뷰 수정", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in print("edit pressed")
+    editAction = UIAlertAction(title: "리뷰 수정", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
       /// 리뷰 수정 뷰로 이동
     })
     let deleteAction: UIAlertAction
-    deleteAction = UIAlertAction(title: "리뷰 삭제", style: .destructive, handler: { (action: UIAlertAction) in print("delete pressed")
+    deleteAction = UIAlertAction(title: "리뷰 삭제", style: .destructive, handler: { (action: UIAlertAction) in
       /// 삭제 팝업 띄우기
       let dvc = DeleteReviewViewController()
       dvc.modalPresentationStyle = .overFullScreen
@@ -236,6 +250,8 @@ extension MyReviewTableViewCell: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     if collectionView == tagCollectionView {
       /// 사용하려는 라벨 크기 받아서 동적으로 셀 크기 맞춰줄거임
+      bindTagList(tag: recommendList)
+      
       let label = UILabel().then {
         $0.font = .notoSansKRMediumFont(fontSize: 12)
         $0.text = tagArray[indexPath.row]
@@ -251,7 +267,7 @@ extension MyReviewTableViewCell: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     switch collectionView {
     case tagCollectionView: return 6
-    case imageCollectionView: return 10 /// TODO: - 웅엥.count
+    case imageCollectionView: return 10
     default: return 5
     }
   }
@@ -259,8 +275,11 @@ extension MyReviewTableViewCell: UICollectionViewDelegateFlowLayout {
 extension MyReviewTableViewCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     switch collectionView {
-    case tagCollectionView: return tagArray.count
-    case imageCollectionView: return test
+    case tagCollectionView: return reviewModel?.recommend?.count ?? 0
+    case imageCollectionView:
+      let count = reviewModel?.imgs?.count ?? 0
+      if count < 3 {return count}
+      return 3
     default: return 0
     }
   }
@@ -276,11 +295,12 @@ extension MyReviewTableViewCell: UICollectionViewDataSource {
       guard let imageCell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewImageCollectionViewCell.reuseIdentifier, for: indexPath) as? ReviewImageCollectionViewCell else { return UICollectionViewCell() }
       imageCell.awakeFromNib()
       // cell에서 이미지 넣는 함수 만들어서 쓰기
-      if test >= 4 { /// TODO: - 웅엥.count >= 4
-        print("사진이 4장 이상")
-        if indexPath.row == test-1 {
+      let count = reviewModel?.imgs?.count ?? 0
+      if count >= 4 { /// TODO: - 웅엥.count >= 4
+        if indexPath.row == 2 {
           imageCell.overlayButton.isHidden = false
           imageCell.overlayButton.isEnabled = true
+          imageCell.overlayButton.setTitle("+\(count-2)", for: .normal)
         }
       }
       return imageCell
