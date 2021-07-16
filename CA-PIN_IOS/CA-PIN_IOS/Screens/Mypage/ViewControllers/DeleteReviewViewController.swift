@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Moya
+import RxMoya
+import RxSwift
 
 class DeleteReviewViewController: UIViewController {
   
@@ -15,6 +18,12 @@ class DeleteReviewViewController: UIViewController {
   let buttonContainerView = UIView()
   let cancelButton = UIButton()
   let confirmButton = UIButton()
+  
+  var reviewId: String = ""
+  
+  
+  let disposeBag = DisposeBag()
+  private let reviewDeleteService = MoyaProvider<ReviewService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -100,6 +109,37 @@ extension DeleteReviewViewController {
       }
     }
   }
+  func reviewDeleteService(reviewId: String) {
+    reviewDeleteService.rx.request(.deleteReview(reviewId: reviewId))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 { /// 삭제 성공
+          do {
+            print("삭제성공")
+            print(self.navigationController?.presentingViewController)
+            self.dismiss(animated: false) {
+              let mypageVC = self.presentingViewController?.children[0] as? MypageViewController
+              mypageVC?.pageCollectionView.reloadData()
+            }
+//            self.navigationController?.popViewController(animated: false)
+          }
+          catch {
+            print(error)
+          }
+        }
+        else { /// 삭제 실패
+          do {
+            self.showGrayToast(message: "삭제에 실패했습니다")
+          }
+          catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
+  }
   
   // MARK: - General Helpers
   @objc func clickedCancelButton() {
@@ -107,6 +147,8 @@ extension DeleteReviewViewController {
   }
   @objc func clickedConfirmButton() {
     print("확인 ㄷ ㄷ ㄷ")
+    print(self.reviewId)
     /// 삭제 서버 연결
+    reviewDeleteService(reviewId: reviewId)
   }
 }

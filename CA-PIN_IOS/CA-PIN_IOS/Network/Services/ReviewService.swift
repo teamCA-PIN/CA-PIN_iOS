@@ -39,9 +39,9 @@ extension ReviewService: TargetType {
     case .writeReview:
       return ""
     case .editReview(let reviewId):
-      return "/reviews:\(reviewId)"
+      return "/reviews/\(reviewId)"
     case .deleteReview(let reviewId):
-      return "/reviews:\(reviewId)"
+      return "/reviews/\(reviewId)"
     }
   }
   

@@ -81,11 +81,14 @@ extension MyReviewTableViewCell {
     parentViewController?.navigationController?.pushViewController(cafeDetailVC, animated: false)
     
   }
-  @objc func editButtonClicked() {
-    /// TODO: - 리뷰 수정으로 이동
-    let dvc = WriteReviewViewController()
-    parentViewController?.navigationController?.pushViewController(dvc, animated: false)
-  }
+//  @objc func editButtonClicked() {
+//    /// TODO: - 리뷰 수정으로 이동
+//    print("짭")
+//    let dvc = WriteReviewViewController()
+//
+//
+//    parentViewController?.navigationController?.pushViewController(dvc, animated: false)
+//  }
   func bindTagList(tag: [Int]) {
     if tag.count != 0 {
       for i in 0...tag.count-1 {
@@ -225,9 +228,10 @@ extension MyReviewTableViewCell {
     let deleteAction: UIAlertAction
     deleteAction = UIAlertAction(title: "리뷰 삭제", style: .destructive, handler: { (action: UIAlertAction) in
       /// 삭제 팝업 띄우기
-      let dvc = DeleteReviewViewController()
-      dvc.modalPresentationStyle = .overFullScreen
-      self.parentViewController?.present(dvc, animated: false, completion: nil)
+      let deleteReviewVC = DeleteReviewViewController()
+      deleteReviewVC.modalPresentationStyle = .overCurrentContext
+      deleteReviewVC.reviewId = self.reviewModel?.id ?? ""
+      self.parentViewController?.present(deleteReviewVC, animated: false, completion: nil)
     })
 
     let cancelAction: UIAlertAction
@@ -248,10 +252,13 @@ extension MyReviewTableViewCell {
 }
 extension MyReviewTableViewCell: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    var width: CGFloat?
+    var height: CGFloat?
+    
     if collectionView == tagCollectionView {
       /// 사용하려는 라벨 크기 받아서 동적으로 셀 크기 맞춰줄거임
       bindTagList(tag: recommendList)
-      
+
       let label = UILabel().then {
         $0.font = .notoSansKRMediumFont(fontSize: 12)
         $0.text = tagArray[indexPath.row]
@@ -261,8 +268,20 @@ extension MyReviewTableViewCell: UICollectionViewDelegateFlowLayout {
       return CGSize(width: size.width + 28, height: 22)
     }
     else {
-      return CGSize(width: 80, height: 80)
+      if self.reviewModel?.imgs?.isEmpty == false {
+        width = (self.contentView.frame.width-22)/4
+        height = (self.contentView.frame.width-22)/4
+      }
+      else {
+        width = (self.contentView.frame.width-22)/4
+        height = 0
+        self.imageCollectionView.snp.remakeConstraints {
+          $0.height.equalTo(0)
+        }
+        return CGSize(width: width!, height: height!)
+      }
     }
+    return CGSize(width: width!, height: height!)
   }
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     switch collectionView {

@@ -32,6 +32,8 @@ class MyCategoryCollectionViewCell: UICollectionViewCell {
   var selectedCategoryIndex: Int = 100
   var customizedCategoryTitle: String = ""
   
+  var rootViewController = UIViewController()
+  
   // MARK: - LifeCycles
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -124,6 +126,9 @@ extension MyCategoryCollectionViewCell {
             for i in 0...self.categoryArray.count-1 {
               self.categoryIdArray.append(self.categoryArray[i].id)
             }
+            self.myCategoryTableView.reloadData()
+            let mypageVC = self.rootViewController as? MypageViewController
+            mypageVC?.pageCollectionView.reloadData()
           } catch {
             print(error)
           }
