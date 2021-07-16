@@ -59,7 +59,7 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
   var selectedMarker: NMFMarker?
   let locationComponent = NMFLocationManager.sharedInstance()
   let disposeBag = DisposeBag()
-  let listProvider = MoyaProvider<CafeService>()
+  let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   let userProvider = MoyaProvider<UserService>()
   var selectedCafeId = ""
   
@@ -83,6 +83,9 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
       setupMyMapList()
     }
     layout()
+    if selectedCafeId != nil {
+      self.setupCafeInformation(cafeId: selectedCafeId)
+    }
     if informationRevealed == true {
       informationView.isHidden = false
       informationRevealed = false
@@ -218,6 +221,10 @@ extension MapViewController {
                      backgroundColor: .pointcolor1,
                      state: .normal,
                      radius: 19)
+      if self.capinOrMyMap != 0 {
+        $0.backgroundColor = .white
+        $0.setTitleColor(.gray, for: .normal)
+      }
       $0.addTarget(self, action: #selector(self.clickedToggleButton(_:)), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.trailing.equalTo(self.toggleView.snp.centerX).offset(-2)
@@ -235,6 +242,10 @@ extension MapViewController {
                      backgroundColor: .white,
                      state: .normal,
                      radius: 19)
+      if self.capinOrMyMap != 0 {
+        $0.backgroundColor = .pointcolor1
+        $0.setTitleColor(.white, for: .normal)
+      }
       $0.addTarget(self, action: #selector(self.clickedToggleButton(_:)), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.toggleView.snp.centerX).offset(2)
@@ -379,6 +390,7 @@ extension MapViewController {
   @objc func clickedHashButton() {
     let tagVC = TagViewController()
     tagVC.selectedTag = self.tags
+    tagVC.capinOrMyMap = self.capinOrMyMap
     self.navigationController?.pushViewController(tagVC, animated: false)
   }
   @objc func clickedAddCategoryButton() {
@@ -470,6 +482,7 @@ extension MapViewController {
     }
   }
   func setupCafeList() {
+    print(tags)
     listProvider.rx.request(.cafeList(tags: tags))
       .asObservable()
       .subscribe(onNext: { response in
@@ -495,7 +508,7 @@ extension MapViewController {
       }).disposed(by: disposeBag)
   }
   func setupMyMapList() {
-    listProvider.rx.request(.cafeListMymap)
+    listProvider.rx.request(.cafeListMymap(tags: tags))
       .asObservable()
       .subscribe(onNext: { response in
         if response.statusCode == 200 {
@@ -514,11 +527,16 @@ extension MapViewController {
               }
             }
             self.setupMarker()
+        
           
           
           } catch {
             print(error)
           }
+        }
+        if response.statusCode == 204 {
+          self.coordinates.removeAll()
+          self.setupMarker()
         }
       }, onError: { error in
         print(error)
@@ -550,7 +568,12 @@ extension MapViewController {
   func informationViewDataBind() {
     informationTitleLabel.text = self.cafeDetailModel?.name
     informationStarLabel.text = "\(self.rating)"
-    informationImageView.setImage(from: (self.cafeDetailModel?.cafeImg) ?? "", UIImage(named: "image176")!)
+    if self.cafeDetailModel?.cafeImg == nil {
+      informationImageView.image = UIImage(named: "smallDetailEmptyImage")
+    }
+    else {
+      informationImageView.imageFromUrl(self.cafeDetailModel?.cafeImg, defaultImgPath: "")
+    }
     informationContextLabel.text = self.cafeDetailModel?.address
     informationTagLabel.text = self.cafeDetailModel?.tags[0].name
     informationView.isHidden = false
@@ -647,6 +670,7 @@ extension MapViewController: NMFMapViewTouchDelegate {
   func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
     if self.informationView.isHidden == false {
       self.informationView.isHidden = true
+      self.selectedCafeId = ""
       self.viewWillAppear(true)
       for coordinate in self.coordinates {
         if selectedMarker?.position == coordinate.coordinates {

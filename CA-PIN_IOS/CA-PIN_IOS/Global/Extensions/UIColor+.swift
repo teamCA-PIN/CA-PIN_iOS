@@ -151,4 +151,7 @@ extension UIColor {
     return UIColor(white: 249.0 / 255.0, alpha: 1.0)
   }
 
+  @nonobjc class var photoCover: UIColor {
+      return UIColor(white: 71.0 / 255.0, alpha: 0.4)
+    }
 }
