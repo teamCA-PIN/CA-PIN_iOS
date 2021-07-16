@@ -63,6 +63,7 @@ class MyReviewTableViewCell: UITableViewCell {
     self.recommendList = self.reviewModel?.recommend ?? [10]
     self.imageList = self.reviewModel?.imgs ?? [""]
 //    bindTagList(tag: recommendList)
+
   }
 }
 extension MyReviewTableViewCell {

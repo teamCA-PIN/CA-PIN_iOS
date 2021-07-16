@@ -63,28 +63,11 @@ class CafeDetailViewController: UIViewController {
   var threshold = true
   
   let disposeBag = DisposeBag()
-  let reviewProvider = MoyaProvider<ReviewService>(plugins: [NetworkLoggerPlugin(verbose: true)])
-  //  var cafeModel: CafeDetail = CafeDetail(tags: [Tag(id: "a", name: "커피맛집"),
-  //                                                Tag(id: "b", name: "디저트맛집"),
-  //                                                Tag(id: "c", name: "그루비"),
-  //                                                Tag(id: "d", name: "작업하기좋은"),
-  //                                                Tag(id: "e", name: "조용한"),
-  //                                                Tag(id: "f", name: "친절한"),
-  //                                                Tag(id: "g", name: "채광좋은"),],
-  //                                         offday: [0],
-  //                                         id: "1",
-  //                                         name: "후엘고",
-  //                                         cafeImg: "adsf",
-  //                                         address: "서울 마포구 마포대로11길 118 1층 (염리동)",
-  //                                         latitude: 123,
-  //                                         longitude: 213,
-  //                                         insta: "@huelgocoffee",
-  //                                         opentime: "11:00",
-  //                                         closetime: "22:00",
-  //                                         isSaved: true,
-  //                                         rating: 4.5)
+  let reviewProvider = MoyaProvider<ReviewService>()
+  let userProvider = MoyaProvider<UserService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   var cafeModel: CafeServerDetail?
   var reviewModel: [ServerReview]?
+  var categoryArray: [MyCategoryList] = []
   var isReviewed: Bool?
   var offdays = ["일요일 휴무",
                  "월요일 휴무",
@@ -117,7 +100,7 @@ class CafeDetailViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-  
+    
   }
   
   override func viewWillLayoutSubviews() {
@@ -188,7 +171,6 @@ extension CafeDetailViewController {
   }
   func layoutBannerImageView() {
     cafeScrollContainerView.add(bannerImageView) {
-      $0.image = UIImage(named: "image176")
       $0.snp.makeConstraints {
         $0.top.leading.trailing.equalToSuperview()
         $0.height.equalTo(323)
@@ -425,8 +407,8 @@ extension CafeDetailViewController {
       $0.backgroundColor = .white
       $0.snp.makeConstraints {
         $0.leading.trailing.equalToSuperview()
-        $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
-        $0.height.equalTo(73)
+        $0.bottom.equalTo(self.view.snp.bottom)
+        $0.height.equalTo(117)
       }
     }
   }
@@ -448,7 +430,7 @@ extension CafeDetailViewController {
                     font: .notoSansKRMediumFont(fontSize: 12))
       $0.snp.makeConstraints {
         $0.top.equalTo(self.savePinButton.snp.bottom)
-        $0.trailing.equalTo(self.savePinButton.snp.trailing)
+        $0.leading.equalTo(self.savePinButton.snp.leading)
       }
     }
   }
@@ -472,25 +454,29 @@ extension CafeDetailViewController {
   func layoutReviewTableView() {
     cafeScrollContainerView.add(reviewTableView) {
       $0.backgroundColor = .clear
-      $0.estimatedRowHeight = 300
       $0.isScrollEnabled = false
-      $0.rowHeight = UITableView.automaticDimension
       $0.separatorStyle = .singleLine
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.cafeScrollContainerView.snp.leading).offset(15)
         $0.trailing.equalTo(self .cafeScrollContainerView.snp.trailing).offset(-15)
         $0.top.equalTo(self.reviewHeaderView.snp.bottom)
         $0.bottom.equalTo(self.cafeScrollContainerView.snp.bottom).offset(-50)
-        $0.height.equalTo((self.reviewModel?.count ?? 0) * 240)
+        $0.height.equalTo((self.reviewModel?.count ?? 0) * 270)
       }
     }
   }
   
   // MARK: - General Helpers
   func dataBind() {
+    if self.cafeModel?.cafeImg == nil {
+      self.bannerImageView.image = UIImage(named: "bigDetailEmptyImage")
+    }
+    else {
+      self.bannerImageView.imageFromUrl(self.cafeModel?.cafeImg, defaultImgPath: "")
+    }
     self.titleLabel.setupLabel(text: self.cafeModel?.name ?? "", color: .black, font: .notoSansKRMediumFont(fontSize: 20))
     self.cafeTitleLabel.setupLabel(text: self.cafeModel?.name ?? "", color: .black, font: .notoSansKRMediumFont(fontSize: 26))
-    self.starRatingLabel.setupLabel(text: "\(self.rating ?? 0)/5", color: .pointcolorYellow, font: .notoSansKRMediumFont(fontSize: 20))
+    self.starRatingLabel.setupLabel(text: "\(self.cafeModel?.rating ?? 0)/5", color: .pointcolorYellow, font: .notoSansKRMediumFont(fontSize: 20))
     self.addressLabel.setupLabel(text: self.cafeModel?.address ?? "", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
     self.instagramLabel.setupLabel(text: "@\(self.cafeModel?.instagram ?? "")", color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
     self.clockLabel.setupLabel(
@@ -502,6 +488,8 @@ extension CafeDetailViewController {
                                forCellWithReuseIdentifier: TagCollectionViewCell.reuseIdentifier)
     reviewTableView.register(DetailReviewTableViewCell.self,
                              forCellReuseIdentifier: DetailReviewTableViewCell.reuseIdentifier)
+    reviewTableView.register(DetailEmptyTableViewCell.self,
+                             forCellReuseIdentifier: DetailEmptyTableViewCell.reuseIdentifier)
     
   }
   @objc func clickedBackButton() {
@@ -525,12 +513,7 @@ extension CafeDetailViewController {
     self.navigationController?.pushViewController(entireVC, animated: false)
   }
   @objc func clickedAddPinButton() {
-    let pinNavigationController = UINavigationController()
-    let pinPopupVC = PinPopupViewController()
-    pinNavigationController.addChild(pinPopupVC)
-    pinNavigationController.view.backgroundColor = .clear
-    pinNavigationController.modalPresentationStyle = .overFullScreen
-    self.present(pinNavigationController, animated: true, completion: nil)
+    setupCategory()
   }
   @objc func clickedWriteReviewButton() {
     let writeReviewVC = WriteReviewViewController()
@@ -560,6 +543,38 @@ extension CafeDetailViewController {
       }, onCompleted: {
       }).disposed(by: disposeBag)
   }
+  func setupCategory() {
+    userProvider.rx.request(.categoryList)
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
+                                          from: response.data)
+            self.categoryArray = data.myCategoryList!
+            let pinNavigationController = UINavigationController()
+            let pinPopupVC = PinPopupViewController()
+            pinPopupVC.cafeId = self.cafeModel!.id
+            pinPopupVC.categoryArray = self.categoryArray
+            pinNavigationController.addChild(pinPopupVC)
+            pinNavigationController.view.backgroundColor = .clear
+            pinNavigationController.modalPresentationStyle = .overCurrentContext
+            self.present(pinNavigationController, animated: true, completion: nil)
+          } catch {
+            print(error)
+          }
+        }
+        else {
+          
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+        
+      }).disposed(by: disposeBag)
+  }
+  
 }
 
 // MARK: - TagCollectionView Delegate
@@ -612,40 +627,52 @@ extension CafeDetailViewController: UICollectionViewDataSource {
 
 // MARK: - ReviewTableView Delegate
 extension CafeDetailViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    if self.reviewModel?[indexPath.row].imgs == nil && self.reviewModel?[indexPath.row].recommend == nil{
-      return 110
-    }
-    else if self.reviewModel?[indexPath.row].imgs == nil {
-      return 140
-    }
-    else if self.reviewModel?[indexPath.row].recommend == nil {
-      return 198
-    }
-    else {
-      return 240
-    }
+  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    tableView.estimatedRowHeight = 500
+    tableView.rowHeight = UITableView.automaticDimension
+    return UITableView.automaticDimension
   }
 }
 
 // MARK: - ReviewTableView DataSource {
 extension CafeDetailViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return reviewModel?.count ?? 0
+    if reviewModel == nil {
+      return 1
+    }
+    else {
+      if (reviewModel?.count)! < 3{
+        return reviewModel!.count
+      }
+      else {
+        return 2
+      }
+    }
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let detailCell = tableView.dequeueReusableCell(withIdentifier: DetailReviewTableViewCell.reuseIdentifier, for: indexPath) as? DetailReviewTableViewCell else {
       return UITableViewCell()
     }
-    detailCell.reviewModel = reviewModel?[indexPath.row]
-    detailCell.reviewDataBind(nickName: reviewModel![indexPath.row].writer.nickname,
-                              date: (reviewModel?[indexPath.row].createdAt)!,
-                              rating: Float(reviewModel![indexPath.row].rating),
-                              content: reviewModel![indexPath.row].content,
-                              profileImg: reviewModel![indexPath.row].writer.profileImg)
-    detailCell.rootViewController = self
-    detailCell.awakeFromNib()
+    guard let emptyCell = tableView.dequeueReusableCell(withIdentifier: DetailEmptyTableViewCell.reuseIdentifier, for: indexPath) as? DetailEmptyTableViewCell else {
+      return UITableViewCell()
+    }
+    
+    if reviewModel != nil {
+      detailCell.reviewModel = reviewModel?[indexPath.row]
+      detailCell.reviewDataBind(nickName: reviewModel![indexPath.row].writer.nickname,
+                                date: (reviewModel?[indexPath.row].createdAt)!,
+                                rating: Float(reviewModel![indexPath.row].rating),
+                                content: reviewModel![indexPath.row].content,
+                                profileImg: reviewModel![indexPath.row].writer.profileImg)
+      detailCell.rootViewController = self
+      detailCell.awakeFromNib()
+      return detailCell
+    }
+    else {
+      emptyCell.awakeFromNib()
+      return emptyCell
+    }
     return detailCell
   }
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

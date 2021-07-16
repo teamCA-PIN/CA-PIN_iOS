@@ -17,6 +17,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
   // MARK: - Components
   let containerView = UIView()
   let photoImageView = UIImageView()
+  let alphaView = UIView()
   let moreLabel = UILabel()
   
   var rootViewController: UIViewController?
@@ -48,7 +49,16 @@ extension PhotoCollectionViewCell {
   }
   func layoutPhotoImageView() {
     containerView.add(photoImageView) {
-      $0.image = UIImage(named: "image176")
+      $0.setRounded(radius: 5)
+      $0.snp.makeConstraints {
+        $0.edges.equalToSuperview()
+      }
+    }
+  }
+  func layoutAlphaView() {
+    containerView.add(alphaView) {
+      $0.isHidden = true
+      $0.backgroundColor = .photoCover
       $0.setRounded(radius: 5)
       $0.snp.makeConstraints {
         $0.edges.equalToSuperview()
@@ -56,7 +66,7 @@ extension PhotoCollectionViewCell {
     }
   }
   func layoutMoreLabel() {
-    containerView.add(moreLabel) {
+    alphaView.add(moreLabel) {
       $0.isHidden = true
       $0.snp.makeConstraints {
         $0.center.equalToSuperview()
@@ -67,7 +77,7 @@ extension PhotoCollectionViewCell {
   // MARK: - Genenral Helpers
   func dataBind(imageName: String?, moreNumber: Int) {
     if let image = imageName {
-      photoImageView.setImage(from: image, UIImage(named: "image176")!)
+      photoImageView.imageFromUrl(image, defaultImgPath: "")
     }
     moreLabel.setupLabel(text: "+\(moreNumber)",
                          color: .gray3,

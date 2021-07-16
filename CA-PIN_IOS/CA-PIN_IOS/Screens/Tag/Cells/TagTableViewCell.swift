@@ -79,7 +79,12 @@ extension TagTableViewCell {
       }
     }
     changeBackground()
-    rootVC.setupCafeList()
+    if rootVC.capinOrMyMap == 0 {
+      rootVC.setupCafeList()
+    }
+    else {
+      rootVC.setupMyMapList()
+    }
     rootVC.reloadInputViews()
   }
   func changeBackground() {

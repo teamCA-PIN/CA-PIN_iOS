@@ -102,11 +102,12 @@ extension SignUpViewController {
     UserAuthProvider.rx.request(.signup(email: emailText, password: passwordText, nickname: nicknameText))
       .asObservable()
       .subscribe(onNext: { response in
+        if self.signUpButton.isEnabled == true {
         if response.statusCode == 201 { /// 회원가입 성공
           do {
             let decoder = JSONDecoder()
             let data = try decoder.decode(Response.self, from: response.data)
-            let loginVC = self.navigationController?.children[0]
+            let loginVC = self.navigationController?.children[1] as? LoginViewController
             self.navigationController?.popViewController(animated: false, completion: {
               loginVC?.showGreenToast(message: "가입이 완료되었습니다.")
             })
@@ -124,7 +125,7 @@ extension SignUpViewController {
           catch {
             print(error)
           }
-        }
+        }}
       }, onError: { error in
         print(error)
       }, onCompleted: {
@@ -446,11 +447,12 @@ extension SignUpViewController: UITextFieldDelegate {
       if passwordText != checkPasswordText {
         isSame = false
         self.showGrayToast(message: "비밀번호가 일치하지 않습니다.")
+        signUpButton.isEnabled = false
       }
       else {
         isSame = true
+        enableSignupButton()
       }
-      enableSignupButton()
     default: break
     }
   }

@@ -26,6 +26,7 @@ class TagViewController: UIViewController {
   let resultButton = UIButton()
   
   var resultCount: Int?
+  var capinOrMyMap = 0
   var buttonTitles = ["커피 맛집",
                       "디저트 맛집",
                       "브런치 카페",
@@ -35,7 +36,7 @@ class TagViewController: UIViewController {
   var selectedTag: [Int] = []
   
   let disposeBag = DisposeBag()
-  let listProvider = MoyaProvider<CafeService>()
+  let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -112,7 +113,12 @@ extension TagViewController {
         titleText = "- 건의 검색결과 보기"
       }
       else {
-        self.setupCafeList()
+        if self.capinOrMyMap == 0 {
+          self.setupCafeList()
+        }
+        else {
+          self.setupMyMapList()
+        }
       }
       $0.setupButton(title: titleText,
                      color: .gray4,
@@ -149,7 +155,9 @@ extension TagViewController {
     self.tagTableView.register(TagTableViewCell.self, forCellReuseIdentifier: TagTableViewCell.reuseIdentifier)
   }
   @objc func pop() {
-    let mapVC = self.navigationController?.children[0] as? MapViewController
+    let mapVC = self.navigationController?.children[2] as? MapViewController
+    print("여기야여기")
+    print(mapVC)
     mapVC?.tags = self.selectedTag
     self.navigationController?.popViewController(animated: false)
   }
@@ -178,6 +186,40 @@ extension TagViewController {
           } catch {
             print(error)
           }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+        self.reloadInputViews()
+      }).disposed(by: disposeBag)
+  }
+  func setupMyMapList() {
+    listProvider.rx.request(.cafeListMymap(tags: selectedTag))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(MyMapListResponseType<MyMapLocation>.self,
+                                          from: response.data)
+            self.resultButton.setupButton(title: "\(data.myMapLocations?.count ?? 0)건의 검색결과 보기",
+                                          color: .white,
+                                          font: .notoSansKRMediumFont(fontSize: 20),
+                                          backgroundColor: .pointcolor1,
+                                          state: .normal,
+                                          radius: 0)
+          
+          } catch {
+            print(error)
+          }
+        }
+        if response.statusCode == 204 {
+          self.resultButton.setupButton(title: "- 건의 검색결과 보기",
+                                        color: .white,
+                                        font: .notoSansKRMediumFont(fontSize: 20),
+                                        backgroundColor: .pointcolor1,
+                                        state: .normal,
+                                        radius: 0)
         }
       }, onError: { error in
         print(error)

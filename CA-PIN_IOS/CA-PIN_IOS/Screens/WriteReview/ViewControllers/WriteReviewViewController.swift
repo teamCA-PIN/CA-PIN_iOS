@@ -93,7 +93,7 @@ class WriteReviewViewController: UIViewController {
   var ratingtest = 0
   var titleContent = "리뷰작성하기"
   var confirmTitle = "리뷰등록하기"
-  var content = "리뷰를 작성하세요"
+  var content = "리뷰를 입력하세요."
   var cafeId = ""
   var recommend: [Int] = []
   var reviewId = ""
@@ -467,7 +467,12 @@ extension WriteReviewViewController {
     self.ratingContentLabel.text = "\(rating)점"
     self.recommend = recommend ?? []
     self.reviewTextView.text = content
-    self.reviewTextView.textColor = .black
+    if content == "리뷰를 입력하세요." {
+      self.reviewTextView.textColor = .gray3
+    }
+    else {
+      self.reviewTextView.textColor = .black
+    }
     self.writereviewButton.setupButton(title: confirmTitle, color: .white, font: .notoSansKRMediumFont(fontSize: 16), backgroundColor: .pointcolor1, state: .normal, radius: 24.5)
     self.ratingView.rating = self.ratingValue
     if self.recommend == [0] {
@@ -519,7 +524,11 @@ extension WriteReviewViewController {
     if let textview = notification.object as? UITextView {
       if let text = textview.text {
         if text.isEmpty == false {
-          self.reviewwordcountLabel.text = "\(text.count)/150"
+          var count = text.count
+          if text.count > 150 {
+            count = 150
+          }
+          self.reviewwordcountLabel.text = "\(count)/150"
         }
         if text.count > self.maxLength {
           textview.resignFirstResponder()
@@ -620,7 +629,10 @@ extension WriteReviewViewController {
       .subscribe(onNext: { response in
         if response.statusCode == 201 {
           do {
-            self.navigationController?.popViewController(animated: false)
+            let detailVC = self.navigationController?.children[3] as? CafeDetailViewController
+            self.navigationController?.popViewController(animated: false) {
+              detailVC?.setupReviewData(cafeId: self.cafeId)
+            }
           } catch {
             print(error)
           }
