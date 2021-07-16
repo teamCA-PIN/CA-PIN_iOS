@@ -71,7 +71,7 @@ extension MyCategoryTableViewCell {
   func layoutEditButton() {
     self.contentView.add(self.editButton) {
       $0.setImage(UIImage(named: "iconEditVertical"), for: .normal)
-      $0.addTarget(self, action: #selector(self.editButtonClicekd), for: .touchUpInside)
+      $0.addTarget(self, action: #selector(self.editButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.width.equalTo(28)
         $0.height.equalTo(28)
@@ -130,7 +130,7 @@ extension MyCategoryTableViewCell {
     self.numberLabel.text = "\(number)/100"
   }
   
-  @objc func editButtonClicekd() {
+  @objc func editButtonClicked() {
     let alertController: UIAlertController
     alertController = UIAlertController(title: "카테고리 편집", message: nil, preferredStyle: .actionSheet)
 
