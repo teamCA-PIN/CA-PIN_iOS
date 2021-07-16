@@ -509,6 +509,7 @@ extension WriteReviewViewController {
       }
     }
   }
+  // 리뷰와 별점이 비어있으면 다음 화면을 넘어가지 못하게
   @objc func writereviewButtonClicked() {
     if reviewwordcountLabel.text == "0/150" {
       self.showGrayToast(message: "리뷰와 별점을 등록해주세요")

@@ -51,9 +51,9 @@ extension CafeTIViewController {
   }
   func layoutBackButton() {
     self.view.add(self.backButton) {
-      $0.setImage(UIImage(named: "logo"), for: .normal)
+      $0.setImage(UIImage(named: "iconBackBlack"), for: .normal)
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(11)
+        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(7)
         $0.leading.equalTo(self.view.snp.leading).offset(20)
         $0.width.equalTo(28)
         $0.height.equalTo(28)
@@ -67,7 +67,6 @@ extension CafeTIViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(6)
         $0.centerX.equalToSuperview()
-        $0.height.equalTo(29)
       }
     }
   }
@@ -75,7 +74,7 @@ extension CafeTIViewController {
     self.view.add(self.questionImageView) {
       $0.image = UIImage(named: "frame139")
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.cafetititleLabel.snp.bottom).offset(103)
+        $0.top.equalTo(self.cafetititleLabel.snp.bottom).offset(97)
         $0.centerX.equalToSuperview()
       }
     }
@@ -84,7 +83,7 @@ extension CafeTIViewController {
     self.view.add(self.titleLabel) {
       $0.setupLabel(text: "당신의 카페 취향은?", color: .pointcolor1, font: UIFont.notoSansKRRegularFont(fontSize: 26))
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.questionImageView.snp.bottom).offset(51)
+        $0.top.equalTo(self.questionImageView.snp.bottom)
         $0.centerX.equalToSuperview()
         $0.height.equalTo(38)
       }
@@ -96,7 +95,7 @@ extension CafeTIViewController {
       $0.numberOfLines = 2
       $0.textAlignment = .center
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.titleLabel.snp.bottom).offset(20)
+        $0.top.equalTo(self.titleLabel.snp.bottom).offset(28)
         $0.centerX.equalToSuperview()
       }
     }
@@ -111,8 +110,8 @@ extension CafeTIViewController {
       $0.setRounded(radius: 24.5)
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
-        $0.height.equalTo(49)
-        $0.width.equalTo(335)
+        $0.width.equalTo(UIScreen.main.bounds.width-40)
+        $0.height.equalTo(49*UIScreen.main.bounds.width/335)
         $0.bottom.equalTo(self.view.snp.bottom).offset(-34)
       }
     }
@@ -120,8 +119,6 @@ extension CafeTIViewController {
   @objc func startButtonClicked() {
     let cafeTI1VC = CafeTITest1ViewController()
     self.navigationController?.pushViewController(cafeTI1VC, animated: false)
-
-    
   }
 }
 
