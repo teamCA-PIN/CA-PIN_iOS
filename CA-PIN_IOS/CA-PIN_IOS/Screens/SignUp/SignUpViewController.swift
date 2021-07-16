@@ -107,9 +107,8 @@ extension SignUpViewController {
           do {
             let decoder = JSONDecoder()
             let data = try decoder.decode(Response.self, from: response.data)
-            let loginVC = self.navigationController?.children[0]
+            let loginVC = self.navigationController?.children[1] as? LoginViewController
             self.navigationController?.popViewController(animated: false, completion: {
-              print("통신 되는중")
               loginVC?.showGreenToast(message: "가입이 완료되었습니다.")
             })
           }
@@ -121,7 +120,6 @@ extension SignUpViewController {
           do {
             let decoder = JSONDecoder()
             let data = try decoder.decode(Response.self, from: response.data)
-            print("통신 실패")
             self.showGrayToast(message: data.message ?? "")
           }
           catch {
