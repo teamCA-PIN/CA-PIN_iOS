@@ -89,8 +89,8 @@ extension EditCategoryViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(29)
         $0.leading.equalTo(self.view.snp.leading).offset(31)
-        $0.width.equalTo(18)
-        $0.height.equalTo(18)
+        $0.width.equalTo(28)
+        $0.height.equalTo(28)
       }
     }
   }
