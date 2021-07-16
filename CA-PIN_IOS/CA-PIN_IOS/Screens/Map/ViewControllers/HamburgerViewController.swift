@@ -297,7 +297,6 @@ extension HamburgerViewController {
             let decoder = JSONDecoder()
             let data = try decoder.decode(MyInfoResponseType<MyInfo>.self,
                                           from: response.data)
-            print(data)
             self.infoData = data.myInfo
             self.infoDataBind()
             self.reloadInputViews()

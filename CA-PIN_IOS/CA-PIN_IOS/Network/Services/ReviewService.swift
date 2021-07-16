@@ -73,7 +73,6 @@ extension ReviewService: TargetType {
     case .writeReview(_, recommend: let recommend, content: let content, rating: let rating, images: let images):
       var multiPartFormData: [MultipartFormData] = []
       if recommend == [] {
-        print("recommend 없음")
         let review = [
           "content": content,
           "rating": rating
@@ -106,7 +105,6 @@ extension ReviewService: TargetType {
     case .editReview(_, recommend: let recommend, content: let content, rating: let rating, isAllDeleted: let isAllDeleted, images: let images):
       var multiPartFormData: [MultipartFormData] = []
       if recommend == [] {
-        print("recommend 없음")
         let review = [
           "content": content,
           "rating": rating,
