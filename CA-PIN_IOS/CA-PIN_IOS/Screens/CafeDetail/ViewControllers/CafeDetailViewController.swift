@@ -425,7 +425,7 @@ extension CafeDetailViewController {
       $0.backgroundColor = .white
       $0.snp.makeConstraints {
         $0.leading.trailing.equalToSuperview()
-        $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-22)
+        $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
         $0.height.equalTo(73)
       }
     }
@@ -512,6 +512,7 @@ extension CafeDetailViewController {
   @objc func clickedMenuButton() {
     let menuNavigationController = UINavigationController()
     let menuVC = CafeMenuViewController()
+    menuVC.cafeID = cafeModel!.id
     menuNavigationController.addChild(menuVC)
     menuNavigationController.view.backgroundColor = .clear
     menuNavigationController.modalPresentationStyle = .overFullScreen

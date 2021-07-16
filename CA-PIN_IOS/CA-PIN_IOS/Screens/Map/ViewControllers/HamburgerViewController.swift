@@ -94,8 +94,8 @@ extension HamburgerViewController {
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.closeButton.snp.bottom).offset(68)
-        $0.width.equalTo(self.view.frame.width * 160/375)
-        $0.height.equalTo(self.view.frame.width * 144/375)
+        $0.width.equalTo(self.view.frame.width * 120/375)
+        $0.height.equalTo(self.view.frame.width * 120/375)
       }
     }
   }
@@ -105,7 +105,7 @@ extension HamburgerViewController {
                     font: .notoSansKRRegularFont(fontSize: 20))
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
-        $0.top.equalTo(self.profileImageView.snp.bottom).offset(15)
+        $0.top.equalTo(self.profileImageView.snp.bottom).offset(10)
       }
     }
   }
@@ -297,7 +297,6 @@ extension HamburgerViewController {
             let decoder = JSONDecoder()
             let data = try decoder.decode(MyInfoResponseType<MyInfo>.self,
                                           from: response.data)
-            print(data)
             self.infoData = data.myInfo
             self.infoDataBind()
             self.reloadInputViews()

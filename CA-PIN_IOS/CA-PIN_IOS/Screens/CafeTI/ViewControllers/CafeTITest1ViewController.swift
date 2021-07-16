@@ -215,7 +215,6 @@ extension CafeTITest1ViewController {
       if self.pagingnum == 1 {
         if self.selectedIndex == 0 {
           // resultanswers 배열에 0 추가
-          print(selectedIndex)
           let CAFETITest21ViewController = CAFETITest21ViewController()
           self.resultAnswer.append(selectedIndex)
           CAFETITest21ViewController.resultAnswer = self.resultAnswer

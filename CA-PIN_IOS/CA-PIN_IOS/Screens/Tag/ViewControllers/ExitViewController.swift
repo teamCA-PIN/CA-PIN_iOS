@@ -57,7 +57,8 @@ extension ExitViewController {
     popupView.add(titleLabel) {
       $0.setupLabel(text: "페이지를 나가시겠습니까?",
                     color: .black,
-                    font: .notoSansKRMediumFont(fontSize: 20))
+                    font: .notoSansKRMediumFont(fontSize: 20),
+                    align: .center)
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.popupView.snp.top).offset(26)

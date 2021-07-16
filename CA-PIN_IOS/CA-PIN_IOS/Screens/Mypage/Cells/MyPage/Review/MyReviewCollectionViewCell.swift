@@ -54,13 +54,10 @@ extension MyReviewCollectionViewCell {
             self.reviewList = data.reviews!
             self.reviewNumber = data.reviews!.count
             self.headerLabel.text = "총 \(self.reviewList.count)개의 리뷰"
-            self.reviewList = data.reviews!
-            for i in 0...self.reviewList.count-1 {
+            for i in 0..<self.reviewList.count {
               self.cafeNameList.append(self.reviewList[i].cafeName)
               self.ratingList.append(self.reviewList[i].rating)
             }
-            print("별점 리스트")
-            print(self.ratingList)
             self.myReviewTableView.reloadData()
             let mypageVC = self.rootViewController as? MypageViewController
             mypageVC?.pageCollectionView.reloadData()
@@ -132,19 +129,15 @@ extension MyReviewCollectionViewCell: UITableViewDelegate {
     //    tableView.rowHeight = UITableView.automaticDimension
     //    return UITableView.automaticDimension
     if self.reviewList[indexPath.row].imgs == nil && self.reviewList[indexPath.row].recommend == nil{
-      print("이미지 없고 태그 없고")
       return 110
     }
     else if self.reviewList[indexPath.row].imgs == nil {
-      print("이미지 없고")
       return 140
     }
     else if self.reviewList[indexPath.row].recommend == nil {
-      print("태그 없고")
       return 198
     }
     else {
-      print("둘 다 있는")
       return 240
     }
   }
@@ -170,7 +163,9 @@ extension MyReviewCollectionViewCell: UITableViewDataSource {
       return emptycell
     }
     reviewCell.awakeFromNib()
-    
+    print("여기야여기")
+    print(indexPath.row)
+    print(reviewList[indexPath.row])
     reviewCell.reviewModel = reviewList[indexPath.row]
     reviewCell.nameLabel.text = reviewList[indexPath.row].cafeName
     reviewCell.scoreLabel.text = "\(reviewList[indexPath.row].rating)"

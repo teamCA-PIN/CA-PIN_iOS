@@ -27,7 +27,7 @@ class CafeMenuViewController: UIViewController {
   
   let disposeBag = DisposeBag()
   let CafeMenuProvider = MoyaProvider<CafeService>()
-  let cafeID = "60e96789868b7d75f394b00d"
+  var cafeID = "60e96789868b7d75f394b00d"
   
   var resultData: [Menu]?
   
@@ -174,7 +174,6 @@ extension CafeMenuViewController {
                                         price: data[i].price))
             }
             self.cafemenuTableView.reloadData()
-            print("성공")
           } catch {
             print(error)
           }
@@ -206,16 +205,11 @@ extension CafeMenuViewController: UITableViewDataSource {
     else {
       tableView.isScrollEnabled = false
     }
-    print("hihihihihihi")
     return cafemenuList.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cafemenuCell = tableView.dequeueReusableCell(withIdentifier: CafeMenuTableViewCell.reuseIdentifier, for: indexPath) as? CafeMenuTableViewCell else {return UITableViewCell() }
-    
-    print("hihi")
-    print(cafemenuList[indexPath.row].menuName)
-    print(cafemenuList[indexPath.row].price)
 //    showCafeMenuList()
     cafemenuCell.setData(menuName : cafemenuList[indexPath.row].menuName,
                          price : cafemenuList[indexPath.row].price)

@@ -272,7 +272,6 @@ extension EditCategoryViewController: UICollectionViewDataSource {
     categoryCell.colorView.image = UIImage(named: "colorchip\(indexPath.item+1)")
     if selectedNumber == indexPath.item {
       categoryCell.colorView.image = UIImage(named: "colorchipSelected\(indexPath.item+1)")
-      print(indexPath.item)
       self.colorIsSelected = true
       enableConfirmButton()
     }

@@ -89,9 +89,6 @@ extension PinPopupTableViewCell {
     guard let pinVC = self.rootViewController as? PinPopupViewController else { return }
     if self.selectbutton.isSelected == true {
       pinVC.selectedIndex = getTableCellIndexPath()
-      print(#function)
-      print(getTableCellIndexPath())
-      print(pinVC)
       pinVC.categoryTableView.reloadData()
     }
     else {
