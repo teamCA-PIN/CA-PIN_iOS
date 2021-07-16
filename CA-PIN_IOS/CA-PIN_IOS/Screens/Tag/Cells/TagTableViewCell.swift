@@ -68,7 +68,6 @@ extension TagTableViewCell {
     if self.tagButton.isSelected == true {
       let selectedNumber = getTableCellIndexPath()
       rootVC.selectedTag.append(selectedNumber)
-      print(rootVC.selectedTag)
     }
     else {
       let selectedNumber = getTableCellIndexPath()
@@ -78,7 +77,6 @@ extension TagTableViewCell {
           break
         }
       }
-      print(rootVC.selectedTag)
     }
     changeBackground()
     rootVC.setupCafeList()

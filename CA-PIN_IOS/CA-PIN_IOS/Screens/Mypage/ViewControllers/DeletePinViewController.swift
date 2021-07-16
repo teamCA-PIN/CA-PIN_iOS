@@ -29,9 +29,6 @@ class DeletePinViewController: UIViewController {
     super.viewDidLoad()
     self.view.backgroundColor = .white
     layout()
-    print("deleteVC")
-    print(self.categoryId)
-    print(self.cafeIdArrayToDelete)
     // Do any additional setup after loading the view.
   }
 }
@@ -114,17 +111,12 @@ extension DeletePinViewController {
   }
   
   func deleteService(categoryId: String, cafeList: [String]) {
-    print("삭제 함수")
-    print(categoryId)
-    print(cafeList)
     CategoryService.rx.request(.deleteCafeInCategory(categoryId: categoryId, cafeList: cafeList))
       .asObservable()
       .subscribe(onNext: { response in
         if response.statusCode == 200 { /// 삭제 성공
           do {
 //            self.dismiss(animated: false, completion: nil)
-            print("여기야여기")
-            print(self.navigationController?.children)
             let detailVC = self.navigationController?.children[1] as? CategoryDetailViewController
             self.navigationController?.popViewController(animated: false) {
               detailVC?.cafeListTableView.reloadData()
@@ -156,9 +148,6 @@ extension DeletePinViewController {
   @objc func clickedConfirmButton() {
 //    let categoryDetailVC = CategoryDetailViewController()
 //    categoryDetailVC.deleteService()
-    print("삭제 버튼 눌림")
-    print(self.categoryId)
-    print(self.cafeIdArrayToDelete)
     self.deleteService(categoryId: self.categoryId, cafeList: self.cafeIdArrayToDelete)
   }
 }

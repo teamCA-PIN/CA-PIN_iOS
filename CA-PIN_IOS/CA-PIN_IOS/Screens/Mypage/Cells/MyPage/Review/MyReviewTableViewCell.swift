@@ -85,9 +85,7 @@ extension MyReviewTableViewCell {
   func bindTagList(tag: [Int]) {
     if tag.count != 0 {
       for i in 0...tag.count-1 {
-        print(tag[i])
         tagArray.append(tag[i] == 0 ? "맛 추천" : "분위기 추천")
-        print(tagArray)
       }
     }
   }
