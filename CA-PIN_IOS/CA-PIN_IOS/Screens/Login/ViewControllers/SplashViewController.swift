@@ -34,23 +34,6 @@ class SplashViewController: UIViewController {
                     },completion: {finished in
                       
                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        
-                        //                        if (UserDefaults.standard.string(forKey: "isFirstlaunch") == nil) {
-                        //                          print("첫 로드 : 온보딩")
-                        //                          UserDefaults.standard.set(true,forKey: "isFirstlaunch")
-                        //
-                        //                          let storyBoard: UIStoryboard = UIStoryboard(name: "Onboarding", bundle: nil)
-                        //                          if let vc = storyBoard.instantiateViewController(identifier: "OnboardingVC") as? OnboardingVC {
-                        //                            self.navigationController?.pushViewController(vc, animated: true)
-                        //                          }
-                        //                        }
-                        //                        else {
-                        //
-                        //                          let vc = (self.storyboard?.instantiateViewController(identifier: "LoginVC"))! as LoginVC
-                        //
-                        //                          self.navigationController?.pushViewController(vc, animated: false)
-                        //
-                        //                        }
                         let loginVC = LoginViewController()
                         self.navigationController?.pushViewController(loginVC, animated: false)
                       }

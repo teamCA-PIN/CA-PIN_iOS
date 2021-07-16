@@ -163,9 +163,6 @@ extension MyReviewCollectionViewCell: UITableViewDataSource {
       return emptycell
     }
     reviewCell.awakeFromNib()
-    print("여기야여기")
-    print(indexPath.row)
-    print(reviewList[indexPath.row])
     reviewCell.reviewModel = reviewList[indexPath.row]
     reviewCell.nameLabel.text = reviewList[indexPath.row].cafeName
     reviewCell.scoreLabel.text = "\(reviewList[indexPath.row].rating)"
