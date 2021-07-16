@@ -35,6 +35,8 @@ class CategoryDetailViewController: UIViewController {
   var enableDelete: Bool = false ///삭제 팝업 띄울겨 말겨
   var categoryTitle: String = ""
   
+  var categoryData: MyCategoryList?
+  
   let disposeBag = DisposeBag()
   private let CategoryService = MoyaProvider<CategoryService>()
   
@@ -57,7 +59,6 @@ class CategoryDetailViewController: UIViewController {
   }
   override func viewWillAppear(_ animated: Bool) {
     cafeListTableView.reloadData()
-    
   }
   override func viewDidAppear(_ animated: Bool) {
   }
@@ -81,7 +82,6 @@ extension CategoryDetailViewController {
     self.cafeListTableView.delegate = self
     self.cafeListTableView.dataSource = self
   }
-  
   //MARK: - Layout Helpers
   func layout() {
     layoutNavigationContainerView()
@@ -191,7 +191,7 @@ extension CategoryDetailViewController {
       let dvc = DeletePinViewController()
       dvc.categoryId = self.categoryId
       dvc.cafeIdArrayToDelete = self.cafeIdArrayToDelete
-//      dvc.modalPresentationStyle = .overFullScreen
+      dvc.modalPresentationStyle = .overCurrentContext
 //      self.present(dvc, animated: false, completion: nil)
       self.navigationController?.pushViewController(dvc, animated: false)
     }
@@ -255,7 +255,7 @@ extension CategoryDetailViewController: UITableViewDataSource {
     guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: CategoryCafeListTableViewCell.reuseIdentifier, for: indexPath) as? CategoryCafeListTableViewCell else {return UITableViewCell() }
     categoryCell.awakeFromNib()
     /// categoryCell에 정보 뿌리는 함수 사용:
-    categoryCell.setCafeData(name: self.cafeDetailArray[indexPath.row].name, rating: 0.0, address: self.cafeDetailArray[indexPath.row].address, tagArray: self.cafeDetailArray[indexPath.row].tags)
+    categoryCell.setCafeData(name: self.cafeDetailArray[indexPath.row].name, rating: 2.5, address: self.cafeDetailArray[indexPath.row].address, tagArray: self.cafeDetailArray[indexPath.row].tags)
     categoryCell.selectionStyle = .none
     return categoryCell
   }

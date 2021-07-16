@@ -39,6 +39,8 @@ class CreateCategoryViewController: UIViewController {
   var nameCount = 0
   var selectedNumber: Int?
   
+  var colorIsSelected: Bool = false
+  
   let disposeBag = DisposeBag()
   let categoryProvider = MoyaProvider<CategoryService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   // MARK: - LifeCycles
@@ -154,7 +156,7 @@ extension CreateCategoryViewController {
                    for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
-        $0.bottom.equalTo(self.view.snp.bottom).offset(-260)
+        $0.bottom.equalTo(self.view.snp.bottom).offset(-40)
         $0.width.equalTo(154)
         $0.height.equalTo(49)
       }
@@ -176,6 +178,13 @@ extension CreateCategoryViewController {
     self.categoryCollectionView.register(
       CategoryCollectionViewCell.self,
       forCellWithReuseIdentifier: CategoryCollectionViewCell.reuseIdentifier)
+  }
+  func enableConfirmButton() {
+    let categoryText = self.categoryNameTextField.text
+    if (categoryText?.isEmpty == false) && (colorIsSelected == true) {
+      confirmButton.isEnabled = true
+      confirmButton.setupButton(title: "완료", color: .white, font: .notoSansKRMediumFont(fontSize: 16), backgroundColor: .pointcolor1, state: .normal, radius: 24.5)
+    }
   }
   @objc func clickedBackButton() {
     self.navigationController?.popViewController(animated: true)
@@ -220,8 +229,10 @@ extension CreateCategoryViewController {
             let decoder = JSONDecoder()
             let data = try decoder.decode(ResponseType<ServerReview>.self,
                                           from: response.data)
-            self.navigationController?.viewControllers[0].dismiss(animated: false, completion: nil)
-            self.navigationController?.popToRootViewController(animated: true)
+            let myPageVC = self.navigationController?.children[0] as? MypageViewController
+            print(self.navigationController?.children)
+            self.navigationController?.popToViewController(myPageVC!, animated: false)
+            myPageVC?.showGreenToast(message: "카테고리가 추가되었습니다.")
           } catch {
             print(error)
           }
@@ -250,6 +261,8 @@ extension CreateCategoryViewController: UICollectionViewDataSource {
     categoryCell.colorView.image = UIImage(named: "colorchip\(indexPath.item+1)")
     if selectedNumber == indexPath.item {
       categoryCell.colorView.image = UIImage(named: "colorchipSelected\(indexPath.item+1)")
+      self.colorIsSelected = true
+      enableConfirmButton()
     }
     return categoryCell
   }
@@ -294,5 +307,23 @@ extension CreateCategoryViewController: UITextFieldDelegate {
       return false
     }
     return true
+  }
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    self.confirmButton.snp.remakeConstraints {
+      $0.centerX.equalToSuperview()
+      $0.top.equalTo(self.categoryCollectionView.snp.bottom).offset(40)
+      $0.width.equalTo(154)
+      $0.height.equalTo(49)
+    }
+    enableConfirmButton()
+  }
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    self.confirmButton.snp.remakeConstraints {
+      $0.centerX.equalToSuperview()
+      $0.bottom.equalTo(self.view.snp.bottom).offset(-40)
+      $0.width.equalTo(154)
+      $0.height.equalTo(49)
+    }
+    enableConfirmButton()
   }
 }

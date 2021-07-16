@@ -51,6 +51,7 @@ extension LoginViewController {
   func setTextField() {
     self.emailTextField.clearButtonMode = .whileEditing
     self.passwordTextField.clearButtonMode = .whileEditing
+    self.emailTextField.keyboardType = .emailAddress
     self.passwordTextField.isSecureTextEntry = true
     self.emailTextField.delegate = self
     self.passwordTextField.delegate = self
@@ -94,19 +95,19 @@ extension LoginViewController {
             KeychainWrapper.standard.set(passwordText, forKey: "loginPassword")
             KeychainWrapper.standard.set(data.loginData!.token, forKey: "accessToken")
 
-            let cafeTI = UserDefaults.standard.string(forKey: "userCafeTI")
-            if (cafeTI != nil) == true {
-              let mapVC = MapViewController()
-              self.navigationController?.pushViewController(mapVC, animated: false)
-            }
-            else {
-              let myPageVC = CafeTIViewController()
-              self.navigationController?.pushViewController(myPageVC, animated: false)
-            }
+//            let cafeTI = UserDefaults.standard.string(forKey: "userCafeTI")
+//            if (cafeTI != nil) == true {
+//              let mapVC = MapViewController()
+//              self.navigationController?.pushViewController(mapVC, animated: false)
+//            }
+//            else {
+//              let myPageVC = CafeTIViewController()
+//              self.navigationController?.pushViewController(myPageVC, animated: false)
+//            }
 //
-            // 지수코드
-//            let myPageVC = CafeTIViewController()
-//            self.navigationController?.pushViewController(myPageVC, animated: false)
+//             지수코드
+            let myPageVC = CafeTIViewController()
+            self.navigationController?.pushViewController(myPageVC, animated: false)
             
           } catch {
             print(error)
