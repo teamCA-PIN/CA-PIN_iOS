@@ -5,11 +5,14 @@
 //  Created by 김지수 on 2021/07/09.
 //
 
-import Cosmos
 import Photos
 import PhotosUI
 import UIKit
 
+import Cosmos
+import Moya
+import RxMoya
+import RxSwift
 import SnapKit
 import SwiftyColor
 import Then
@@ -25,7 +28,7 @@ class WriteReviewViewController: UIViewController {
     var temp = YPImagePickerConfiguration()
     temp.usesFrontCamera = false
     temp.screens = [.library, .photo]
-    temp.library.maxNumberOfItems = 10
+    temp.library.maxNumberOfItems = 1
     temp.library.defaultMultipleSelection = false
     temp.showsPhotoFilters = false
     temp.onlySquareImagesFromCamera = false
@@ -77,9 +80,11 @@ class WriteReviewViewController: UIViewController {
   let ratingContentLabel = UILabel()
   let ratingMaxLabel = UILabel()
   
+  let disposeBag = DisposeBag()
+  let reviewProvider = MoyaProvider<ReviewService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+  
   final let maxLength = 150
   var nameCount = 0
-  
   var ratingValue = 2.5
   
   var fetchResult: PHFetchResult<PHAsset>?
@@ -87,6 +92,10 @@ class WriteReviewViewController: UIViewController {
   
   var changetiming = 0
   
+  var ratingtest = 0
+  
+  var cafeId = ""
+  var recommend: [Int] = []
   let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
   
   // MARK: - LifeCycle
@@ -452,7 +461,7 @@ extension WriteReviewViewController {
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.writeScrollContainerView.snp.leading).offset(20)
         $0.trailing.equalTo(self.writeScrollContainerView.snp.trailing).offset(-20)
-        $0.bottom.equalTo(self.writeScrollContainerView.snp.bottom).offset(-34)
+        $0.bottom.equalTo(self.writeScrollContainerView.snp.bottom)
         $0.height.equalTo(49)
       }
     }
@@ -471,16 +480,17 @@ extension WriteReviewViewController {
       tasteButton.setTitleColor(.gray4, for: .normal)
     }
   }
-  
   @objc func feelButtonClicked() {
     feelButton.isSelected.toggle()
     if feelButton.isSelected == true {
       feelButton.backgroundColor = .pointcolor1
       feelButton.setTitleColor(.white, for: .normal)
+      
     }
     else {
       feelButton.backgroundColor = .gray1
       feelButton.setTitleColor(.gray4, for: .normal)
+     
     }
   }
   @objc func handleTap() {
@@ -507,13 +517,30 @@ extension WriteReviewViewController {
       }
     }
   }
+  // 리뷰와 별점이 비어있으면 다음 화면을 넘어가지 못하게
   @objc func writereviewButtonClicked() {
     if reviewwordcountLabel.text == "0/150" {
       self.showGrayToast(message: "리뷰와 별점을 등록해주세요")
     } else {
-      /// 다음 화면으로 넘어가게
+      if ratingtest == 0 {
+        self.showGrayToast(message: "리뷰와 별점을 등록해주세요")
+      } else {
+        if self.tasteButton.isSelected == true && self.feelButton.isSelected == true {
+          self.recommend = [0,1]
+        }
+        else if self.tasteButton.isSelected == true && self.feelButton.isSelected == false {
+          self.recommend = [0]
+        }
+        else if self.tasteButton.isSelected == false && self.feelButton.isSelected == true {
+          self.recommend = [1]
+        }
+        else {
+          self.recommend = []
+        }
+        print(self.recommend)
+        writeReview()
+      }
     }
-    /// 별점 없을시 토스트 띄워주기
   }
   
   
@@ -565,7 +592,25 @@ extension WriteReviewViewController {
   }
   
   func didFinishTouchRatingView(_ rating: Double) {
+    self.ratingtest = 1
     self.ratingContentLabel.text = "\(rating)점"
+  }
+  
+  func writeReview() {
+    reviewProvider.rx.request(.writeReview(cafeId: self.cafeId, recommend: self.recommend, content: self.reviewTextView.text, rating: Float(self.ratingValue), images: self.canAccessImages))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 201 {
+          do {
+            self.navigationController?.popViewController(animated: false)
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
   }
 }
 

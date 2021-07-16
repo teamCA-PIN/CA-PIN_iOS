@@ -137,8 +137,8 @@ extension CAFETIResultViewController {
       $0.setRounded(radius: 24.5)
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
-        $0.height.equalTo(49)
-        $0.width.equalTo(335)
+        $0.height.equalTo(49*UIScreen.main.bounds.width/375)
+        $0.width.equalTo(UIScreen.main.bounds.width-40)
         $0.bottom.equalTo(self.view.snp.bottom).offset(-34)
       }
     }
@@ -149,7 +149,6 @@ extension CAFETIResultViewController {
           
       }
   func setResultData() {
-    print(self.resultData)
     self.resultImageView.imageFromUrl(self.resultData?.img, defaultImgPath: "https://capin.s3.ap-northeast-2.amazonaws.com/cafeti/Deer_coffee%402x.png")
     self.CAFETIresultLabel.setupLabel(text: self.resultData?.type ?? "", color: .white, font: UIFont.notoSansKRMediumFont(fontSize: 16))
     self.CAFETItitleLabel.setupLabel(text: self.resultData?.modifier ?? "", color: .subcolorBrown4, font: UIFont.notoSansKRMediumFont(fontSize: 26))

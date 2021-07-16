@@ -70,6 +70,7 @@
 		CC7BB2FB269C308E0079FC4F /* ReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FA269C308E0079FC4F /* ReviewService.swift */; };
 		CC7BB2FD269C57B90079FC4F /* CafeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FC269C57B90079FC4F /* CafeService.swift */; };
 		CC7BB2FF269C5D820079FC4F /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FE269C5D820079FC4F /* CategoryService.swift */; };
+		CC841FD526A09C1A00F7CE93 /* MapCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC841FD426A09C1A00F7CE93 /* MapCoordinates.swift */; };
 		CC9C854D269EBFA1002A3321 /* MyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */; };
 		CC9C8550269EF82E002A3321 /* ReviewDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */; };
 		CC9C855326A051B4002A3321 /* MyMapListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C855226A051B3002A3321 /* MyMapListModel.swift */; };
@@ -217,6 +218,7 @@
 		CC7BB2FA269C308E0079FC4F /* ReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewService.swift; sourceTree = "<group>"; };
 		CC7BB2FC269C57B90079FC4F /* CafeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeService.swift; sourceTree = "<group>"; };
 		CC7BB2FE269C5D820079FC4F /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
+		CC841FD426A09C1A00F7CE93 /* MapCoordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinates.swift; sourceTree = "<group>"; };
 		CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoModel.swift; sourceTree = "<group>"; };
 		CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailModel.swift; sourceTree = "<group>"; };
 		CC9C855226A051B3002A3321 /* MyMapListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMapListModel.swift; sourceTree = "<group>"; };
@@ -606,6 +608,7 @@
 			isa = PBXGroup;
 			children = (
 				CC9C855226A051B3002A3321 /* MyMapListModel.swift */,
+				CC841FD426A09C1A00F7CE93 /* MapCoordinates.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1199,6 +1202,7 @@
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				9241370F269457A80016D18F /* MyReviewTableViewCell.swift in Sources */,
+				CC841FD526A09C1A00F7CE93 /* MapCoordinates.swift in Sources */,
 				CC4D163426978C4800F3F9B4 /* RecommendTagCollectionViewCell.swift in Sources */,
 				9241370F269457A80016D18F /* MyReviewTableViewCell.swift in Sources */,
 				E82E5AA4269F32FE00DE5C23 /* CafeTIModel.swift in Sources */,
