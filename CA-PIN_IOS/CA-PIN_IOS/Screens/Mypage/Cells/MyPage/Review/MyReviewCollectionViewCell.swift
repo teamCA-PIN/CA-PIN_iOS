@@ -38,8 +38,6 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     associate()
     myReviewTableView.reloadData()
     layout()
-    print("~~~")
-    print(reviewList)
     self.myReviewTableView.separatorStyle = .none
   }
 }

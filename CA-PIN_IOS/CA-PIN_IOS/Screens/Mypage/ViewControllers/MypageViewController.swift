@@ -112,10 +112,11 @@ extension MypageViewController {
             let data = try decoder.decode(ReviewResponseArrayType<Review>.self,
                                           from: response.data)
             self.reviewList = data.reviews!
-            for i in 0..<self.reviewList.count {
-              self.cafeNameList.append(self.reviewList[i].cafeName)
-              self.ratingList.append(self.reviewList[i].rating)
-            }
+            print(self.reviewList)
+//            for i in 0..<self.reviewList.count {
+//              self.cafeNameList.append(self.reviewList[i].cafeName)
+//              self.ratingList.append(self.reviewList[i].rating)
+//            }
           } catch {
             print(error)
           }
@@ -367,7 +368,6 @@ extension MypageViewController: UICollectionViewDataSource {
           tabBarCell.tabImageView.image = UIImage(named: "iconReviewActive")
         }
       }
-      
       return tabBarCell
     /// 페이지 컬렉션뷰일 때
     case self.pageCollectionView:
