@@ -51,7 +51,7 @@ extension MyReviewCollectionViewCell {
   func associate() {
     self.myReviewTableView.delegate = self
     self.myReviewTableView.dataSource = self
-    if cafeNameList.count != 0 { /// 리뷰가 1개 이상일 때에만 헤더뷰 등록
+    if reviewList.count > 0 { /// 리뷰가 1개 이상일 때에만 헤더뷰 등록
       self.myReviewTableView.tableHeaderView = headerView
     }
   }
@@ -132,18 +132,14 @@ extension MyReviewCollectionViewCell: UITableViewDataSource {
     guard let reviewCell = tableView.dequeueReusableCell(withIdentifier: MyReviewTableViewCell.reuseIdentifier, for: indexPath) as? MyReviewTableViewCell else { return UITableViewCell() }
     
     if reviewList.count == 0 {
-      print("emptyCell?")
       emptycell.awakeFromNib()
       return emptycell
     }
-    
-    print("reviewCell?")
-    
-    print(reviewList)
     reviewCell.reviewModel = reviewList[indexPath.row]
     reviewCell.nameLabel.setupLabel(text: reviewList[indexPath.row].cafeName, color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 16))
-    reviewCell.scoreLabel.text = "\(reviewList[indexPath.row].rating)"
-    reviewCell.reviewText.text = reviewList[indexPath.row].content
+    reviewCell.nameLabel.letterSpacing = -0.8
+    reviewCell.scoreLabel.setupLabel(text: "\(reviewList[indexPath.row].rating)", color: .pointcolorYellow, font: .notoSansKRRegularFont(fontSize: 12))
+    reviewCell.reviewText.setupLabel(text: reviewList[indexPath.row].content, color: .black, font: .notoSansKRRegularFont(fontSize: 12))
     reviewCell.awakeFromNib()
     return reviewCell
   }

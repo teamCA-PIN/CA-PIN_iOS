@@ -64,6 +64,7 @@ extension CafeTIViewController {
   func layoutCafeTITitleLabel() {
     self.view.add(self.cafetititleLabel) {
       $0.setupLabel(text: "CAFETI 검사", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(6)
         $0.centerX.equalToSuperview()
@@ -93,6 +94,7 @@ extension CafeTIViewController {
   func layoutTitleLabel() {
     self.view.add(self.titleLabel) {
       $0.setupLabel(text: "당신의 카페 취향은?", color: .pointcolor1, font: UIFont.notoSansKRRegularFont(fontSize: 26))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalTo(self.questionImageView.snp.bottom)
         $0.centerX.equalToSuperview()
@@ -105,6 +107,7 @@ extension CafeTIViewController {
       $0.setupLabel(text: "캐릭터로 알아보는\nCAFETI 카페이용유형 검사", color: .gray3, font: UIFont.notoSansKRRegularFont(fontSize: 16))
       $0.numberOfLines = 2
       $0.textAlignment = .center
+      $0.letterSpacing = -0.48
       $0.snp.makeConstraints {
         $0.top.equalTo(self.titleLabel.snp.bottom).offset(28)
         $0.centerX.equalToSuperview()
@@ -117,6 +120,7 @@ extension CafeTIViewController {
       $0.setTitleColor(.white, for: .normal)
       $0.backgroundColor = .pointcolor1
       $0.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
+      $0.addTextSpacing(spacing: -0.8)
       $0.addTarget(self, action: #selector(self.startButtonClicked), for: .touchUpInside)
       $0.setRounded(radius: 24.5)
       $0.snp.makeConstraints {

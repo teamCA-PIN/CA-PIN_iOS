@@ -104,6 +104,7 @@ extension HamburgerViewController {
     view.add(profileNameLabel) {
       $0.setupLabel(text: "김카핀", color: .black,
                     font: .notoSansKRRegularFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.profileImageView.snp.bottom).offset(10)
@@ -157,6 +158,7 @@ extension HamburgerViewController {
     archiveContainerView.add(archiveTitleLabel) {
       $0.setupLabel(text: "아카이브", color: 0xA98E7A.color,
                     font: .notoSansKRMediumFont(fontSize: 16))
+      $0.letterSpacing = -0.8
       $0.snp.makeConstraints {
         $0.top.equalTo(self.archiveContainerView.snp.top).offset(20)
         $0.leading.equalTo(self.archiveContainerView.snp.leading).offset(23)
@@ -180,6 +182,7 @@ extension HamburgerViewController {
       $0.setupLabel(text: "핀",
                     color: .black,
                     font: .notoSansKRRegularFont(fontSize: 14))
+      $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.archiveTitleLabel.snp.leading)
         $0.top.equalTo(self.archiveTitleLabel.snp.bottom).offset(17)
@@ -202,6 +205,7 @@ extension HamburgerViewController {
       $0.setupLabel(text: "리뷰",
                     color: .black,
                     font: .notoSansKRRegularFont(fontSize: 14))
+      $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.archivePinTitleLabel.snp.leading)
         $0.top.equalTo(self.archivePinTitleLabel.snp.bottom).offset(3)

@@ -31,6 +31,7 @@ extension MyEmptyCategoryTableViewCell {
   func layoutEmptyLabel() {
     self.contentView.add(self.emptyLabel) {
       $0.setupLabel(text: "원하는 장소에 핀하면\n카테고리 별로 모아볼 수 있어요", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14), align: .center)
+      $0.letterSpacing = -0.7
       $0.numberOfLines = 2
       $0.snp.makeConstraints {
         $0.width.equalTo(200)

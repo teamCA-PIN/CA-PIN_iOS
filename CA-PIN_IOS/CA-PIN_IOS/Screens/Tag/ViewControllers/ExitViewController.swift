@@ -60,6 +60,7 @@ extension ExitViewController {
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20),
                     align: .center)
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.popupView.snp.top).offset(26)
@@ -71,6 +72,7 @@ extension ExitViewController {
       $0.setupLabel(text: "검색결과 보기를 눌러\n원하시는 검색 결과를 받아보세요.",
                     color: 0x6f6f6f.color,
                     font: .notoSansKRRegularFont(fontSize: 14))
+      $0.letterSpacing = -0.6
       $0.numberOfLines = 2
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()

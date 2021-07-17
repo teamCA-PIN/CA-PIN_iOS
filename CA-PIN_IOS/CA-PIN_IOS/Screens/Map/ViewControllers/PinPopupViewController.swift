@@ -96,6 +96,7 @@ extension PinPopupViewController {
       $0.setupLabel(text: "후엘고",
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.headerView.snp.leading).offset(16)
         $0.top.equalTo(self.headerView.snp.top).offset(44)

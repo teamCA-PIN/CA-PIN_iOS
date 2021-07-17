@@ -72,6 +72,7 @@ extension TermsViewController {
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20),
                     align: .center)
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.centerY.equalTo(self.backButton.snp.centerY)
         $0.centerX.equalToSuperview()

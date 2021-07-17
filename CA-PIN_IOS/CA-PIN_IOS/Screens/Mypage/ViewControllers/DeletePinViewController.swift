@@ -125,8 +125,8 @@ extension DeletePinViewController {
             
             self.dismiss(animated: false) {
               detailVC?.setupCategoryData()
+              detailVC?.showGreenToast(message: "핀 삭제가 완료되었습니다.")
             }
-            
           }
           catch {
             print(error)
