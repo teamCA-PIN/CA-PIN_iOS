@@ -38,7 +38,7 @@ class CategoryDetailViewController: UIViewController {
   var categoryData: MyCategoryList?
   
   let disposeBag = DisposeBag()
-  private let CategoryService = MoyaProvider<CategoryService>()
+  private let categoryProvider = MoyaProvider<CategoryService>()
   
   var cafeDetailArray: [CafeDetail] = [] /// 서버에서 받아온 카페 디테일 배열
   var cafeIdArray: [String] = [] /// 카페 id 값을 모두 저장할 배열 -> 삭제할 때 써야됨
@@ -188,12 +188,11 @@ extension CategoryDetailViewController {
       NotificationCenter.default.post(name: NSNotification.Name("DeleteButton"), object: nil)
     } else {
       /// 삭제 팝업 띄우기
-      let dvc = DeletePinViewController()
-      dvc.categoryId = self.categoryId
-      dvc.cafeIdArrayToDelete = self.cafeIdArrayToDelete
-      dvc.modalPresentationStyle = .overCurrentContext
-//      self.present(dvc, animated: false, completion: nil)
-      self.navigationController?.pushViewController(dvc, animated: false)
+      let deleteVC = DeletePinViewController()
+      deleteVC.modalPresentationStyle = .overCurrentContext
+      deleteVC.categoryId = self.categoryId
+      deleteVC.cafeIdArrayToDelete = self.cafeIdArrayToDelete
+      self.present(deleteVC, animated: false, completion: nil)
     }
   }
   /// 체크버튼 check, uncheck 상태에 따라서 네비게이션 타이틀 바꿈
@@ -220,6 +219,35 @@ extension CategoryDetailViewController {
         self.categoryNameLabel.text = "\(countedPinNumber)개 선택됨"
       }
     }
+  }
+  func setupCategoryData() {
+    categoryProvider.rx.request(.cafeListInCategory(categoryId: self.categoryId))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(CafeInCategoryResponseArrayType<CafeDetail>.self,
+                                          from: response.data)
+              
+//            cafeDetailArray = data
+            
+            if data.cafeDetail?.count == 0 {
+              
+            }
+           
+          } catch {
+            print(error)
+          }
+        }
+        else {
+
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+
+      }).disposed(by: disposeBag)
   }
 }
 

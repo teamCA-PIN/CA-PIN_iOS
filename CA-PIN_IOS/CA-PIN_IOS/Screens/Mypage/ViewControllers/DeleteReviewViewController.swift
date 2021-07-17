@@ -115,11 +115,10 @@ extension DeleteReviewViewController {
       .subscribe(onNext: { response in
         if response.statusCode == 200 { /// 삭제 성공
           do {
+            let mypageVC = self.presentingViewController?.children[0] as? MypageViewController
             self.dismiss(animated: false) {
-              let mypageVC = self.presentingViewController?.children[0] as? MypageViewController
-              mypageVC?.pageCollectionView.reloadData()
+              mypageVC?.getReviewListService()
             }
-//            self.navigationController?.popViewController(animated: false)
           }
           catch {
             print(error)

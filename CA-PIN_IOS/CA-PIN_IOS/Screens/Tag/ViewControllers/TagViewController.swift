@@ -34,7 +34,7 @@ class TagViewController: UIViewController {
                       "산미없는 커피",
                       "산미있는 커피"]
   var selectedTag: [Int] = []
-  
+  var mapViewController = UIViewController()
   let disposeBag = DisposeBag()
   let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   // MARK: - LifeCycles
@@ -155,15 +155,14 @@ extension TagViewController {
     self.tagTableView.register(TagTableViewCell.self, forCellReuseIdentifier: TagTableViewCell.reuseIdentifier)
   }
   @objc func pop() {
-    let mapVC = self.navigationController?.children[2] as? MapViewController
-    print("여기야여기")
-    print(mapVC)
+    let mapVC = self.mapViewController as? MapViewController
     mapVC?.tags = self.selectedTag
     self.navigationController?.popViewController(animated: false)
   }
   @objc func clickedCloseButton() {
     let exitVC = ExitViewController()
     exitVC.modalPresentationStyle = .overFullScreen
+    exitVC.tagVC = self
     self.present(exitVC, animated: false, completion: nil)
   }
 

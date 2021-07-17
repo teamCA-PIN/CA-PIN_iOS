@@ -22,6 +22,7 @@ class ExitViewController: UIViewController {
   let cancelButton = UIButton()
   let confirmButton = UIButton()
   
+  var tagVC = UIViewController()
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -123,6 +124,8 @@ extension ExitViewController {
   }
   @objc func clickedConfirmButton() {
     self.dismiss(animated: false) {
+      let tagVC = self.tagVC as? TagViewController
+      tagVC?.selectedTag = []
       NotificationCenter.default.post(name: NSNotification.Name("pop"), object: nil)
     }
   }

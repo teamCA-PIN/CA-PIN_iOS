@@ -33,52 +33,14 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
   // MARK: - LifeCycles
   override func awakeFromNib() {
     super.awakeFromNib()
-    getReviewListService()
     register()
     associate()
     myReviewTableView.reloadData()
     layout()
-    print("~~~")
-    print(reviewList)
     self.myReviewTableView.separatorStyle = .none
   }
 }
 extension MyReviewCollectionViewCell {
-  func getReviewListService() {
-    UserServiceProvider.rx.request(.reviews)
-      .asObservable()
-      .subscribe(onNext: { response in
-        if response.statusCode == 200 {
-          do {
-            let decoder = JSONDecoder()
-            let data = try decoder.decode(ReviewResponseArrayType<Review>.self,
-                                          from: response.data)
-            self.reviewList = data.reviews!
-            self.reviewNumber = data.reviews!.count
-            self.headerLabel.text = "총 \(self.reviewList.count)개의 리뷰"
-            for i in 0..<self.reviewList.count {
-              self.cafeNameList.append(self.reviewList[i].cafeName)
-              self.ratingList.append(self.reviewList[i].rating)
-            }
-            print("hihihihhi")
-            print(self.cafeNameList)
-            print(self.cafeNameList.count)
-            self.myReviewTableView.reloadData()
-            let mypageVC = self.rootViewController as? MypageViewController
-            mypageVC?.pageCollectionView.reloadData()
-          } catch {
-            print(error)
-          }
-        }
-        else {
-          
-        }
-      }, onError: { error in
-        print(error)
-      }, onCompleted: {
-        
-      }).disposed(by: disposeBag)
-  }
   func register() {
     /// 분기처리
     /// 리뷰가 0개일 때: EmptyReviewTableViewCell
@@ -127,8 +89,6 @@ extension MyReviewCollectionViewCell {
 }
 extension MyReviewCollectionViewCell: UITableViewDelegate {
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    print("우웩")
-    print(cafeNameList.count)
     if cafeNameList.count == 0 {
       return 257
     }
@@ -180,12 +140,11 @@ extension MyReviewCollectionViewCell: UITableViewDataSource {
     print("reviewCell?")
     
     print(reviewList)
-    reviewCell.awakeFromNib()
     reviewCell.reviewModel = reviewList[indexPath.row]
-    reviewCell.nameLabel.text = reviewList[indexPath.row].cafeName
+    reviewCell.nameLabel.setupLabel(text: reviewList[indexPath.row].cafeName, color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 16))
     reviewCell.scoreLabel.text = "\(reviewList[indexPath.row].rating)"
     reviewCell.reviewText.text = reviewList[indexPath.row].content
-    
+    reviewCell.awakeFromNib()
     return reviewCell
   }
 }

@@ -22,8 +22,9 @@ class DeletePinViewController: UIViewController {
   var categoryId: String = "" /// 선택된 카테고리 아이디 -> 삭제할 때 쓸거임
   var cafeIdArrayToDelete: [String] = [] /// 삭제할 카페 id값만 넣어놓은 배열
   
+  var mypageVC = UIViewController()
   let disposeBag = DisposeBag()
-  private let CategoryService = MoyaProvider<CategoryService>()
+  private let CategoryService = MoyaProvider<CategoryService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -113,24 +114,16 @@ extension DeletePinViewController {
   
   
   func deleteService(categoryId: String, cafeList: [String]) {
+    
     CategoryService.rx.request(.deleteCafeInCategory(categoryId: categoryId, cafeList: cafeList))
       .asObservable()
       .subscribe(onNext: { response in
         if response.statusCode == 200 { /// 삭제 성공
           do {
-//            let mapVC = self.navigationController?.presentingViewController?.children[2] as? MapViewController
-//            self.dismiss(animated: false) {
-//              mapVC?.showGreenToast(message: "카테고리에 저장되었습니다.")
-//            }            print(self.navigationController?.presentingViewController?.children)
-
-//            self.dismiss(animated: false, completion: nil)
-//            print(self.presentedViewController)
-//            print(self.presentingViewController)
-            print("삭제")
-            let detailVC = self.navigationController?.children[2] as? CategoryDetailViewController
-            print(detailVC)
-            print(self.navigationController?.children)
-            self.navigationController?.popViewController(animated: false) {
+            
+            let detailVC = self.presentingViewController?.children.last as? CategoryDetailViewController
+            
+            self.dismiss(animated: false) {
               detailVC?.cafeListTableView.reloadData()
             }
             

@@ -391,6 +391,7 @@ extension MapViewController {
     let tagVC = TagViewController()
     tagVC.selectedTag = self.tags
     tagVC.capinOrMyMap = self.capinOrMyMap
+    tagVC.mapViewController = self
     self.navigationController?.pushViewController(tagVC, animated: false)
   }
   @objc func clickedAddCategoryButton() {

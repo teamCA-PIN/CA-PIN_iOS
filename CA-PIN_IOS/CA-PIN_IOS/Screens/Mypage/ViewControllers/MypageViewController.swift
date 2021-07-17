@@ -50,7 +50,7 @@ class MypageViewController: UIViewController {
   let indicatorView = UIView()
   
   let disposeBag = DisposeBag()
-  private let UserServiceProvider = MoyaProvider<UserService>()
+  private let UserServiceProvider = MoyaProvider<UserService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   
   // MARK: - Variables
   
@@ -70,6 +70,7 @@ class MypageViewController: UIViewController {
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    getReviewListService()
     self.view.backgroundColor = .white
     register()
     layout()
@@ -81,7 +82,6 @@ class MypageViewController: UIViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
-//    self.pageCollectionView.reloadData()
   }
   
   override func viewDidLayoutSubviews() {
@@ -116,6 +116,7 @@ extension MypageViewController {
               self.cafeNameList.append(self.reviewList[i].cafeName)
               self.ratingList.append(self.reviewList[i].rating)
             }
+            self.pageCollectionView.reloadData()
           } catch {
             print(error)
           }
@@ -375,15 +376,14 @@ extension MypageViewController: UICollectionViewDataSource {
         guard let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCategoryCollectionViewCell.reuseIdentifier, for: indexPath) as? MyCategoryCollectionViewCell else { return UICollectionViewCell() }
         categoryCell.rootViewController = self
         categoryCell.awakeFromNib()
-//        categoryCell.myCategoryTableView.reloadData()
         categoryCell.backgroundColor = .white
         return categoryCell
       } else {
         guard let reviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.reuseIdentifier, for: indexPath) as? MyReviewCollectionViewCell else { return UICollectionViewCell() }
         reviewCell.rootViewController = self
         reviewCell.awakeFromNib()
+        print(self.reviewList)
         reviewCell.reviewList = self.reviewList
-//        reviewCell.myReviewTableView.reloadData()
         reviewCell.backgroundColor = .white
         return reviewCell
       }
@@ -391,6 +391,8 @@ extension MypageViewController: UICollectionViewDataSource {
     }
   }
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    print("트리거")
+    print(#function)
     guard let tabBarCell = collectionView.dequeueReusableCell(withReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier, for: indexPath) as? TabbarCollectionViewCell else { return }
     tabBarCell.awakeFromNib()
     if collectionView == tabbarCollectionView {
