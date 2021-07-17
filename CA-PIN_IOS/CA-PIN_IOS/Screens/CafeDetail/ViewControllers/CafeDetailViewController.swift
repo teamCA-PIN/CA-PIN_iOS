@@ -454,14 +454,16 @@ extension CafeDetailViewController {
   func layoutReviewTableView() {
     cafeScrollContainerView.add(reviewTableView) {
       $0.backgroundColor = .clear
+      $0.estimatedRowHeight = 300
       $0.isScrollEnabled = false
+      $0.rowHeight = UITableView.automaticDimension
       $0.separatorStyle = .singleLine
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.cafeScrollContainerView.snp.leading).offset(15)
         $0.trailing.equalTo(self .cafeScrollContainerView.snp.trailing).offset(-15)
         $0.top.equalTo(self.reviewHeaderView.snp.bottom)
         $0.bottom.equalTo(self.cafeScrollContainerView.snp.bottom).offset(-50)
-        $0.height.equalTo((self.reviewModel?.count ?? 0) * 270)
+        $0.height.equalTo((self.reviewModel?.count ?? 0) * 240)
       }
     }
   }
@@ -627,6 +629,20 @@ extension CafeDetailViewController: UICollectionViewDataSource {
 
 // MARK: - ReviewTableView Delegate
 extension CafeDetailViewController: UITableViewDelegate {
+//  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//      if self.reviewModel?[indexPath.row].imgs == nil && self.reviewModel?[indexPath.row].recommend == nil{
+//        return 110
+//      }
+//      else if self.reviewModel?[indexPath.row].imgs == nil {
+//        return 140
+//      }
+//      else if self.reviewModel?[indexPath.row].recommend == nil {
+//        return 198
+//      }
+//      else {
+//        return 240
+//      }
+//    }
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
     tableView.estimatedRowHeight = 500
     tableView.rowHeight = UITableView.automaticDimension
@@ -651,14 +667,11 @@ extension CafeDetailViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let detailCell = tableView.dequeueReusableCell(withIdentifier: DetailReviewTableViewCell.reuseIdentifier, for: indexPath) as? DetailReviewTableViewCell else {
-      return UITableViewCell()
-    }
-    guard let emptyCell = tableView.dequeueReusableCell(withIdentifier: DetailEmptyTableViewCell.reuseIdentifier, for: indexPath) as? DetailEmptyTableViewCell else {
-      return UITableViewCell()
-    }
     
     if reviewModel != nil {
+      guard let detailCell = tableView.dequeueReusableCell(withIdentifier: DetailReviewTableViewCell.reuseIdentifier, for: indexPath) as? DetailReviewTableViewCell else {
+        return UITableViewCell()
+      }
       detailCell.reviewModel = reviewModel?[indexPath.row]
       detailCell.reviewDataBind(nickName: reviewModel![indexPath.row].writer.nickname,
                                 date: (reviewModel?[indexPath.row].createdAt)!,
@@ -670,10 +683,12 @@ extension CafeDetailViewController: UITableViewDataSource {
       return detailCell
     }
     else {
+      guard let emptyCell = tableView.dequeueReusableCell(withIdentifier: DetailEmptyTableViewCell.reuseIdentifier, for: indexPath) as? DetailEmptyTableViewCell else {
+        return UITableViewCell()
+      }
       emptyCell.awakeFromNib()
       return emptyCell
     }
-    return detailCell
   }
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     self.viewWillLayoutSubviews()

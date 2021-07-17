@@ -41,10 +41,10 @@ class EntireReviewViewController: UIViewController {
     self.reviewTableView.delegate = self
   }
   
-//  override func viewWillLayoutSubviews() {
-//    super.updateViewConstraints()
-//    self.reviewTableView.heightConstraint?.constant = self.reviewTableView.contentSize.height
-//  }
+  override func viewWillLayoutSubviews() {
+    super.updateViewConstraints()
+    self.reviewTableView.heightConstraint?.constant = self.reviewTableView.contentSize.height
+  }
 }
 
 // MARK: - Extensions
@@ -70,7 +70,7 @@ extension EntireReviewViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.snp.top).offset(44)
         $0.leading.trailing.equalToSuperview()
-        $0.height.equalTo(44)
+        $0.height.equalTo(48)
       }
     }
   }
@@ -172,6 +172,7 @@ extension EntireReviewViewController {
         $0.leading.equalTo(self.view.snp.leading).offset(16)
         $0.centerX.equalToSuperview()
         $0.bottom.equalTo(self.view.snp.bottom).offset(-55)
+        $0.height.equalTo((self.reviewModel.count)*240)
       }
     }
   }
@@ -218,5 +219,8 @@ extension EntireReviewViewController: UITableViewDataSource {
     detailCell.rootViewController = self
     detailCell.awakeFromNib()
     return detailCell
+  }
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    self.viewWillLayoutSubviews()
   }
 }

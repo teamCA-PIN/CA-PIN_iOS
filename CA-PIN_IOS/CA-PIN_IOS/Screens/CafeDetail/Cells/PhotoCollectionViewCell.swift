@@ -28,6 +28,12 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     self.backgroundColor = .clear
     layout()
   }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    self.photoImageView.image = nil
+    updateLayout()
+  }
 }
 
 // MARK: - Extensions
@@ -82,5 +88,9 @@ extension PhotoCollectionViewCell {
     moreLabel.setupLabel(text: "+\(moreNumber)",
                          color: .gray3,
                          font: .notoSansKRRegularFont(fontSize: 14))
+  }
+  func updateLayout() {
+    self.setNeedsLayout()
+    self.layoutIfNeeded()
   }
 }

@@ -52,6 +52,18 @@ class DetailReviewTableViewCell: UITableViewCell {
     photoCollectionView.delegate = self
     photoCollectionView.dataSource = self
   }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    self.reviewModel = nil
+    self.tagCollectionView.snp.updateConstraints {
+      $0.height.equalTo(22)
+    }
+    self.photoCollectionView.snp.updateConstraints {
+      $0.height.equalTo(375/3)
+    }
+    updateLayout()
+  }
 }
 
 // MARK: - Extensions
@@ -138,36 +150,68 @@ extension DetailReviewTableViewCell {
   func layoutTagCollectionView() {
     containerView.add(tagCollectionView) {
       $0.backgroundColor = .clear
+      
+//      if self.reviewModel?.recommend == nil {
+//        $0.snp.makeConstraints {
+//          $0.top.equalTo(self.titleLabel.snp.bottom)
+//          $0.leading.equalTo(self.titleLabel.snp.leading)
+//          $0.height.equalTo(0)
+//          $0.trailing.equalTo(self.containerView.snp.trailing)
+//        }
+//      }
+//      else {
+//        $0.snp.makeConstraints {
+//          $0.top.equalTo(self.titleLabel.snp.bottom).offset(11)
+//          $0.leading.equalTo(self.titleLabel.snp.leading)
+//          $0.height.equalTo(22)
+//          $0.trailing.equalTo(self.containerView.snp.trailing)
+//        }
+//      }
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.titleLabel.snp.bottom)
+        $0.top.equalTo(self.titleLabel.snp.bottom).offset(11)
         $0.leading.equalTo(self.titleLabel.snp.leading)
-        $0.height.equalTo(0)
+        $0.height.equalTo(22)
         $0.trailing.equalTo(self.containerView.snp.trailing)
-        
       }
     }
   }
   func layoutReviewContentLabel() {
     containerView.add(reviewContentLabel) {
       $0.numberOfLines = 3
-      $0.lineBreakMode = .byCharWrapping
-      $0.sizeToFit()
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.tagCollectionView.snp.leading)
-        $0.top.equalTo(self.tagCollectionView.snp.bottom).offset(10)
-        $0.trailing.equalTo(self.containerView.snp.trailing).offset(-46)
+        $0.top.greaterThanOrEqualTo(self.tagCollectionView.snp.bottom).offset(8)
+        $0.trailing.equalTo(self.containerView.snp.trailing).offset(-27)
       }
     }
   }
   func layoutPhotoCollectionView() {
     containerView.add(photoCollectionView) {
       $0.backgroundColor = .clear
+//      if self.reviewModel?.imgs == nil {
+//        $0.snp.makeConstraints {
+//          $0.top.greaterThanOrEqualTo(self.reviewContentLabel.snp.bottom)
+//          $0.leading.equalTo(self.reviewContentLabel.snp.leading)
+//          $0.trailing.equalTo(self.containerView.snp.trailing)
+//          $0.height.equalTo(0)
+//          $0.bottom.equalTo(self.containerView.snp.bottom)
+//        }
+//      }
+//      else {
+//        $0.snp.makeConstraints {
+//          $0.top.greaterThanOrEqualTo(self.reviewContentLabel.snp.bottom).offset(21)
+//          $0.leading.equalTo(self.reviewContentLabel.snp.leading)
+//          $0.trailing.equalTo(self.containerView.snp.trailing)
+//          $0.bottom.equalTo(self.containerView.snp.bottom)
+//          $0.height.equalTo((375)/3)
+//        }
+//      }
       $0.snp.makeConstraints {
-        $0.top.greaterThanOrEqualTo(self.reviewContentLabel.snp.bottom)
+        $0.top.greaterThanOrEqualTo(self.reviewContentLabel.snp.bottom).offset(21)
         $0.leading.equalTo(self.reviewContentLabel.snp.leading)
         $0.trailing.equalTo(self.containerView.snp.trailing)
-        $0.height.greaterThanOrEqualTo((self.contentView.frame.width)/3)
-        $0.bottom.equalTo(self.containerView.snp.bottom).offset(-10)
+        $0.bottom.equalTo(self.containerView.snp.bottom)
+        $0.height.equalTo((375)/3)
       }
     }
   }
@@ -193,7 +237,10 @@ extension DetailReviewTableViewCell {
                                   font: .notoSansKRRegularFont(fontSize: 12))
     profileImageView.imageFromUrl(profileImg, defaultImgPath: "")
   }
-  
+  func updateLayout() {
+    self.setNeedsLayout()
+    self.layoutIfNeeded()
+  }
 }
 
 // MARK: - UICollectionView DelegateFlowLayout
@@ -225,11 +272,11 @@ extension DetailReviewTableViewCell: UICollectionViewDelegateFlowLayout {
       }
     }
     if collectionView == photoCollectionView && self.reviewModel?.imgs?.isEmpty == false {
-      width = (self.contentView.frame.width-115)/3
-      height = (self.contentView.frame.width-115)/3
+      width = (self.contentView.frame.width-105)/3
+      height = (self.contentView.frame.width-105)/3
     }
     if collectionView == photoCollectionView && self.reviewModel?.imgs?.isEmpty == true {
-      width = (self.contentView.frame.width-22)/4
+      width = (self.contentView.frame.width-105)/3
       height = 0
       self.photoCollectionView.snp.updateConstraints {
         $0.height.equalTo(0)
@@ -270,23 +317,23 @@ extension DetailReviewTableViewCell: UICollectionViewDataSource {
       guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendTagCollectionViewCell.reuseIdentifier, for: indexPath) as? RecommendTagCollectionViewCell else {
         return UICollectionViewCell()
       }
-      tagCell.awakeFromNib()
       tagCell.dataBind(tagNumber: reviewModel?.recommend?[indexPath.item])
+      tagCell.awakeFromNib()
       return tagCell
     }
     else {
       guard let photoCell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.reuseIdentifier, for: indexPath) as? PhotoCollectionViewCell else {
         return UICollectionViewCell()
       }
-      var moreNumber = (reviewModel?.imgs?.count ?? 3) - 3
+      var moreNumber = (reviewModel?.imgs?.count ?? 2) - 2
       if moreNumber < 0 {
         moreNumber = 0
       }
-      photoCell.awakeFromNib()
       photoCell.dataBind(imageName: reviewModel?.imgs?[indexPath.item], moreNumber: moreNumber)
+      photoCell.awakeFromNib()
       if indexPath.item == 2 && moreNumber > 0 {
+        photoCell.photoImageView.isHidden = true
         photoCell.moreLabel.isHidden = false
-        photoCell.alphaView.isHidden = false
       }
       return photoCell
     }
@@ -299,4 +346,3 @@ extension DetailReviewTableViewCell: UICollectionViewDataSource {
     }
   }
 }
-

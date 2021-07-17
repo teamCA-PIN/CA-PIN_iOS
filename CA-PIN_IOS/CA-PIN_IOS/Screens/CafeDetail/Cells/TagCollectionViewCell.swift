@@ -22,6 +22,12 @@ class TagCollectionViewCell: UICollectionViewCell {
     super.awakeFromNib()
     layout()
   }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    self.tagLabel.text = nil
+    updateLayout()
+  }
 }
 
 // MARK: - Extensions
@@ -50,5 +56,10 @@ extension TagCollectionViewCell {
   // MARK: - General Helpers
   func dataBind(tagName: String) {
     tagLabel.setupLabel(text: tagName, color: .white, font: .notoSansKRRegularFont(fontSize: 12))
+  }
+  
+  func updateLayout() {
+    self.setNeedsLayout()
+    self.layoutIfNeeded()
   }
 }
