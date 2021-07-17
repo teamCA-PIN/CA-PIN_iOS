@@ -124,7 +124,7 @@ extension DeletePinViewController {
             let detailVC = self.presentingViewController?.children.last as? CategoryDetailViewController
             
             self.dismiss(animated: false) {
-              detailVC?.cafeListTableView.reloadData()
+              detailVC?.setupCategoryData()
             }
             
           }

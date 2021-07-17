@@ -468,11 +468,11 @@ extension CafeDetailViewController {
   
   // MARK: - General Helpers
   func dataBind() {
-    if self.cafeModel?.cafeImg == nil {
+    if self.cafeModel?.img == nil {
       self.bannerImageView.image = UIImage(named: "bigDetailEmptyImage")
     }
     else {
-      self.bannerImageView.imageFromUrl(self.cafeModel?.cafeImg, defaultImgPath: "")
+      self.bannerImageView.imageFromUrl(self.cafeModel?.img, defaultImgPath: "")
     }
     self.titleLabel.setupLabel(text: self.cafeModel?.name ?? "", color: .black, font: .notoSansKRMediumFont(fontSize: 20))
     self.cafeTitleLabel.setupLabel(text: self.cafeModel?.name ?? "", color: .black, font: .notoSansKRMediumFont(fontSize: 26))

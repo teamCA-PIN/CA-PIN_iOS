@@ -229,13 +229,12 @@ extension CategoryDetailViewController {
             let decoder = JSONDecoder()
             let data = try decoder.decode(CafeInCategoryResponseArrayType<CafeDetail>.self,
                                           from: response.data)
-              
-//            cafeDetailArray = data
-            
-            if data.cafeDetail?.count == 0 {
-              
-            }
-           
+            self.pinNumber = data.cafeDetail!.count
+            self.pinNumberLabel.text = "총 \(self.pinNumber)개의 핀"
+            self.cafeDetailArray = data.cafeDetail!
+            self.countedPinNumber = 1
+            self.changeNavigationTitle(check: false)
+            self.cafeListTableView.reloadData()
           } catch {
             print(error)
           }

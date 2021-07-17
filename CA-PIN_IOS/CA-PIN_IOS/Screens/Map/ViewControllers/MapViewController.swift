@@ -569,11 +569,14 @@ extension MapViewController {
   func informationViewDataBind() {
     informationTitleLabel.text = self.cafeDetailModel?.name
     informationStarLabel.text = "\(self.rating)"
-    if self.cafeDetailModel?.cafeImg == nil {
+    if self.cafeDetailModel?.img == nil {
+      print("여기야여기")
+      print(self.cafeDetailModel?.img)
       informationImageView.image = UIImage(named: "smallDetailEmptyImage")
     }
     else {
-      informationImageView.imageFromUrl(self.cafeDetailModel?.cafeImg, defaultImgPath: "")
+      
+      informationImageView.setImage(from: self.cafeDetailModel?.img ?? "", UIImage(named: "smallDetailEmptyImage")!)
     }
     informationContextLabel.text = self.cafeDetailModel?.address
     informationTagLabel.text = self.cafeDetailModel?.tags[0].name
@@ -745,7 +748,7 @@ struct CafeServerDetail: Codable {
   let tags: [ServerTag]
   let id, name, address: String
   let opentime, opentimeHoliday, closetime, closetimeHoliday: String?
-  let cafeImg, instagram: String?
+  let img, instagram: String?
   let offday: [String]?
   let latitude, longitude: Double
   let rating: Float?
@@ -753,7 +756,7 @@ struct CafeServerDetail: Codable {
   enum CodingKeys: String, CodingKey {
     case tags
     case id = "_id"
-    case name, address, instagram, opentime, opentimeHoliday, closetime, closetimeHoliday, offday, latitude, longitude, cafeImg
+    case name, address, instagram, opentime, opentimeHoliday, closetime, closetimeHoliday, offday, latitude, longitude, img
     case rating
   }
 }
