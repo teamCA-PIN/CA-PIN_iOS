@@ -95,6 +95,7 @@ extension CreateCategoryViewController {
       $0.setupLabel(text: "새 카테고리",
                     color: .black,
                     font: .notoSansKRRegularFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.centerY.equalTo(self.backButton.snp.centerY)
@@ -106,6 +107,7 @@ extension CreateCategoryViewController {
       $0.setupLabel(text: "이름",
                     color: .black,
                     font: .notoSansKRBoldFont(fontSize: 15))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.backButton.snp.leading)
         $0.top.equalTo(self.backButton.snp.bottom).offset(62)
@@ -229,8 +231,15 @@ extension CreateCategoryViewController {
             let decoder = JSONDecoder()
             let data = try decoder.decode(ResponseType<ServerReview>.self,
                                           from: response.data)
+
+//            print("~~~")
+//            self.navigationController?.popToRootViewController(animated: false)
+//            print(self.navigationController?.children)
+//            print(self.navigationController?.presentingViewController)
+//            print(self.navigationController?.presentedViewController)
+//            print(self.presentingViewController)
+//            print(self.presentedViewController)
             let myPageVC = self.navigationController?.children[0] as? MypageViewController
-            print(self.navigationController?.children)
             self.navigationController?.popToViewController(myPageVC!, animated: false)
             myPageVC?.showGreenToast(message: "카테고리가 추가되었습니다.")
           } catch {

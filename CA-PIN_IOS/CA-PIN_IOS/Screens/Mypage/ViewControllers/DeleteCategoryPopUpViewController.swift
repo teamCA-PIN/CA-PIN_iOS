@@ -129,11 +129,10 @@ extension DeleteCategoryPopUpViewController {
       .subscribe(onNext: { response in
         if response.statusCode == 200 { /// 삭제 성공
           do {
-            self.dismiss(animated: false, completion: {
-              print("삭제삭제삭제")
-              self.presentedViewController?.navigationController?.popViewController(animated: false)
-            })
-//            self.navigationController?.popViewController(animated: false)
+            let myPageVC = self.presentingViewController?.children[0] as? MypageViewController
+            self.dismiss(animated: false) {
+              myPageVC?.showGreenToast(message: "카테고리 삭제가 완료되었습니다.")
+            }
           }
           catch {
             print(error)

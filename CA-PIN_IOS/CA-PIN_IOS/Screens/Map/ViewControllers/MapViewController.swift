@@ -276,6 +276,7 @@ extension MapViewController {
       $0.setupLabel(text: "후엘고",
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.informationView.snp.leading).offset(16)
         $0.top.equalTo(self.informationView.snp.top).offset(17)
@@ -391,6 +392,7 @@ extension MapViewController {
     let tagVC = TagViewController()
     tagVC.selectedTag = self.tags
     tagVC.capinOrMyMap = self.capinOrMyMap
+    tagVC.mapViewController = self
     self.navigationController?.pushViewController(tagVC, animated: false)
   }
   @objc func clickedAddCategoryButton() {
@@ -568,11 +570,14 @@ extension MapViewController {
   func informationViewDataBind() {
     informationTitleLabel.text = self.cafeDetailModel?.name
     informationStarLabel.text = "\(self.rating)"
-    if self.cafeDetailModel?.cafeImg == nil {
+    if self.cafeDetailModel?.img == nil {
+      print("여기야여기")
+      print(self.cafeDetailModel?.img)
       informationImageView.image = UIImage(named: "smallDetailEmptyImage")
     }
     else {
-      informationImageView.imageFromUrl(self.cafeDetailModel?.cafeImg, defaultImgPath: "")
+      
+      informationImageView.setImage(from: self.cafeDetailModel?.img ?? "", UIImage(named: "smallDetailEmptyImage")!)
     }
     informationContextLabel.text = self.cafeDetailModel?.address
     informationTagLabel.text = self.cafeDetailModel?.tags[0].name
@@ -744,7 +749,7 @@ struct CafeServerDetail: Codable {
   let tags: [ServerTag]
   let id, name, address: String
   let opentime, opentimeHoliday, closetime, closetimeHoliday: String?
-  let cafeImg, instagram: String?
+  let img, instagram: String?
   let offday: [String]?
   let latitude, longitude: Double
   let rating: Float?
@@ -752,7 +757,7 @@ struct CafeServerDetail: Codable {
   enum CodingKeys: String, CodingKey {
     case tags
     case id = "_id"
-    case name, address, instagram, opentime, opentimeHoliday, closetime, closetimeHoliday, offday, latitude, longitude, cafeImg
+    case name, address, instagram, opentime, opentimeHoliday, closetime, closetimeHoliday, offday, latitude, longitude, img
     case rating
   }
 }

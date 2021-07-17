@@ -34,7 +34,7 @@ class TagViewController: UIViewController {
                       "산미없는 커피",
                       "산미있는 커피"]
   var selectedTag: [Int] = []
-  
+  var mapViewController = UIViewController()
   let disposeBag = DisposeBag()
   let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   // MARK: - LifeCycles
@@ -76,6 +76,7 @@ extension TagViewController {
       $0.setupLabel(text: "어떤 카페를 찾고 계신가요?",
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalToSuperview()
@@ -100,6 +101,7 @@ extension TagViewController {
       $0.setupLabel(text: "원하시는 카페 태그를 선택해주세요.",
                     color: .gray4,
                     font: .notoSansKRRegularFont(fontSize: 14))
+      $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.titleLabel.snp.bottom).offset(65)
@@ -155,15 +157,14 @@ extension TagViewController {
     self.tagTableView.register(TagTableViewCell.self, forCellReuseIdentifier: TagTableViewCell.reuseIdentifier)
   }
   @objc func pop() {
-    let mapVC = self.navigationController?.children[2] as? MapViewController
-    print("여기야여기")
-    print(mapVC)
+    let mapVC = self.mapViewController as? MapViewController
     mapVC?.tags = self.selectedTag
     self.navigationController?.popViewController(animated: false)
   }
   @objc func clickedCloseButton() {
     let exitVC = ExitViewController()
     exitVC.modalPresentationStyle = .overFullScreen
+    exitVC.tagVC = self
     self.present(exitVC, animated: false, completion: nil)
   }
 

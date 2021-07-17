@@ -226,6 +226,7 @@ extension WriteReviewViewController {
   }
   func layoutWritereviewtitleLabel() {
     self.contentcontainerview.add(self.writereviewtitleLabel) {
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalTo(self.contentcontainerview.snp.top)
         $0.centerX.equalTo(self.contentcontainerview)
@@ -235,6 +236,7 @@ extension WriteReviewViewController {
   }
   func layoutPhotoLabel() {
     self.writeScrollContainerView.add(self.photoLabel) {
+      $0.letterSpacing = -1.0
       $0.setupLabel(text: "사진", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.snp.makeConstraints {
         $0.top.equalTo(self.writeScrollContainerView.snp.top).offset(71)
@@ -244,6 +246,7 @@ extension WriteReviewViewController {
   }
   func layoutExplainphotoLabel() {
     self.writeScrollContainerView.add(self.explainphotoLabel) {
+      $0.letterSpacing = -0.7
       $0.setupLabel(text: "방문한 카페와 관련된 사진을 공유해주세요.", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
       $0.snp.makeConstraints {
         $0.top.equalTo(self.photoLabel.snp.bottom).offset(10)
@@ -266,6 +269,7 @@ extension WriteReviewViewController {
   func layoutTasteLabel() {
     self.writeScrollContainerView.add(self.tasteLabel) {
       $0.setupLabel(text: "맛과 분위기 추천", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalTo(self.reviewphotoCollectionView.snp.bottom).offset(40)
         $0.leading.equalTo(self.writeScrollContainerView.snp.leading).offset(20)
@@ -274,6 +278,7 @@ extension WriteReviewViewController {
   }
   func layoutExplaintasteLabel() {
     self.writeScrollContainerView.add(self.explaintasteLabel) {
+      $0.letterSpacing = -0.7
       $0.setupLabel(text: "방문한 카페의 분위기와 음식 맛은 어떠셨나요?", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
       $0.snp.makeConstraints {
         $0.top.equalTo(self.tasteLabel.snp.bottom).offset(10)
@@ -295,6 +300,7 @@ extension WriteReviewViewController {
   }
   func layoutTasteButton() {
     self.buttonContainerView.add(self.tasteButton) {
+      $0.addTextSpacing(spacing: -0.48)
       $0.isMultipleTouchEnabled = true
       $0.setTitle("맛 추천", for: .normal)
       $0.setTitleColor(.gray4, for: .normal)
@@ -312,6 +318,7 @@ extension WriteReviewViewController {
   }
   func layoutFeelButton() {
     self.buttonContainerView.add(self.feelButton) {
+      $0.addTextSpacing(spacing: -0.48)
       $0.isSelected.toggle()
       $0.isMultipleTouchEnabled = true
       $0.setTitle("분위기 추천", for: .normal)
@@ -331,6 +338,7 @@ extension WriteReviewViewController {
   func layoutReviewLabel() {
     self.writeScrollContainerView.add(self.reviewLabel) {
       $0.setupLabel(text: "리뷰", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalTo(self.buttonContainerView.snp.bottom).offset(41)
         $0.leading.equalTo(self.writeScrollContainerView.snp.leading).offset(20)
@@ -351,6 +359,7 @@ extension WriteReviewViewController {
   func layoutExplainreviewLabel() {
     self.writeScrollContainerView.add(self.explainreviewLabel) {
       $0.setupLabel(text: "방문한 카페와 메뉴에 대해 리뷰를 작성해주세요.", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
+      $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
         $0.top.equalTo(self.reviewLabel.snp.bottom).offset(8)
         $0.leading.equalTo(self.writeScrollContainerView.snp.leading).offset(20)
@@ -392,6 +401,7 @@ extension WriteReviewViewController {
   func layoutStarLabel() {
     self.writeScrollContainerView.add(self.starLabel) {
       $0.setupLabel(text: "별점", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalTo(self.reviewTextView.snp.bottom).offset(40)
         $0.leading.equalTo(self.writeScrollContainerView.snp.leading).offset(20)
@@ -412,6 +422,7 @@ extension WriteReviewViewController {
   func layoutExplainstarLabel() {
     self.writeScrollContainerView.add(self.explainstarLabel) {
       $0.setupLabel(text: "방문한 카페의 별점은 몇점인가요?", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
+      $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
         $0.top.equalTo(self.starLabel.snp.bottom).offset(4)
         $0.leading.equalTo(self.writeScrollContainerView.snp.leading).offset(20)
@@ -431,6 +442,7 @@ extension WriteReviewViewController {
   func layoutRatingMaxLabel() {
     self.writeScrollContainerView.add(self.ratingMaxLabel) {
       $0.setupLabel(text: "/5점", color: .gray3, font: .notoSansKRMediumFont(fontSize: 16))
+      $0.letterSpacing = -0.8
       $0.snp.makeConstraints {
         $0.centerY.equalTo(self.ratingView.snp.centerY)
         $0.trailing.equalTo(self.writeScrollContainerView.snp.trailing).offset(-20)
@@ -440,6 +452,7 @@ extension WriteReviewViewController {
   func layoutRatingContentLabel() {
     self.writeScrollContainerView.add(self.ratingContentLabel) {
       $0.setupLabel(text: "\(self.ratingValue)점", color: .black, font: .notoSansKRMediumFont(fontSize: 16))
+      $0.letterSpacing = -0.8
       $0.snp.makeConstraints {
         $0.centerY.equalTo(self.ratingMaxLabel.snp.centerY)
         $0.trailing.equalTo(self.ratingMaxLabel.snp.leading).offset(-5)
@@ -448,6 +461,7 @@ extension WriteReviewViewController {
   }
   func layoutWriteReviewButton() {
     self.writeScrollContainerView.add(self.writereviewButton) {
+      $0.addTextSpacing(spacing: -0.8)
       $0.addTarget(self, action: #selector(self.writereviewButtonClicked), for: .touchUpInside)
       $0.setRounded(radius: 24.5)
       $0.snp.makeConstraints {
@@ -464,6 +478,7 @@ extension WriteReviewViewController {
   // MARK: - General Helpers
   func dataBind(rating: Double, title: String, recommend: [Int]?, content: String, confirmTitle: String) {
     self.writereviewtitleLabel.setupLabel(text: title, color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+    self.writereviewtitleLabel.letterSpacing = -0.7
     self.ratingContentLabel.text = "\(rating)점"
     self.recommend = recommend ?? []
     self.reviewTextView.text = content
@@ -632,9 +647,16 @@ extension WriteReviewViewController {
             let detailVC = self.navigationController?.children[3] as? CafeDetailViewController
             self.navigationController?.popViewController(animated: false) {
               detailVC?.setupReviewData(cafeId: self.cafeId)
+              detailVC?.showGreenToast(message: "리뷰 등록이 완료되었습니다.")
             }
           } catch {
             print(error)
+          }
+        }
+        else {
+          let detailVC = self.navigationController?.children[3] as? CafeDetailViewController
+          self.navigationController?.popViewController(animated: false) {
+            detailVC?.showGreenToast(message: "이미 등록된 리뷰가 존재합니다.")
           }
         }
       }, onError: { error in
@@ -653,7 +675,10 @@ extension WriteReviewViewController {
       .subscribe(onNext: { response in
         if response.statusCode == 201 {
           do {
-            self.navigationController?.popViewController(animated: false)
+            let cafeDetailVC = self.navigationController?.children[0] as? CafeDetailViewController
+            self.navigationController?.popViewController(animated: false, completion: {
+              cafeDetailVC?.showGreenToast(message: "리뷰 등록이 완료되었습니다.")
+            })
           } catch {
             print(error)
           }

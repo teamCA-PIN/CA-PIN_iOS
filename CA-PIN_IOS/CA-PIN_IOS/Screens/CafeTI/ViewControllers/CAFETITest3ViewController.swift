@@ -68,6 +68,7 @@ extension CAFETITest3ViewController {
   func layoutQuestionTitleLabel() {
     self.view.add(self.questiontitleLabel) {
       $0.setupLabel(text: "Question.03", color: .subcolorBlue4, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(6)
         $0.centerX.equalToSuperview()
@@ -98,6 +99,7 @@ extension CAFETITest3ViewController {
   func layoutContentLabel() {
     self.view.add(self.contentLabel) {
       $0.setupLabel(text: "어떤 스타일의 카페를 선호하시나요?", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalTo(self.coffeeImageView.snp.bottom)
         $0.centerX.equalToSuperview()
@@ -110,6 +112,7 @@ extension CAFETITest3ViewController {
       $0.setTitle("모던", for: .normal)
       $0.setTitleColor(.black, for: .normal)
       $0.backgroundColor = .gray1
+      $0.addTextSpacing(spacing: -0.48)
       $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.clickedButton(_:)), for: .touchUpInside)
       $0.setRounded(radius: 5)
@@ -126,6 +129,7 @@ extension CAFETITest3ViewController {
       $0.setTitle("빈티지", for: .normal)
       $0.setTitleColor(.black, for: .normal)
       $0.backgroundColor = .gray1
+      $0.addTextSpacing(spacing: -0.48)
       $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.clickedButton(_:)), for: .touchUpInside)
       $0.setRounded(radius: 5)
@@ -142,6 +146,7 @@ extension CAFETITest3ViewController {
       $0.setTitle("힙", for: .normal)
       $0.setTitleColor(.black, for: .normal)
       $0.backgroundColor = .gray1
+      $0.addTextSpacing(spacing: -0.48)
       $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.clickedButton(_:)), for: .touchUpInside)
       $0.setRounded(radius: 5)
@@ -158,6 +163,7 @@ extension CAFETITest3ViewController {
       $0.setTitle("특색있는", for: .normal)
       $0.setTitleColor(.black, for: .normal)
       $0.backgroundColor = .gray1
+      $0.addTextSpacing(spacing: -0.48)
       $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.clickedButton(_:)), for: .touchUpInside)
       $0.setRounded(radius: 5)
@@ -174,6 +180,7 @@ extension CAFETITest3ViewController {
       $0.setTitle("아기자기한", for: .normal)
       $0.setTitleColor(.black, for: .normal)
       $0.backgroundColor = .gray1
+      $0.addTextSpacing(spacing: -0.48)
       $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.clickedButton(_:)), for: .touchUpInside)
       $0.setRounded(radius: 5)
@@ -208,6 +215,7 @@ extension CAFETITest3ViewController {
       $0.setTitle("이전", for: .normal)
       $0.setTitleColor(.gray4, for: .normal)
       $0.backgroundColor = .gray2
+      $0.addTextSpacing(spacing: -0.8)
       $0.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.backButtonClicked), for: .touchUpInside)
       $0.setRounded(radius: 25)
@@ -224,6 +232,7 @@ extension CAFETITest3ViewController {
       $0.setTitle("다음", for: .normal)
       $0.setTitleColor(.white, for: .normal)
       $0.backgroundColor = .subcolorBlue2
+      $0.addTextSpacing(spacing: -0.8)
       $0.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.nextButtonClicked), for: .touchUpInside)
       $0.setRounded(radius: 25)

@@ -38,7 +38,7 @@ class MyReviewTableViewCell: UITableViewCell {
   let bottomView = UIView()
   
   // MARK: - Variables
-  var cafeName: String = "후엘고"
+  var cafeName: String = ""
   var tagArray: [String] = [] /// 서버 연결한 후 tagcollectionview에 사용 -> 여기가 아니라 reviewcollectionViewcell에 있어야함
   var tagIndex: [Int]?
   var imageArray: [String] = ["hihi"] /// 서버 연결한 후 reviewImageCollectionview에 사용 -> 여기가 아니라 reviewcollectionViewcell에 있어야함
@@ -75,11 +75,11 @@ extension MyReviewTableViewCell {
   func bindData() {
     print("bind data")
     print(self.reviewModel?.recommend)
-    if self.reviewModel?.recommend?.count != 0 {
+    if self.reviewModel?.recommend != [] {
       print("찍힘?")
-      self.tagIndex = (self.reviewModel?.recommend)!
+      self.tagIndex = (self.reviewModel?.recommend) ?? []
       print(tagIndex)
-      for i in 0...tagIndex!.count-1 {
+      for i in 0..<((tagIndex!.count) ?? 0) {
         switch tagIndex![i] {
         case 0: tagArray.append("맛이 좋은")
         case 1: tagArray.append("분위기가 좋은")
@@ -87,12 +87,10 @@ extension MyReviewTableViewCell {
         }
       }
     }
-    print(tagArray)
-    
+
     if self.reviewModel?.imgs != nil {
       self.imageList = (self.reviewModel?.imgs)!
     }
-    print(imageList)
   }
   func attribute() {
     self.tagCollectionView.delegate = self
@@ -129,7 +127,6 @@ extension MyReviewTableViewCell {
   }
   func layoutNameLabel() {
     self.contentView.add(self.nameLabel) {
-      $0.setupLabel(text: self.cafeName, color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 16))
       $0.letterSpacing = -0.8
       $0.sizeToFit()
       $0.snp.makeConstraints {
@@ -188,9 +185,6 @@ extension MyReviewTableViewCell {
       $0.numberOfLines = 0
       $0.lineBreakMode = .byCharWrapping
       $0.sizeToFit()
-      $0.setupLabel(text: "무엇보다 커피가 정말 맛있고, 디저트로 준비돼 있던 쿠키와 휘낭시에도 맛있었습니다.  브라운크림은 꼭 드세요 !",
-                    color: .black,
-                    font: UIFont.notoSansKRRegularFont(fontSize: 12))
       $0.snp.makeConstraints {
         $0.top.greaterThanOrEqualTo(self.nameLabel.snp.bottom).offset(13)
         $0.leading.equalToSuperview()

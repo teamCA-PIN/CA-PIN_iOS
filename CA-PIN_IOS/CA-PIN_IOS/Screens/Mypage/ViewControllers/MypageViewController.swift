@@ -50,7 +50,7 @@ class MypageViewController: UIViewController {
   let indicatorView = UIView()
   
   let disposeBag = DisposeBag()
-  private let UserServiceProvider = MoyaProvider<UserService>()
+  private let UserServiceProvider = MoyaProvider<UserService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   
   // MARK: - Variables
   
@@ -70,6 +70,7 @@ class MypageViewController: UIViewController {
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    getReviewListService()
     self.view.backgroundColor = .white
     register()
     layout()
@@ -81,7 +82,6 @@ class MypageViewController: UIViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
-//    self.pageCollectionView.reloadData()
   }
   
   override func viewDidLayoutSubviews() {
@@ -112,11 +112,11 @@ extension MypageViewController {
             let data = try decoder.decode(ReviewResponseArrayType<Review>.self,
                                           from: response.data)
             self.reviewList = data.reviews!
-            print(self.reviewList)
-//            for i in 0..<self.reviewList.count {
-//              self.cafeNameList.append(self.reviewList[i].cafeName)
-//              self.ratingList.append(self.reviewList[i].rating)
-//            }
+            for i in 0..<self.reviewList.count {
+              self.cafeNameList.append(self.reviewList[i].cafeName)
+              self.ratingList.append(self.reviewList[i].rating)
+            }
+            self.pageCollectionView.reloadData()
           } catch {
             print(error)
           }
@@ -212,6 +212,7 @@ extension MypageViewController {
       $0.setupLabel(text: self.cafeTI, color: .white, font: UIFont.notoSansKRRegularFont(fontSize: 12), align: .center)
       $0.backgroundColor = .pointcolor1
       $0.setRounded(radius: 9)
+      $0.letterSpacing = -0.6
       $0.snp.makeConstraints {
         $0.height.equalTo(17)
         $0.width.equalTo(62)
@@ -375,15 +376,14 @@ extension MypageViewController: UICollectionViewDataSource {
         guard let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCategoryCollectionViewCell.reuseIdentifier, for: indexPath) as? MyCategoryCollectionViewCell else { return UICollectionViewCell() }
         categoryCell.rootViewController = self
         categoryCell.awakeFromNib()
-//        categoryCell.myCategoryTableView.reloadData()
         categoryCell.backgroundColor = .white
         return categoryCell
       } else {
         guard let reviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.reuseIdentifier, for: indexPath) as? MyReviewCollectionViewCell else { return UICollectionViewCell() }
         reviewCell.rootViewController = self
         reviewCell.awakeFromNib()
+        print(self.reviewList)
         reviewCell.reviewList = self.reviewList
-//        reviewCell.myReviewTableView.reloadData()
         reviewCell.backgroundColor = .white
         return reviewCell
       }
@@ -391,19 +391,19 @@ extension MypageViewController: UICollectionViewDataSource {
     }
   }
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    print("트리거")
+    print(#function)
     guard let tabBarCell = collectionView.dequeueReusableCell(withReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier, for: indexPath) as? TabbarCollectionViewCell else { return }
     tabBarCell.awakeFromNib()
     if collectionView == tabbarCollectionView {
       if indexPath.item == 0 {
         trigger = true
         tabbarCollectionView.reloadData()
-        print("tabbarreload")
         categorySelected()
       }
       if indexPath.item == 1 {
         trigger = false
         tabbarCollectionView.reloadData()
-        print("tabbar.reload")
         reviewSelected()
       }
     }

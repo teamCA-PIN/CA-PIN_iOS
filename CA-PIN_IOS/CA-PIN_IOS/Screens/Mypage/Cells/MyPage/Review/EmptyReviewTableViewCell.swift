@@ -31,6 +31,7 @@ extension EmptyReviewTableViewCell {
     self.contentView.add(self.suggestLabel) {
       $0.numberOfLines = 0
       $0.setupLabel(text: "리뷰를 작성해서\n방문한 곳의 기록을 남겨보세요", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14), align: .center)
+      $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
         $0.height.equalTo(42)
         $0.top.equalTo(self.contentView.snp.top).offset(215)

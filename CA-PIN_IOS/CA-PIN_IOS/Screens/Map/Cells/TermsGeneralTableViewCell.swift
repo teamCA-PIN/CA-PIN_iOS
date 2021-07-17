@@ -56,6 +56,7 @@ extension TermsGeneralTableViewCell {
       $0.setupLabel(text: self.titleText ?? "제목",
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 16))
+      $0.letterSpacing = 0.8
       $0.snp.makeConstraints {
         $0.leading.equalToSuperview()
         $0.centerY.equalToSuperview()

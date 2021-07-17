@@ -31,6 +31,7 @@ extension DetailEmptyTableViewCell {
     self.contentView.backgroundColor = .white
     self.contentView.add(emptyContentLabel) {
       $0.numberOfLines = 2
+      $0.letterSpacing = -0.7
       $0.setupLabel(text: "아직 등록된 리뷰가 없어요.\n가장 먼저 리뷰를 작성해보세요.",
                     color: .gray4,
                     font: .notoSansKRRegularFont(fontSize: 14))

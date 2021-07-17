@@ -188,6 +188,7 @@ extension CafeDetailViewController {
   func layoutTitleLabel() {
     navigationView.add(titleLabel) {
       $0.isHidden = true
+      $0.letterSpacing = -1.3
       $0.snp.makeConstraints {
         $0.bottom.equalTo(self.navigationView.snp.bottom).offset(-9)
         $0.centerX.equalToSuperview()
@@ -219,6 +220,7 @@ extension CafeDetailViewController {
   }
   func layoutCafeTitleLabel() {
     titleContainerView.add(cafeTitleLabel) {
+      $0.letterSpacing = -1.3
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.titleContainerView.snp.top).offset(28)
@@ -237,6 +239,7 @@ extension CafeDetailViewController {
   }
   func layoutStarRatingLabel() {
     titleContainerView.add(starRatingLabel) {
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalTo(self.cafeTitleLabel.snp.bottom).offset(15)
         $0.leading.equalTo(self.titleContainerView.snp.centerX).offset(-10)
@@ -286,6 +289,7 @@ extension CafeDetailViewController {
   }
   func layoutInstagramLabel() {
     informationView.add(instagramLabel) {
+      $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.informationView.snp.leading).offset(58)
         $0.centerY.equalTo(self.instagramLogoImageView.snp.centerY)
@@ -305,6 +309,7 @@ extension CafeDetailViewController {
   func layoutClockLabel() {
     informationView.add(clockLabel) {
       $0.numberOfLines = 2
+      $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
         $0.top.equalTo(self.clockImageView.snp.top)
         $0.leading.equalTo(self.instagramLabel.snp.leading)
@@ -352,6 +357,7 @@ extension CafeDetailViewController {
       $0.setupLabel(text: "리뷰",
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalToSuperview()
         $0.leading.equalTo(self.reviewHeaderView.snp.leading).offset(9)
@@ -468,11 +474,11 @@ extension CafeDetailViewController {
   
   // MARK: - General Helpers
   func dataBind() {
-    if self.cafeModel?.cafeImg == nil {
+    if self.cafeModel?.img == nil {
       self.bannerImageView.image = UIImage(named: "bigDetailEmptyImage")
     }
     else {
-      self.bannerImageView.imageFromUrl(self.cafeModel?.cafeImg, defaultImgPath: "")
+      self.bannerImageView.imageFromUrl(self.cafeModel?.img, defaultImgPath: "")
     }
     self.titleLabel.setupLabel(text: self.cafeModel?.name ?? "", color: .black, font: .notoSansKRMediumFont(fontSize: 20))
     self.cafeTitleLabel.setupLabel(text: self.cafeModel?.name ?? "", color: .black, font: .notoSansKRMediumFont(fontSize: 26))

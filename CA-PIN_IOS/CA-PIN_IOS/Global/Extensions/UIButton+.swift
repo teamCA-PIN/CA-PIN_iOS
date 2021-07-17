@@ -38,6 +38,12 @@ extension UIButton {
     self.setImage(UIImage(named: name), for: .selected)
   }
   
+  func addTextSpacing(spacing: CGFloat){
+      let attributedString = NSMutableAttributedString(string: (self.titleLabel?.text!)!)
+    attributedString.addAttribute(NSAttributedString.Key.kern, value: spacing, range: NSRange(location: 0, length: (self.titleLabel?.text!.count)!))
+      self.setAttributedTitle(attributedString, for: .normal)
+  }
+  
   private struct AssociatedKeys {
     static var targetClosure = "targetClosure"
   }

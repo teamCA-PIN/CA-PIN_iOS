@@ -61,6 +61,7 @@ extension CAFETIResultViewController {
   func layoutTitleLabel() {
     self.view.add(self.titleLabel) {
       $0.setupLabel(text: "검사완료", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(6)
         $0.centerX.equalToSuperview()
@@ -92,6 +93,7 @@ extension CAFETIResultViewController {
   }
   func layoutCAFETIResultLabel() {
     self.CAFETIresultView.add(self.CAFETIresultLabel) {
+      $0.letterSpacing = -0.8
       $0.snp.makeConstraints {
         $0.centerX.equalTo(self.CAFETIresultView)
         $0.centerY.equalTo(self.CAFETIresultView)
@@ -100,6 +102,7 @@ extension CAFETIResultViewController {
   }
   func layoutCAFETITitleLabel() {
     self.view.add(self.CAFETItitleLabel) {
+      $0.letterSpacing = -1.3
       $0.snp.makeConstraints {
         $0.top.equalTo(self.CAFETIresultView.snp.bottom).offset(5)
         $0.centerX.equalToSuperview()
@@ -108,6 +111,7 @@ extension CAFETIResultViewController {
   }
   func layoutCAFETISubTitleLabel() {
     self.view.add(self.CAFETISubtitleLabel) {
+      $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
         $0.top.equalTo(self.CAFETItitleLabel.snp.bottom)
         $0.centerX.equalToSuperview()
@@ -121,6 +125,7 @@ extension CAFETIResultViewController {
                     font: UIFont.notoSansKRRegularFont(fontSize: 14))
       $0.numberOfLines = 2
       $0.textAlignment = .center
+      $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
         $0.top.equalTo(self.CAFETISubtitleLabel.snp.bottom).offset(20)
         $0.centerX.equalToSuperview()
@@ -132,6 +137,7 @@ extension CAFETIResultViewController {
       $0.setTitle("검사 종료", for: .normal)
       $0.setTitleColor(.white, for: .normal)
       $0.backgroundColor = .pointcolor1
+      $0.addTextSpacing(spacing: -0.8)
       $0.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.endButtonClicked), for: .touchUpInside)
       $0.setRounded(radius: 24.5)
