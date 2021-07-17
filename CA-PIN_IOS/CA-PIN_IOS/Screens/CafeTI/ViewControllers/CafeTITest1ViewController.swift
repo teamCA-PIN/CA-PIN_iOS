@@ -140,8 +140,8 @@ extension CafeTITest1ViewController {
         $0.snp.makeConstraints {
           $0.centerX.equalToSuperview()
           $0.bottom.equalTo(self.view.snp.bottom).offset(-34)
-          $0.width.equalTo(318)
-          $0.height.equalTo(50)
+          $0.width.equalTo(UIScreen.main.bounds.width-58)
+          $0.height.equalTo(49*UIScreen.main.bounds.width/375)
         }
       }
     }
