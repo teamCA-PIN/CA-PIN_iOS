@@ -212,6 +212,7 @@ extension MypageViewController {
       $0.setupLabel(text: self.cafeTI, color: .white, font: UIFont.notoSansKRRegularFont(fontSize: 12), align: .center)
       $0.backgroundColor = .pointcolor1
       $0.setRounded(radius: 9)
+      $0.letterSpacing = -0.6
       $0.snp.makeConstraints {
         $0.height.equalTo(17)
         $0.width.equalTo(62)
@@ -368,7 +369,6 @@ extension MypageViewController: UICollectionViewDataSource {
           tabBarCell.tabImageView.image = UIImage(named: "iconReviewActive")
         }
       }
-      
       return tabBarCell
     /// 페이지 컬렉션뷰일 때
     case self.pageCollectionView:
@@ -399,13 +399,11 @@ extension MypageViewController: UICollectionViewDataSource {
       if indexPath.item == 0 {
         trigger = true
         tabbarCollectionView.reloadData()
-        print("tabbarreload")
         categorySelected()
       }
       if indexPath.item == 1 {
         trigger = false
         tabbarCollectionView.reloadData()
-        print("tabbar.reload")
         reviewSelected()
       }
     }

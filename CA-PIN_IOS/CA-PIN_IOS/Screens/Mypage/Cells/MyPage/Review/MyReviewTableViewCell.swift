@@ -87,7 +87,6 @@ extension MyReviewTableViewCell {
         }
       }
     }
-    print(tagArray)
 
     if self.reviewModel?.imgs != nil {
       self.imageList = (self.reviewModel?.imgs)!

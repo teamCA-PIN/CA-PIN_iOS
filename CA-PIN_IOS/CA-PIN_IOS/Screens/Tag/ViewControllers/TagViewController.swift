@@ -79,6 +79,7 @@ extension TagViewController {
       $0.setupLabel(text: "어떤 카페를 찾고 계신가요?",
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20))
+      $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalToSuperview()
@@ -103,6 +104,7 @@ extension TagViewController {
       $0.setupLabel(text: "원하시는 카페 태그를 선택해주세요.",
                     color: .gray4,
                     font: .notoSansKRRegularFont(fontSize: 14))
+      $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.titleLabel.snp.bottom).offset(65)
