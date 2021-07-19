@@ -29,11 +29,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     layout()
   }
   
-  override func prepareForReuse() {
-    super.prepareForReuse()
-    self.photoImageView.image = nil
-    updateLayout()
-  }
 }
 
 // MARK: - Extensions

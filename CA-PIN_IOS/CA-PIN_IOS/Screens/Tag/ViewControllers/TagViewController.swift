@@ -37,6 +37,9 @@ class TagViewController: UIViewController {
   var mapViewController = UIViewController()
   let disposeBag = DisposeBag()
   let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+  
+  final let tableViewCellCount = 6
+  
   // MARK: - LifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -238,7 +241,7 @@ extension TagViewController: UITableViewDelegate {
 // MARK: - TagTableView DataSources
 extension TagViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 6
+    return self.tableViewCellCount
   }
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let tagCell = tableView.dequeueReusableCell(

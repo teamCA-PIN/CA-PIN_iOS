@@ -45,8 +45,7 @@ extension PhotoPreviewCollectionViewCell {
   // MARK: - General Helpers
   func dataBind(imageName: String?) {
     if let image = imageName {
-//      photoImageView.setImage(from: image, UIImage(named: "image176")!)
-      photoImageView.image = UIImage(named: "image176")
+      photoImageView.setImage(from: image, UIImage(named: "capinLogo")!)
     }
   }
 }

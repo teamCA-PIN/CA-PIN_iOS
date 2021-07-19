@@ -15,7 +15,7 @@ class DeletePinViewController: UIViewController {
   // MARK: - Components
   let popupView = UIView()
   let titleLabel = UILabel()
-  let buttonContainerView = UIView()
+  private let buttonContainerView = UIView()
   let cancelButton = UIButton()
   let confirmButton = UIButton()
   

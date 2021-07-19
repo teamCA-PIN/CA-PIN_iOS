@@ -172,7 +172,6 @@ extension EntireReviewViewController {
         $0.leading.equalTo(self.view.snp.leading).offset(16)
         $0.centerX.equalToSuperview()
         $0.bottom.equalTo(self.view.snp.bottom).offset(-55)
-        $0.height.equalTo((self.reviewModel.count)*240)
       }
     }
   }
@@ -193,11 +192,20 @@ extension EntireReviewViewController {
 
 // MARK: - ReviewTableView Delegate
 extension EntireReviewViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    tableView.estimatedRowHeight = 500
-    tableView.rowHeight = UITableView.automaticDimension
-    return UITableView.automaticDimension
-  }
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+      if self.reviewModel[indexPath.row].imgs == nil && self.reviewModel[indexPath.row].recommend == nil{
+        return 110
+      }
+      else if self.reviewModel[indexPath.row].imgs == nil {
+        return 140
+      }
+      else if self.reviewModel[indexPath.row].recommend == nil {
+        return 198
+      }
+      else {
+        return 240
+      }
+    }
 }
 
 // MARK: - ReviewTableView DataSource {

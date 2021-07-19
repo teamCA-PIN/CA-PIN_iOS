@@ -23,11 +23,6 @@ class TagCollectionViewCell: UICollectionViewCell {
     layout()
   }
   
-  override func prepareForReuse() {
-    super.prepareForReuse()
-    self.tagLabel.text = nil
-    updateLayout()
-  }
 }
 
 // MARK: - Extensions

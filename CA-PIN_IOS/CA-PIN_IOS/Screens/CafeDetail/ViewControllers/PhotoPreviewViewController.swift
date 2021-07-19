@@ -23,7 +23,7 @@ class PhotoPreviewViewController: UIViewController {
     return collectionView
   }()
   
-  var images: [String] = ["1", "1", "1", "1", "1"]
+  var images: [String] = [""]
   
   // MARK: - LifeCycles
   override func viewDidLoad() {

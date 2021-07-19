@@ -53,17 +53,6 @@ class DetailReviewTableViewCell: UITableViewCell {
     photoCollectionView.dataSource = self
   }
   
-  override func prepareForReuse() {
-    super.prepareForReuse()
-    self.reviewModel = nil
-    self.tagCollectionView.snp.updateConstraints {
-      $0.height.equalTo(22)
-    }
-    self.photoCollectionView.snp.updateConstraints {
-      $0.height.equalTo(375/3)
-    }
-    updateLayout()
-  }
 }
 
 // MARK: - Extensions
@@ -148,73 +137,59 @@ extension DetailReviewTableViewCell {
     }
   }
   func layoutTagCollectionView() {
-    containerView.add(tagCollectionView) {
-      $0.backgroundColor = .clear
-      
-//      if self.reviewModel?.recommend == nil {
-//        $0.snp.makeConstraints {
-//          $0.top.equalTo(self.titleLabel.snp.bottom)
-//          $0.leading.equalTo(self.titleLabel.snp.leading)
-//          $0.height.equalTo(0)
-//          $0.trailing.equalTo(self.containerView.snp.trailing)
-//        }
-//      }
-//      else {
-//        $0.snp.makeConstraints {
-//          $0.top.equalTo(self.titleLabel.snp.bottom).offset(11)
-//          $0.leading.equalTo(self.titleLabel.snp.leading)
-//          $0.height.equalTo(22)
-//          $0.trailing.equalTo(self.containerView.snp.trailing)
-//        }
-//      }
-      $0.snp.makeConstraints {
-        $0.top.equalTo(self.titleLabel.snp.bottom).offset(11)
-        $0.leading.equalTo(self.titleLabel.snp.leading)
-        $0.height.equalTo(22)
-        $0.trailing.equalTo(self.containerView.snp.trailing)
+      containerView.add(tagCollectionView) {
+        $0.backgroundColor = .clear
+        if self.reviewModel?.recommend == nil {
+          $0.snp.makeConstraints {
+            $0.top.equalTo(self.titleLabel.snp.bottom)
+            $0.leading.equalTo(self.titleLabel.snp.leading)
+            $0.height.equalTo(0)
+            $0.trailing.equalTo(self.containerView.snp.trailing)
+          }
+        }
+        else {
+          $0.snp.makeConstraints {
+            $0.top.equalTo(self.titleLabel.snp.bottom).offset(11)
+            $0.leading.equalTo(self.titleLabel.snp.leading)
+            $0.height.equalTo(22)
+            $0.trailing.equalTo(self.containerView.snp.trailing)
+          }
+        }
       }
     }
-  }
-  func layoutReviewContentLabel() {
-    containerView.add(reviewContentLabel) {
-      $0.numberOfLines = 3
-      $0.snp.makeConstraints {
-        $0.leading.equalTo(self.tagCollectionView.snp.leading)
-        $0.top.greaterThanOrEqualTo(self.tagCollectionView.snp.bottom).offset(8)
-        $0.trailing.equalTo(self.containerView.snp.trailing).offset(-27)
+    func layoutReviewContentLabel() {
+      containerView.add(reviewContentLabel) {
+        $0.numberOfLines = 3
+        $0.snp.makeConstraints {
+          $0.leading.equalTo(self.tagCollectionView.snp.leading)
+          $0.top.equalTo(self.tagCollectionView.snp.bottom).offset(8)
+          $0.trailing.equalTo(self.containerView.snp.trailing).offset(-27)
+        }
       }
     }
-  }
-  func layoutPhotoCollectionView() {
-    containerView.add(photoCollectionView) {
-      $0.backgroundColor = .clear
-//      if self.reviewModel?.imgs == nil {
-//        $0.snp.makeConstraints {
-//          $0.top.greaterThanOrEqualTo(self.reviewContentLabel.snp.bottom)
-//          $0.leading.equalTo(self.reviewContentLabel.snp.leading)
-//          $0.trailing.equalTo(self.containerView.snp.trailing)
-//          $0.height.equalTo(0)
-//          $0.bottom.equalTo(self.containerView.snp.bottom)
-//        }
-//      }
-//      else {
-//        $0.snp.makeConstraints {
-//          $0.top.greaterThanOrEqualTo(self.reviewContentLabel.snp.bottom).offset(21)
-//          $0.leading.equalTo(self.reviewContentLabel.snp.leading)
-//          $0.trailing.equalTo(self.containerView.snp.trailing)
-//          $0.bottom.equalTo(self.containerView.snp.bottom)
-//          $0.height.equalTo((375)/3)
-//        }
-//      }
-      $0.snp.makeConstraints {
-        $0.top.greaterThanOrEqualTo(self.reviewContentLabel.snp.bottom).offset(21)
-        $0.leading.equalTo(self.reviewContentLabel.snp.leading)
-        $0.trailing.equalTo(self.containerView.snp.trailing)
-        $0.bottom.equalTo(self.containerView.snp.bottom)
-        $0.height.equalTo((375)/3)
+    func layoutPhotoCollectionView() {
+      containerView.add(photoCollectionView) {
+        $0.backgroundColor = .clear
+        if self.reviewModel?.imgs == nil {
+          $0.snp.makeConstraints {
+            $0.top.equalTo(self.reviewContentLabel.snp.bottom)
+            $0.leading.equalTo(self.reviewContentLabel.snp.leading)
+            $0.trailing.equalTo(self.containerView.snp.trailing)
+            $0.height.equalTo(0)
+          }
+        }
+        else {
+          $0.snp.makeConstraints {
+            $0.top.equalTo(self.reviewContentLabel.snp.bottom).offset(21)
+            $0.leading.equalTo(self.reviewContentLabel.snp.leading)
+            $0.trailing.equalTo(self.containerView.snp.trailing)
+            $0.bottom.equalTo(self.containerView.snp.bottom)
+            $0.height.equalTo((self.contentView.frame.width-100)/3)
+          }
+        }
+       
       }
     }
-  }
   
   // MARK: - General Helpers
   func register() {
@@ -342,6 +317,7 @@ extension DetailReviewTableViewCell: UICollectionViewDataSource {
     if collectionView == photoCollectionView {
       let photoPreviewVC = PhotoPreviewViewController()
       photoPreviewVC.modalPresentationStyle = .overFullScreen
+      photoPreviewVC.images = (self.reviewModel?.imgs)!
       rootViewController?.present(photoPreviewVC, animated: false, completion: nil)
     }
   }
