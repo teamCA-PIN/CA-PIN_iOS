@@ -60,6 +60,7 @@ extension CafeService: TargetType {
     switch self {
     case .cafeDetail, .cafeMenu:
       return .requestPlain
+      /// ?tags={tagIdx1}&tags={tagsIdx2}
     case .cafeList(tags: let tags), .cafeListMymap(tags: let tags):
       return .requestParameters(parameters: ["tags": tags], encoding: URLEncoding(destination: .queryString, arrayEncoding: .noBrackets))
     }

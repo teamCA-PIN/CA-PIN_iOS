@@ -72,9 +72,15 @@ extension LoginViewController {
     layoutSignupButton()
   }
   func keyboardObserver(){
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(keyboardWillShow(_:)),
+                                           name: UIResponder.keyboardWillShowNotification,
+                                           object: nil)
     
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(keyboardWillDisappear(_:)),
+                                           name: UIResponder.keyboardWillHideNotification,
+                                           object: nil)
   }
   
   /// 로그인 서버 연결
@@ -165,7 +171,9 @@ extension LoginViewController {
   }
   func layoutEmailLabel() {
     self.view.add(self.emailLabel) {
-      $0.setupLabel(text: "이메일 아이디", color: .maincolor1, font: UIFont.notoSansKRMediumFont(fontSize: 16))
+      $0.setupLabel(text: "이메일 아이디",
+                    color: .maincolor1,
+                    font: UIFont.notoSansKRMediumFont(fontSize: 16))
       $0.letterSpacing = -0.8
       $0.snp.makeConstraints {
         $0.top.equalTo(self.logoImageView.snp.bottom).offset(84)
@@ -175,7 +183,9 @@ extension LoginViewController {
   }
   func layoutEmailTextField() {
     self.view.add(self.emailTextField) {
-      $0.attributedPlaceholder = NSAttributedString(string: "yourname@example.com", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray3])
+      $0.attributedPlaceholder = NSAttributedString(
+        string: "yourname@example.com",
+        attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray3])
       $0.textColor = .black
       $0.font = UIFont.notoSansKRRegularFont(fontSize: 16)
       $0.snp.makeConstraints {
@@ -209,7 +219,9 @@ extension LoginViewController {
   }
   func layoutPasswordTextField() {
     self.view.add(self.passwordTextField) {
-      $0.attributedPlaceholder = NSAttributedString(string: "yourpassword", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray3])
+      $0.attributedPlaceholder = NSAttributedString(
+        string: "yourpassword",
+        attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray3])
       $0.font = UIFont.notoSansKRRegularFont(fontSize: 16)
       $0.isSecureTextEntry = true
       $0.snp.makeConstraints {

@@ -69,7 +69,6 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
     self.view.backgroundColor = .white
     self.navigationController?.navigationBar.isHidden = true
     self.mapView.mapView.touchDelegate = self
-//    setupMarker()
     self.mapView.mapView.addCameraDelegate(delegate: self)
     locationComponent?.add(self)
   }
@@ -95,6 +94,7 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
 
 // MARK: - Extensions
 extension MapViewController {
+  
   // MARK: - Layout Helpers
   func layout() {
     layoutMapView()
@@ -122,7 +122,9 @@ extension MapViewController {
       $0.backgroundColor = .white
       $0.cornerRadius = 10
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.view.snp.top).offset(self.view.safeAreaInsets.top+(self.navigationController?.navigationBar.bounds.height)!)
+        $0.top.equalTo(self.view.snp.top).offset(
+          self.view.safeAreaInsets.top +
+          (self.navigationController?.navigationBar.bounds.height)!)
         $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
         $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
         $0.height.equalTo(56)
@@ -177,7 +179,8 @@ extension MapViewController {
                   lng: self.currentLongitude ?? self.mapView.mapView.longitude)
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
-        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset((self.navigationController?.navigationBar.bounds.height)!)
+        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+          .offset((self.navigationController?.navigationBar.bounds.height)!)
         $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
         $0.bottom.equalTo(self.view.snp.bottom)
       }
@@ -382,7 +385,6 @@ extension MapViewController {
     let coordinates = locationManager.location?.coordinate
     self.currentLatitude = coordinates?.latitude
     self.currentLongitude = coordinates?.longitude
-    
   }
   @objc func clickedMenuButton() {
     let hamburgerVC = HamburgerViewController()
@@ -571,8 +573,6 @@ extension MapViewController {
     informationTitleLabel.text = self.cafeDetailModel?.name
     informationStarLabel.text = "\(self.rating)"
     if self.cafeDetailModel?.img == nil {
-      print("여기야여기")
-      print(self.cafeDetailModel?.img)
       informationImageView.image = UIImage(named: "smallDetailEmptyImage")
     }
     else {
