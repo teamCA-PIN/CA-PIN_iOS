@@ -25,6 +25,7 @@ class PinPopupTableViewCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     self.backgroundColor = .clear
+    self.selectionStyle = .none
     layout()
   }
 

@@ -35,10 +35,10 @@ class CafeTITest1ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.view.backgroundColor = .white
+    view.backgroundColor = .white
     addButtons()
     layout()
-    self.navigationController?.navigationBar.isHidden = true
+    navigationController?.navigationBar.isHidden = true
   }
 }
 
@@ -220,7 +220,7 @@ extension CafeTITest1ViewController {
     @objc func nextButtonClicked() {
       if self.pagingnum == 1 {
         if self.selectedIndex == 0 {
-          // resultanswers 배열에 0 추가
+          /// resultanswers 배열에 0 추가
           let CAFETITest21ViewController = CAFETITest21ViewController()
           self.resultAnswer.append(selectedIndex)
           CAFETITest21ViewController.resultAnswer = self.resultAnswer
@@ -230,7 +230,7 @@ extension CafeTITest1ViewController {
           
         }
         else {
-          // resultanswers 배열에 1 추가
+          /// resultanswers 배열에 1 추가
           let CAFETITest22ViewController = CAFETITest22ViewController()
           self.resultAnswer.append(selectedIndex)
           CAFETITest22ViewController.resultAnswer = self.resultAnswer

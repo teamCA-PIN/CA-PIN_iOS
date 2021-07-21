@@ -148,8 +148,8 @@ extension DeletePinViewController {
   
   // MARK: - General Helpers
   @objc func clickedCancelButton() {
-//    self.dismiss(animated: false, completion: nil)
-    self.navigationController?.popViewController(animated: false)
+    self.dismiss(animated: false, completion: nil)
+//    self.navigationController?.popViewController(animated: false)
   }
   @objc func clickedConfirmButton() {
 //    let categoryDetailVC = CategoryDetailViewController()

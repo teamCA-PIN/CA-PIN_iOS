@@ -71,15 +71,20 @@ extension ReviewService: TargetType {
       return .requestParameters(parameters: ["cafe": cafeId], encoding: URLEncoding(destination: .queryString, arrayEncoding: .noBrackets))
       
     case .writeReview(_, recommend: let recommend, content: let content, rating: let rating, images: let images):
-      var multiPartFormData: [MultipartFormData] = []
+      var multiPartFormData: [MultipartFormData] = [] /// multipart form data 빈 배열 만들기
+      /// recommend 분기처리 -> dictionary 형태로
       if recommend == [] {
         let review = [
           "content": content,
           "rating": rating
         ] as [String: Any]
+        /// dictionary를 JSONData로 변환
         let data = try! JSONSerialization.data(withJSONObject: review, options: .prettyPrinted)
+        /// JSONData를 JSONString으로 변환
         let jsonString = String(data: data, encoding: .utf8)!
+        /// JSONString을 MultipartformData로 변환
         let stringData = MultipartFormData(provider: .data(jsonString.data(using: String.Encoding.utf8)!), name: "review")
+        /// 최종으로 보낼 객체에 append
         multiPartFormData.append(stringData)
       }
       else {
@@ -93,15 +98,19 @@ extension ReviewService: TargetType {
         let stringData = MultipartFormData(provider: .data(jsonString.data(using: String.Encoding.utf8)!), name: "review")
         multiPartFormData.append(stringData)
       }
+      /// image 파일
       if images != nil {
         for image in images! {
+          /// UIImage를 jpegImageData로 변환
           let imageData = image.jpegData(compressionQuality: 1.0)
+          /// jpegData를 MultipartformData로 변환
           let imgData = MultipartFormData(provider: .data(imageData!), name: "imgs", fileName: "image", mimeType: "image/jpeg")
           multiPartFormData.append(imgData)
           
         }
       }
       return .uploadMultipart(multiPartFormData)
+      
     case .editReview(_, recommend: let recommend, content: let content, rating: let rating, isAllDeleted: let isAllDeleted, images: let images):
       var multiPartFormData: [MultipartFormData] = []
       if recommend == [] {

@@ -39,8 +39,8 @@ extension UIButton {
   }
   
   func addTextSpacing(spacing: CGFloat){
-      let attributedString = NSMutableAttributedString(string: (self.titleLabel?.text!)!)
-    attributedString.addAttribute(NSAttributedString.Key.kern, value: spacing, range: NSRange(location: 0, length: (self.titleLabel?.text!.count)!))
+      let attributedString = NSMutableAttributedString(string: (self.titleLabel?.text) ?? "")
+    attributedString.addAttribute(NSAttributedString.Key.kern, value: spacing, range: NSRange(location: 0, length: (self.titleLabel?.text?.count) ?? 0))
       self.setAttributedTitle(attributedString, for: .normal)
   }
   

@@ -16,9 +16,9 @@ class CafeTIViewController: UIViewController {
   
   // MARK: - Components
   
-  let backButton = UIButton()
-  let cafetititleLabel = UILabel()
-  let questionImageView = UIImageView()
+  private let backButton = UIButton()
+  private let cafetititleLabel = UILabel()
+  private let questionImageView = UIImageView()
   let titleLabel = UILabel()
   let subtitleLabel = UILabel()
   let startButton = UIButton()
@@ -27,9 +27,9 @@ class CafeTIViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.view.backgroundColor = .white
+    view.backgroundColor = .white
     layout()
-    self.navigationController?.navigationBar.isHidden = true
+    navigationController?.navigationBar.isHidden = true
   }
 }
 
@@ -46,11 +46,9 @@ extension CafeTIViewController {
     layoutTitleLabel()
     layoutSubTitleLabel()
     layoutStartButton()
-    
-    
   }
   func layoutBackButton() {
-    self.view.add(self.backButton) {
+    view.add(backButton) {
       $0.setImage(UIImage(named: "iconBackBlack"), for: .normal)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(7)
@@ -62,7 +60,7 @@ extension CafeTIViewController {
     
   }
   func layoutCafeTITitleLabel() {
-    self.view.add(self.cafetititleLabel) {
+    view.add(cafetititleLabel) {
       $0.setupLabel(text: "CAFETI 검사", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.letterSpacing = -1.0
       $0.snp.makeConstraints {

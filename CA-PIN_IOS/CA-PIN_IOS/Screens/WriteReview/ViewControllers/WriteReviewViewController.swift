@@ -644,7 +644,8 @@ extension WriteReviewViewController {
       .subscribe(onNext: { response in
         if response.statusCode == 201 {
           do {
-            let detailVC = self.navigationController?.children[3] as? CafeDetailViewController
+            let index = (self.navigationController?.children.count)! - 2
+            let detailVC = self.navigationController?.children[index] as? CafeDetailViewController
             self.navigationController?.popViewController(animated: false) {
               detailVC?.setupReviewData(cafeId: self.cafeId)
               detailVC?.showGreenToast(message: "리뷰 등록이 완료되었습니다.")
@@ -673,11 +674,13 @@ extension WriteReviewViewController {
     reviewProvider.rx.request(.editReview(reviewId: self.reviewId, recommend: self.recommend, content: self.reviewTextView.text, rating: Float(self.ratingView.rating), isAllDeleted: isAlldeleted, images: self.canAccessImages))
       .asObservable()
       .subscribe(onNext: { response in
-        if response.statusCode == 201 {
+        if response.statusCode == 200 {
           do {
-            let cafeDetailVC = self.navigationController?.children[0] as? CafeDetailViewController
+            let index = (self.navigationController?.children.count)! - 2
+            let mypageVC = self.navigationController?.children[index] as? MypageViewController
             self.navigationController?.popViewController(animated: false, completion: {
-              cafeDetailVC?.showGreenToast(message: "리뷰 등록이 완료되었습니다.")
+              mypageVC?.showGreenToast(message: "리뷰 수정이 완료되었습니다.")
+              mypageVC?.getReviewListService()
             })
           } catch {
             print(error)

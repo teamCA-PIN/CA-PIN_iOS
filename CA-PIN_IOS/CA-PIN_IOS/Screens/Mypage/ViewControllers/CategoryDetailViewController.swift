@@ -70,13 +70,13 @@ extension CategoryDetailViewController {
   func register() {
     /// 분기처리
     /// 카테고리 내의 핀이 0개일 때: EmptyCategoryTableViewCell
-    if pinNumber == 0 {
-      self.cafeListTableView.register(EmptyCategoryTableViewCell.self, forCellReuseIdentifier: EmptyCategoryTableViewCell.reuseIdentifier)
-    }
+    
+    self.cafeListTableView.register(EmptyCategoryTableViewCell.self, forCellReuseIdentifier: EmptyCategoryTableViewCell.reuseIdentifier)
+    
     /// 핀이 1개 이상일 때: CategoryCafeListTableViewCell
-    else {
-      self.cafeListTableView.register(CategoryCafeListTableViewCell.self, forCellReuseIdentifier: CategoryCafeListTableViewCell.reuseIdentifier)
-    }
+    
+    self.cafeListTableView.register(CategoryCafeListTableViewCell.self, forCellReuseIdentifier: CategoryCafeListTableViewCell.reuseIdentifier)
+    
   }
   func attribute() {
     self.cafeListTableView.delegate = self
@@ -176,7 +176,7 @@ extension CategoryDetailViewController {
   @objc func removeDeleteArray(notification: Notification) {
     if let index = notification.object as? Int {
       if let firstIndex = cafeIdArrayToDelete.firstIndex(of: cafeIdArray[index]) {
-          cafeIdArrayToDelete.remove(at: firstIndex)
+        cafeIdArrayToDelete.remove(at: firstIndex)
       }
     }
   }
@@ -240,12 +240,12 @@ extension CategoryDetailViewController {
           }
         }
         else {
-
+          
         }
       }, onError: { error in
         print(error)
       }, onCompleted: {
-
+        
       }).disposed(by: disposeBag)
   }
 }
@@ -279,11 +279,13 @@ extension CategoryDetailViewController: UITableViewDataSource {
       emptyCell.awakeFromNib()
       return emptyCell
     }
-    guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: CategoryCafeListTableViewCell.reuseIdentifier, for: indexPath) as? CategoryCafeListTableViewCell else {return UITableViewCell() }
-    categoryCell.awakeFromNib()
-    /// categoryCell에 정보 뿌리는 함수 사용:
-    categoryCell.setCafeData(name: self.cafeDetailArray[indexPath.row].name, rating: 2.5, address: self.cafeDetailArray[indexPath.row].address, tagArray: self.cafeDetailArray[indexPath.row].tags)
-    categoryCell.selectionStyle = .none
-    return categoryCell
+    else {
+      guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: CategoryCafeListTableViewCell.reuseIdentifier, for: indexPath) as? CategoryCafeListTableViewCell else {return UITableViewCell() }
+      categoryCell.awakeFromNib()
+      /// categoryCell에 정보 뿌리는 함수 사용:
+      categoryCell.setCafeData(name: self.cafeDetailArray[indexPath.row].name, rating: 2.5, address: self.cafeDetailArray[indexPath.row].address, tagArray: self.cafeDetailArray[indexPath.row].tags)
+      categoryCell.selectionStyle = .none
+      return categoryCell
+    }
   }
 }

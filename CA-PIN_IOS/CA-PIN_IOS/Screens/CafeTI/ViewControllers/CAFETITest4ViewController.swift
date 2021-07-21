@@ -7,6 +7,7 @@
 
 import UIKit
 
+import SwiftKeychainWrapper
 import SnapKit
 import Moya
 import RxMoya
@@ -300,6 +301,7 @@ extension CAFETITest4ViewController {
             resultVC.resultData = self.resultData
             
             /// 서현코드
+            KeychainWrapper.standard.set(data.type, forKey: "userCafeTI")
             UserDefaults.standard.set(data.type, forKey: "userCafeTI")
             self.navigationController?.pushViewController(resultVC
                                                           , animated: false)

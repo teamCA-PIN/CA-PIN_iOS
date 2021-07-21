@@ -208,7 +208,8 @@ extension PinPopupViewController {
         .subscribe(onNext: { response in
           if response.statusCode == 200 {
             do {
-              let mapVC = self.navigationController?.presentingViewController?.children[2] as? MapViewController
+              let index = (self.navigationController?.presentingViewController?.children.count)! - 1
+              let mapVC = self.navigationController?.presentingViewController?.children[index] as? MapViewController
               self.dismiss(animated: false) {
                 mapVC?.showGreenToast(message: "카테고리에 저장되었습니다.")
               }

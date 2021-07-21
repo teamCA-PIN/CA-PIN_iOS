@@ -12,4 +12,7 @@ enum KeychainStorage {
   static var accessToken: String {
     return "accessToken"
   }
+  static var userCafeTI: String {
+    return "userCafeTI"
+  }
 }
