@@ -118,6 +118,7 @@ extension DeleteReviewViewController {
             let mypageVC = self.presentingViewController?.children[0] as? MypageViewController
             self.dismiss(animated: false) {
               mypageVC?.getReviewListService()
+              mypageVC?.showGreenToast(message: "리뷰 삭제가 완료되었습니다.")
             }
           }
           catch {

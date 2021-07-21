@@ -231,30 +231,16 @@ extension CreateCategoryViewController {
             let decoder = JSONDecoder()
             let data = try decoder.decode(ResponseType<ServerReview>.self,
                                           from: response.data)
-<<<<<<< HEAD
-           
             if let myPageVC = self.navigationController?.children[0] as? MypageViewController {
               self.navigationController?.popToViewController(myPageVC, animated: false)
               myPageVC.showGreenToast(message: "카테고리가 추가되었습니다.")
             }
             if let pinVC = self.navigationController?.children[0] as? PinPopupViewController {
               self.navigationController?.popToViewController(pinVC, animated: false)
+              pinVC.categoryTableView.reloadData()
               pinVC.showGreenToast(message: "카테고리가 추가되었습니다.")
             }
           
-=======
-
-//            print("~~~")
-//            self.navigationController?.popToRootViewController(animated: false)
-//            print(self.navigationController?.children)
-//            print(self.navigationController?.presentingViewController)
-//            print(self.navigationController?.presentedViewController)
-//            print(self.presentingViewController)
-//            print(self.presentedViewController)
-            let myPageVC = self.navigationController?.children[0] as? MypageViewController
-            self.navigationController?.popToViewController(myPageVC!, animated: false)
-            myPageVC?.showGreenToast(message: "카테고리가 추가되었습니다.")
->>>>>>> 402bd98a1b548ea05370e121f33d0d6b33fdd5e4
           } catch {
             print(error)
           }

@@ -32,7 +32,7 @@ extension ReviewImageCollectionViewCell {
   func layoutReviewImage() {
     self.contentView.add(self.reviewImageView) {
 //      $0.image = UIImage(named: "group637")
-      $0.contentMode = .scaleAspectFill
+//      $0.contentMode = .scaleAspectFill
       $0.snp.makeConstraints {
 //        $0.width.equalTo(80)
 //        $0.height.equalTo(80)

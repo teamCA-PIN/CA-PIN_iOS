@@ -103,6 +103,7 @@
 		CCB6C668268F083A00941E92 /* PinPopupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C667268F083A00941E92 /* PinPopupTableViewCell.swift */; };
 		CCB6C66C268F41E800941E92 /* CreateCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C66B268F41E800941E92 /* CreateCategoryViewController.swift */; };
 		CCB6C66E268F498B00941E92 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6C66D268F498B00941E92 /* CategoryCollectionViewCell.swift */; };
+		CCE7B03C26A8377600F6D9D6 /* MapResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE7B03B26A8377600F6D9D6 /* MapResponse.swift */; };
 		CCF78427268B0774005FDF1D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78426268B0774005FDF1D /* Then */; };
 		CCF7842A268B0781005FDF1D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78429268B0781005FDF1D /* SnapKit */; };
 		CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7842C268B0797005FDF1D /* CGFloatLiteral */; };
@@ -258,6 +259,7 @@
 		CCB6C667268F083A00941E92 /* PinPopupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPopupTableViewCell.swift; sourceTree = "<group>"; };
 		CCB6C66B268F41E800941E92 /* CreateCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryViewController.swift; sourceTree = "<group>"; };
 		CCB6C66D268F498B00941E92 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		CCE7B03B26A8377600F6D9D6 /* MapResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapResponse.swift; sourceTree = "<group>"; };
 		CCF78442268B197A005FDF1D /* UITextField+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		CCF78444268B197A005FDF1D /* UILabel+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		CCF78449268B71CD005FDF1D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -612,6 +614,7 @@
 			children = (
 				CC9C855226A051B3002A3321 /* MyMapListModel.swift */,
 				CC841FD426A09C1A00F7CE93 /* MapCoordinates.swift */,
+				CCE7B03B26A8377600F6D9D6 /* MapResponse.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1214,6 +1217,7 @@
 				CCA85B572688F29700C9A32C /* UITableView+.swift in Sources */,
 				CCA85B4A2688F1E700C9A32C /* CALayer+.swift in Sources */,
 				9253708F269D8F3800E2E5EA /* SignupModel.swift in Sources */,
+				CCE7B03C26A8377600F6D9D6 /* MapResponse.swift in Sources */,
 				925370792698F4DD00E2E5EA /* MyEmptyCategoryTableViewCell.swift in Sources */,
 				9292FFC82696352600BCD791 /* CategoryCafeListTableViewCell.swift in Sources */,
 				CC9C854D269EBFA1002A3321 /* MyInfoModel.swift in Sources */,

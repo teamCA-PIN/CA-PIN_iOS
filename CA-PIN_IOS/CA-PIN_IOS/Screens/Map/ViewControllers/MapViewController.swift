@@ -20,26 +20,27 @@ import Then
 class MapViewController: UIViewController, NMFLocationManagerDelegate {
   
   // MARK: - Components
-  let topView = UIView()
-  let titleImageView = UIImageView()
-  let menuButton = UIButton()
-  let hashButton = UIButton()
-  let mapView = NMFNaverMapView(frame: .zero)
-  let locationButton = NMFLocationButton(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
-  let zoomControllView = NMFZoomControlView(frame: CGRect(x: 0, y: 0, width: 35, height: 70))
-  let toggleView = UIView()
-  let capinMapButton = UIButton()
-  let myMapButton = UIButton()
-  let informationView = UIView()
-  let informationTitleLabel = UILabel()
-  let informationStarIconView = UIImageView()
-  let informationStarLabel = UILabel()
-  let informationImageView = UIImageView()
-  let informationContextLabel = UILabel()
-  let informationTagContainerView = UIView()
-  let informationTagLabel = UILabel()
-  let informationAddButton = UIButton()
+  private let topView = UIView()
+  private let titleImageView = UIImageView()
+  private let menuButton = UIButton()
+  private let hashButton = UIButton()
+  private let mapView = NMFNaverMapView(frame: .zero)
+  private let locationButton = NMFLocationButton(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
+  private let zoomControllView = NMFZoomControlView(frame: CGRect(x: 0, y: 0, width: 35, height: 70))
+  private let toggleView = UIView()
+  private let capinMapButton = UIButton()
+  private let myMapButton = UIButton()
+  private let informationView = UIView()
+  private let informationTitleLabel = UILabel()
+  private let informationStarIconView = UIImageView()
+  private let informationStarLabel = UILabel()
+  private let informationImageView = UIImageView()
+  private let informationContextLabel = UILabel()
+  private let informationTagContainerView = UIView()
+  private let informationTagLabel = UILabel()
+  private let informationAddButton = UIButton()
   
+  // MARK: - Variables
   var locationManager = CLLocationManager()
   var currentLatitude: Double?
   var currentLongitude: Double?
@@ -54,7 +55,6 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
   var categoryArray: [MyCategoryList] = []
   var isSaved: Bool?
   var rating: Float = 0
-//  var coordinates: [NMGLatLng] = [NMGLatLng(lat: 36.1, lng: 107.2)]
   var coordinates: [MapCoordinates] = [MapCoordinates(coordinates: NMGLatLng(lat: 36.1, lng: 107.2), colorCode: "", id: "")]
   var selectedMarker: NMFMarker?
   let locationComponent = NMFLocationManager.sharedInstance()
@@ -96,10 +96,8 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
 extension MapViewController {
   
   // MARK: - Layout Helpers
-  func layout() {
+  private func layout() {
     layoutMapView()
-//    layoutLocationButton()
-//    layoutZoomControlView()
     layoutTopView()
     layoutTitleImageView()
     layoutMenuButton()
@@ -117,7 +115,7 @@ extension MapViewController {
     layoutInformationTagLabel()
     layoutInformationAddButton()
   }
-  func layoutTopView() {
+  private func layoutTopView() {
     view.add(topView) {
       $0.backgroundColor = .white
       $0.cornerRadius = 10
@@ -131,7 +129,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutTitleImageView() {
+  private func layoutTitleImageView() {
     topView.add(titleImageView) {
       $0.image = UIImage(named: "capinLogo")
       $0.snp.makeConstraints {
@@ -141,7 +139,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutMenuButton() {
+  private func layoutMenuButton() {
     topView.add(menuButton) {
       $0.setBackgroundImage(UIImage(named: "iconMenu"), for: .normal)
       $0.addTarget(self, action: #selector(self.clickedMenuButton), for: .touchUpInside)
@@ -152,7 +150,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutHashButton() {
+  private func layoutHashButton() {
     topView.add(hashButton) {
       if self.tags.isEmpty {
         $0.setBackgroundImage(UIImage(named: "btnTagInactive"), for: .normal)
@@ -168,7 +166,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutMapView() {
+  private func layoutMapView() {
     view.add(mapView) {
       self.currentCoordinate()
       $0.mapView.positionMode = .normal
@@ -186,7 +184,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutLocationButton() {
+  private func layoutLocationButton() {
     view.add(locationButton) {
       $0.mapView = self.mapView.mapView
       $0.snp.makeConstraints {
@@ -195,7 +193,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutZoomControlView() {
+  private func layoutZoomControlView() {
     view.add(zoomControllView) {
       $0.mapView = self.mapView.mapView
       $0.snp.makeConstraints {
@@ -204,7 +202,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutToggleView() {
+  private func layoutToggleView() {
     mapView.add(toggleView) {
       $0.backgroundColor = .white
       $0.setRounded(radius: 24)
@@ -216,7 +214,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutCapinMapButton() {
+  private func layoutCapinMapButton() {
     toggleView.add(capinMapButton) {
       $0.setupButton(title: "카핀맵",
                      color: .white,
@@ -237,7 +235,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutMyMapButton() {
+  private func layoutMyMapButton() {
     toggleView.add(myMapButton) {
       $0.setupButton(title: "마이맵",
                      color: .gray,
@@ -258,7 +256,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutInformationView() {
+  private func layoutInformationView() {
     view.add(informationView) {
       $0.isHidden = true
       $0.backgroundColor = .white
@@ -274,7 +272,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutInformationTitleLabel() {
+  private func layoutInformationTitleLabel() {
     informationView.add(informationTitleLabel) {
       $0.setupLabel(text: "후엘고",
                     color: .black,
@@ -286,7 +284,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutInformationStarLabel() {
+  private func layoutInformationStarLabel() {
     informationView.add(informationStarLabel) {
       $0.setupLabel(text: "3.5",
                     color: 0xFFD027.color,
@@ -297,7 +295,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutInformationStarIconView() {
+  private func layoutInformationStarIconView() {
     informationView.add(informationStarIconView) {
       $0.image = UIImage(named: "star")
       $0.snp.makeConstraints {
@@ -307,7 +305,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutInformationImageView() {
+  private func layoutInformationImageView() {
     informationView.add(informationImageView) {
       $0.image = UIImage(named: "image176")
       $0.setRounded(radius: 10)
@@ -318,7 +316,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutInformationContextLabel() {
+  private func layoutInformationContextLabel() {
     informationView.add(informationContextLabel) {
       $0.setupLabel(text:
                       "서울 마포구 마포대로11길 118 1층 (염리동), 서울 마포구 마포대로11길 118 1층 (염리동)",
@@ -332,7 +330,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutInformationTagContainerView() {
+  private func layoutInformationTagContainerView() {
     informationView.add(informationTagContainerView) {
       $0.backgroundColor = 0xA98E7A.color
       $0.setRounded(radius: 12)
@@ -344,7 +342,7 @@ extension MapViewController {
       }
     }
   }
-  func layoutInformationTagLabel() {
+  private func layoutInformationTagLabel() {
     informationView.add(informationTagLabel) {
       $0.setupLabel(text: "분위기 맛집",
                     color: .white,
@@ -361,7 +359,7 @@ extension MapViewController {
       $0.height.equalTo(23)
     }
   }
-  func layoutInformationAddButton() {
+  private func layoutInformationAddButton() {
     informationView.add(informationAddButton) {
       $0.setBackgroundImage(UIImage(named: "iconPinplusActive"), for: .normal)
       $0.addTarget(self,
@@ -376,7 +374,7 @@ extension MapViewController {
   }
   
   // MARK: - General Helpers
-  func currentCoordinate() {
+  private func currentCoordinate() {
     let locationManager = self.locationManager
     locationManager.requestWhenInUseAuthorization()
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -426,7 +424,7 @@ extension MapViewController {
  
     }
   }
-  func setupMarker() {
+  private func setupMarker() {
     let handler = { (overlay: NMFOverlay) -> Bool in
       var id = ""
       var colorCode = ""
@@ -464,15 +462,11 @@ extension MapViewController {
       }
     }
     self.findCurrentMarker()
-    
     for marker in currentMarkers {
       marker.mapView = self.mapView.mapView
     }
-//    self.mapView.mapView.layoutSubviews()
-//    self.reloadInputViews()
-    
   }
-  func findCurrentMarker() {
+  private func findCurrentMarker() {
     let bounds = self.mapView.mapView.coveringBounds
     let southWest = bounds.southWest
     let northEast = bounds.northEast
@@ -485,7 +479,7 @@ extension MapViewController {
       }
     }
   }
-  func setupCafeList() {
+  private func setupCafeList() {
     print(tags)
     listProvider.rx.request(.cafeList(tags: tags))
       .asObservable()
@@ -511,7 +505,7 @@ extension MapViewController {
         self.reloadInputViews()
       }).disposed(by: disposeBag)
   }
-  func setupMyMapList() {
+  private func setupMyMapList() {
     listProvider.rx.request(.cafeListMymap(tags: tags))
       .asObservable()
       .subscribe(onNext: { response in
@@ -531,9 +525,6 @@ extension MapViewController {
               }
             }
             self.setupMarker()
-        
-          
-          
           } catch {
             print(error)
           }
@@ -548,7 +539,7 @@ extension MapViewController {
         self.reloadInputViews()
       }).disposed(by: disposeBag)
   }
-  func setupCafeInformation(cafeId: String) {
+  private func setupCafeInformation(cafeId: String) {
     listProvider.rx.request(.cafeDetail(cafeId: cafeId))
       .asObservable()
       .subscribe(onNext: { response in
@@ -569,7 +560,7 @@ extension MapViewController {
       }, onCompleted: {
       }).disposed(by: disposeBag)
   }
-  func informationViewDataBind() {
+  private func informationViewDataBind() {
     informationTitleLabel.text = self.cafeDetailModel?.name
     informationStarLabel.text = "\(self.rating)"
     if self.cafeDetailModel?.img == nil {
@@ -583,7 +574,7 @@ extension MapViewController {
     informationTagLabel.text = self.cafeDetailModel?.tags[0].name
     informationView.isHidden = false
   }
-  func markerImage(colorCode: String, isActive: Int) -> String {
+  private func markerImage(colorCode: String, isActive: Int) -> String {
     if isActive == 1 {
       switch colorCode {
       case "6492F5":
@@ -637,7 +628,7 @@ extension MapViewController {
       }
     }
   }
-  func setupCategory() {
+  private func setupCategory() {
     userProvider.rx.request(.categoryList)
       .asObservable()
       .subscribe(onNext: { response in
@@ -698,26 +689,6 @@ extension MapViewController: NMFMapViewCameraDelegate {
   func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
     self.setupMarker()
   }
-}
-
-
-struct MapListResponseArrayType<T: Codable>: Codable {
-  var status: Int?
-  var success: Bool?
-  var message: String?
-  var cafeLocations: [T]?
-}
-
-struct CafeDetailResponseType<T: Codable>: Codable {
-  var status: Int?
-  var success: Bool?
-  var message: String?
-  var cafeDetail: T?
-}
-
-struct MyMapListResponseType<T: Codable>: Codable {
-  var message: String?
-  var myMapLocations: [T]?
 }
 
 

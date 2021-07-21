@@ -108,6 +108,7 @@ extension SignUpViewController {
             let decoder = JSONDecoder()
             let data = try decoder.decode(Response.self, from: response.data)
             let loginVC = self.navigationController?.children[1] as? LoginViewController
+            KeychainWrapper.standard.remove(forKey: "userCafeTI")
             self.navigationController?.popViewController(animated: false, completion: {
               loginVC?.showGreenToast(message: "가입이 완료되었습니다.")
             })
