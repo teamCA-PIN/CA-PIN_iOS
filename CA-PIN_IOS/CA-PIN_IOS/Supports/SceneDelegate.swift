@@ -23,11 +23,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       rootNav.navigationBar.isHidden = true
       rootNav.hidesBottomBarWhenPushed = false
       let rootVC = SplashViewController()
-      rootVC.view.backgroundColor = .subcolorBlue3
+      rootVC.view.backgroundColor = .clear
       rootVC.hidesBottomBarWhenPushed = false
       
       rootNav.viewControllers = [rootVC]
-      rootNav.view.backgroundColor = .subcolorBlue3
+      rootNav.view.backgroundColor = .clear
       window.rootViewController = rootNav
       self.window = window
       window.makeKeyAndVisible()

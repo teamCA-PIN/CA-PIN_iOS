@@ -20,15 +20,15 @@ enum ReviewService {
 extension ReviewService: TargetType {
   
   private var token: String {
-        return KeychainWrapper.standard.string(forKey: KeychainStorage.accessToken) ?? ""
+        return KeychainWrapper.standard.string(forKey: KeychainStorage.tokenAccess) ?? ""
   }
   
   public var baseURL: URL {
     switch self {
     case .writeReview(cafeId: let cafeId, _, _, _, _):
-      return URL(string: "http://3.37.75.200:5000/reviews?cafe=\(cafeId)")!
+        return URL(string: "\(Environment.baseURL)/reviews?cafe=\(cafeId)")!
     default:
-      return URL(string: "http://3.37.75.200:5000")!
+        return URL(string: Environment.baseURL)!
     }
   }
   

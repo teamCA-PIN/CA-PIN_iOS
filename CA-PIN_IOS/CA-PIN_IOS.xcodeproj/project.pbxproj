@@ -58,6 +58,7 @@
 		CC481FFE2698A00300D7F280 /* CollectionViewCenteredFlowLayout in Frameworks */ = {isa = PBXBuildFile; productRef = CC481FFD2698A00300D7F280 /* CollectionViewCenteredFlowLayout */; };
 		CC4820002698A79100D7F280 /* PhotoPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC481FFF2698A79100D7F280 /* PhotoPreviewViewController.swift */; };
 		CC4820042698A99500D7F280 /* PhotoPreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4820032698A99500D7F280 /* PhotoPreviewCollectionViewCell.swift */; };
+		CC4CA6D6273AB483000D2CFA /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4CA6D5273AB483000D2CFA /* Environment.swift */; };
 		CC4D163126975B1C00F3F9B4 /* CAFETITest21ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B0269577D3004BD355 /* CAFETITest21ViewController.swift */; };
 		CC4D163426978C4800F3F9B4 /* RecommendTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4D163326978C4800F3F9B4 /* RecommendTagCollectionViewCell.swift */; };
 		CC4D163626978CA400F3F9B4 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4D163526978CA400F3F9B4 /* PhotoCollectionViewCell.swift */; };
@@ -209,6 +210,7 @@
 		CC45A19126972D6E00E68817 /* DetailReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewTableViewCell.swift; sourceTree = "<group>"; };
 		CC481FFF2698A79100D7F280 /* PhotoPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewViewController.swift; sourceTree = "<group>"; };
 		CC4820032698A99500D7F280 /* PhotoPreviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		CC4CA6D5273AB483000D2CFA /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		CC4D163326978C4800F3F9B4 /* RecommendTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC4D163526978CA400F3F9B4 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC4D163726978E7900F3F9B4 /* ReviewListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListModel.swift; sourceTree = "<group>"; };
@@ -677,6 +679,7 @@
 			children = (
 				CCA85B292688F14600C9A32C /* KeyChainStorage.swift */,
 				CCA85B2B2688F15300C9A32C /* StoryboardStorage.swift */,
+				CC4CA6D5273AB483000D2CFA /* Environment.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -1262,6 +1265,7 @@
 				CC45A18C26955CDF00E68817 /* CafeDetailViewController.swift in Sources */,
 				CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */,
 				E81F0ED4268DC2340042B825 /* CafeTITest1ViewController.swift in Sources */,
+				CC4CA6D6273AB483000D2CFA /* Environment.swift in Sources */,
 				E8818961269B23A500B884FB /* NewReviewPhotoCollectionViewCell.swift in Sources */,
 				92537081269A451100E2E5EA /* DeleteReviewViewController.swift in Sources */,
 				E8244CC72697382B007E63ED /* CAFETITest22ViewController.swift in Sources */,
@@ -1448,6 +1452,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BASE_URL = "http://3.37.75.200:6000";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
@@ -1471,6 +1476,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BASE_URL = "http://3.37.75.200:6000";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;

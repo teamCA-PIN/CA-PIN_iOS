@@ -15,5 +15,11 @@ struct LoginModel: Codable {
 
 // MARK: - LoginData
 struct LoginData: Codable {
-    let nickname, token: String
+    let nickname, tokenAccess, tokenRefresh: String
+
+    enum CodingKeys: String, CodingKey {
+        case nickname
+        case tokenAccess = "token_access"
+        case tokenRefresh = "token_refresh"
+    }
 }

@@ -465,11 +465,11 @@ extension CafeDetailViewController {
        $0.rowHeight = UITableView.automaticDimension
        $0.separatorStyle = .singleLine
        $0.snp.makeConstraints {
-         $0.leading.equalTo(self.cafeScrollContainerView.snp.leading).offset(15)
-         $0.trailing.equalTo(self .cafeScrollContainerView.snp.trailing).offset(-15)
+         $0.leading.equalTo(self.cafeScrollContainerView.snp.leading).offset(20)
+         $0.trailing.equalTo(self .cafeScrollContainerView.snp.trailing).offset(-20)
          $0.top.equalTo(self.reviewHeaderView.snp.bottom)
-         $0.bottom.equalTo(self.cafeScrollContainerView.snp.bottom).offset(-50)
-         $0.height.equalTo((self.reviewModel?.count ?? 0) * 240)
+         $0.bottom.equalTo(self.cafeScrollContainerView.snp.bottom).offset(-95)
+         $0.height.equalTo((self.reviewModel?.count ?? 0) * 212)
        }
      }
   }
@@ -636,17 +636,11 @@ extension CafeDetailViewController: UICollectionViewDataSource {
 // MARK: - ReviewTableView Delegate
 extension CafeDetailViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      if self.reviewModel?[indexPath.row].imgs == nil && self.reviewModel?[indexPath.row].recommend == nil{
-        return 110
-      }
-      else if self.reviewModel?[indexPath.row].imgs == nil {
-        return 140
-      }
-      else if self.reviewModel?[indexPath.row].recommend == nil {
-        return 198
+      if self.reviewModel?[indexPath.row].imgs == nil {
+        return 122
       }
       else {
-        return 240
+        return 212
       }
     }
 //  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

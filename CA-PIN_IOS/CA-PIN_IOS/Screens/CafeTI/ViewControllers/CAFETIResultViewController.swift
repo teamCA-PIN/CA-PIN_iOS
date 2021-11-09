@@ -121,7 +121,7 @@ extension CAFETIResultViewController {
   func layoutCAFETIIntroLabel() {
     self.view.add(self.CAFETIintroLabel) {
       $0.setupLabel(text: "CAFETI는 프로필 수정페이지에서\n다시 검사하실 수 있습니다.",
-                    color: .subcolorBlue4,
+                    color: .pointcolor1,
                     font: UIFont.notoSansKRRegularFont(fontSize: 14))
       $0.numberOfLines = 2
       $0.textAlignment = .center
@@ -157,7 +157,7 @@ extension CAFETIResultViewController {
   func setResultData() {
     self.resultImageView.imageFromUrl(self.resultData?.img, defaultImgPath: "https://capin.s3.ap-northeast-2.amazonaws.com/cafeti/Deer_coffee%402x.png")
     self.CAFETIresultLabel.setupLabel(text: self.resultData?.type ?? "", color: .white, font: UIFont.notoSansKRMediumFont(fontSize: 16))
-    self.CAFETItitleLabel.setupLabel(text: self.resultData?.modifier ?? "", color: .subcolorBrown4, font: UIFont.notoSansKRMediumFont(fontSize: 26))
+    self.CAFETItitleLabel.setupLabel(text: self.resultData?.modifier ?? "", color: .maincolor1, font: UIFont.notoSansKRMediumFont(fontSize: 26))
     self.CAFETISubtitleLabel.setupLabel(text: self.resultData?.modifierDetail ?? "", color: .gray3, font: UIFont.notoSansKRRegularFont(fontSize: 14))
     self.reloadInputViews()
     

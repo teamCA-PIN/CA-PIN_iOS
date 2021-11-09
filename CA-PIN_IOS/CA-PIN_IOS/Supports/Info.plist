@@ -2,10 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string></string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<key>BASE_URL</key>
+	<string>$(BASE_URL)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -33,10 +31,14 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string></string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>지도에서 내 위치를 확인하기 위해 위치 사용 권한이 필요합니다.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>지도에서 내 위치를 확인하기 위해 위치 사용 권한이 필요합니다.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansKR-Black.otf</string>

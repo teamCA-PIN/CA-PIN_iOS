@@ -49,7 +49,7 @@ extension TagTableViewCell {
   func layoutTagButton() {
     containerView.add(tagButton) {
       $0.setTitle(" ", for: .normal)
-      $0.setTitleColor(.subcolorBrown3, for: .normal)
+      $0.setTitleColor(.maincolor1, for: .normal)
       $0.setTitleColor(.white, for: .selected)
       $0.titleLabel?.font = .notoSansKRMediumFont(fontSize: 16)
       $0.backgroundColor = .white
@@ -89,7 +89,7 @@ extension TagTableViewCell {
   }
   func changeBackground() {
     if self.tagButton.isSelected == true {
-      self.tagButton.backgroundColor = .subcolorBrown3
+      self.tagButton.backgroundColor = .maincolor1
     }
     else {
       self.tagButton.backgroundColor = .white

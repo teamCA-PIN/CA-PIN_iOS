@@ -63,7 +63,7 @@ extension CAFETITest22ViewController {
   }
   func layoutQuestionTitleLabel() {
     self.view.add(self.questiontitleLabel) {
-      $0.setupLabel(text: "Question.02", color: .subcolorBlue4, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.setupLabel(text: "Question.02", color: .pointcolor1, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(6)
@@ -218,8 +218,8 @@ extension CAFETITest22ViewController {
     default:
       self.selectedIndex = 10
     }
-    sender.setBorder(borderColor: .subcolorBrown3, borderWidth: 2)
-    sender.setTitleColor(.subcolorBrown3, for: .normal)
+    sender.setBorder(borderColor: .maincolor1, borderWidth: 2)
+    sender.setTitleColor(.maincolor1, for: .normal)
     sender.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
     for i in 0..<self.buttons.count {
       if self.selectedIndex != i {

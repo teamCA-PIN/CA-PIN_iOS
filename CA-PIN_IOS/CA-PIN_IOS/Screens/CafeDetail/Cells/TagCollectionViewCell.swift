@@ -34,7 +34,7 @@ extension TagCollectionViewCell {
   func layoutContainerView() {
     contentView.add(containerView) {
       $0.setRounded(radius: 13)
-      $0.backgroundColor = .pointcolor1
+      $0.backgroundColor = .gray1
       $0.snp.makeConstraints {
         $0.edges.equalToSuperview()
       }
@@ -50,7 +50,7 @@ extension TagCollectionViewCell {
   
   // MARK: - General Helpers
   func dataBind(tagName: String) {
-    tagLabel.setupLabel(text: tagName, color: .white, font: .notoSansKRRegularFont(fontSize: 12))
+    tagLabel.setupLabel(text: tagName, color: .pointcolor1, font: .notoSansKRRegularFont(fontSize: 12))
   }
   
   func updateLayout() {

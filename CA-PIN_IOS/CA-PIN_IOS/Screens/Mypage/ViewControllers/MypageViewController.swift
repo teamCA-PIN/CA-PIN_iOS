@@ -193,7 +193,7 @@ extension MypageViewController {
   func layoutNicknameLabel() {
     self.profileContainerView.add(self.nicknameLabel) {
       var nickname = self.userName + "님"
-      $0.setupLabel(text: nickname, color: .subcolorBrown4, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.setupLabel(text: nickname, color: .maincolor1, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.letterSpacing = -1.0
       let fontSize = UIFont.notoSansKRRegularFont(fontSize: 20)
       let attributedString = NSMutableAttributedString(string: $0.text ?? "")

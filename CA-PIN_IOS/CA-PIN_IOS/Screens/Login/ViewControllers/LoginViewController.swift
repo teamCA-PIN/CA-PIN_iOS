@@ -99,7 +99,8 @@ extension LoginViewController {
                                           from: response.data)
             KeychainWrapper.standard.set(emailText, forKey: "loginEmail")
             KeychainWrapper.standard.set(passwordText, forKey: "loginPassword")
-            KeychainWrapper.standard.set(data.loginData!.token, forKey: "accessToken")
+            KeychainWrapper.standard.set(data.loginData!.tokenAccess, forKey: "tokenAccess")
+              KeychainWrapper.standard.set(data.loginData!.tokenRefresh, forKey: "tokenRefresh")
 
             let cafeTI = KeychainWrapper.standard.string(forKey: "userCafeTI")
 //            let cafeTI = UserDefaults.standard.string(forKey: "userCafeTI")
