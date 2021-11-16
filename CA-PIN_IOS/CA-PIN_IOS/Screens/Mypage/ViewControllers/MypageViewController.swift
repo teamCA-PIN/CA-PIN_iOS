@@ -233,6 +233,7 @@ extension MypageViewController {
         $0.top.equalTo(self.profileContainerView.snp.top).offset(7)
         $0.trailing.equalTo(self.profileContainerView.snp.trailing)
       }
+      $0.addTarget(self, action: #selector(self.profileEditButtonClicked), for: .touchUpInside)
     }
   }
   func layoutTabbarCollectionView() {
@@ -293,6 +294,12 @@ extension MypageViewController {
   }
   @objc func backButtonClicked() {
     self.dismiss(animated: true, completion: nil)
+  }
+  @objc func profileEditButtonClicked() {
+    let vc = EditProfileViewController()
+    vc.profileImage = self.profileImage
+    vc.userName = self.userName
+    self.navigationController?.pushViewController(vc, animated: true)
   }
 }
 
