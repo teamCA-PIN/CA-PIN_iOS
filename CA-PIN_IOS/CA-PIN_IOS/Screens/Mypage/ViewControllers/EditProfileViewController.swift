@@ -240,10 +240,7 @@ extension EditProfileViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     @objc func completeButtonClicked() {
-        // MARK: - TODO: myInfo Server
-        /// 성공하면 pop, 실패하면 에러메세지로 토스트 띄우기
         editProfile()
-//        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func textDidChange(_ notification: Notification) {

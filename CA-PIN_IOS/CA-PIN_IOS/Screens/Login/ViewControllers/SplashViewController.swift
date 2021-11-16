@@ -16,7 +16,7 @@ class SplashViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.view.backgroundColor = .pointcolor1
+    self.view.backgroundColor = .logoWhite
     layout()
   }
   
@@ -47,11 +47,9 @@ extension SplashViewController {
   }
   func layoutLogoImageView() {
     self.view.add(self.logoImageView) {
-      $0.image = UIImage(named: "splashLogo")
+      $0.image = UIImage(named: "capinLogo")
       $0.snp.makeConstraints {
         let screenWidth = UIScreen.main.bounds.width
-        $0.width.equalTo(140)
-        $0.height.equalTo(151)
         $0.centerX.centerY.equalToSuperview()
       }
     }

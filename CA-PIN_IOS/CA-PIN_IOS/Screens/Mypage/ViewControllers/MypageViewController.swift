@@ -22,11 +22,12 @@ class MypageViewController: UIViewController {
   //MARK: - Components
   
   let backButton = UIButton()
-  let profileContainerView = UIView()
   let profileImageView = UIImageView()
-  let hiLabel = UILabel()
+  let buttonContainerView = UIView()
   let nicknameLabel = UILabel()
   let cafeTILabel = UILabel()
+  let cafeTITestButton = UIButton()
+  let buttonIndicatorView = UIView()
   let profileEditButton = UIButton()
   let tabbarCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -56,8 +57,8 @@ class MypageViewController: UIViewController {
   
   let screenWidth = UIScreen.main.bounds.width
   let screenHeight = UIScreen.main.bounds.height
-  var userName: String = "김카핀"
-  var cafeTI: String = "WBFJ"
+  var userName: String = ""
+  var cafeTI: String = ""
   var trigger = true
   var profileImage: String = ""
   var plainImage: String = ""
@@ -133,12 +134,13 @@ extension MypageViewController {
   // MARK: - Layout Helper
   func layout() {
     layoutBackButton()
-    layoutProfileContainerView()
     layoutProfileImageView()
-    layoutHiLabel()
     layoutNicknameLabel()
     layoutCafeTILabel()
-    layoutProfileEditButton()
+    layoutButtonContainerView()
+//    layoutCafeTITestButton()
+//    layoutButtonIndicatorView()
+//    layoutProfileEditButton()
     layoutTabbarCollectionView()
     layoutIndicatorView()
     layoutPageCollectionView()
@@ -149,89 +151,98 @@ extension MypageViewController {
       $0.addTarget(self, action: #selector(self.backButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(11)
-        $0.trailing.equalTo(self.view.snp.trailing).offset(-21)
+        $0.trailing.equalTo(self.view.snp.trailing).offset(-20)
         $0.width.equalTo(30)
         $0.height.equalTo(30)
       }
     }
   }
-  func layoutProfileContainerView() {
-    self.view.add(self.profileContainerView) {
-      $0.backgroundColor = .white
-      $0.snp.makeConstraints {
-        $0.centerX.equalToSuperview()
-        $0.top.equalTo(self.backButton.snp.bottom).offset(17)
-        $0.leading.equalTo(self.view.snp.leading).offset(20)
-        $0.trailing.equalTo(self.view.snp.trailing).offset(-21)
-        $0.height.equalTo(90)
-      }
-    }
-  }
   func layoutProfileImageView() {
-    self.profileContainerView.add(self.profileImageView) {
-      $0.imageFromUrl(self.profileImage, defaultImgPath: "colorchip7")
-      $0.snp.makeConstraints {
-        $0.top.equalTo(self.profileContainerView.snp.top)
-        $0.leading.equalTo(self.profileContainerView.snp.leading)
-        $0.bottom.equalTo(self.profileContainerView.snp.bottom)
-        $0.width.equalTo(self.profileImageView.snp.width)
-        $0.height.equalTo(self.profileImageView.snp.width)
-      }
-    }
-  }
-  func layoutHiLabel() {
-    self.profileContainerView.add(self.hiLabel) {
-      $0.setupLabel(text: "안녕하세요", color: .gray3, font: UIFont.notoSansKRRegularFont(fontSize: 16))
-      $0.letterSpacing = -0.48
-      $0.snp.makeConstraints {
-        $0.height.equalTo(23)
-        $0.top.equalTo(self.profileContainerView.snp.top).offset(7)
-        $0.leading.equalTo(self.profileImageView.snp.trailing).offset(15)
-      }
+    self.view.add(self.profileImageView) {
+        $0.imageFromUrl(self.profileImage, defaultImgPath: "colorchip7")
+        $0.snp_makeConstraints {
+            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(54)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(100)
+        }
     }
   }
   func layoutNicknameLabel() {
-    self.profileContainerView.add(self.nicknameLabel) {
+    self.view.add(self.nicknameLabel) {
       var nickname = self.userName + "님"
       $0.setupLabel(text: nickname, color: .maincolor1, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.letterSpacing = -1.0
-      let fontSize = UIFont.notoSansKRRegularFont(fontSize: 20)
+      let fontSize = UIFont.notoSansKRMediumFont(fontSize: 20)
       let attributedString = NSMutableAttributedString(string: $0.text ?? "")
       attributedString.addAttribute(.font, value: fontSize, range: (nickname as NSString).range(of: "님"))
       attributedString.addAttribute(.foregroundColor, value: UIColor.gray3, range: (nickname as NSString).range(of: "님"))
       $0.attributedText = attributedString
       $0.snp.makeConstraints {
-        $0.height.equalTo(27)
-        $0.top.equalTo(self.hiLabel.snp.bottom)
-        $0.leading.equalTo(self.profileImageView.snp.trailing).offset(15)
+        $0.height.equalTo(29)
+        $0.top.equalTo(self.profileImageView.snp.bottom).offset(9)
+        $0.centerX.equalToSuperview()
       }
     }
   }
   func layoutCafeTILabel() {
-    self.profileContainerView.add(self.cafeTILabel) {
-      $0.setupLabel(text: self.cafeTI, color: .white, font: UIFont.notoSansKRRegularFont(fontSize: 12), align: .center)
-      $0.backgroundColor = .pointcolor1
-      $0.setRounded(radius: 9)
+    self.view.add(self.cafeTILabel) {
+      $0.setupLabel(text: self.cafeTI, color: .maincolor1, font: UIFont.notoSansKRRegularFont(fontSize: 12), align: .center)
       $0.letterSpacing = -0.6
       $0.snp.makeConstraints {
-        $0.height.equalTo(17)
-        $0.width.equalTo(62)
-        $0.leading.equalTo(self.profileImageView.snp.trailing).offset(15)
-        $0.bottom.equalTo(self.profileContainerView.snp.bottom).offset(-4)
+        $0.height.equalTo(14)
+        $0.top.equalTo(self.nicknameLabel.snp.bottom).offset(3)
+        $0.centerX.equalToSuperview()
+      }
+    }
+  }
+  func layoutButtonContainerView() {
+    self.view.add(self.buttonContainerView) {
+      $0.backgroundColor = .gray3
+      $0.borderWidth = 1
+      $0.borderColor = .gray3
+      $0.setRounded(radius: 35)
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.cafeTILabel.snp.bottom).offset(19)
+        $0.height.equalTo(32)
+        $0.centerX.equalToSuperview()
+        $0.leading.equalToSuperview().offset(58)
+      }
+    }
+  }
+  func layoutCafeTITestButton() {
+    self.buttonContainerView.add(self.cafeTITestButton) {
+      $0.setupButton(title: "카페TI 검사", color: .black, font: UIFont.notoSansKRRegularFont(fontSize: 12), backgroundColor: .clear, state: .normal, radius: 0)
+      $0.titleLabel?.letterSpacing = -0.6
+      let leading = (self.screenWidth - 58*4 - 3) / 4
+      $0.snp.makeConstraints {
+        $0.width.equalTo(58)
+        $0.height.equalTo(21)
+        $0.centerY.equalToSuperview()
+        $0.leading.equalToSuperview().offset(leading)
+      }
+      $0.addTarget(self, action: #selector(self.cafeTITestButtonClicked), for: .touchUpInside)
+    }
+  }
+  func layoutButtonIndicatorView() {
+    self.buttonContainerView.add(self.buttonContainerView) {
+      $0.backgroundColor = .gray3
+      $0.snp.makeConstraints {
+        $0.centerX.centerY.equalToSuperview()
+        $0.width.equalTo(1)
+        $0.height.equalTo(15)
       }
     }
   }
   func layoutProfileEditButton() {
-    self.profileContainerView.add(self.profileEditButton) {
-      $0.setupButton(title: "프로필 편집", color: .gray3, font: UIFont.notoSansKRRegularFont(fontSize: 14), backgroundColor: .clear, state: .normal, radius: 14)
-      $0.borderColor = .gray3
-      $0.borderWidth = 1
+    self.buttonContainerView.add(self.profileEditButton) {
+      $0.setupButton(title: "프로필 편집", color: .black, font: UIFont.notoSansKRRegularFont(fontSize: 12), backgroundColor: .clear, state: .normal, radius: 0)
       $0.titleLabel?.letterSpacing = -0.6
+        let trailing = (self.screenWidth - 58*4 - 3) / 4
       $0.snp.makeConstraints {
-        $0.height.equalTo(28)
-        $0.width.equalTo(80)
-        $0.top.equalTo(self.profileContainerView.snp.top).offset(7)
-        $0.trailing.equalTo(self.profileContainerView.snp.trailing)
+        $0.height.equalTo(21)
+        $0.width.equalTo(58)
+        $0.centerY.equalToSuperview()
+        $0.trailing.equalToSuperview().offset(-trailing)
       }
       $0.addTarget(self, action: #selector(self.profileEditButtonClicked), for: .touchUpInside)
     }
@@ -240,7 +251,7 @@ extension MypageViewController {
     self.view.add(self.tabbarCollectionView) {
       $0.backgroundColor = .white
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.profileContainerView.snp.bottom).offset(33)
+        $0.top.equalTo(self.buttonContainerView.snp.bottom).offset(32)
         $0.leading.equalTo(self.view.snp.leading)
         $0.trailing.equalTo(self.view.snp.trailing)
         $0.width.equalTo(self.screenWidth)
@@ -294,6 +305,10 @@ extension MypageViewController {
   }
   @objc func backButtonClicked() {
     self.dismiss(animated: true, completion: nil)
+  }
+  @objc func cafeTITestButtonClicked() {
+    let vc = CafeTIViewController()
+    self.navigationController?.pushViewController(vc, animated: true)
   }
   @objc func profileEditButtonClicked() {
     let vc = EditProfileViewController()
@@ -362,15 +377,15 @@ extension MypageViewController: UICollectionViewDataSource {
       tabBarCell.awakeFromNib()
       if trigger == true { /// 카테고리 탭 선택됐을 때
         if indexPath.item == 0 { /// 카테고리 아이콘 갈색
-          tabBarCell.setImage(name: "iconPinActive")
+          tabBarCell.setImage(name: "iconMapActive")
         }
         else { /// 리뷰 아이콘 회색
-          tabBarCell.setImage(name: "iconError2")
+          tabBarCell.setImage(name: "iconReviewInactive")
         }
       }
       else { /// 리뷰 탭 선택됐을 때
         if indexPath.item == 0 { /// 카테고리 아이콘 회색
-          tabBarCell.tabImageView.image = UIImage(named: "iconPin")
+          tabBarCell.tabImageView.image = UIImage(named: "iconMapInactive")
         }
         else { /// 리뷰 아이콘 갈색
           tabBarCell.tabImageView.image = UIImage(named: "iconReviewActive")
