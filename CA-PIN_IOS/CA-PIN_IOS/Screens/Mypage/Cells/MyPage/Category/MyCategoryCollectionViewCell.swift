@@ -39,7 +39,7 @@ class MyCategoryCollectionViewCell: UICollectionViewCell {
     super.awakeFromNib()
     register()
     associate()
-    getCategoryData()
+//    getCategoryData()
     layout()
 //    myCategoryTableView.reloadData()
     self.myCategoryTableView.separatorStyle = .none

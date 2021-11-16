@@ -66,11 +66,15 @@ class MypageViewController: UIViewController {
   var reviewList: [Review] = [Review(id: "", cafeName: "", cafeID: "", content: "", rating: 0, createAt: "", imgs: [], recommend: [])] /// 서버에서 리뷰 받아올 배열
   var cafeNameList: [String] = [] /// 서버에서 받아온 값 중에 카페 이름만 저장
   var ratingList: [Double] = [] /// 서버에서 별점 값만ㄴ 받아올 배열
-  var reviewTextList: [String] = []
+  
+  var categoryArray: [MyCategoryList] = [] /// 서버통신해서 카테고리 배열을 받아온다
+  var categoryIdArray: [String] = [] /// 카테고리 아이디를 저장해놓는 배열 -> 카테고리 상세 페이지로 넘어갈 때 사용할 파라미터
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    getCategoryListService()
+    print(categoryArray)
     getReviewListService()
     self.view.backgroundColor = .white
     register()
@@ -83,6 +87,8 @@ class MypageViewController: UIViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
+    getCategoryListService()
+    getReviewListService()
   }
   
   override func viewDidLayoutSubviews() {
@@ -103,7 +109,41 @@ extension MypageViewController {
   func scroll(to index: Int) {
     tabbarCollectionView.selectItem(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: [])
   }
+  func getCategoryListService() {
+    print(#function)
+    UserServiceProvider.rx.request(.categoryList)
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
+                                          from: response.data)
+            self.categoryArray = data.myCategoryList!
+//            print("mycategorytableview.reload")
+//            self.myCategoryTableView.reloadData()
+            for i in 0...self.categoryArray.count-1 {
+              self.categoryIdArray.append(self.categoryArray[i].id)
+            }
+//            let mypageVC = self.rootViewController as? MypageViewController
+//            print("mypage.page.reload")
+//            mypageVC?.pageCollectionView.reloadData()
+            self.pageCollectionView.reloadData()
+          } catch {
+            print(error)
+          }
+        }
+        else {
+          
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+        
+      }).disposed(by: disposeBag)
+  }
   func getReviewListService() {
+    print(#function)
     UserServiceProvider.rx.request(.reviews)
       .asObservable()
       .subscribe(onNext: { response in
@@ -138,9 +178,9 @@ extension MypageViewController {
     layoutNicknameLabel()
     layoutCafeTILabel()
     layoutButtonContainerView()
-//    layoutCafeTITestButton()
-//    layoutButtonIndicatorView()
-//    layoutProfileEditButton()
+    layoutCafeTITestButton()
+    layoutButtonIndicatorView()
+    layoutProfileEditButton()
     layoutTabbarCollectionView()
     layoutIndicatorView()
     layoutPageCollectionView()
@@ -169,14 +209,8 @@ extension MypageViewController {
   }
   func layoutNicknameLabel() {
     self.view.add(self.nicknameLabel) {
-      var nickname = self.userName + "님"
-      $0.setupLabel(text: nickname, color: .maincolor1, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.setupLabel(text: self.userName, color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.letterSpacing = -1.0
-      let fontSize = UIFont.notoSansKRMediumFont(fontSize: 20)
-      let attributedString = NSMutableAttributedString(string: $0.text ?? "")
-      attributedString.addAttribute(.font, value: fontSize, range: (nickname as NSString).range(of: "님"))
-      attributedString.addAttribute(.foregroundColor, value: UIColor.gray3, range: (nickname as NSString).range(of: "님"))
-      $0.attributedText = attributedString
       $0.snp.makeConstraints {
         $0.height.equalTo(29)
         $0.top.equalTo(self.profileImageView.snp.bottom).offset(9)
@@ -197,10 +231,9 @@ extension MypageViewController {
   }
   func layoutButtonContainerView() {
     self.view.add(self.buttonContainerView) {
-      $0.backgroundColor = .gray3
       $0.borderWidth = 1
       $0.borderColor = .gray3
-      $0.setRounded(radius: 35)
+      $0.setRounded(radius: 15)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.cafeTILabel.snp.bottom).offset(19)
         $0.height.equalTo(32)
@@ -224,7 +257,7 @@ extension MypageViewController {
     }
   }
   func layoutButtonIndicatorView() {
-    self.buttonContainerView.add(self.buttonContainerView) {
+    self.buttonContainerView.add(self.buttonIndicatorView) {
       $0.backgroundColor = .gray3
       $0.snp.makeConstraints {
         $0.centerX.centerY.equalToSuperview()
@@ -399,12 +432,13 @@ extension MypageViewController: UICollectionViewDataSource {
         categoryCell.rootViewController = self
         categoryCell.awakeFromNib()
         categoryCell.backgroundColor = .white
+        categoryCell.categoryArray = self.categoryArray
+        categoryCell.categoryIdArray = self.categoryIdArray
         return categoryCell
       } else {
         guard let reviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.reuseIdentifier, for: indexPath) as? MyReviewCollectionViewCell else { return UICollectionViewCell() }
         reviewCell.rootViewController = self
         reviewCell.awakeFromNib()
-        print(self.reviewList)
         reviewCell.reviewList = self.reviewList
         reviewCell.backgroundColor = .white
         return reviewCell
