@@ -137,7 +137,10 @@ extension LoginViewController {
       }, onCompleted: {
       }).disposed(by: disposeBag)
   }
-  
+  @objc func findPasswordButtonClicked() {
+    let findVC = FindPasswordViewController()
+    self.navigationController?.pushViewController(findVC, animated: false)
+  }
   @objc func signUpButtonClicked() {
     let signUpVC = SignUpViewController()
     self.navigationController?.pushViewController(signUpVC, animated: false)
@@ -279,6 +282,7 @@ extension LoginViewController {
     self.buttonContainerView.add(self.findPasswordButton) {
       $0.setupButton(title: "비밀번호 찾기", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14), backgroundColor: .clear, state: .normal, radius: 0)
       $0.titleLabel?.letterSpacing = -0.7
+      $0.addTarget(self, action: #selector(self.findPasswordButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.buttonContainerView.snp.top)
         $0.bottom.equalTo(self.buttonContainerView.snp.bottom)
