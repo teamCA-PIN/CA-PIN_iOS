@@ -122,7 +122,6 @@ extension DeletePinViewController {
           do {
             
             let detailVC = self.presentingViewController?.children.last as? CategoryDetailViewController
-            
             self.dismiss(animated: false) {
               detailVC?.setupCategoryData()
               detailVC?.showGreenToast(message: "핀 삭제가 완료되었습니다.")
@@ -154,6 +153,11 @@ extension DeletePinViewController {
   @objc func clickedConfirmButton() {
 //    let categoryDetailVC = CategoryDetailViewController()
 //    categoryDetailVC.deleteService()
-    self.deleteService(categoryId: self.categoryId, cafeList: self.cafeIdArrayToDelete)
+    if categoryId.count == 0 {
+      self.showToast("잘못된 접근입니다.")
+    }
+    else {
+      self.deleteService(categoryId: self.categoryId, cafeList: self.cafeIdArrayToDelete)
+    }
   }
 }

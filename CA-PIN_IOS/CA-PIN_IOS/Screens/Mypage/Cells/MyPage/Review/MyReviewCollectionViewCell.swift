@@ -143,4 +143,9 @@ extension MyReviewCollectionViewCell: UITableViewDataSource {
     reviewCell.awakeFromNib()
     return reviewCell
   }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    print(indexPath.row)
+    ///TODO-여기서 셀안에서 버튼 클릭했을 때 카페 상세 페이지로 넘어가도록
+  }
 }

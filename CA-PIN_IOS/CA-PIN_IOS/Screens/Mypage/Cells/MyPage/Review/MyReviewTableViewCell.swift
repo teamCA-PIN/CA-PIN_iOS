@@ -72,13 +72,11 @@ extension MyReviewTableViewCell {
     self.tagCollectionView.register(MyTagCollectionViewCell.self, forCellWithReuseIdentifier: MyTagCollectionViewCell.reuseIdentifier)
     self.imageCollectionView.register(ReviewImageCollectionViewCell.self, forCellWithReuseIdentifier: ReviewImageCollectionViewCell.reuseIdentifier)
   }
-  func bindData() {
+  func bindData() { /// 태그 데이터 바인딩
     print("bind data")
     print(self.reviewModel?.recommend)
     if self.reviewModel?.recommend != [] {
-      print("찍힘?")
       self.tagIndex = (self.reviewModel?.recommend) ?? []
-      print(tagIndex)
       for i in 0..<((tagIndex!.count) ?? 0) {
         switch tagIndex![i] {
         case 0: tagArray.append("맛이 좋은")
@@ -100,6 +98,8 @@ extension MyReviewTableViewCell {
   }
   @objc func moreButtonClicked() {
     /// TODO: - 카페 상세보기로 이동
+    print("more")
+    print(#function)
     let cafeDetailVC = CafeDetailViewController()
     parentViewController?.navigationController?.pushViewController(cafeDetailVC, animated: false)
     

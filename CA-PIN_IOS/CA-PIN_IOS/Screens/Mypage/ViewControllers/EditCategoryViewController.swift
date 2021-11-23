@@ -45,6 +45,7 @@ class EditCategoryViewController: UIViewController {
   var newCategoryName: String = ""
   var colorIsSelected: Bool = false
   var categoryId: String = ""
+  var placeholerCategoryName : String = ""
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -124,7 +125,7 @@ extension EditCategoryViewController {
       $0.configureTextField(textColor: .black,
                             font: .notoSansKRRegularFont(fontSize: 15))
       $0.attributedPlaceholder =
-        NSAttributedString(string: "수정할 카테고리명 입력",
+      NSAttributedString(string: "\(self.placeholerCategoryName)",
                            attributes:
                             [NSAttributedString.Key.font:
                               UIFont.notoSansKRRegularFont(fontSize: 15),

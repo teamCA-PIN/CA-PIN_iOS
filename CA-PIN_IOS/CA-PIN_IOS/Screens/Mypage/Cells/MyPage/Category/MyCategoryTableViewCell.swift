@@ -29,7 +29,7 @@ class MyCategoryTableViewCell: UITableViewCell {
   private let CategoryProvider = MoyaProvider<CategoryService>()
   
   var categoryID: String = ""
-//  var categoryName: String = ""
+  var placeholerCategoryName : String = ""
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
@@ -127,6 +127,7 @@ extension MyCategoryTableViewCell {
     let color = hexStringToUIColor(hex: colorCode)
     self.colorView.backgroundColor = color
     self.titleLabel.text = name
+    self.placeholerCategoryName = name
     self.numberLabel.text = "\(number)/100"
   }
   
@@ -138,6 +139,7 @@ extension MyCategoryTableViewCell {
     editAction = UIAlertAction(title: "카테고리 수정", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
       /// TODO 카테고리 수정 뷰로 이동
       let editVC = EditCategoryViewController()
+      editVC.placeholerCategoryName = self.placeholerCategoryName
       editVC.categoryId = self.categoryID
       self.parentViewController?.navigationController?.pushViewController(editVC  , animated: false)
     })
