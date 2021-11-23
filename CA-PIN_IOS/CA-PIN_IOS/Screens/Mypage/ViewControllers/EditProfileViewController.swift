@@ -35,11 +35,10 @@ class EditProfileViewController: UIViewController {
   
   // MARK: - Variables
   var profileImage: String = ""
+  var plainImage: String = ""
   var userName: String = ""
   var maxLength = 10
   var nameCount: Int = 0
-  var newUserName = ""
-  var newProfileImage = UIImage()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -47,10 +46,12 @@ class EditProfileViewController: UIViewController {
     layout()
     imagePicker.delegate = self
     nameTextField.delegate = self
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(self.textDidChange(_:)),
-                                           name: UITextField.textDidChangeNotification,
-                                           object: self.nameTextField)
+    nameTextField.isUserInteractionEnabled = true
+    nameTextView.bringSubviewToFront(nameTextField)
+//    NotificationCenter.default.addObserver(self,
+//                                           selector: #selector(self.textDidChange(_:)),
+//                                           name: UITextField.textDidChangeNotification,
+//                                           object: self.nameTextField)
   }
   
   override func viewDidLayoutSubviews() {
@@ -159,7 +160,7 @@ extension EditProfileViewController {
   func layoutNameTextField() {
     self.nameTextView.add(nameTextField) {
       $0.configureTextField(textColor: .gray4, font: .notoSansKRRegularFont(fontSize: 16))
-      $0.placeholder = self.userName
+//      $0.placeholder = self.userName
 //      $0.text = self.userName
       $0.attributedPlaceholder = NSAttributedString(string: self.userName,
                                                     attributes: [NSAttributedString.Key.font: UIFont.notoSansKRRegularFont(fontSize: 16),
@@ -169,6 +170,7 @@ extension EditProfileViewController {
         $0.trailing.equalToSuperview()
         $0.leading.equalToSuperview()
         $0.top.equalToSuperview().offset(65)
+        $0.height.equalTo(28)
       }
     }
   }
@@ -225,7 +227,7 @@ extension EditProfileViewController {
     })
     let chooseDefaultAction: UIAlertAction
     chooseDefaultAction = UIAlertAction(title: "기본 이미지로 변경", style: .default, handler: { (action: UIAlertAction) in
-      self.myImageView.imageFromUrl(self.profileImage, defaultImgPath: "colorchip7")
+      self.myImageView.imageFromUrl(self.plainImage, defaultImgPath: "colorchip7")
     })
     
     let cancelAction: UIAlertAction
@@ -258,15 +260,25 @@ extension EditProfileViewController {
       }
     }
   }
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    self.view.endEditing(true)
-  }
+//  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//    self.view.endEditing(true)
+//  }
   
   // MARK: - General Helpers
   func editProfile() {
-    newUserName = self.nameTextField.text ?? userName
+    var newUserName = ""
+    
+    if self.nameTextField.hasText == false { /// 원래 이름 그대로
+      newUserName = userName
+    }
+    else { /// 새로운 이름
+      newUserName = nameTextField.text!
+    }
+    
+    var newProfileImage = UIImage()
+
     newProfileImage = self.myImageView.image!
-    print("서버에 어케 넘어가냐면 ~ \(newUserName)")
+    print("서버에 어케 넘어가냐면: \(newUserName)")
     editProvider.rx.request(.editMyInfo(nickname: newUserName, profilImg: newProfileImage))
       .asObservable()
       .subscribe(onNext: { response in
@@ -274,8 +286,8 @@ extension EditProfileViewController {
           do {
             let mypageVC = self.navigationController?.children as? MypageViewController
             self.navigationController?.popViewController(animated: false) {
-              mypageVC?.userName = self.newUserName
-              mypageVC?.profileImageView.image = self.newProfileImage
+              mypageVC?.userName = newUserName
+              mypageVC?.profileImageView.image = newProfileImage
               mypageVC?.showGreenToast(message: "프로필 편집이 완료되었습니다.")
             }
           } catch {
@@ -326,9 +338,9 @@ extension EditProfileViewController: UITextFieldDelegate {
         range.location < self.maxLength {
       return false
     }
-    return true
+    return false
   }
-  func textFieldDidBeginEditing(_ textField: UITextField) {
-    print(#function)
-  }
+//  func textFieldDidBeginEditing(_ textField: UITextField) {
+//    print(#function)
+//  }
 }

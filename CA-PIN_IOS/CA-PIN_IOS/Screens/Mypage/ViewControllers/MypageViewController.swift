@@ -120,14 +120,9 @@ extension MypageViewController {
             let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
                                           from: response.data)
             self.categoryArray = data.myCategoryList!
-//            print("mycategorytableview.reload")
-//            self.myCategoryTableView.reloadData()
             for i in 0...self.categoryArray.count-1 {
               self.categoryIdArray.append(self.categoryArray[i].id)
             }
-//            let mypageVC = self.rootViewController as? MypageViewController
-//            print("mypage.page.reload")
-//            mypageVC?.pageCollectionView.reloadData()
             self.pageCollectionView.reloadData()
           } catch {
             print(error)
@@ -221,7 +216,7 @@ extension MypageViewController {
   func layoutCafeTILabel() {
     self.view.add(self.cafeTILabel) {
       $0.setupLabel(text: self.cafeTI, color: .maincolor1, font: UIFont.notoSansKRRegularFont(fontSize: 12), align: .center)
-      $0.letterSpacing = -0.6
+      $0.letterSpacing = -0.3
       $0.snp.makeConstraints {
         $0.height.equalTo(14)
         $0.top.equalTo(self.nicknameLabel.snp.bottom).offset(3)
@@ -347,6 +342,7 @@ extension MypageViewController {
     let vc = EditProfileViewController()
     vc.profileImage = self.profileImage
     vc.userName = self.userName
+    vc.plainImage = self.plainImage
     self.navigationController?.pushViewController(vc, animated: true)
   }
 }

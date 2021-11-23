@@ -156,6 +156,8 @@ extension CAFETIResultViewController {
       }
   func setResultData() {
     self.resultImageView.imageFromUrl(self.resultData?.img, defaultImgPath: "https://capin.s3.ap-northeast-2.amazonaws.com/cafeti/Deer_coffee%402x.png")
+    // 여기는 서현이가 추가했음 ㅈㅅ
+    UserDefaults.standard.setValue(self.resultData?.img, forKey: "defaultImageURL")
     self.CAFETIresultLabel.setupLabel(text: self.resultData?.type ?? "", color: .white, font: UIFont.notoSansKRMediumFont(fontSize: 16))
     self.CAFETItitleLabel.setupLabel(text: self.resultData?.modifier ?? "", color: .maincolor1, font: UIFont.notoSansKRMediumFont(fontSize: 26))
     self.CAFETISubtitleLabel.setupLabel(text: self.resultData?.modifierDetail ?? "", color: .gray3, font: UIFont.notoSansKRRegularFont(fontSize: 14))

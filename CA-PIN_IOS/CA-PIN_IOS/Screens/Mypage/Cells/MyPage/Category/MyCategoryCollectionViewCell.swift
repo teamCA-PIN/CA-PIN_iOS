@@ -26,8 +26,6 @@ class MyCategoryCollectionViewCell: UICollectionViewCell {
   
   // MARK: - Variables
   var categoryArray: [MyCategoryList] = [] /// 서버 통신해서 받아올 배열을 저장할거임
-  var categoryNumber = 10 /// 카테고리 수 기준으로 section 1개 or 2개
-                          /// cateogoryArray.count
   var categoryIdArray: [String] = [] /// 카테고리 아이디를 저장해놓는 배열 -> 카테고리 상세 페이지로 넘어갈 때 사용할 파라미터
   var selectedCategoryIndex: Int = 100
   var customizedCategoryTitle: String = ""
@@ -39,9 +37,8 @@ class MyCategoryCollectionViewCell: UICollectionViewCell {
     super.awakeFromNib()
     register()
     associate()
-//    getCategoryData()
     layout()
-//    myCategoryTableView.reloadData()
+    myCategoryTableView.reloadData()
     self.myCategoryTableView.separatorStyle = .none
   }
 }
@@ -112,37 +109,37 @@ extension MyCategoryCollectionViewCell {
   }
   
   // MARK: - Server
-  func getCategoryData() {
-    UserProvider.rx.request(.categoryList)
-      .asObservable()
-      .subscribe(onNext: { response in
-        if response.statusCode == 200 {
-          do {
-            let decoder = JSONDecoder()
-            let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
-                                          from: response.data)
-            self.categoryArray = data.myCategoryList!
-            print("mycategorytableview.reload")
-            self.myCategoryTableView.reloadData()
-            for i in 0...self.categoryArray.count-1 {
-              self.categoryIdArray.append(self.categoryArray[i].id)
-            }
-            let mypageVC = self.rootViewController as? MypageViewController
-            print("mypage.page.reload")
-            mypageVC?.pageCollectionView.reloadData()
-          } catch {
-            print(error)
-          }
-        }
-        else {
-          
-        }
-      }, onError: { error in
-        print(error)
-      }, onCompleted: {
-        
-      }).disposed(by: disposeBag)
-  }
+//  func getCategoryData() {
+//    UserProvider.rx.request(.categoryList)
+//      .asObservable()
+//      .subscribe(onNext: { response in
+//        if response.statusCode == 200 {
+//          do {
+//            let decoder = JSONDecoder()
+//            let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
+//                                          from: response.data)
+//            self.categoryArray = data.myCategoryList!
+//            print("mycategorytableview.reload")
+//            self.myCategoryTableView.reloadData()
+//            for i in 0...self.categoryArray.count-1 {
+//              self.categoryIdArray.append(self.categoryArray[i].id)
+//            }
+//            let mypageVC = self.rootViewController as? MypageViewController
+//            print("mypage.page.reload")
+//            mypageVC?.pageCollectionView.reloadData()
+//          } catch {
+//            print(error)
+//          }
+//        }
+//        else {
+//
+//        }
+//      }, onError: { error in
+//        print(error)
+//      }, onCompleted: {
+//
+//      }).disposed(by: disposeBag)
+//  }
   
   func getCafeDataInCategory(index: Int) {
     CategoryProvider.rx.request(.cafeListInCategory(categoryId: self.categoryIdArray[index]))
