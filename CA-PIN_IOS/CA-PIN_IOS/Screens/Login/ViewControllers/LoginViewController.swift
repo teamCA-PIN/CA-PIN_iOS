@@ -144,7 +144,7 @@ extension LoginViewController {
   }
 
   func enableLoginButton() {
-    if emailTextField.text?.isEmpty == false && passwordTextField.text?.isEmpty == false {
+    if emailTextField.text?.isEmpty == false || passwordTextField.text?.isEmpty == false {
       self.loginButton.isEnabled = true
       self.loginButton.backgroundColor = .pointcolor1
     }
@@ -163,12 +163,12 @@ extension LoginViewController {
   // MARK: - Layout Helpers
   func layoutLogoImageView() {
     self.view.add(self.logoImageView) {
-      $0.image = UIImage(named: "loginLogo")
+      $0.image = UIImage(named: "capinLogo")
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(83)
         $0.centerX.equalToSuperview()
-        $0.width.equalTo(98)
-        $0.height.equalTo(106)
+        $0.width.equalTo(82)
+        $0.height.equalTo(127.2)
       }
     }
   }
@@ -305,6 +305,10 @@ extension LoginViewController {
 extension LoginViewController: UITextFieldDelegate {
   
   func textFieldDidEndEditing(_ textField: UITextField) {
+    enableLoginButton()
+  }
+  
+  func textFieldDidBeginEditing(_ textField: UITextField) {
     enableLoginButton()
   }
   
