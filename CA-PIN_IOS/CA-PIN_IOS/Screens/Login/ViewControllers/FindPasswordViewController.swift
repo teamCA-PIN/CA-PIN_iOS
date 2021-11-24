@@ -28,6 +28,7 @@ class FindPasswordViewController: UIViewController {
   let emailExplationLabel = UILabel()
   let findPasswordButton = UIButton()
   
+  // MARK: - Variables
   let disposeBag = DisposeBag()
   private let UserAuthProvider = MoyaProvider<UserAuthService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   
@@ -75,10 +76,9 @@ extension FindPasswordViewController {
           do {
             let decoder = JSONDecoder()
             let data = try decoder.decode(EmailAuthResponseType.self, from: response.data)
-            print("인증번호")
-            print(data.auth)
-            print(data.message)
+            KeychainWrapper.standard.set(data.auth!, forKey: "cerificationNumber")
             let changePasswordVC = ChangePasswordViewController()
+            changePasswordVC.userEmail = emailText
             self.navigationController?.pushViewController(changePasswordVC, animated: false)
             changePasswordVC.showGreenToast(message: "인증번호가 전송되었습니다.")
           } catch {
@@ -169,7 +169,7 @@ extension FindPasswordViewController {
       $0.backgroundColor = .pointcolor1
       $0.snp.makeConstraints {
         $0.height.equalTo(1)
-        $0.top.equalTo(self.emailTextField.snp.bottom).offset(1)
+        $0.top.equalTo(self.emailTextField.snp.bottom).offset(7)
         $0.leading.equalToSuperview().offset(48)
         $0.centerX.equalToSuperview()
       }

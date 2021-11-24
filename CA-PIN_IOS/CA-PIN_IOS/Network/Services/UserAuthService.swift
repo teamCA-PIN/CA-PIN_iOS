@@ -14,6 +14,7 @@ enum UserAuthService {
   case login(email: String, password: String)
   case signup(email: String, password: String, nickname: String)
   case emailAuth(email: String)
+  case changePassword(email: String, password: String)
 }
 
 extension UserAuthService: TargetType {
@@ -34,6 +35,8 @@ extension UserAuthService: TargetType {
       return "/user/signup"
     case .emailAuth:
       return "/user/emailAuth"
+    case .changePassword:
+      return "/user/changePassword"
     }
   }
   
@@ -43,6 +46,8 @@ extension UserAuthService: TargetType {
          .signup,
          .emailAuth:
       return .post
+    case .changePassword:
+      return .put
     }
   }
   
@@ -65,13 +70,19 @@ extension UserAuthService: TargetType {
                                          bodyEncoding: JSONEncoding.default,
                                          urlParameters: .init())
     case .emailAuth(email: let email):
-      return .requestCompositeParameters(bodyParameters: ["email": email], bodyEncoding: JSONEncoding.default, urlParameters: .init())
+      return .requestCompositeParameters(bodyParameters: ["email": email],
+                                         bodyEncoding: JSONEncoding.default,
+                                         urlParameters: .init())
+    case .changePassword(email: let email, password: let password):
+      return .requestCompositeParameters(bodyParameters: ["email": email, "password": password],
+                                         bodyEncoding: JSONEncoding.default,
+                                         urlParameters: .init())
     }
   }
   
   var headers: [String : String]? {
     switch self {
-    case .emailAuth:
+    case .emailAuth, .changePassword:
       return ["Content-Type": "application/json"]
     default:
       return ["Content-Type": "application/json",
