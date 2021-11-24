@@ -13,6 +13,7 @@ import SwiftKeychainWrapper
 enum UserAuthService {
   case login(email: String, password: String)
   case signup(email: String, password: String, nickname: String)
+  case emailAuth(email: String)
 }
 
 extension UserAuthService: TargetType {
@@ -31,13 +32,16 @@ extension UserAuthService: TargetType {
       return "/user/login"
     case .signup:
       return "/user/signup"
+    case .emailAuth:
+      return "/user/emailAuth"
     }
   }
   
   var method: Moya.Method {
     switch self {
     case .login,
-         .signup:
+         .signup,
+         .emailAuth:
       return .post
     }
   }
@@ -60,11 +64,15 @@ extension UserAuthService: TargetType {
                                                           "nickname": nickname],
                                          bodyEncoding: JSONEncoding.default,
                                          urlParameters: .init())
+    case .emailAuth(email: let email):
+      return .requestCompositeParameters(bodyParameters: ["email": email], bodyEncoding: JSONEncoding.default, urlParameters: .init())
     }
   }
   
   var headers: [String : String]? {
     switch self {
+    case .emailAuth:
+      return ["Content-Type": "application/json"]
     default:
       return ["Content-Type": "application/json",
               "token": token]

@@ -28,6 +28,9 @@ class FindPasswordViewController: UIViewController {
   let emailExplationLabel = UILabel()
   let findPasswordButton = UIButton()
   
+  let disposeBag = DisposeBag()
+  private let UserAuthProvider = MoyaProvider<UserAuthService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+  
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -58,6 +61,42 @@ extension FindPasswordViewController {
   }
   @objc func backButtonClicked() {
     self.navigationController?.popViewController(animated: false)
+  }
+  @objc func findPasswordButtonClicked() {
+    let email = self.emailTextField.text ?? ""
+    findPassword(email: email)
+  }
+  func findPassword(email: String) {
+    guard let emailText = emailTextField.text else { return }
+    UserAuthProvider.rx.request(.emailAuth(email: emailText))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(EmailAuthResponseType.self, from: response.data)
+            print("인증번호")
+            print(data.auth)
+            print(data.message)
+            let changePasswordVC = ChangePasswordViewController()
+            self.navigationController?.pushViewController(changePasswordVC, animated: false)
+            changePasswordVC.showGreenToast(message: "인증번호가 전송되었습니다.")
+          } catch {
+            print(error)
+          }
+        } else {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(EmailAuthResponseType.self, from: response.data)
+            self.showGrayToast(message: data.message ?? "이메일을 찾을 수 없습니다")
+          } catch {
+
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
   }
   func layoutNavigationBarView() {
     self.view.add(self.navigationBarView) {
@@ -149,6 +188,7 @@ extension FindPasswordViewController {
     self.view.add(self.findPasswordButton){
       $0.setupButton(title: "비밀번호 찾기", color: .white, font: .notoSansKRRegularFont(fontSize: 16), backgroundColor: .gray3, state: .normal, radius: 25)
       $0.titleLabel?.letterSpacing = -0.48
+      $0.addTarget(self, action: #selector(self.findPasswordButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.leading.equalToSuperview().offset(78)
@@ -160,5 +200,8 @@ extension FindPasswordViewController {
 }
 
 extension FindPasswordViewController: UITextFieldDelegate {
-  
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    self.findPasswordButton.isEnabled = true
+    self.findPasswordButton.backgroundColor = .maincolor1
+  }
 }

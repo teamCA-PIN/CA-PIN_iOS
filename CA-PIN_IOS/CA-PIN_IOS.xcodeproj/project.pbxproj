@@ -15,6 +15,7 @@
 		92413711269457C50016D18F /* MyCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413710269457C50016D18F /* MyCategoryTableViewCell.swift */; };
 		92413713269596660016D18F /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92413712269596660016D18F /* CategoryDetailViewController.swift */; };
 		924B15E5274D03920080A8B2 /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B15E4274D03920080A8B2 /* FindPasswordViewController.swift */; };
+		924B15E7274E01950080A8B2 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B15E6274E01950080A8B2 /* ChangePasswordViewController.swift */; };
 		92537073269893DF00E2E5EA /* MyCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92537072269893DF00E2E5EA /* MyCategoryCollectionViewCell.swift */; };
 		92537075269893EB00E2E5EA /* MyReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92537074269893EB00E2E5EA /* MyReviewCollectionViewCell.swift */; };
 		925370792698F4DD00E2E5EA /* MyEmptyCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925370782698F4DD00E2E5EA /* MyEmptyCategoryTableViewCell.swift */; };
@@ -168,6 +169,7 @@
 		92413710269457C50016D18F /* MyCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		92413712269596660016D18F /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
 		924B15E4274D03920080A8B2 /* FindPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordViewController.swift; sourceTree = "<group>"; };
+		924B15E6274E01950080A8B2 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		92537072269893DF00E2E5EA /* MyCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		92537074269893EB00E2E5EA /* MyReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		925370782698F4DD00E2E5EA /* MyEmptyCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEmptyCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -576,6 +578,7 @@
 				929AD4DB268EEB150071C394 /* SignUpViewController.swift */,
 				CCF78449268B71CD005FDF1D /* LoginViewController.swift */,
 				924B15E4274D03920080A8B2 /* FindPasswordViewController.swift */,
+				924B15E6274E01950080A8B2 /* ChangePasswordViewController.swift */,
 				921FEFDF26A158AB00FEBEC9 /* SplashViewController.swift */,
 			);
 			path = ViewControllers;
@@ -1262,6 +1265,7 @@
 				CCB6C668268F083A00941E92 /* PinPopupTableViewCell.swift in Sources */,
 				CCA85B5C2688F29700C9A32C /* UIDatePicker+.swift in Sources */,
 				CCA85B5F2688F29700C9A32C /* UICollectionReusableView+.swift in Sources */,
+				924B15E7274E01950080A8B2 /* ChangePasswordViewController.swift in Sources */,
 				CC45A18C26955CDF00E68817 /* CafeDetailViewController.swift in Sources */,
 				CCA85AF72688ED6F00C9A32C /* SceneDelegate.swift in Sources */,
 				E81F0ED4268DC2340042B825 /* CafeTITest1ViewController.swift in Sources */,
