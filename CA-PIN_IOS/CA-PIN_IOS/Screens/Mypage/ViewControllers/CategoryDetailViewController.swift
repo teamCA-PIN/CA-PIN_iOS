@@ -26,6 +26,7 @@ class CategoryDetailViewController: UIViewController {
     $0.estimatedRowHeight = 600
     $0.rowHeight = UITableView.automaticDimension
   }
+  let cancleButton = UIButton()
   
   // MARK: - Variables
   let screenWidth = UIScreen.main.bounds.width
@@ -54,7 +55,7 @@ class CategoryDetailViewController: UIViewController {
     attribute()
     layout()
     notificationCenter()
-    
+    cancleButton.isHidden = true
     self.viewDidAppear(true)
   }
   override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +91,7 @@ extension CategoryDetailViewController {
     layoutDeleteButton()
     layoutPinNumberLabel()
     layoutCafeListTableView()
+    layoutCancleButton()
     self.cafeListTableView.separatorStyle = .none
     self.cafeListTableView.showsVerticalScrollIndicator = false
   }
@@ -163,6 +165,18 @@ extension CategoryDetailViewController {
       }
     }
   }
+  func layoutCancleButton() {
+    self.view.add(self.cancleButton) {
+      $0.setupButton(title: "취소하기", color: .white, font: .notoSansKRMediumFont(fontSize: 15), backgroundColor: .gray3, state: .normal, radius: 15)
+      $0.addTarget(self, action: #selector(self.cancleButtonClicked), for: .touchUpInside)
+      $0.snp.makeConstraints {
+        $0.leading.equalToSuperview().offset(30)
+        $0.centerX.equalToSuperview()
+        $0.height.equalTo(50)
+        $0.bottom.equalToSuperview().offset(-30)
+      }
+    }
+  }
   func notificationCenter() {
     NotificationCenter.default.addObserver(self, selector: #selector(checkButtonClicked), name: Notification.Name("CheckButtonClicked"), object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(appendDeleteArray), name: Notification.Name("AppendToDeleteArray"), object: nil)
@@ -186,6 +200,7 @@ extension CategoryDetailViewController {
   @objc func deleteButtonClicked() {
     if self.categoryNameLabel.text == categoryTitle {
       NotificationCenter.default.post(name: NSNotification.Name("DeleteButton"), object: nil)
+      self.cancleButton.isHidden = false
     } else {
       /// 삭제 팝업 띄우기
       let deleteVC = DeletePinViewController()
@@ -194,6 +209,9 @@ extension CategoryDetailViewController {
       deleteVC.cafeIdArrayToDelete = self.cafeIdArrayToDelete
       self.present(deleteVC, animated: false, completion: nil)
     }
+  }
+  @objc func cancleButtonClicked() {
+    changeNavigationTitle(check: false)
   }
   /// 체크버튼 check, uncheck 상태에 따라서 네비게이션 타이틀 바꿈
   @objc func checkButtonClicked(notification: Notification) {
@@ -208,15 +226,18 @@ extension CategoryDetailViewController {
       self.categoryNameLabel.text = "\(countedPinNumber)개 선택됨"
       self.deleteButton.setImage(UIImage(named: "iconDeleteRed"), for: .normal)
       self.enableDelete = true
+      self.cancleButton.isHidden = false
     } else { /// 체크 버튼 해제 액션이면 개수에 따라서 타이틀 바꿔준다
       countedPinNumber -= 1
       if countedPinNumber == 0 { /// 선택된 체크 버튼이 0개면 타이틀 바꾸고 레이아웃 다시 잡을 수 있도록 노티 Post
         self.categoryNameLabel.text = "기본 카테고리"
         self.deleteButton.setImage(UIImage(named: "iconDeleteVer2"), for: .normal)
         NotificationCenter.default.post(name: NSNotification.Name("returnCategoryView"), object: nil)
+        self.cancleButton.isHidden = true
       }
       else { /// 1개 이상이면 타이틀만 바꿔준다
         self.categoryNameLabel.text = "\(countedPinNumber)개 선택됨"
+        self.cancleButton.isHidden = false
       }
     }
   }
