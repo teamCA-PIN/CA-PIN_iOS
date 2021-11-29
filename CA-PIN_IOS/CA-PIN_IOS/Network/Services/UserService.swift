@@ -64,11 +64,12 @@ extension UserService: TargetType {
       return .requestPlain
     case .editMyInfo(nickname: let nickname, profilImg: let profileImg):
         var multiPartFormData: [MultipartFormData] = []
-        let nickname = ["nickname": nickname] as [String: Any]
-        let data = try! JSONSerialization.data(withJSONObject: nickname, options: .prettyPrinted)
-        let jsonString = String(data: data, encoding: .utf8)!
+      let nickname = Data(nickname.utf8)
+//        let data = try! JSONSerialization.data(withJSONObject: nickname, options: .prettyPrinted)
+        let jsonString = String(data: nickname, encoding: .utf8)!
         let stringData = MultipartFormData(provider: .data(jsonString.data(using: String.Encoding.utf8)!), name: "nickname")
         multiPartFormData.append(stringData)
+      
         if profileImg != nil {
             let imageData = profileImg.jpegData(compressionQuality: 1.0)
             let imgData = MultipartFormData(provider: .data(imageData!), name: "profileImg", fileName: "image", mimeType: "image/jpeg")

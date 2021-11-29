@@ -48,10 +48,10 @@ class EditProfileViewController: UIViewController {
     nameTextField.delegate = self
     nameTextField.isUserInteractionEnabled = true
     nameTextView.bringSubviewToFront(nameTextField)
-//    NotificationCenter.default.addObserver(self,
-//                                           selector: #selector(self.textDidChange(_:)),
-//                                           name: UITextField.textDidChangeNotification,
-//                                           object: self.nameTextField)
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(self.textDidChange(_:)),
+                                           name: UITextField.textDidChangeNotification,
+                                           object: self.nameTextField)
   }
   
   override func viewDidLayoutSubviews() {
@@ -133,7 +133,8 @@ extension EditProfileViewController {
         $0.top.equalTo(self.profileImageView.snp.bottom).offset(43)
         $0.leading.equalToSuperview().offset(21)
         $0.trailing.equalToSuperview().offset(-21)
-        $0.centerX.equalToSuperview()
+        $0.height.equalTo(118)
+//        $0.centerX.equalToSuperview()
       }
     }
   }
@@ -223,6 +224,7 @@ extension EditProfileViewController {
     let chooseFromAlbumAction: UIAlertAction
     chooseFromAlbumAction = UIAlertAction(title: "앨범에서 사진 선택", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
       self.imagePicker.sourceType = .photoLibrary
+      self.imagePicker.allowsEditing = true
       self.present(self.imagePicker, animated: true, completion: nil)
     })
     let chooseDefaultAction: UIAlertAction
@@ -260,9 +262,9 @@ extension EditProfileViewController {
       }
     }
   }
-//  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//    self.view.endEditing(true)
-//  }
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    self.view.endEditing(true)
+  }
   
   // MARK: - General Helpers
   func editProfile() {
@@ -274,21 +276,21 @@ extension EditProfileViewController {
     else { /// 새로운 이름
       newUserName = nameTextField.text!
     }
-    
-    var newProfileImage = UIImage()
 
+    var newProfileImage = UIImage()
     newProfileImage = self.myImageView.image!
-    print("서버에 어케 넘어가냐면: \(newUserName)")
+    
     editProvider.rx.request(.editMyInfo(nickname: newUserName, profilImg: newProfileImage))
       .asObservable()
       .subscribe(onNext: { response in
         if response.statusCode == 200 {
           do {
-            let mypageVC = self.navigationController?.children as? MypageViewController
+            var index = self.navigationController?.viewControllers.endIndex ?? 1
+            guard let mypageVC = self.navigationController?.viewControllers[index-2] as? MypageViewController else { return }
+            mypageVC.nicknameLabel.text = newUserName
+            mypageVC.profileImageView.image = newProfileImage
             self.navigationController?.popViewController(animated: false) {
-              mypageVC?.userName = newUserName
-              mypageVC?.profileImageView.image = newProfileImage
-              mypageVC?.showGreenToast(message: "프로필 편집이 완료되었습니다.")
+              mypageVC.showGreenToast(message: "프로필 편집이 완료되었습니다.")
             }
           } catch {
             print(error)
@@ -332,6 +334,7 @@ extension EditProfileViewController: UINavigationControllerDelegate {
 
 extension EditProfileViewController: UITextFieldDelegate {
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    return true
     guard let text = textField.text else {return false}
     if text.count >= self.maxLength &&
         range.length == 0 &&
@@ -340,7 +343,4 @@ extension EditProfileViewController: UITextFieldDelegate {
     }
     return false
   }
-//  func textFieldDidBeginEditing(_ textField: UITextField) {
-//    print(#function)
-//  }
 }
