@@ -73,8 +73,10 @@ class MypageViewController: UIViewController {
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    loadInfoData()
+    bindMyData()
     getCategoryListService()
-    print(categoryArray)
+//    print(categoryArray)
     getReviewListService()
     self.view.backgroundColor = .white
     register()
@@ -109,6 +111,34 @@ extension MypageViewController {
   }
   func scroll(to index: Int) {
     tabbarCollectionView.selectItem(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: [])
+  }
+  func loadInfoData() {
+    UserServiceProvider.rx.request(.myInfo)
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(MyInfoResponseType<MyInfo>.self,
+                                          from: response.data)
+            print(data)
+            self.userName = data.myInfo?.nickname ?? ""
+            self.profileImage = data.myInfo?.profileImg ?? ""
+            self.plainImage = data.myInfo?.cafeti.plainImg ?? ""
+            self.nicknameLabel.text = self.userName
+            self.profileImageView.imageFromUrl(self.profileImage, defaultImgPath: "")
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
+  }
+  func bindMyData() {
+    self.nicknameLabel.text = userName
+    self.profileImageView.imageFromUrl(profileImage, defaultImgPath: "")
   }
   func getCategoryListService() {
     print(#function)
@@ -199,6 +229,8 @@ extension MypageViewController {
   }
   func layoutProfileImageView() {
     self.view.add(self.profileImageView) {
+      print("profileimage")
+      print(self.profileImage)
         $0.imageFromUrl(self.profileImage, defaultImgPath: "colorchip7")
         $0.snp_makeConstraints {
             $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(54)
@@ -209,6 +241,8 @@ extension MypageViewController {
   }
   func layoutNicknameLabel() {
     self.view.add(self.nicknameLabel) {
+      print("nickname")
+      print(self.userName)
       $0.setupLabel(text: self.userName, color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
