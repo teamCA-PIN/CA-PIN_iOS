@@ -87,6 +87,7 @@ class MypageViewController: UIViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
+    print(#function)
     getCategoryListService()
     getReviewListService()
   }
@@ -120,10 +121,12 @@ extension MypageViewController {
             let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
                                           from: response.data)
             self.categoryArray = data.myCategoryList!
+            self.categoryIdArray = []
             for i in 0...self.categoryArray.count-1 {
               self.categoryIdArray.append(self.categoryArray[i].id)
             }
             self.pageCollectionView.reloadData()
+            
           } catch {
             print(error)
           }
@@ -148,6 +151,8 @@ extension MypageViewController {
             let data = try decoder.decode(ReviewResponseArrayType<Review>.self,
                                           from: response.data)
             self.reviewList = data.reviews!
+            self.cafeNameList = []
+            self.ratingList = []
             for i in 0..<self.reviewList.count {
               self.cafeNameList.append(self.reviewList[i].cafeName)
               self.ratingList.append(self.reviewList[i].rating)
@@ -426,17 +431,18 @@ extension MypageViewController: UICollectionViewDataSource {
       if indexPath.section == 0 {
         guard let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCategoryCollectionViewCell.reuseIdentifier, for: indexPath) as? MyCategoryCollectionViewCell else { return UICollectionViewCell() }
         categoryCell.rootViewController = self
-        categoryCell.awakeFromNib()
+      
         categoryCell.backgroundColor = .white
         categoryCell.categoryArray = self.categoryArray
         categoryCell.categoryIdArray = self.categoryIdArray
+        categoryCell.awakeFromNib()
         return categoryCell
       } else {
         guard let reviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.reuseIdentifier, for: indexPath) as? MyReviewCollectionViewCell else { return UICollectionViewCell() }
         reviewCell.rootViewController = self
-        reviewCell.awakeFromNib()
         reviewCell.reviewList = self.reviewList
         reviewCell.backgroundColor = .white
+        reviewCell.awakeFromNib()
         return reviewCell
       }
     default: return UICollectionViewCell()
