@@ -68,3 +68,8 @@ struct Response: Codable {
     var success: Bool?
     var message: String?
 }
+
+struct EmailAuthResponseType: Codable {
+  var message: String?
+  var auth: Int?
+}

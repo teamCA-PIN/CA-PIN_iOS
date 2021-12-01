@@ -100,6 +100,7 @@ extension LoginViewController {
             KeychainWrapper.standard.set(emailText, forKey: "loginEmail")
             KeychainWrapper.standard.set(passwordText, forKey: "loginPassword")
             KeychainWrapper.standard.set(data.loginData!.tokenAccess, forKey: "tokenAccess")
+            print("tokenAccess: \(data.loginData!.tokenAccess)")
               KeychainWrapper.standard.set(data.loginData!.tokenRefresh, forKey: "tokenRefresh")
 
             let cafeTI = KeychainWrapper.standard.string(forKey: "userCafeTI")
@@ -136,14 +137,17 @@ extension LoginViewController {
       }, onCompleted: {
       }).disposed(by: disposeBag)
   }
-  
+  @objc func findPasswordButtonClicked() {
+    let findVC = FindPasswordViewController()
+    self.navigationController?.pushViewController(findVC, animated: false)
+  }
   @objc func signUpButtonClicked() {
     let signUpVC = SignUpViewController()
     self.navigationController?.pushViewController(signUpVC, animated: false)
   }
 
   func enableLoginButton() {
-    if emailTextField.text?.isEmpty == false && passwordTextField.text?.isEmpty == false {
+    if emailTextField.text?.isEmpty == false || passwordTextField.text?.isEmpty == false {
       self.loginButton.isEnabled = true
       self.loginButton.backgroundColor = .pointcolor1
     }
@@ -162,12 +166,12 @@ extension LoginViewController {
   // MARK: - Layout Helpers
   func layoutLogoImageView() {
     self.view.add(self.logoImageView) {
-      $0.image = UIImage(named: "loginLogo")
+      $0.image = UIImage(named: "capinLogo")
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(83)
         $0.centerX.equalToSuperview()
-        $0.width.equalTo(98)
-        $0.height.equalTo(106)
+        $0.width.equalTo(82)
+        $0.height.equalTo(127.2)
       }
     }
   }
@@ -278,6 +282,7 @@ extension LoginViewController {
     self.buttonContainerView.add(self.findPasswordButton) {
       $0.setupButton(title: "비밀번호 찾기", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14), backgroundColor: .clear, state: .normal, radius: 0)
       $0.titleLabel?.letterSpacing = -0.7
+      $0.addTarget(self, action: #selector(self.findPasswordButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.buttonContainerView.snp.top)
         $0.bottom.equalTo(self.buttonContainerView.snp.bottom)
@@ -304,6 +309,10 @@ extension LoginViewController {
 extension LoginViewController: UITextFieldDelegate {
   
   func textFieldDidEndEditing(_ textField: UITextField) {
+    enableLoginButton()
+  }
+  
+  func textFieldDidBeginEditing(_ textField: UITextField) {
     enableLoginButton()
   }
   

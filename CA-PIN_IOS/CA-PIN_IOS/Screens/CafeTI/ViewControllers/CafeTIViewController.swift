@@ -56,6 +56,7 @@ extension CafeTIViewController {
         $0.width.equalTo(28)
         $0.height.equalTo(28)
       }
+      $0.addTarget(self, action: #selector(self.backButtonClicked), for: .touchUpInside)
     }
     
   }
@@ -128,6 +129,10 @@ extension CafeTIViewController {
         $0.bottom.equalTo(self.view.snp.bottom).offset(-34)
       }
     }
+  }
+  // 지우지말아죠
+  @objc func backButtonClicked() {
+    self.navigationController?.popViewController(animated: true)
   }
   @objc func startButtonClicked() {
     let cafeTI1VC = CafeTITest1ViewController()
