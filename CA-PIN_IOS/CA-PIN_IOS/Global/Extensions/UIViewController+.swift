@@ -30,7 +30,7 @@ extension UIViewController {
     let containerView = UIView() /// 이미지 . 메시지
     
     let iconImage = UIImageView()
-    iconImage.image = UIImage(named: "component40Eror")
+    iconImage.image = UIImage(named: "icnError")
     
     /// 사용하려는 라벨 크기 받아서 동적으로 크기 맞춰줄거임
     let toastLabel = UILabel().then {

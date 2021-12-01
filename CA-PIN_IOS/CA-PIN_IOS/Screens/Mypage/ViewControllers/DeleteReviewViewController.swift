@@ -109,7 +109,7 @@ extension DeleteReviewViewController {
       }
     }
   }
-  func reviewDeleteService(reviewId: String) {
+  func deleteReview(reviewId: String) {
     reviewDeleteService.rx.request(.deleteReview(reviewId: reviewId))
       .asObservable()
       .subscribe(onNext: { response in
@@ -145,6 +145,6 @@ extension DeleteReviewViewController {
   }
   @objc func clickedConfirmButton() {
     /// 삭제 서버 연결
-    reviewDeleteService(reviewId: reviewId)
+    deleteReview(reviewId: reviewId)
   }
 }

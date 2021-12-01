@@ -5,6 +5,7 @@
 //  Created by 노한솔 on 2021/07/12.
 //
 
+import UIKit
 import Foundation
 
 import Moya
@@ -14,6 +15,7 @@ enum UserService {
   case myInfo
   case reviews
   case categoryList
+  case editMyInfo(nickname: String, profilImg: UIImage)
 }
 
 extension UserService: TargetType {
@@ -24,12 +26,13 @@ extension UserService: TargetType {
   }
   
   public var baseURL: URL {
-      return URL(string: Environment.baseURL)!
+    return URL(string: Environment.baseURL)!
   }
   
   var path: String {
     switch self {
-    case .myInfo:
+    case .myInfo,
+         .editMyInfo:
       return "/user/myInfo"
     case .reviews:
       return "/user/reviews"
@@ -44,6 +47,8 @@ extension UserService: TargetType {
          .reviews,
          .categoryList:
       return .get
+    case .editMyInfo:
+      return .put
     }
   }
   
@@ -57,11 +62,28 @@ extension UserService: TargetType {
          .reviews,
          .categoryList:
       return .requestPlain
+    case .editMyInfo(nickname: let nickname, profilImg: let profileImg):
+        var multiPartFormData: [MultipartFormData] = []
+      let nickname = Data(nickname.utf8)
+//        let data = try! JSONSerialization.data(withJSONObject: nickname, options: .prettyPrinted)
+        let jsonString = String(data: nickname, encoding: .utf8)!
+        let stringData = MultipartFormData(provider: .data(jsonString.data(using: String.Encoding.utf8)!), name: "nickname")
+        multiPartFormData.append(stringData)
+      
+        if profileImg != nil {
+            let imageData = profileImg.jpegData(compressionQuality: 1.0)
+            let imgData = MultipartFormData(provider: .data(imageData!), name: "profileImg", fileName: "image", mimeType: "image/jpeg")
+            multiPartFormData.append(imgData)
+        }
+        return .uploadMultipart(multiPartFormData)
     }
   }
   
   var headers: [String : String]? {
     switch self {
+    case .editMyInfo:
+      return ["Content-Type": "multipart/form-data",
+              "token": token]
     default:
       return ["Content-Type": "application/json",
               "token": token]

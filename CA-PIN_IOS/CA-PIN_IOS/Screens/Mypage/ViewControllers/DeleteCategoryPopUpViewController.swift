@@ -27,7 +27,6 @@ class DeleteCategoryPopUpViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.view.backgroundColor = .white
     layout()
     // Do any additional setup after loading the view.
   }
@@ -131,6 +130,7 @@ extension DeleteCategoryPopUpViewController {
           do {
             let myPageVC = self.presentingViewController?.children[0] as? MypageViewController
             self.dismiss(animated: false) {
+              myPageVC?.viewWillAppear(true)
               myPageVC?.showGreenToast(message: "카테고리 삭제가 완료되었습니다.")
             }
           }

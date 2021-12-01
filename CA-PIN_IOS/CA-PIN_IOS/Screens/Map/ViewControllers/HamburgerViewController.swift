@@ -284,10 +284,10 @@ extension HamburgerViewController {
   }
   @objc func clickedNextButton() {
     let mypageVC = MypageViewController()
-    mypageVC.userName = self.infoData!.nickname
-    mypageVC.profileImage = self.infoData!.profileImg
-    mypageVC.cafeTI = self.infoData!.cafeti.type
-    mypageVC.plainImage = self.infoData!.cafeti.plainImg
+//    mypageVC.userName = self.infoData!.nickname
+//    mypageVC.profileImage = self.infoData!.profileImg
+//    mypageVC.cafeTI = self.infoData!.cafeti.type
+//    mypageVC.plainImage = self.infoData!.cafeti.plainImg
     let mypageNavigation = UINavigationController()
     mypageNavigation.modalPresentationStyle = .currentContext
     mypageNavigation.addChild(mypageVC)

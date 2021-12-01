@@ -59,7 +59,7 @@ extension MyCategoryTableViewCell {
   }
   func layoutTitleLabel() {
     self.contentView.add(self.titleLabel) {
-      $0.setupLabel(text: "기본 카테고리", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 14))
+      $0.setupLabel(text: "", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 14))
       $0.sizeToFit()
       $0.snp.makeConstraints {
         $0.height.equalTo(20)

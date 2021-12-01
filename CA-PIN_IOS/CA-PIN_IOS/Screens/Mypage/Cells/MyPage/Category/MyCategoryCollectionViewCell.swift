@@ -26,9 +26,11 @@ class MyCategoryCollectionViewCell: UICollectionViewCell {
   
   // MARK: - Variables
   var categoryArray: [MyCategoryList] = [] /// 서버 통신해서 받아올 배열을 저장할거임
-  var categoryNumber = 10 /// 카테고리 수 기준으로 section 1개 or 2개
-                          /// cateogoryArray.count
-  var categoryIdArray: [String] = [] /// 카테고리 아이디를 저장해놓는 배열 -> 카테고리 상세 페이지로 넘어갈 때 사용할 파라미터
+  var categoryIdArray: [String] = [] {
+    didSet {
+      print("##", categoryIdArray)
+    }
+  } /// 카테고리 아이디를 저장해놓는 배열 -> 카테고리 상세 페이지로 넘어갈 때 사용할 파라미터
   var selectedCategoryIndex: Int = 100
   var customizedCategoryTitle: String = ""
   
@@ -39,9 +41,8 @@ class MyCategoryCollectionViewCell: UICollectionViewCell {
     super.awakeFromNib()
     register()
     associate()
-    getCategoryData()
     layout()
-//    myCategoryTableView.reloadData()
+    myCategoryTableView.reloadData()
     self.myCategoryTableView.separatorStyle = .none
   }
 }
@@ -112,37 +113,37 @@ extension MyCategoryCollectionViewCell {
   }
   
   // MARK: - Server
-  func getCategoryData() {
-    UserProvider.rx.request(.categoryList)
-      .asObservable()
-      .subscribe(onNext: { response in
-        if response.statusCode == 200 {
-          do {
-            let decoder = JSONDecoder()
-            let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
-                                          from: response.data)
-            self.categoryArray = data.myCategoryList!
-            print("mycategorytableview.reload")
-            self.myCategoryTableView.reloadData()
-            for i in 0...self.categoryArray.count-1 {
-              self.categoryIdArray.append(self.categoryArray[i].id)
-            }
-            let mypageVC = self.rootViewController as? MypageViewController
-            print("mypage.page.reload")
-            mypageVC?.pageCollectionView.reloadData()
-          } catch {
-            print(error)
-          }
-        }
-        else {
-          
-        }
-      }, onError: { error in
-        print(error)
-      }, onCompleted: {
-        
-      }).disposed(by: disposeBag)
-  }
+//  func getCategoryData() {
+//    UserProvider.rx.request(.categoryList)
+//      .asObservable()
+//      .subscribe(onNext: { response in
+//        if response.statusCode == 200 {
+//          do {
+//            let decoder = JSONDecoder()
+//            let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
+//                                          from: response.data)
+//            self.categoryArray = data.myCategoryList!
+//            print("mycategorytableview.reload")
+//            self.myCategoryTableView.reloadData()
+//            for i in 0...self.categoryArray.count-1 {
+//              self.categoryIdArray.append(self.categoryArray[i].id)
+//            }
+//            let mypageVC = self.rootViewController as? MypageViewController
+//            print("mypage.page.reload")
+//            mypageVC?.pageCollectionView.reloadData()
+//          } catch {
+//            print(error)
+//          }
+//        }
+//        else {
+//
+//        }
+//      }, onError: { error in
+//        print(error)
+//      }, onCompleted: {
+//
+//      }).disposed(by: disposeBag)
+//  }
   
   func getCafeDataInCategory(index: Int) {
     CategoryProvider.rx.request(.cafeListInCategory(categoryId: self.categoryIdArray[index]))
@@ -222,9 +223,7 @@ extension MyCategoryCollectionViewCell: UITableViewDataSource {
         categoryCell.awakeFromNib()
         categoryCell.selectionStyle = .none
         categoryCell.backgroundColor = .white
-        if indexPath.item == 0 {
-          categoryCell.editButton.isHidden = true
-        }
+        categoryCell.editButton.isHidden = true
         categoryCell.setCategoryData(colorCode: categoryArray[indexPath.row].color, name: categoryArray[indexPath.row].name, number: categoryArray[indexPath.row].cafes.count)
         return categoryCell
       } else {
@@ -233,29 +232,24 @@ extension MyCategoryCollectionViewCell: UITableViewDataSource {
         return emptyCell
       }
     }
-    guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: MyCategoryTableViewCell.reuseIdentifier, for: indexPath) as? MyCategoryTableViewCell else { return UITableViewCell() }
-    categoryCell.awakeFromNib()
-    categoryCell.selectionStyle = .none
-    categoryCell.backgroundColor = .white
-    
-    categoryCell.setCategoryData(colorCode: categoryArray[indexPath.row].color, name: categoryArray[indexPath.row].name, number: categoryArray[indexPath.row].cafes.count)
-    categoryCell.categoryID = categoryArray[indexPath.row].id
-    
-    if indexPath.item == 0 {
-      categoryCell.editButton.isHidden = true
+    else {
+      guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: MyCategoryTableViewCell.reuseIdentifier, for: indexPath) as? MyCategoryTableViewCell else { return UITableViewCell() }
+      categoryCell.awakeFromNib()
+      categoryCell.selectionStyle = .none
+      categoryCell.backgroundColor = .white
+      categoryCell.setCategoryData(colorCode: categoryArray[indexPath.row].color, name: categoryArray[indexPath.row].name, number: categoryArray[indexPath.row].cafes.count)
+      categoryCell.categoryID = categoryArray[indexPath.row].id
+      if categoryCell.titleLabel.text == "기본 카테고리" {
+        categoryCell.editButton.isHidden = true
+      } else {
+        categoryCell.editButton.isHidden = false
+      }
+      return categoryCell
     }
-    return categoryCell
   }
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     self.selectedCategoryIndex = indexPath.row
     self.customizedCategoryTitle = self.categoryArray[indexPath.row].name
     self.getCafeDataInCategory(index: selectedCategoryIndex)
-    let detailVC = CategoryDetailViewController()
-    detailVC.categoryTitle = self.customizedCategoryTitle /// 디테일뷰 타이틀을 바꿔준다
-//    detailVC.pinNumber = data.cafeDetail?.count ?? 100 /// 디테일뷰 핀 개수를 바꿔준다
-//    detailVC.cafeDetailArray = data.cafeDetail ?? []
-//    detailVC.categoryId = self.categoryIdArray[index]
-    detailVC.categoryData = categoryArray[indexPath.row]
-//    self.parentViewController?.navigationController?.pushViewController(detailVC, animated: false)
   }
 }
