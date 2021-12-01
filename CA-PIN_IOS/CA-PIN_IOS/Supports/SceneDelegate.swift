@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       let rootNav = UINavigationController()
       rootNav.navigationBar.isHidden = true
       rootNav.hidesBottomBarWhenPushed = false
-      let rootVC = LoginViewController()
+      let rootVC = SplashViewController()
       rootVC.view.backgroundColor = .logoWhite
       rootVC.hidesBottomBarWhenPushed = false
       

@@ -49,10 +49,13 @@ extension MyReviewCollectionViewCell {
     self.myReviewTableView.register(MyReviewTableViewCell.self, forCellReuseIdentifier: MyReviewTableViewCell.reuseIdentifier)
   }
   func associate() {
-    self.myReviewTableView.delegate = self
-    self.myReviewTableView.dataSource = self
-    if reviewList.count > 0 { /// 리뷰가 1개 이상일 때에만 헤더뷰 등록
+    if reviewList.count > 0 { /// 리뷰가 1개 이상일 때에만 헤더뷰까지 등록
       self.myReviewTableView.tableHeaderView = headerView
+      self.myReviewTableView.delegate = self
+      self.myReviewTableView.dataSource = self
+    } else { /// 리뷰가 0개일 때는 tableView만 등록
+      self.myReviewTableView.delegate = self
+      self.myReviewTableView.dataSource = self
     }
   }
   func layout() {
