@@ -1,8 +1,8 @@
 //
-//  DeletePinViewController.swift
+//  ReportReviewPopUpViewController.swift
 //  CA-PIN_IOS
 //
-//  Created by 장서현 on 2021/07/12.
+//  Created by 장서현 on 2021/12/04.
 //
 
 import UIKit
@@ -10,37 +10,38 @@ import Moya
 import RxMoya
 import RxSwift
 
-class DeletePinViewController: UIViewController {
+
+class ReportReviewPopUpViewController: UIViewController {
   
   // MARK: - Components
   let popupView = UIView()
   let titleLabel = UILabel()
-  private let buttonContainerView = UIView()
+  let descriptionLabel = UILabel()
+  let buttonContainerView = UIView()
   let cancelButton = UIButton()
-  let confirmButton = UIButton()
+  let deleteButton = UIButton()
   
-  var categoryId: String = "" /// 선택된 카테고리 아이디 -> 삭제할 때 쓸거임
-  var cafeIdArrayToDelete: [String] = [] /// 삭제할 카페 id값만 넣어놓은 배열
-  
-  var mypageVC = UIViewController()
   let disposeBag = DisposeBag()
-  private let CategoryService = MoyaProvider<CategoryService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+  let reviewProvider = MoyaProvider<ReviewService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+  var reviewId: String = ""
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.view.backgroundColor = .white
     layout()
     // Do any additional setup after loading the view.
+    print("###\(reviewId)")
   }
 }
+
 // MARK: - Extensions
-extension DeletePinViewController {
-  // MARK: - Layout Helpers
+extension ReportReviewPopUpViewController {
   
+  // MARK: - Layout Helpers
   func layout() {
     self.view.backgroundColor = .backgroundCover
     layoutPopupView()
     layoutTitleLabel()
+    layoutDescriptionLabel()
     layoutButtonContainerView()
     layoutCancelButton()
     layoutDeleteButton()
@@ -58,15 +59,28 @@ extension DeletePinViewController {
   }
   func layoutTitleLabel() {
     popupView.add(titleLabel) {
-      $0.setupLabel(text: "선택된 핀을 모두\n삭제하시겠습니까?",
+      $0.setupLabel(text: "리뷰를 신고하시겠습니까?",
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20),
                     align: .center)
-      $0.numberOfLines = 0
-      $0.letterSpacing = -1.0
+//      $0.letterSpacing = -1
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
-        $0.top.equalTo(self.popupView.snp.top).offset(41.5)
+        $0.top.equalTo(self.popupView.snp.top).offset(26)
+      }
+    }
+  }
+  func layoutDescriptionLabel() {
+    popupView.add(descriptionLabel) {
+      $0.numberOfLines = 0
+      $0.setupLabel(text: "카페 후기와 관계없거나 무의미한 내용, 욕설 등이\n포함된 경우 검토 후 삭제됩니다.",
+                    color: 0x6f6f6f.color,
+                    font: .notoSansKRRegularFont(fontSize: 14),
+                    align: .center)
+      $0.letterSpacing = -0.6
+      $0.snp.makeConstraints {
+        $0.centerX.equalToSuperview()
+        $0.top.equalTo(self.titleLabel.snp.bottom).offset(16)
       }
     }
   }
@@ -87,7 +101,6 @@ extension DeletePinViewController {
                      backgroundColor: .gray2,
                      state: .normal,
                      radius: 0)
-      $0.titleLabel?.letterSpacing = -0.6
       $0.addTarget(self, action: #selector(self.clickedCancelButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.trailing.equalTo(self.buttonContainerView.snp.centerX)
@@ -96,15 +109,14 @@ extension DeletePinViewController {
     }
   }
   func layoutDeleteButton() {
-    buttonContainerView.add(self.confirmButton) {
-      $0.setupButton(title: "확인",
+    buttonContainerView.add(deleteButton) {
+      $0.setupButton(title: "신고",
                      color: .white,
                      font: .notoSansKRRegularFont(fontSize: 16),
                      backgroundColor: .pointcolor1,
                      state: .normal,
                      radius: 0)
-      $0.titleLabel?.letterSpacing = -0.6
-      $0.addTarget(self, action: #selector(self.clickedConfirmButton), for: .touchUpInside)
+      $0.addTarget(self, action: #selector(self.reportButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.buttonContainerView.snp.centerX)
         $0.trailing.top.bottom.equalToSuperview()
@@ -112,19 +124,47 @@ extension DeletePinViewController {
     }
   }
   
+//  func deleteService(categoryId: String) {
+//    CategoryService.rx.request(.deleteCategory(categoryId: categoryId))
+//      .asObservable()
+//      .subscribe(onNext: { response in
+//        if response.statusCode == 200 { /// 삭제 성공
+//          do {
+//            let myPageVC = self.presentingViewController?.children[0] as? MypageViewController
+//            self.dismiss(animated: false) {
+//              myPageVC?.viewWillAppear(true)
+//              myPageVC?.showGreenToast(message: "카테고리 삭제가 완료되었습니다.")
+//            }
+//          }
+//          catch {
+//            print(error)
+//          }
+//        }
+//        else { /// 삭제 실패
+//          do {
+//            self.showGrayToast(message: "삭제에 실패했습니다")
+//          }
+//          catch {
+//            print(error)
+//          }
+//        }
+//      }, onError: { error in
+//        print(error)
+//      }, onCompleted: {
+//      }).disposed(by: disposeBag)
+//  }
   
-  func deleteService(categoryId: String, cafeList: [String]) {
-    
-    CategoryService.rx.request(.deleteCafeInCategory(categoryId: categoryId, cafeList: cafeList))
+  func reportService(reviewId: String) {
+    /// TODO: - 리뷰 신고 서버 연결
+    reviewProvider.rx.request(.reportReivew(reviewId: reviewId))
       .asObservable()
       .subscribe(onNext: { response in
-        if response.statusCode == 200 { /// 삭제 성공
+        if response.statusCode == 200 { /// 신고
           do {
-            
-            let detailVC = self.presentingViewController?.children.last as? CategoryDetailViewController
+            let cafeDetailVC = CafeDetailViewController()
             self.dismiss(animated: false) {
-              detailVC?.setupCategoryData()
-              detailVC?.showGreenToast(message: "핀 삭제가 완료되었습니다.")
+              cafeDetailVC.viewWillAppear(true)
+              cafeDetailVC.showGreenToast(message: "리뷰를 신고했습니다")
             }
           }
           catch {
@@ -133,7 +173,7 @@ extension DeletePinViewController {
         }
         else { /// 삭제 실패
           do {
-            self.showGrayToast(message: "삭제에 실패했습니다")
+            self.showGrayToast(message: "신고에 실패했습니다")
           }
           catch {
             print(error)
@@ -148,16 +188,8 @@ extension DeletePinViewController {
   // MARK: - General Helpers
   @objc func clickedCancelButton() {
     self.dismiss(animated: false, completion: nil)
-//    self.navigationController?.popViewController(animated: false)
   }
-  @objc func clickedConfirmButton() {
-//    let categoryDetailVC = CategoryDetailViewController()
-//    categoryDetailVC.deleteService()
-    if categoryId.count == 0 {
-      self.showToast("잘못된 접근입니다.")
-    }
-    else {
-      self.deleteService(categoryId: self.categoryId, cafeList: self.cafeIdArrayToDelete)
-    }
+  @objc func reportButtonClicked() {
+    self.reportService(reviewId: self.reviewId)
   }
 }

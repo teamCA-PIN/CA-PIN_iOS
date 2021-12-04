@@ -15,6 +15,7 @@ enum ReviewService {
   case writeReview(cafeId: String, recommend: [Int]?, content: String, rating: Float, images: [UIImage]?)
   case editReview(reviewId: String, recommend: [Int]?, content: String, rating: Float, isAllDeleted: Bool, images: [UIImage]?)
   case deleteReview(reviewId: String)
+  case reportReivew(reviewId: String)
 }
 
 extension ReviewService: TargetType {
@@ -42,6 +43,8 @@ extension ReviewService: TargetType {
       return "/reviews/\(reviewId)"
     case .deleteReview(let reviewId):
       return "/reviews/\(reviewId)"
+    case .reportReivew(reviewId: let reviewId):
+      return "/reviews/report/\(reviewId)"
     }
   }
   
@@ -55,6 +58,8 @@ extension ReviewService: TargetType {
       return .put
     case .deleteReview:
       return .delete
+    case .reportReivew:
+      return .post
     }
   }
   
@@ -145,6 +150,8 @@ extension ReviewService: TargetType {
         }
       }
       return .uploadMultipart(multiPartFormData)
+    case .reportReivew(reviewId: let reviewId):
+      return .requestPlain
     }
     
   }
@@ -152,7 +159,8 @@ extension ReviewService: TargetType {
   var headers: [String : String]? {
     switch self {
     case .reviewList,
-         .deleteReview:
+         .deleteReview,
+         .reportReivew:
       return ["Content-Type": "application/json",
               "token": token]
     case .writeReview,

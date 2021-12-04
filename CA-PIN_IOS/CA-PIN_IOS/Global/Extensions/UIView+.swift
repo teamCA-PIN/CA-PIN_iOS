@@ -41,11 +41,11 @@ extension UIView {
       }
     }
     self.layer.masksToBounds = false
-    self.layer.applyShadow(color: color,
-                           alpha: alpha,
-                           x: x,
-                           y: y,
-                           blur: blur)
+//    self.layer.applyShadow(color: color,
+//                           alpha: alpha,
+//                           x: x,
+//                           y: y,
+//                           blur: blur)
   }
   
   func setRounded(radius: CGFloat?){

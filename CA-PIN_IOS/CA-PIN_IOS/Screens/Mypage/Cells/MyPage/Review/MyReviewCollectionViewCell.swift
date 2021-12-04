@@ -22,6 +22,8 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
   var cafeNameList: [String] = [] /// 서버에서 받아온 값 중에 카페 이름만 저장
   var ratingList: [Double] = [] /// 서버에서 별점 값만ㄴ 받아올 배열
   var reviewTextList: [String] = []
+  var cafeIdLIst: [String] = [] /// 서버에서 받아온 값 중에 카페 아이디만 저장
+  var cafeDetailModel: CafeServerDetail?
 //  var imageURL:  /// 서버에서 받아온 값 중에 이미지 url만 저장
 //  var recommendtTagList:  /// 서버에서 받아온 값 중에 태그 인트 값만 저장
   
@@ -29,6 +31,7 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
   
   let disposeBag = DisposeBag()
   private let UserServiceProvider = MoyaProvider<UserService>()
+  private let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
     
   // MARK: - LifeCycles
   override func awakeFromNib() {
@@ -49,10 +52,13 @@ extension MyReviewCollectionViewCell {
     self.myReviewTableView.register(MyReviewTableViewCell.self, forCellReuseIdentifier: MyReviewTableViewCell.reuseIdentifier)
   }
   func associate() {
-    self.myReviewTableView.delegate = self
-    self.myReviewTableView.dataSource = self
-    if reviewList.count > 0 { /// 리뷰가 1개 이상일 때에만 헤더뷰 등록
+    if reviewList.count > 0 { /// 리뷰가 1개 이상일 때에만 헤더뷰까지 등록
       self.myReviewTableView.tableHeaderView = headerView
+      self.myReviewTableView.delegate = self
+      self.myReviewTableView.dataSource = self
+    } else { /// 리뷰가 0개일 때는 tableView만 등록
+      self.myReviewTableView.delegate = self
+      self.myReviewTableView.dataSource = self
     }
   }
   func layout() {
@@ -86,6 +92,28 @@ extension MyReviewCollectionViewCell {
       }
     }
   }
+  private func setupCafeInformation(cafeId: String) {
+    listProvider.rx.request(.cafeDetail(cafeId: cafeId))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(CafeDetailResponseType<CafeServerDetail>.self,
+                                          from: response.data)
+            self.cafeDetailModel = data.cafeDetail!
+            let cafeDetailVC = CafeDetailViewController()
+            cafeDetailVC.cafeModel = self.cafeDetailModel
+            self.parentViewController?.navigationController?.pushViewController(cafeDetailVC, animated: true)
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
+  }
 }
 extension MyReviewCollectionViewCell: UITableViewDelegate {
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -97,7 +125,6 @@ extension MyReviewCollectionViewCell: UITableViewDelegate {
     tableView.rowHeight = UITableView.automaticDimension
     return UITableView.automaticDimension
 
-    
 //    if self.reviewList[indexPath.row].imgs == nil && self.reviewList[indexPath.row].recommend == nil{
 //      return 110
 //    }
@@ -135,6 +162,8 @@ extension MyReviewCollectionViewCell: UITableViewDataSource {
       emptycell.awakeFromNib()
       return emptycell
     }
+    
+    reviewCell.selectionStyle = .none
     reviewCell.reviewModel = reviewList[indexPath.row]
     reviewCell.nameLabel.setupLabel(text: reviewList[indexPath.row].cafeName, color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 16))
     reviewCell.nameLabel.letterSpacing = -0.8
@@ -142,5 +171,9 @@ extension MyReviewCollectionViewCell: UITableViewDataSource {
     reviewCell.reviewText.setupLabel(text: reviewList[indexPath.row].content, color: .black, font: .notoSansKRRegularFont(fontSize: 12))
     reviewCell.awakeFromNib()
     return reviewCell
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    self.setupCafeInformation(cafeId: cafeIdLIst[indexPath.row])
   }
 }

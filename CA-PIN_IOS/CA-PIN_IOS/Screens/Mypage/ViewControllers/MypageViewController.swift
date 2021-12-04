@@ -66,6 +66,7 @@ class MypageViewController: UIViewController {
   var reviewList: [Review] = [Review(id: "", cafeName: "", cafeID: "", content: "", rating: 0, createAt: "", imgs: [], recommend: [])] /// 서버에서 리뷰 받아올 배열
   var cafeNameList: [String] = [] /// 서버에서 받아온 값 중에 카페 이름만 저장
   var ratingList: [Double] = [] /// 서버에서 별점 값만ㄴ 받아올 배열
+  var cafeIdList: [String] = [] /// 서버에서 카페 어이디만 받아올 배열
   
   var categoryArray: [MyCategoryList] = [] /// 서버통신해서 카테고리 배열을 받아온다
   var categoryIdArray: [String] = [] /// 카테고리 아이디를 저장해놓는 배열 -> 카테고리 상세 페이지로 넘어갈 때 사용할 파라미터
@@ -183,14 +184,19 @@ extension MypageViewController {
             self.reviewList = data.reviews!
             self.cafeNameList = []
             self.ratingList = []
+            self.cafeIdList = []
             for i in 0..<self.reviewList.count {
               self.cafeNameList.append(self.reviewList[i].cafeName)
               self.ratingList.append(self.reviewList[i].rating)
+              self.cafeIdList.append(self.reviewList[i].cafeID)
             }
             self.pageCollectionView.reloadData()
           } catch {
             print(error)
           }
+        }
+        else if response.statusCode == 204 {
+          self.reviewList = []
         }
         else {
           
@@ -475,6 +481,7 @@ extension MypageViewController: UICollectionViewDataSource {
         guard let reviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.reuseIdentifier, for: indexPath) as? MyReviewCollectionViewCell else { return UICollectionViewCell() }
         reviewCell.rootViewController = self
         reviewCell.reviewList = self.reviewList
+        reviewCell.cafeIdLIst = self.cafeIdList
         reviewCell.backgroundColor = .white
         reviewCell.awakeFromNib()
         return reviewCell
