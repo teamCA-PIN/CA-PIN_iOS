@@ -167,12 +167,12 @@ extension CategoryDetailViewController {
   }
   func layoutCancleButton() {
     self.view.add(self.cancleButton) {
-      $0.setupButton(title: "취소하기", color: .white, font: .notoSansKRMediumFont(fontSize: 15), backgroundColor: .gray3, state: .normal, radius: 15)
+      $0.setupButton(title: "취소하기", color: .white, font: .notoSansKRMediumFont(fontSize: 15), backgroundColor: .gray3, state: .normal, radius: 24.5)
       $0.addTarget(self, action: #selector(self.cancleButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
-        $0.leading.equalToSuperview().offset(30)
+        $0.leading.equalToSuperview().offset(110)
         $0.centerX.equalToSuperview()
-        $0.height.equalTo(50)
+        $0.height.equalTo(49)
         $0.bottom.equalToSuperview().offset(-30)
       }
     }
@@ -229,17 +229,24 @@ extension CategoryDetailViewController {
       self.cancleButton.isHidden = false
     } else { /// 체크 버튼 해제 액션이면 개수에 따라서 타이틀 바꿔준다
 //      countedPinNumber -= 1
-      if countedPinNumber == 0 { /// 선택된 체크 버튼이 0개면 타이틀 바꾸고 레이아웃 다시 잡을 수 있도록 노티 Post
-        self.categoryNameLabel.text = "기본 카테고리"
-        self.deleteButton.setImage(UIImage(named: "iconDeleteVer2"), for: .normal)
-        NotificationCenter.default.post(name: NSNotification.Name("returnCategoryView"), object: nil)
-        countedPinNumber = 0
-        self.cancleButton.isHidden = true
-      }
-      else { /// 1개 이상이면 타이틀만 바꿔준다
-        self.categoryNameLabel.text = "\(countedPinNumber)개 선택됨"
-        self.cancleButton.isHidden = false
-      }
+//      if countedPinNumber == 0 { /// 선택된 체크 버튼이 0개면 타이틀 바꾸고 레이아웃 다시 잡을 수 있도록 노티 Post
+//        self.categoryNameLabel.text = "기본 카테고리"
+//        self.deleteButton.setImage(UIImage(named: "iconDeleteVer2"), for: .normal)
+//        NotificationCenter.default.post(name: NSNotification.Name("returnCategoryView"), object: nil)
+//        countedPinNumber = 0
+//        self.cancleButton.isHidden = true
+//      }
+//      else { /// 1개 이상이면 타이틀만 바꿔준다
+//        print("여기 2222")
+//        self.categoryNameLabel.text = "\(countedPinNumber)개 선택됨"
+//        self.cancleButton.isHidden = false
+//      }
+      self.categoryNameLabel.text = "기본 카테고리"
+      self.deleteButton.setImage(UIImage(named: "iconDeleteVer2"), for: .normal)
+      NotificationCenter.default.post(name: NSNotification.Name("returnCategoryView"), object: nil)
+      countedPinNumber = 0
+      self.cancleButton.isHidden = true
+
     }
   }
   func setupCategoryData() {

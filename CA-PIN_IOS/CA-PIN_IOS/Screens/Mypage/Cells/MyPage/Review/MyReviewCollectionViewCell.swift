@@ -22,6 +22,8 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
   var cafeNameList: [String] = [] /// 서버에서 받아온 값 중에 카페 이름만 저장
   var ratingList: [Double] = [] /// 서버에서 별점 값만ㄴ 받아올 배열
   var reviewTextList: [String] = []
+  var cafeIdLIst: [String] = [] /// 서버에서 받아온 값 중에 카페 아이디만 저장
+  var cafeDetailModel: CafeServerDetail?
 //  var imageURL:  /// 서버에서 받아온 값 중에 이미지 url만 저장
 //  var recommendtTagList:  /// 서버에서 받아온 값 중에 태그 인트 값만 저장
   
@@ -29,6 +31,7 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
   
   let disposeBag = DisposeBag()
   private let UserServiceProvider = MoyaProvider<UserService>()
+  private let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
     
   // MARK: - LifeCycles
   override func awakeFromNib() {
@@ -38,6 +41,8 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     myReviewTableView.reloadData()
     layout()
     self.myReviewTableView.separatorStyle = .none
+    print("hihi")
+    print(self.cafeIdLIst)
   }
 }
 extension MyReviewCollectionViewCell {
@@ -89,6 +94,28 @@ extension MyReviewCollectionViewCell {
       }
     }
   }
+  private func setupCafeInformation(cafeId: String) {
+    listProvider.rx.request(.cafeDetail(cafeId: cafeId))
+      .asObservable()
+      .subscribe(onNext: { response in
+        if response.statusCode == 200 {
+          do {
+            let decoder = JSONDecoder()
+            let data = try decoder.decode(CafeDetailResponseType<CafeServerDetail>.self,
+                                          from: response.data)
+            self.cafeDetailModel = data.cafeDetail!
+            let cafeDetailVC = CafeDetailViewController()
+            cafeDetailVC.cafeModel = self.cafeDetailModel
+            self.parentViewController?.navigationController?.pushViewController(cafeDetailVC, animated: true)
+          } catch {
+            print(error)
+          }
+        }
+      }, onError: { error in
+        print(error)
+      }, onCompleted: {
+      }).disposed(by: disposeBag)
+  }
 }
 extension MyReviewCollectionViewCell: UITableViewDelegate {
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -100,7 +127,6 @@ extension MyReviewCollectionViewCell: UITableViewDelegate {
     tableView.rowHeight = UITableView.automaticDimension
     return UITableView.automaticDimension
 
-    
 //    if self.reviewList[indexPath.row].imgs == nil && self.reviewList[indexPath.row].recommend == nil{
 //      return 110
 //    }
@@ -150,5 +176,6 @@ extension MyReviewCollectionViewCell: UITableViewDataSource {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     print(indexPath.row)
     ///TODO-여기서 셀안에서 버튼 클릭했을 때 카페 상세 페이지로 넘어가도록
+    self.setupCafeInformation(cafeId: cafeIdLIst[indexPath.row])
   }
 }
