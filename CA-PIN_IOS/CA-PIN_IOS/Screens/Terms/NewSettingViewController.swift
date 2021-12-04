@@ -72,21 +72,31 @@ extension NewSettingViewController {
     layoutSixthAnimalImage()
     layoutPlanTextLabel()
     layoutPlanFirstNameLabel()
+    layoutPlanSecondtNameLabel()
     layoutDesignTextLabel()
     layoutDesignFirstNameLabel()
+    layoutDesignSecondNameLabel()
+    layoutDesignThirdNameLabel()
     layoutIosTextLabel()
     layoutIosFirstNameLabel()
+    layoutIosSecondNameLabel()
+    layoutIosThirdNameLabel()
     layoutAndroidTextLabel()
     layoutAndroidFirstNameLabel()
+    layoutAndroidSecondNameLabel()
+    layoutAndroidThirdNameLabel()
+    layoutAndroidFourthNameLabel()
     layoutServerTextLabel()
     layoutServerFirstNameLabel()
+    layoutServerSecondNameLabel()
     layoutCopyrightImageView()
   }
   func layoutBackButton() {
     self.view.add(backButton) {
-      $0.setImageByName("")
+      $0.setImageByName("iconCloseBlack")
+      $0.addTarget(self, action: #selector(self.backbuttonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
-        $0.top.equalToSuperview().offset(40)
+        $0.top.equalToSuperview().offset(51)
         $0.trailing.equalToSuperview().offset(-20)
         $0.height.equalTo(30)
         $0.width.equalTo(30)
@@ -95,7 +105,7 @@ extension NewSettingViewController {
   }
   func layoutCapinImageView() {
     self.view.add(capinImageView) {
-      $0.image = UIImage(named: "")
+      $0.image = UIImage(named: "capinlogoforinfo")
       $0.snp.makeConstraints {
         $0.top.equalTo(self.backButton.snp.bottom).offset(25)
         $0.centerX.equalToSuperview()
@@ -107,9 +117,11 @@ extension NewSettingViewController {
   func layoutGoTermsButton() {
     self.view.add(goTermsButton) {
       $0.setupButton(title: "약관 및 정책", color: .maincolor1, font: .notoSansKRRegularFont(fontSize: 14), backgroundColor: .clear, state: .normal, radius: 0)
+      $0.addTarget(self, action: #selector(self.clickedGoTermsButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.capinImageView.snp.bottom).offset(25.8)
         $0.centerX.equalToSuperview()
+        $0.height.equalTo(21)
       }
     }
   }
@@ -119,6 +131,7 @@ extension NewSettingViewController {
       $0.snp.makeConstraints {
         $0.top.equalTo(self.goTermsButton.snp.bottom).offset(6)
         $0.centerX.equalToSuperview()
+        $0.height.equalTo(21)
       }
     }
   }
@@ -134,7 +147,7 @@ extension NewSettingViewController {
   }
   func layoutFirstAnimalImage() {
     self.animalImageContainerView.add(firstAnimalIamge) {
-      $0.image = UIImage(named: "")
+      $0.image = UIImage(named: "animal1")
       $0.snp.makeConstraints {
         $0.top.leading.equalToSuperview()
         $0.height.equalTo(40)
@@ -144,7 +157,7 @@ extension NewSettingViewController {
   }
   func layoutSecondAnimalImage() {
     self.animalImageContainerView.add(secondAnimalImage) {
-      $0.image = UIImage(named: "")
+      $0.image = UIImage(named: "animal2")
       $0.snp.makeConstraints {
         $0.top.equalToSuperview()
         $0.leading.equalTo(self.firstAnimalIamge.snp.trailing)
@@ -155,7 +168,7 @@ extension NewSettingViewController {
   }
   func layoutThirdAnimalImage() {
     self.animalImageContainerView.add(thirdAnimalImage) {
-      $0.image = UIImage(named: "")
+      $0.image = UIImage(named: "animal3")
       $0.snp.makeConstraints {
         $0.top.equalToSuperview()
         $0.leading.equalTo(self.secondAnimalImage.snp.trailing)
@@ -166,7 +179,7 @@ extension NewSettingViewController {
   }
   func layoutFourthAnimalImage() {
     self.animalImageContainerView.add(fourthAnimalImage) {
-      $0.image = UIImage(named: "")
+      $0.image = UIImage(named: "animal4")
       $0.snp.makeConstraints {
         $0.top.equalToSuperview()
         $0.leading.equalTo(self.thirdAnimalImage.snp.trailing)
@@ -177,7 +190,7 @@ extension NewSettingViewController {
   }
   func layoutFifthAnimalImage() {
     self.animalImageContainerView.add(fifthAnimalImage) {
-      $0.image = UIImage(named: "")
+      $0.image = UIImage(named: "animal5")
       $0.snp.makeConstraints {
         $0.top.equalToSuperview()
         $0.leading.equalTo(self.fourthAnimalImage.snp.trailing)
@@ -188,7 +201,7 @@ extension NewSettingViewController {
   }
   func layoutSixthAnimalImage() {
     self.animalImageContainerView.add(sixthAnimalImage) {
-      $0.image = UIImage(named: "")
+      $0.image = UIImage(named: "animal6")
       $0.snp.makeConstraints {
         $0.top.equalToSuperview()
         $0.leading.equalTo(self.fifthAnimalImage.snp.trailing)
@@ -215,7 +228,15 @@ extension NewSettingViewController {
       }
     }
   }
-  ///TODO - PlanSecondLabel
+  func layoutPlanSecondtNameLabel() {
+    self.view.add(planSecondNameLabel) {
+      $0.setupLabel(text: "김현아", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+      $0.snp.makeConstraints {
+        $0.centerY.equalTo(self.planTextLabel)
+        $0.trailing.equalTo(self.planFirstNameLabel.snp.leading).offset(-7)
+      }
+    }
+  }
   func layoutDesignTextLabel() {
     self.view.add(designTextLabel) {
       $0.setupLabel(text: "Design", color: .pointcolor1, font: .notoSansKRMediumFont(fontSize: 14))
@@ -234,7 +255,24 @@ extension NewSettingViewController {
       }
     }
   }
-  ///TODO - Design Second & Third
+  func layoutDesignSecondNameLabel() {
+    self.view.add(designSecondNameLabel) {
+      $0.setupLabel(text: "한유진", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+      $0.snp.makeConstraints {
+        $0.centerY.equalTo(self.designTextLabel)
+        $0.trailing.equalTo(self.designFirstNameLabel.snp.leading).offset(-7)
+      }
+    }
+  }
+  func layoutDesignThirdNameLabel() {
+    self.view.add(designThirdNameLabel) {
+      $0.setupLabel(text: "이혜빈", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+      $0.snp.makeConstraints {
+        $0.centerY.equalTo(self.designTextLabel)
+        $0.trailing.equalTo(self.designSecondNameLabel.snp.leading).offset(-7)
+      }
+    }
+  }
   func layoutIosTextLabel() {
     self.view.add(iosTextLabel) {
       $0.setupLabel(text: "iOS", color: .pointcolor1, font: .notoSansKRMediumFont(fontSize: 14))
@@ -253,7 +291,24 @@ extension NewSettingViewController {
       }
     }
   }
-  ///TODO - iOS Second & Third
+  func layoutIosSecondNameLabel() {
+    self.view.add(iosSecondNameLabel) {
+      $0.setupLabel(text: "장서현", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+      $0.snp.makeConstraints {
+        $0.centerY.equalTo(self.iosTextLabel)
+        $0.trailing.equalTo(self.iosFirstNameLabel.snp.leading).offset(-7)
+      }
+    }
+  }
+  func layoutIosThirdNameLabel() {
+    self.view.add(iosThirdNameLabel) {
+      $0.setupLabel(text: "노한솔", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+      $0.snp.makeConstraints {
+        $0.centerY.equalTo(self.iosTextLabel)
+        $0.trailing.equalTo(self.iosSecondNameLabel.snp.leading).offset(-7)
+      }
+    }
+  }
   func layoutAndroidTextLabel() {
     self.view.add(androidTextLabel) {
       $0.setupLabel(text: "Android", color: .pointcolor1, font: .notoSansKRMediumFont(fontSize: 14))
@@ -272,7 +327,33 @@ extension NewSettingViewController {
       }
     }
   }
-  ///TODO - Android Second&Third&Fourth
+  func layoutAndroidSecondNameLabel() {
+    self.view.add(androidSecondNameLabel) {
+      $0.setupLabel(text: "홍은결", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+      $0.snp.makeConstraints {
+        $0.centerY.equalTo(self.androidTextLabel)
+        $0.trailing.equalTo(self.androidFirstNameLabel.snp.leading).offset(-7)
+      }
+    }
+  }
+  func layoutAndroidThirdNameLabel() {
+    self.view.add(androidThirdNameLabel) {
+      $0.setupLabel(text: "조성림", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+      $0.snp.makeConstraints {
+        $0.centerY.equalTo(self.androidTextLabel)
+        $0.trailing.equalTo(self.androidSecondNameLabel.snp.leading).offset(-7)
+      }
+    }
+  }
+  func layoutAndroidFourthNameLabel() {
+    self.view.add(androidFourthNameLabel) {
+      $0.setupLabel(text: "손평화", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+      $0.snp.makeConstraints {
+        $0.centerY.equalTo(self.androidTextLabel)
+        $0.trailing.equalTo(self.androidThirdNameLabel.snp.leading).offset(-7)
+      }
+    }
+  }
   func layoutServerTextLabel() {
     self.view.add(serverTextLabel) {
       $0.setupLabel(text: "Server", color: .pointcolor1, font: .notoSansKRMediumFont(fontSize: 14))
@@ -291,9 +372,18 @@ extension NewSettingViewController {
       }
     }
   }
+  func layoutServerSecondNameLabel() {
+    self.view.add(serverSecondNameLabel) {
+      $0.setupLabel(text: "이예슬", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+      $0.snp.makeConstraints {
+        $0.centerY.equalTo(self.serverTextLabel)
+        $0.trailing.equalTo(self.serverFirstNameLabel.snp.leading).offset(-7)
+      }
+    }
+  }
   func layoutCopyrightImageView() {
     self.view.add(copyrightImageView) {
-      $0.image = UIImage(named: "")
+      $0.image = UIImage(named: "copyright")
       $0.snp.makeConstraints {
         $0.top.equalTo(self.serverFirstNameLabel.snp.bottom).offset(70)
         $0.centerX.equalToSuperview()
@@ -301,5 +391,13 @@ extension NewSettingViewController {
         $0.width.equalTo(138)
       }
     }
+  }
+  @objc func backbuttonClicked() {
+    self.navigationController?.popViewController(animated: true)
+  }
+  @objc func clickedGoTermsButton() {
+    print("sdsd")
+    let termVC = TermsViewController()
+    self.navigationController?.pushViewController(termVC, animated: false)
   }
 }

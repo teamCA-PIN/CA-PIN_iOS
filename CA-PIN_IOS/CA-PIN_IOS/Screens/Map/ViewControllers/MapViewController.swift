@@ -23,6 +23,7 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
   private let topView = UIView()
   private let titleImageView = UIImageView()
   private let menuButton = UIButton()
+  private let mypageButton = UIButton()
   private let hashButton = UIButton()
   private let mapView = NMFNaverMapView(frame: .zero)
   private let locationButton = NMFLocationButton(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
@@ -101,6 +102,7 @@ extension MapViewController {
     layoutTopView()
     layoutTitleImageView()
     layoutMenuButton()
+    layoutMypageButton()
     layoutHashButton()
     layoutToggleView()
     layoutCapinMapButton()
@@ -131,38 +133,47 @@ extension MapViewController {
   }
   private func layoutTitleImageView() {
     topView.add(titleImageView) {
-      $0.image = UIImage(named: "capinLogo")
+      $0.image = UIImage(named: "capintyponew")
       $0.snp.makeConstraints {
-        $0.center.equalToSuperview()
-        $0.width.equalTo(106)
-        $0.height.equalTo(30)
+        $0.centerY.equalToSuperview()
+        $0.leading.equalToSuperview().offset(20)
+        $0.width.equalTo(78.5)
+        $0.height.equalTo(25.2)
       }
     }
   }
   private func layoutMenuButton() {
     topView.add(menuButton) {
-      $0.setBackgroundImage(UIImage(named: "iconMenu"), for: .normal)
+      $0.setBackgroundImage(UIImage(named: "iconSettingnew"), for: .normal)
       $0.addTarget(self, action: #selector(self.clickedMenuButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerY.equalToSuperview()
         $0.trailing.equalTo(self.topView.snp.trailing).offset(-20)
-        $0.width.height.equalTo(30)
+        $0.width.height.equalTo(23)
+      }
+    }
+  }
+  private func layoutMypageButton() {
+    self.topView.add(mypageButton) {
+      $0.setBackgroundImage(UIImage(named: "iconMypagenew"), for: .normal)
+      $0.addTarget(self, action: #selector(self.clickedMypageButton), for: .touchUpInside)
+      $0.snp.makeConstraints {
+        $0.centerY.equalToSuperview()
+        $0.trailing.equalTo(self.menuButton.snp.leading).offset(-14)
+        $0.width.equalTo(26)
+        $0.height.equalTo(22)
       }
     }
   }
   private func layoutHashButton() {
     topView.add(hashButton) {
-      if self.tags.isEmpty {
-        $0.setBackgroundImage(UIImage(named: "btnTagInactive"), for: .normal)
-      }
-      else {
-        $0.setBackgroundImage(UIImage(named: "btnTagActive"), for: .normal)
-      }
+      $0.setBackgroundImage(UIImage(named: "iconFilternew"), for: .normal)
       $0.addTarget(self, action: #selector(self.clickedHashButton), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.centerY.equalToSuperview()
-        $0.leading.equalTo(self.topView.snp.leading).offset(20)
-        $0.width.height.equalTo(30)
+        $0.trailing.equalTo(self.mypageButton.snp.leading).offset(-14)
+        $0.width.equalTo(28)
+        $0.height.equalTo(20)
       }
     }
   }
@@ -173,8 +184,8 @@ extension MapViewController {
       $0.showZoomControls = true
       $0.showLocationButton = true
       $0.mapView.locationOverlay.location =
-        NMGLatLng(lat: self.currentLatitude ?? self.mapView.mapView.latitude,
-                  lng: self.currentLongitude ?? self.mapView.mapView.longitude)
+      NMGLatLng(lat: self.currentLatitude ?? self.mapView.mapView.latitude,
+                lng: self.currentLongitude ?? self.mapView.mapView.longitude)
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
@@ -209,50 +220,42 @@ extension MapViewController {
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.bottom.equalTo(self.mapView.snp.bottom).offset(-34)
-        $0.width.equalTo(220)
-        $0.height.equalTo(49)
+        $0.width.equalTo(120)
+        $0.height.equalTo(38)
       }
     }
   }
   private func layoutCapinMapButton() {
     toggleView.add(capinMapButton) {
-      $0.setupButton(title: "카핀맵",
-                     color: .white,
-                     font: .notoSansKRRegularFont(fontSize: 16),
-                     backgroundColor: .pointcolor1,
-                     state: .normal,
-                     radius: 19)
+      $0.setRounded(radius: 16)
+      $0.setImageByName("iconCapinmap", "iconCapinmap")
       if self.capinOrMyMap != 0 {
         $0.backgroundColor = .white
-        $0.setTitleColor(.gray, for: .normal)
+        $0.tintColor = .pointcolor1
       }
       $0.addTarget(self, action: #selector(self.clickedToggleButton(_:)), for: .touchUpInside)
       $0.snp.makeConstraints {
-        $0.trailing.equalTo(self.toggleView.snp.centerX).offset(-2)
-        $0.top.equalTo(self.toggleView.snp.top).offset(5)
-        $0.leading.equalTo(self.toggleView.snp.leading).offset(5)
-        $0.bottom.equalTo(self.toggleView.snp.bottom).offset(-5)
+        $0.trailing.equalTo(self.toggleView.snp.centerX).offset(-3)
+        $0.top.equalTo(self.toggleView.snp.top).offset(3)
+        $0.leading.equalTo(self.toggleView.snp.leading).offset(3)
+        $0.bottom.equalTo(self.toggleView.snp.bottom).offset(-3)
       }
     }
   }
   private func layoutMyMapButton() {
     toggleView.add(myMapButton) {
-      $0.setupButton(title: "마이맵",
-                     color: .gray,
-                     font: .notoSansKRRegularFont(fontSize: 16),
-                     backgroundColor: .white,
-                     state: .normal,
-                     radius: 19)
+      $0.setRounded(radius: 16)
+      $0.setImageByName("iconMymap", "iconMymap")
       if self.capinOrMyMap != 0 {
-        $0.backgroundColor = .pointcolor1
-        $0.setTitleColor(.white, for: .normal)
+        $0.backgroundColor = .white
+        $0.tintColor = .pointcolor1
       }
       $0.addTarget(self, action: #selector(self.clickedToggleButton(_:)), for: .touchUpInside)
       $0.snp.makeConstraints {
-        $0.leading.equalTo(self.toggleView.snp.centerX).offset(2)
-        $0.trailing.equalTo(self.toggleView.snp.trailing).offset(-5)
-        $0.top.equalTo(self.toggleView.snp.top).offset(5)
-        $0.bottom.equalTo(self.toggleView.snp.bottom).offset(-5)
+        $0.leading.equalTo(self.toggleView.snp.centerX).offset(3)
+        $0.trailing.equalTo(self.toggleView.snp.trailing).offset(-3)
+        $0.top.equalTo(self.toggleView.snp.top).offset(3)
+        $0.bottom.equalTo(self.toggleView.snp.bottom).offset(-3)
       }
     }
   }
@@ -385,8 +388,12 @@ extension MapViewController {
     self.currentLongitude = coordinates?.longitude
   }
   @objc func clickedMenuButton() {
-    let hamburgerVC = HamburgerViewController()
-    self.navigationController?.pushViewController(hamburgerVC, animated: false)
+    let NewSettingVC = NewSettingViewController()
+    self.navigationController?.pushViewController(NewSettingVC, animated: false)
+  }
+  @objc func clickedMypageButton() {
+    let MypageVC = MypageViewController()
+      self.navigationController?.pushViewController(MypageVC, animated: false)
   }
   @objc func clickedHashButton() {
     let tagVC = TagViewController()
@@ -407,21 +414,25 @@ extension MapViewController {
   @objc func clickedToggleButton(_ sender: UIButton?) {
     if sender == self.capinMapButton {
       sender?.backgroundColor = .pointcolor1
-      sender?.setTitleColor(.white, for: .normal)
+      sender?.tintColor = .pointcolor1
+//      sender?.setTitleColor(.white, for: .normal)
       self.myMapButton.backgroundColor = .white
-      self.myMapButton.setTitleColor(.gray4, for: .normal)
+      self.mypageButton.tintColor = .pointcolor1
+//      self.myMapButton.setTitleColor(.gray4, for: .normal)
       self.capinOrMyMap = 0
       self.setupCafeList()
-
+      
     }
     else {
       self.capinOrMyMap = 1
       sender?.backgroundColor = .pointcolor1
-      sender?.setTitleColor(.white, for: .normal)
+      sender?.tintColor = .white
+//      sender?.setTitleColor(.white, for: .normal)
       self.capinMapButton.backgroundColor = .white
-      self.capinMapButton.setTitleColor(.gray4, for: .normal)
+      self.capinMapButton.tintColor = .pointcolor1
+//      self.capinMapButton.setTitleColor(.gray4, for: .normal)
       self.setupMyMapList()
- 
+      
     }
   }
   private func setupMarker() {

@@ -20,6 +20,7 @@ class CafeTITest1ViewController: UIViewController {
   let questiontitleLabel = UILabel()
   let coffeeImageView = UIImageView()
   let contentLabel = UILabel()
+  let processBar = UIImageView()
   let questiononeButton = UIButton()
   let questiontwoButton = UIButton()
   let buttonContainerView = UIView()
@@ -52,6 +53,7 @@ extension CafeTITest1ViewController {
     layoutQuestionTitleLabel()
     layoutCoffeeImageView()
     layoutContentLabel()
+    layoutProcessBar()
     layoutQuestiononeButton()
     layoutQuestiontwoButton()
     layoutButtonContainerView()
@@ -100,6 +102,17 @@ extension CafeTITest1ViewController {
         }
       }
     }
+  func layoutProcessBar() {
+    self.view.add(self.processBar) {
+      $0.image = UIImage(named: "cafeti_step")
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.contentLabel.snp.bottom).offset(21)
+        $0.centerX.equalToSuperview()
+        $0.width.equalTo(63)
+        $0.height.equalTo(9)
+      }
+    }
+  }
     func layoutQuestiononeButton() {
       self.view.add(self.questiononeButton) {
         $0.setTitle("커피", for: .normal)
@@ -171,7 +184,7 @@ extension CafeTITest1ViewController {
         $0.setTitle("다음", for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.addTextSpacing(spacing: -0.8)
-        $0.backgroundColor = .subcolorBlue2
+        $0.backgroundColor = .maincolor1
         $0.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
         $0.addTarget(self, action: #selector(self.nextButtonClicked), for: .touchUpInside)
         $0.setRounded(radius: 25)
