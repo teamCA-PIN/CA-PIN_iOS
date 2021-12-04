@@ -41,8 +41,6 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     myReviewTableView.reloadData()
     layout()
     self.myReviewTableView.separatorStyle = .none
-    print("hihi")
-    print(self.cafeIdLIst)
   }
 }
 extension MyReviewCollectionViewCell {
@@ -164,6 +162,8 @@ extension MyReviewCollectionViewCell: UITableViewDataSource {
       emptycell.awakeFromNib()
       return emptycell
     }
+    
+    reviewCell.selectionStyle = .none
     reviewCell.reviewModel = reviewList[indexPath.row]
     reviewCell.nameLabel.setupLabel(text: reviewList[indexPath.row].cafeName, color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 16))
     reviewCell.nameLabel.letterSpacing = -0.8
@@ -174,8 +174,6 @@ extension MyReviewCollectionViewCell: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    print(indexPath.row)
-    ///TODO-여기서 셀안에서 버튼 클릭했을 때 카페 상세 페이지로 넘어가도록
     self.setupCafeInformation(cafeId: cafeIdLIst[indexPath.row])
   }
 }
