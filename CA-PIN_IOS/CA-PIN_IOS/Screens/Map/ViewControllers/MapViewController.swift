@@ -216,7 +216,7 @@ extension MapViewController {
   private func layoutToggleView() {
     mapView.add(toggleView) {
       $0.backgroundColor = .white
-      $0.setRounded(radius: 24)
+      $0.setRounded(radius: 19)
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.bottom.equalTo(self.mapView.snp.bottom).offset(-34)
@@ -228,10 +228,11 @@ extension MapViewController {
   private func layoutCapinMapButton() {
     toggleView.add(capinMapButton) {
       $0.setRounded(radius: 16)
-      $0.setImageByName("iconCapinmap", "iconCapinmap")
+      $0.backgroundColor = .pointcolor1
+      $0.setImageByName("iconCapinmapWhite")
       if self.capinOrMyMap != 0 {
         $0.backgroundColor = .white
-        $0.tintColor = .pointcolor1
+        $0.setImageByName("iconCapinmapBlue")
       }
       $0.addTarget(self, action: #selector(self.clickedToggleButton(_:)), for: .touchUpInside)
       $0.snp.makeConstraints {
@@ -245,10 +246,11 @@ extension MapViewController {
   private func layoutMyMapButton() {
     toggleView.add(myMapButton) {
       $0.setRounded(radius: 16)
-      $0.setImageByName("iconMymap", "iconMymap")
+      $0.backgroundColor = .white
+      $0.setImageByName("iconMymapBlue")
       if self.capinOrMyMap != 0 {
-        $0.backgroundColor = .white
-        $0.tintColor = .pointcolor1
+        $0.backgroundColor = .pointcolor1
+        $0.setImageByName("iconMymapWhite")
       }
       $0.addTarget(self, action: #selector(self.clickedToggleButton(_:)), for: .touchUpInside)
       $0.snp.makeConstraints {
@@ -415,11 +417,9 @@ extension MapViewController {
   @objc func clickedToggleButton(_ sender: UIButton?) {
     if sender == self.capinMapButton {
       sender?.backgroundColor = .pointcolor1
-      sender?.tintColor = .pointcolor1
-//      sender?.setTitleColor(.white, for: .normal)
+      sender?.setImageByName("iconCapinmapWhite")
       self.myMapButton.backgroundColor = .white
-      self.mypageButton.tintColor = .pointcolor1
-//      self.myMapButton.setTitleColor(.gray4, for: .normal)
+      self.myMapButton.setImageByName("iconMymapBlue")
       self.capinOrMyMap = 0
       self.setupCafeList()
       
@@ -427,11 +427,9 @@ extension MapViewController {
     else {
       self.capinOrMyMap = 1
       sender?.backgroundColor = .pointcolor1
-      sender?.tintColor = .white
-//      sender?.setTitleColor(.white, for: .normal)
+      sender?.setImageByName("iconMymapWhite")
       self.capinMapButton.backgroundColor = .white
-      self.capinMapButton.tintColor = .pointcolor1
-//      self.capinMapButton.setTitleColor(.gray4, for: .normal)
+      self.capinMapButton.setImageByName("iconCapinmapBlue")
       self.setupMyMapList()
       
     }

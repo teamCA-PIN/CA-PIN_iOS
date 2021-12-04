@@ -31,6 +31,7 @@ class CafeTITest1ViewController: UIViewController {
   var pagingnum = 0
   var resultAnswer: [Int] = []
   var temp: [Int] = []
+  var cafetiJudgeData : Int = 0
   
   // MARK: - LifeCycle
   
@@ -235,6 +236,7 @@ extension CafeTITest1ViewController {
         if self.selectedIndex == 0 {
           /// resultanswers 배열에 0 추가
           let CAFETITest21ViewController = CAFETITest21ViewController()
+          CAFETITest21ViewController.cafetiJudgeData = self.cafetiJudgeData
           self.resultAnswer.append(selectedIndex)
           CAFETITest21ViewController.resultAnswer = self.resultAnswer
           CAFETITest21ViewController.temp = self.resultAnswer
@@ -245,6 +247,7 @@ extension CafeTITest1ViewController {
         else {
           /// resultanswers 배열에 1 추가
           let CAFETITest22ViewController = CAFETITest22ViewController()
+          CAFETITest22ViewController.cafetiJudgeData = self.cafetiJudgeData
           self.resultAnswer.append(selectedIndex)
           CAFETITest22ViewController.resultAnswer = self.resultAnswer
           CAFETITest22ViewController.temp = self.resultAnswer

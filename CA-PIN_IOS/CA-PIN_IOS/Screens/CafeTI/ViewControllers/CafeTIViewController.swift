@@ -22,6 +22,7 @@ class CafeTIViewController: UIViewController {
   let titleLabel = UILabel()
   let subtitleLabel = UILabel()
   let startButton = UIButton()
+  var cafetiJudgeData : Int = 0
   
   // MARK: - LifeCycle
   
@@ -136,6 +137,7 @@ extension CafeTIViewController {
   }
   @objc func startButtonClicked() {
     let cafeTI1VC = CafeTITest1ViewController()
+    cafeTI1VC.cafetiJudgeData = self.cafetiJudgeData
     self.navigationController?.pushViewController(cafeTI1VC, animated: false)
   }
 }

@@ -41,6 +41,7 @@ class CAFETITest4ViewController: UIViewController {
   let disposeBag = DisposeBag()
   let CafeTIProvider = MoyaProvider<CafeTIService>()
   var resultData: CafeTIResult?
+  var cafetiJudgeData : Int = 0
   
   // MARK: - LifeCycle
   
@@ -311,6 +312,7 @@ extension CAFETITest4ViewController {
             guard let data =  data.result else { return }
             self.resultData = data
             let resultVC = CAFETIResultViewController()
+            resultVC.cafetiJudgeData = self.cafetiJudgeData
             resultVC.resultData = self.resultData
             
             /// 서현코드

@@ -49,6 +49,7 @@ class MypageViewController: UIViewController {
     return collectionView
   }()
   let indicatorView = UIView()
+  var cafetiJudgedata : Int = 1
   
   let disposeBag = DisposeBag()
   private let UserServiceProvider = MoyaProvider<UserService>(plugins: [NetworkLoggerPlugin(verbose: true)])
@@ -380,8 +381,9 @@ extension MypageViewController {
     self.dismiss(animated: true, completion: nil)
   }
   @objc func cafeTITestButtonClicked() {
-    let vc = CafeTIViewController()
-    self.navigationController?.pushViewController(vc, animated: true)
+    let cafetiVC = CafeTIViewController()
+    cafetiVC.cafetiJudgeData = self.cafetiJudgedata
+    self.navigationController?.pushViewController(cafetiVC, animated: true)
   }
   @objc func profileEditButtonClicked() {
     let vc = EditProfileViewController()

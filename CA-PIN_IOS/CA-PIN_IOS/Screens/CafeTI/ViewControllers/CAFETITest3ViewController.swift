@@ -35,6 +35,7 @@ class CAFETITest3ViewController: UIViewController {
   var pagingnum = 0
   var resultAnswer: [Int] = []
   var temp: [Int] = []
+  var cafetiJudgeData : Int = 0
   
   // MARK: - LifeCycle
   
@@ -312,6 +313,7 @@ extension CAFETITest3ViewController {
   @objc func nextButtonClicked() {
     if self.pagingnum == 1 {
       let CAFETITest4ViewController = CAFETITest4ViewController()
+      CAFETITest4ViewController.cafetiJudgeData = self.cafetiJudgeData
       self.resultAnswer.append(selectedIndex)
       CAFETITest4ViewController.resultAnswer = self.resultAnswer
       CAFETITest4ViewController.temp = self.resultAnswer
