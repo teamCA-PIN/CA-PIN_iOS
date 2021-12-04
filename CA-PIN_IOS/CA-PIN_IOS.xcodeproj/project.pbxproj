@@ -30,6 +30,7 @@
 		9253708F269D8F3800E2E5EA /* SignupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253708E269D8F3800E2E5EA /* SignupModel.swift */; };
 		92537091269D959F00E2E5EA /* UINavigationController+Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92537090269D959E00E2E5EA /* UINavigationController+Root.swift */; };
 		925F64FD2743A80F00206D2F /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925F64FC2743A80F00206D2F /* EditProfileViewController.swift */; };
+		9275AA4E275B9C590082BF0E /* LogoutPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9275AA4D275B9C580082BF0E /* LogoutPopUpViewController.swift */; };
 		9292FFC82696352600BCD791 /* CategoryCafeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292FFC72696352600BCD791 /* CategoryCafeListTableViewCell.swift */; };
 		9292FFCA26964AFA00BCD791 /* MyReviewTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292FFC926964AFA00BCD791 /* MyReviewTagCollectionViewCell.swift */; };
 		9292FFCD26964DF400BCD791 /* EmptyCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */; };
@@ -187,6 +188,7 @@
 		9253708E269D8F3800E2E5EA /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
 		92537090269D959E00E2E5EA /* UINavigationController+Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Root.swift"; sourceTree = "<group>"; };
 		925F64FC2743A80F00206D2F /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		9275AA4D275B9C580082BF0E /* LogoutPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutPopUpViewController.swift; sourceTree = "<group>"; };
 		9292FFC72696352600BCD791 /* CategoryCafeListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCafeListTableViewCell.swift; sourceTree = "<group>"; };
 		9292FFC926964AFA00BCD791 /* MyReviewTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		9292FFCC26964DF400BCD791 /* EmptyCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -913,6 +915,7 @@
 			isa = PBXGroup;
 			children = (
 				E8611AF1274D05D6000B3721 /* NewSettingViewController.swift */,
+				9275AA4D275B9C580082BF0E /* LogoutPopUpViewController.swift */,
 			);
 			path = Terms;
 			sourceTree = "<group>";
@@ -1244,6 +1247,7 @@
 				CCE7B03C26A8377600F6D9D6 /* MapResponse.swift in Sources */,
 				925370792698F4DD00E2E5EA /* MyEmptyCategoryTableViewCell.swift in Sources */,
 				9292FFC82696352600BCD791 /* CategoryCafeListTableViewCell.swift in Sources */,
+				9275AA4E275B9C590082BF0E /* LogoutPopUpViewController.swift in Sources */,
 				CC9C854D269EBFA1002A3321 /* MyInfoModel.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */,
