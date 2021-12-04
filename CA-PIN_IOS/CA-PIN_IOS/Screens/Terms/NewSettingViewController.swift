@@ -92,15 +92,14 @@ extension NewSettingViewController {
     layoutCopyrightImageView()
   }
   func layoutBackButton() {
-    self.view.add(backButton) {
-      $0.setImageByName("iconCloseBlack")
-      $0.addTarget(self, action: #selector(self.backbuttonClicked), for: .touchUpInside)
+    view.add(backButton) {
+      $0.setImage(UIImage(named: "iconBackBlack"), for: .normal)
       $0.snp.makeConstraints {
-        $0.top.equalToSuperview().offset(51)
-        $0.trailing.equalToSuperview().offset(-20)
-        $0.height.equalTo(30)
-        $0.width.equalTo(30)
+        $0.top.equalTo(self.view.snp.top).offset(51)
+        $0.leading.equalTo(self.view.snp.leading).offset(20)
+        $0.width.height.equalTo(28)
       }
+      $0.addTarget(self, action: #selector(self.backbuttonClicked), for: .touchUpInside)
     }
   }
   func layoutCapinImageView() {
@@ -396,7 +395,6 @@ extension NewSettingViewController {
     self.navigationController?.popViewController(animated: true)
   }
   @objc func clickedGoTermsButton() {
-    print("sdsd")
     let termVC = TermsViewController()
     self.navigationController?.pushViewController(termVC, animated: false)
   }
