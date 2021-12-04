@@ -222,15 +222,14 @@ extension MypageViewController {
     layoutPageCollectionView()
   }
   func layoutBackButton() {
-    self.view.add(self.backButton) {
-      $0.setImage(UIImage(named: "iconCloseBlack"), for: .normal)
-      $0.addTarget(self, action: #selector(self.backButtonClicked), for: .touchUpInside)
+    view.add(backButton) {
+      $0.setImage(UIImage(named: "iconBackBlack"), for: .normal)
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(11)
-        $0.trailing.equalTo(self.view.snp.trailing).offset(-20)
-        $0.width.equalTo(30)
-        $0.height.equalTo(30)
+        $0.top.equalTo(self.view.snp.top).offset(51)
+        $0.leading.equalTo(self.view.snp.leading).offset(20)
+        $0.width.height.equalTo(28)
       }
+      $0.addTarget(self, action: #selector(self.backButtonClicked), for: .touchUpInside)
     }
   }
   func layoutProfileImageView() {
@@ -377,7 +376,7 @@ extension MypageViewController {
     }
   }
   @objc func backButtonClicked() {
-    self.dismiss(animated: true, completion: nil)
+    self.navigationController?.popViewController(animated: false)
   }
   @objc func cafeTITestButtonClicked() {
     let vc = CafeTIViewController()
