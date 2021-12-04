@@ -69,7 +69,7 @@ class MyReviewTableViewCell: UITableViewCell {
 extension MyReviewTableViewCell {
   // MARK: - Helpers
   func register() {
-    self.tagCollectionView.register(MyTagCollectionViewCell.self, forCellWithReuseIdentifier: MyTagCollectionViewCell.reuseIdentifier)
+    self.tagCollectionView.register(MyReviewTagCollectionViewCell.self, forCellWithReuseIdentifier: MyReviewTagCollectionViewCell.reuseIdentifier)
     self.imageCollectionView.register(ReviewImageCollectionViewCell.self, forCellWithReuseIdentifier: ReviewImageCollectionViewCell.reuseIdentifier)
   }
   func bindData() { /// 태그 데이터 바인딩
@@ -336,7 +336,7 @@ extension MyReviewTableViewCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     switch collectionView {
     case tagCollectionView:
-      guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTagCollectionViewCell.reuseIdentifier, for: indexPath) as? MyTagCollectionViewCell else { return UICollectionViewCell()}
+      guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewTagCollectionViewCell.reuseIdentifier, for: indexPath) as? MyReviewTagCollectionViewCell else { return UICollectionViewCell()}
       tagCell.awakeFromNib()
       tagCell.setTagData(tag: tagArray[indexPath.row])
       return tagCell

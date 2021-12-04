@@ -53,7 +53,7 @@ class CategoryCafeListTableViewCell: UITableViewCell {
 
 extension CategoryCafeListTableViewCell {
   func register() {
-    self.tagCollectionView.register(MyTagCollectionViewCell.self, forCellWithReuseIdentifier: MyTagCollectionViewCell.reuseIdentifier)
+    self.tagCollectionView.register(MyCategoryTagCollectionViewCell.self, forCellWithReuseIdentifier: MyCategoryTagCollectionViewCell.reuseIdentifier)
   }
   func attribute() {
     self.tagCollectionView.delegate = self
@@ -242,7 +242,7 @@ extension CategoryCafeListTableViewCell: UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTagCollectionViewCell.reuseIdentifier, for: indexPath) as? MyTagCollectionViewCell else { return UICollectionViewCell() }
+    guard let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCategoryTagCollectionViewCell.reuseIdentifier, for: indexPath) as? MyCategoryTagCollectionViewCell else { return UICollectionViewCell() }
     tagCell.awakeFromNib()
     /// 서버 연결 후, TagCollectionViewCell에 라벨 텍스트 바꾸는 함수 만들어서 여기서 쓰기
     tagCell.setTagData(tag: cafeTagArray[indexPath.row].name)

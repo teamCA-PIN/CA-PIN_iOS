@@ -151,7 +151,7 @@ extension EditProfileViewController {
   }
   func layoutNameExplanationLabel() {
     self.nameTextView.add(nameExplanationLabel) {
-      $0.setupLabel(text: "공백없이 2-10자 내외로, 한글,영문,숫자만 입력 가능합니다.", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+      $0.setupLabel(text: "공백없이 2-10자 이내로 한글, 영문, 숫자만 입력 가능합니다.", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
       $0.snp.makeConstraints {
         $0.top.equalToSuperview().offset(32)
         $0.height.equalTo(17)

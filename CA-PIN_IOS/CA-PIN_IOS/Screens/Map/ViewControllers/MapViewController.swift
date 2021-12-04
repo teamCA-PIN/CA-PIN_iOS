@@ -409,6 +409,7 @@ extension MapViewController {
   @objc func tappedInformationView() {
     let detailView = CafeDetailViewController()
     detailView.cafeModel = self.cafeDetailModel
+    detailView.cafeId = selectedCafeId
     self.navigationController?.pushViewController(detailView, animated: false)
   }
   @objc func clickedToggleButton(_ sender: UIButton?) {

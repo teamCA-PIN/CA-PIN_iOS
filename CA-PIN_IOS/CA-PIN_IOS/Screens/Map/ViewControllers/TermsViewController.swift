@@ -22,7 +22,8 @@ class TermsViewController: UIViewController {
   let termsCellTitles = ["이용 약관",
                          "개인정보처리방침",
                          "오픈소스 라이센스",
-                         "문의하기"]
+                         "회원 탈퇴하기"
+                        ]
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -115,25 +116,35 @@ extension TermsViewController: UITableViewDelegate {
 // MARK: - termsTableView DataSource
 extension TermsViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5
+    return 6
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if indexPath.row == 4 {
+    if indexPath.row == 4 || indexPath.row == 5 {
       guard let versionCell = tableView.dequeueReusableCell(
               withIdentifier: TermsVersionTableViewCell.reuseIdentifier,
               for: indexPath) as? TermsVersionTableViewCell else {
         return UITableViewCell()
       }
       versionCell.awakeFromNib()
+      if indexPath.row == 4 {
+        versionCell.titleLabel.text = "문의하기"
+        versionCell.versionLabel.text = "teamcapin@gmail.com"
+      }
       return versionCell
     }
     else {
       guard let generalCell = tableView.dequeueReusableCell(withIdentifier: TermsGeneralTableViewCell.reuseIdentifier, for: indexPath) as? TermsGeneralTableViewCell else {
         return UITableViewCell()
       }
-      generalCell.titleText = self.termsCellTitles[indexPath.row]
+      if indexPath.row != 6 {
+        generalCell.titleText = self.termsCellTitles[indexPath.row]
+      }
       generalCell.awakeFromNib()
+      if indexPath.row == 6 {
+        generalCell.titleLabel.text = "회원 탈퇴하기"
+        generalCell.titleLabel.textColor = .pointcolor1
+      }
       return generalCell
     }
   }
