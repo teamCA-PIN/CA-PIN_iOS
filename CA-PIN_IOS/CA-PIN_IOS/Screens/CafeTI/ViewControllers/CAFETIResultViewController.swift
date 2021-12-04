@@ -21,6 +21,7 @@ class CAFETIResultViewController: UIViewController {
   let CAFETIresultLabel = UILabel()
   let CAFETItitleLabel = UILabel()
   let CAFETISubtitleLabel = UILabel()
+  let cafetiIntroBackgroundView = UIView()
   let CAFETIintroLabel = UILabel()
   let CAFETIagainLabel = UILabel()
   let CAFETIendButton = UIButton()
@@ -55,7 +56,9 @@ extension CAFETIResultViewController {
     layoutCAFETIResultLabel()
     layoutCAFETITitleLabel()
     layoutCAFETISubTitleLabel()
+    layoutcafetiIntroBackgroundView()
     layoutCAFETIIntroLabel()
+    layoutCAFETIagainLabel()
     layoutCAFETIEndButton()
   }
   func layoutTitleLabel() {
@@ -81,7 +84,7 @@ extension CAFETIResultViewController {
   }
   func layoutCAFETIResultView() {
     self.view.add(self.CAFETIresultView) {
-      $0.backgroundColor = .pointcolor1
+      $0.backgroundColor = .subcolorBlue1
       $0.setRounded(radius: 13)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.resultImageView.snp.bottom)
@@ -118,16 +121,38 @@ extension CAFETIResultViewController {
       }
     }
   }
+  func layoutcafetiIntroBackgroundView() {
+    self.view.add(self.cafetiIntroBackgroundView) {
+      $0.backgroundColor = .gray1
+      $0.setRounded(radius: 10)
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.CAFETISubtitleLabel.snp.bottom).offset(15)
+        $0.centerX.equalToSuperview()
+        $0.width.equalTo(335)
+        $0.height.equalTo(118)
+      }
+    }
+  }
   func layoutCAFETIIntroLabel() {
-    self.view.add(self.CAFETIintroLabel) {
+    self.cafetiIntroBackgroundView.add(self.CAFETIintroLabel) {
+      $0.numberOfLines = 0
+      $0.lineBreakMode = .byCharWrapping
+      $0.snp.makeConstraints {
+        $0.centerX.equalTo(self.cafetiIntroBackgroundView.snp.centerX)
+        $0.centerY.equalTo(self.cafetiIntroBackgroundView.snp.centerY)
+      }
+    }
+  }
+  func layoutCAFETIagainLabel() {
+    self.view.add(self.CAFETIagainLabel) {
       $0.setupLabel(text: "CAFETI는 프로필 수정페이지에서\n다시 검사하실 수 있습니다.",
-                    color: .pointcolor1,
+                    color: .gray4,
                     font: UIFont.notoSansKRRegularFont(fontSize: 14))
       $0.numberOfLines = 2
       $0.textAlignment = .center
       $0.letterSpacing = -0.7
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.CAFETISubtitleLabel.snp.bottom).offset(20)
+        $0.top.equalTo(self.cafetiIntroBackgroundView.snp.bottom).offset(36)
         $0.centerX.equalToSuperview()
       }
     }
@@ -136,7 +161,7 @@ extension CAFETIResultViewController {
     self.view.add(self.CAFETIendButton) {
       $0.setTitle("검사 종료", for: .normal)
       $0.setTitleColor(.white, for: .normal)
-      $0.backgroundColor = .pointcolor1
+      $0.backgroundColor = .maincolor1
       $0.addTextSpacing(spacing: -0.8)
       $0.titleLabel?.font = UIFont.notoSansKRMediumFont(fontSize: 16)
       $0.addTarget(self, action: #selector(self.endButtonClicked), for: .touchUpInside)
@@ -159,8 +184,17 @@ extension CAFETIResultViewController {
     // 여기는 서현이가 추가했음 ㅈㅅ
     UserDefaults.standard.setValue(self.resultData?.img, forKey: "defaultImageURL")
     self.CAFETIresultLabel.setupLabel(text: self.resultData?.type ?? "", color: .white, font: UIFont.notoSansKRMediumFont(fontSize: 16))
-    self.CAFETItitleLabel.setupLabel(text: self.resultData?.modifier ?? "", color: .maincolor1, font: UIFont.notoSansKRMediumFont(fontSize: 26))
-    self.CAFETISubtitleLabel.setupLabel(text: self.resultData?.modifierDetail ?? "", color: .gray3, font: UIFont.notoSansKRRegularFont(fontSize: 14))
+    self.CAFETItitleLabel.setupLabel(text: self.resultData?.modifier ?? "", color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 26))
+    self.CAFETISubtitleLabel.setupLabel(text: self.resultData?.modifierDetail ?? "", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 14))
+    
+    if let resultdata = resultData?.introduction {
+      if resultdata == nil {
+        print("닐이야닐")
+      } else {
+        print(resultdata)
+        self.CAFETIintroLabel.setupLabel(text: resultdata, color: .subcolorBlue1, font: .notoSansKRRegularFont(fontSize: 14), align: .center)
+      }
+    }
     self.reloadInputViews()
     
   }

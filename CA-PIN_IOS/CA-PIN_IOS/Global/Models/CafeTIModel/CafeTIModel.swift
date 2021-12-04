@@ -18,5 +18,6 @@ struct CafeTIResult: Codable {
   let cafetiIdx: Int
   let type, modifier: String
   let modifierDetail: String?
+  let introduction: String
   let img, plainImg: String
 }

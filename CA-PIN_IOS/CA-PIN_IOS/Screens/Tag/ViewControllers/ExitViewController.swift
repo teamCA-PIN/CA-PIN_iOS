@@ -47,6 +47,7 @@ extension ExitViewController {
   func layoutPopupView() {
     self.view.add(popupView) {
       $0.backgroundColor = .white
+      $0.setRounded(radius: 6)
       $0.snp.makeConstraints {
         $0.center.equalToSuperview()
         $0.width.equalTo(335)
@@ -73,6 +74,7 @@ extension ExitViewController {
                     color: 0x6f6f6f.color,
                     font: .notoSansKRRegularFont(fontSize: 14))
       $0.letterSpacing = -0.6
+      $0.textAlignment = .center
       $0.numberOfLines = 2
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
@@ -109,7 +111,7 @@ extension ExitViewController {
       $0.setupButton(title: "확인",
                      color: .white,
                      font: .notoSansKRRegularFont(fontSize: 16),
-                     backgroundColor: .pointcolor1,
+                     backgroundColor: .maincolor1,
                      state: .normal,
                      radius: 0)
       $0.addTarget(self, action: #selector(self.clickedConfirmButton), for: .touchUpInside)
