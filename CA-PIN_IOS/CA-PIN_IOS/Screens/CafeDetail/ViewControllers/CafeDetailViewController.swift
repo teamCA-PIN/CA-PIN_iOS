@@ -76,7 +76,8 @@ class CafeDetailViewController: UIViewController {
                  "목요일 휴무",
                  "금요일 휴무",
                  "토요일 휴무"]
-  
+  var reviewIdArray: [String] = []
+  var cafeId: String = "" /// 리뷰 신고하고 돌아올 때
   var count138 = 0
   var count160 = 0
   var count218 = 0
@@ -87,7 +88,7 @@ class CafeDetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    self.setupReviewData(cafeId: self.cafeModel!.id)
+    self.setupReviewData(cafeId: self.cafeModel?.id ?? cafeId)
     dataBind()
     register()
     layout()
@@ -539,6 +540,10 @@ extension CafeDetailViewController {
                                           from: response.data)
             self.reviewModel = data.reviews
             self.isReviewed = data.isReviewed
+            self.reviewIdArray = []
+            for i in 0...self.reviewModel!.count-1 {
+              self.reviewIdArray.append(self.reviewModel![i].id)
+            }
             self.layout()
             self.tagCollectionView.reloadData()
             self.reviewTableView.reloadData()
@@ -678,6 +683,7 @@ extension CafeDetailViewController: UITableViewDataSource {
                                 rating: Float(reviewModel![indexPath.row].rating),
                                 content: reviewModel![indexPath.row].content,
                                 profileImg: reviewModel![indexPath.row].writer.profileImg)
+      detailCell.reviewId = reviewIdArray[indexPath.row]
       detailCell.rootViewController = self
       detailCell.awakeFromNib()
       return detailCell
