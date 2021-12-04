@@ -27,6 +27,7 @@ class CAFETIResultViewController: UIViewController {
   let CAFETIendButton = UIButton()
   
   var resultData: CafeTIResult?
+  var cafetiJudgeData : Int = 0
   
   // MARK: - Lifecycle
   
@@ -175,10 +176,14 @@ extension CAFETIResultViewController {
     }
   }
   @objc func endButtonClicked() {
+    if self.cafetiJudgeData == 1 {
+      let mypageVC = MypageViewController()
+      self.navigationController?.pushViewController(mypageVC, animated: false)
+    } else {
       let MapViewController = MapViewController()
       self.navigationController?.pushViewController(MapViewController, animated: false)
-          
-      }
+    }
+  }
   func setResultData() {
     self.resultImageView.imageFromUrl(self.resultData?.img, defaultImgPath: "https://capin.s3.ap-northeast-2.amazonaws.com/cafeti/Deer_coffee%402x.png")
     // 여기는 서현이가 추가했음 ㅈㅅ
