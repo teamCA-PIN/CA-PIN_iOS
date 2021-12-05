@@ -1,17 +1,16 @@
 //
-//  LogoutPopUpViewController.swift
+//  WithdrawPopUpViewController.swift
 //  CA-PIN_IOS
 //
-//  Created by 장서현 on 2021/12/04.
+//  Created by 김지수 on 2021/12/05.
 //
 
 import UIKit
-import Moya
-import RxMoya
-import RxSwift
-import SwiftKeychainWrapper
 
-class LogoutPopUpViewController: UIViewController {
+import SnapKit
+import Then
+
+class WithdrawPopUpViewController: UIViewController {
   
   // MARK: - Components
   let popupView = UIView()
@@ -28,7 +27,7 @@ class LogoutPopUpViewController: UIViewController {
 }
 
 // MARK: - Extensions
-extension LogoutPopUpViewController {
+extension WithdrawPopUpViewController {
   
   // MARK: - Layout Helpers
   func layout() {
@@ -53,11 +52,10 @@ extension LogoutPopUpViewController {
   }
   func layoutTitleLabel() {
     popupView.add(titleLabel) {
-      $0.setupLabel(text: "로그아웃",
+      $0.setupLabel(text: "회원탈퇴",
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20),
                     align: .center)
-//      $0.letterSpacing = -1
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.popupView.snp.top).offset(26)
@@ -67,10 +65,11 @@ extension LogoutPopUpViewController {
   func layoutDescriptionLabel() {
     popupView.add(descriptionLabel) {
       $0.numberOfLines = 0
-      $0.setupLabel(text: "계정에 저장된 정보에 접근하려면\n다시 로그인해야 합니다. 로그아웃하시겠습니까?",
+      $0.setupLabel(text: "탈퇴 시 회원님의 계정에 저장된\n모든 정보가 삭제됩니다.",
                     color: 0x6f6f6f.color,
                     font: .notoSansKRRegularFont(fontSize: 14),
                     align: .center)
+      $0.numberOfLines = 2
       $0.letterSpacing = -0.6
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
@@ -110,7 +109,7 @@ extension LogoutPopUpViewController {
                      backgroundColor: .maincolor1,
                      state: .normal,
                      radius: 0)
-      $0.addTarget(self, action: #selector(self.logoutButtonClicked), for: .touchUpInside)
+      $0.addTarget(self, action: #selector(self.withdrawButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.buttonContainerView.snp.centerX)
         $0.trailing.top.bottom.equalToSuperview()
@@ -121,13 +120,7 @@ extension LogoutPopUpViewController {
   @objc func clickedCancelButton() {
     self.dismiss(animated: false, completion: nil)
   }
-  @objc func logoutButtonClicked() {
-    KeychainWrapper.standard.remove(forKey: "loginEmail")
-    KeychainWrapper.standard.remove(forKey: "loginPassword")
-    KeychainWrapper.standard.remove(forKey: "tokenAccess")
-    KeychainWrapper.standard.remove(forKey: "tokenRefresh")
-    
-//    let loginVC = LoginViewController()
-    self.navigationController?.popToRootViewController(animated: false)
+  @objc func withdrawButtonClicked() {
   }
 }
+
