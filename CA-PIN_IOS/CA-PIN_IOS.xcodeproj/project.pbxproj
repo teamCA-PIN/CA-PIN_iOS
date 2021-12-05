@@ -125,6 +125,8 @@
 		CCF78448268B197A005FDF1D /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78444268B197A005FDF1D /* UILabel+.swift */; };
 		CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78449268B71CD005FDF1D /* LoginViewController.swift */; };
 		DEAF5909BEA6DABAD94C99B1 /* Pods_CA_PIN_IOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2EB73A4D1A93ECC7CCACCE /* Pods_CA_PIN_IOSTests.framework */; };
+		E81AE5D3275CE4D9007BAA96 /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81AE5D2275CE4D9007BAA96 /* WithdrawViewController.swift */; };
+		E81AE5D5275CE5B1007BAA96 /* WithdrawPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81AE5D4275CE5B1007BAA96 /* WithdrawPopUpViewController.swift */; };
 		E81F0ED4268DC2340042B825 /* CafeTITest1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */; };
 		E8244CC6269731AA007E63ED /* CafeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8244CC5269731AA007E63ED /* CafeMenuViewController.swift */; };
 		E8244CC72697382B007E63ED /* CAFETITest22ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83045B226957815004BD355 /* CAFETITest22ViewController.swift */; };
@@ -280,6 +282,8 @@
 		CCF78449268B71CD005FDF1D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DCE275964F750EF1950B1B3F /* Pods-CA-PIN_IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS.release.xcconfig"; sourceTree = "<group>"; };
 		E1713BD6CEA8E864225CCD7B /* Pods-CA-PIN_IOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOSTests.release.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOSTests/Pods-CA-PIN_IOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		E81AE5D2275CE4D9007BAA96 /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
+		E81AE5D4275CE5B1007BAA96 /* WithdrawPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawPopUpViewController.swift; sourceTree = "<group>"; };
 		E81F0ED3268DC2340042B825 /* CafeTITest1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTITest1ViewController.swift; sourceTree = "<group>"; };
 		E8244CC5269731AA007E63ED /* CafeMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeMenuViewController.swift; sourceTree = "<group>"; };
 		E8244CCA26974238007E63ED /* CafeMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeMenuTableViewCell.swift; sourceTree = "<group>"; };
@@ -916,6 +920,8 @@
 			children = (
 				E8611AF1274D05D6000B3721 /* NewSettingViewController.swift */,
 				9275AA4D275B9C580082BF0E /* LogoutPopUpViewController.swift */,
+				E81AE5D2275CE4D9007BAA96 /* WithdrawViewController.swift */,
+				E81AE5D4275CE5B1007BAA96 /* WithdrawPopUpViewController.swift */,
 			);
 			path = Terms;
 			sourceTree = "<group>";
@@ -1196,6 +1202,7 @@
 				9292FFCD26964DF400BCD791 /* EmptyCategoryTableViewCell.swift in Sources */,
 				CC05E029268B865400269427 /* UIFont+.swift in Sources */,
 				CCF7844A268B71CD005FDF1D /* LoginViewController.swift in Sources */,
+				E81AE5D3275CE4D9007BAA96 /* WithdrawViewController.swift in Sources */,
 				E82E5AA7269F97CA00DE5C23 /* CafeMenuModel.swift in Sources */,
 				9253707D269A3B3300E2E5EA /* EmptyReviewTableViewCell.swift in Sources */,
 				CC9C8550269EF82E002A3321 /* ReviewDetailModel.swift in Sources */,
@@ -1262,6 +1269,7 @@
 				CC45A17E26942BF400E68817 /* TermsVersionTableViewCell.swift in Sources */,
 				92537091269D959F00E2E5EA /* UINavigationController+Root.swift in Sources */,
 				CCA85B562688F29700C9A32C /* UIImageView+.swift in Sources */,
+				E81AE5D5275CE5B1007BAA96 /* WithdrawPopUpViewController.swift in Sources */,
 				CCB6C665268F044400941E92 /* PinPopupViewController.swift in Sources */,
 				E8818966269C2AF200B884FB /* ReviewPhotoModel.swift in Sources */,
 				CC05E02A268B865400269427 /* UIButton+.swift in Sources */,
