@@ -127,7 +127,7 @@ extension CAFETITest21ViewController {
       $0.addTarget(self, action: #selector(self.clickedButton(_:)), for: .touchUpInside)
       $0.setRounded(radius: 5)
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.contentLabel.snp.bottom).offset(86)
+        $0.top.equalTo(self.processBar.snp.bottom).offset(77)
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(20)
         $0.height.equalTo(50)
