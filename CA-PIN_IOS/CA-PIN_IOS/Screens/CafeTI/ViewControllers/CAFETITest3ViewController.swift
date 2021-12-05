@@ -70,7 +70,7 @@ extension CAFETITest3ViewController {
   }
   func layoutQuestionTitleLabel() {
     self.view.add(self.questiontitleLabel) {
-      $0.setupLabel(text: "Question.03", color: .pointcolor1, font: UIFont.notoSansKRMediumFont(fontSize: 20))
+      $0.setupLabel(text: "Question.03", color: .gray4, font: UIFont.notoSansKRMediumFont(fontSize: 20))
       $0.letterSpacing = -1.0
       $0.snp.makeConstraints {
         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(6)
@@ -112,7 +112,7 @@ extension CAFETITest3ViewController {
   }
   func layoutProcessBar() {
     self.view.add(self.processBar) {
-      $0.image = UIImage(named: "cafeti_step")
+      $0.image = UIImage(named: "cafeti_step3")
       $0.snp.makeConstraints {
         $0.top.equalTo(self.contentLabel.snp.bottom).offset(21)
         $0.centerX.equalToSuperview()
@@ -131,7 +131,7 @@ extension CAFETITest3ViewController {
       $0.addTarget(self, action: #selector(self.clickedButton(_:)), for: .touchUpInside)
       $0.setRounded(radius: 5)
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.contentLabel.snp.bottom).offset(26)
+        $0.top.equalTo(self.processBar.snp.bottom).offset(20)
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(20)
         $0.height.equalTo(50)
