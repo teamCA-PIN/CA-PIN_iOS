@@ -127,6 +127,7 @@ extension MypageViewController {
             self.profileImage = data.myInfo?.profileImg ?? ""
             self.plainImage = data.myInfo?.cafeti.plainImg ?? ""
             self.nicknameLabel.text = self.userName
+            self.cafeTILabel.text = data.myInfo?.cafeti.type ?? ""
             self.profileImageView.imageFromUrl(self.profileImage, defaultImgPath: "")
           } catch {
             print(error)
@@ -376,7 +377,7 @@ extension MypageViewController {
     }
   }
   @objc func backButtonClicked() {
-    self.navigationController?.popViewController(animated: false)
+    self.navigationController?.popViewController(animated: true)
   }
   @objc func cafeTITestButtonClicked() {
     let vc = CafeTIViewController()
@@ -450,18 +451,18 @@ extension MypageViewController: UICollectionViewDataSource {
       tabBarCell.awakeFromNib()
       if trigger == true { /// 카테고리 탭 선택됐을 때
         if indexPath.item == 0 { /// 카테고리 아이콘 갈색
-          tabBarCell.setImage(name: "iconMapActive")
+          tabBarCell.setImage(name: "mapActiveFrame")
         }
         else { /// 리뷰 아이콘 회색
-          tabBarCell.setImage(name: "iconReviewInactive")
+          tabBarCell.setImage(name: "reviewInactiveFrame")
         }
       }
       else { /// 리뷰 탭 선택됐을 때
         if indexPath.item == 0 { /// 카테고리 아이콘 회색
-          tabBarCell.tabImageView.image = UIImage(named: "iconMapInactive")
+          tabBarCell.tabImageView.image = UIImage(named: "mapInactiveFrame")
         }
         else { /// 리뷰 아이콘 갈색
-          tabBarCell.tabImageView.image = UIImage(named: "iconReviewActive")
+          tabBarCell.tabImageView.image = UIImage(named: "reviewActiveFrame")
         }
       }
       return tabBarCell

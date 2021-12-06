@@ -99,7 +99,7 @@ extension NewSettingViewController {
         $0.leading.equalTo(self.view.snp.leading).offset(20)
         $0.width.height.equalTo(28)
       }
-      $0.addTarget(self, action: #selector(self.backbuttonClicked), for: .touchUpInside)
+      $0.addTarget(self, action: #selector(self.backButtonClicked), for: .touchUpInside)
     }
   }
   func layoutCapinImageView() {
@@ -127,6 +127,7 @@ extension NewSettingViewController {
   func layoutLogoutButton() {
     self.view.add(logoutButton) {
       $0.setupButton(title: "로그아웃", color: .maincolor1, font: .notoSansKRRegularFont(fontSize: 14), backgroundColor: .clear, state: .normal, radius: 0)
+      $0.addTarget(self, action: #selector(self.logoutButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.goTermsButton.snp.bottom).offset(6)
         $0.centerX.equalToSuperview()
@@ -391,11 +392,16 @@ extension NewSettingViewController {
       }
     }
   }
-  @objc func backbuttonClicked() {
+  @objc func backButtonClicked() {
     self.navigationController?.popViewController(animated: true)
   }
   @objc func clickedGoTermsButton() {
     let termVC = TermsViewController()
     self.navigationController?.pushViewController(termVC, animated: false)
+  }
+  @objc func logoutButtonClicked() {
+    let popupVC = LogoutPopUpViewController()
+    popupVC.modalPresentationStyle = .overCurrentContext
+    self.present(popupVC, animated: false, completion: nil)
   }
 }
