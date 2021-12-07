@@ -26,7 +26,7 @@ class TermsViewController: UIViewController {
                          "문의하기",
                          "버전"
                         ]
-  let secondTermsCellTitles = ["문의하기", "버전"]
+  var url = NSURL(string: "https://www.notion.so/21f17ec3a90a44779ee1ab7dae8c1110")
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -168,6 +168,26 @@ extension TermsViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    if indexPath.section == 0 {
+      if indexPath.row == 0 { // 이용약관
+        url = NSURL(string: "https://www.notion.so/21f17ec3a90a44779ee1ab7dae8c1110")
+        let safariView: SFSafariViewController = SFSafariViewController(url: url as! URL)
+        self.present(safariView, animated: true, completion: nil)
+      }
+      else if indexPath.row == 1 { // 개인정보처리방침
+        url = NSURL(string: "https://www.notion.so/b977d86415c54446bb8fdb42fd7bed48")
+        let safariView: SFSafariViewController = SFSafariViewController(url: url as! URL)
+        self.present(safariView, animated: true, completion: nil)
+      }
+      else if indexPath.row == 2 { // 오픈소스 라이선스
     
+      }
+    }
+    else {
+      // 회원탈퇴
+      let withdrawlPopUPVC = WithDrawalPopUpViewController()
+      withdrawlPopUPVC.modalPresentationStyle = .overCurrentContext
+      self.present(withdrawlPopUPVC, animated: true, completion: nil)
+    }
   }
 }

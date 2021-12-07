@@ -11,7 +11,7 @@ import RxMoya
 import RxSwift
 import SwiftKeychainWrapper
 
-class WidthDrawalPopUpViewController: UIViewController {
+class WithDrawalPopUpViewController: UIViewController {
   
   // MARK: - Components
   let popupView = UIView()
@@ -28,7 +28,7 @@ class WidthDrawalPopUpViewController: UIViewController {
 }
 
 // MARK: - Extensions
-extension WidthDrawalPopUpViewController {
+extension WithDrawalPopUpViewController {
   
   // MARK: - Layout Helpers
   func layout() {
