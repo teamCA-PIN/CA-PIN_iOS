@@ -112,39 +112,6 @@ extension MyCategoryCollectionViewCell {
     }
   }
   
-  // MARK: - Server
-//  func getCategoryData() {
-//    UserProvider.rx.request(.categoryList)
-//      .asObservable()
-//      .subscribe(onNext: { response in
-//        if response.statusCode == 200 {
-//          do {
-//            let decoder = JSONDecoder()
-//            let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
-//                                          from: response.data)
-//            self.categoryArray = data.myCategoryList!
-//            print("mycategorytableview.reload")
-//            self.myCategoryTableView.reloadData()
-//            for i in 0...self.categoryArray.count-1 {
-//              self.categoryIdArray.append(self.categoryArray[i].id)
-//            }
-//            let mypageVC = self.rootViewController as? MypageViewController
-//            print("mypage.page.reload")
-//            mypageVC?.pageCollectionView.reloadData()
-//          } catch {
-//            print(error)
-//          }
-//        }
-//        else {
-//
-//        }
-//      }, onError: { error in
-//        print(error)
-//      }, onCompleted: {
-//
-//      }).disposed(by: disposeBag)
-//  }
-  
   func getCafeDataInCategory(index: Int) {
     CategoryProvider.rx.request(.cafeListInCategory(categoryId: self.categoryIdArray[index]))
       .asObservable()
@@ -193,7 +160,6 @@ extension MyCategoryCollectionViewCell {
 }
 extension MyCategoryCollectionViewCell: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//    getCategoryData()
     if categoryArray.count == 1 {
       if indexPath.section == 0 {
         return 53

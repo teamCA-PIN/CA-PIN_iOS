@@ -28,7 +28,6 @@ class MyReviewTableViewCell: UITableViewCell {
   let imageCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
-//    layout.minimumLineSpacing = 0
     layout.minimumInteritemSpacing = 5
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +54,6 @@ class MyReviewTableViewCell: UITableViewCell {
   // MARK: - LifeCycle
   override func awakeFromNib() {
     super.awakeFromNib()
-//    let parentViewController: UIViewController = self.parentViewController!
     bindData()
     register()
     attribute()
@@ -73,8 +71,6 @@ extension MyReviewTableViewCell {
     self.imageCollectionView.register(ReviewImageCollectionViewCell.self, forCellWithReuseIdentifier: ReviewImageCollectionViewCell.reuseIdentifier)
   }
   func bindData() { /// 태그 데이터 바인딩
-    print("bind data")
-    print(self.reviewModel?.recommend)
     if self.reviewModel?.recommend != [] {
       self.tagIndex = (self.reviewModel?.recommend) ?? []
       for i in 0..<((tagIndex!.count) ?? 0) {
@@ -97,12 +93,8 @@ extension MyReviewTableViewCell {
     self.imageCollectionView.dataSource = self
   }
   @objc func moreButtonClicked() {
-    /// TODO: - 카페 상세보기로 이동
-    print("more")
-    print(#function)
     let cafeDetailVC = CafeDetailViewController()
     parentViewController?.navigationController?.pushViewController(cafeDetailVC, animated: false)
-    
   }
 
   func bindTagList(tag: [Int]) {
@@ -252,7 +244,6 @@ extension MyReviewTableViewCell {
     })
     let deleteAction: UIAlertAction
     deleteAction = UIAlertAction(title: "리뷰 삭제", style: .destructive, handler: { (action: UIAlertAction) in
-      /// 삭제 팝업 띄우기
       let deleteReviewVC = DeleteReviewViewController()
       deleteReviewVC.modalPresentationStyle = .overCurrentContext
       deleteReviewVC.reviewId = self.reviewModel?.id ?? ""
@@ -260,18 +251,14 @@ extension MyReviewTableViewCell {
     })
 
     let cancelAction: UIAlertAction
-    // nil은 사용자가 누르면 아무 액션없이 alert이 dismiss된다
     cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
 
-    // action을 추가해줘야 실행된다.
-    // 액션 순서에 상관없이 어떻게 넣어주더라도 위치는 UIAlertController가 알아서 지정해준다
     alertController.addAction(editAction)
     alertController.addAction(deleteAction)
     alertController.addAction(cancelAction)
     
     alertController.view.tintColor = .maincolor1
 
-    // 모달로 올려줌! completion은 모달이 올라오는 애니메이션이 끝나고 직후에 호출될 블럭
     parentViewController?.present(alertController, animated: true, completion: nil)
   }
 }
@@ -282,8 +269,6 @@ extension MyReviewTableViewCell: UICollectionViewDelegateFlowLayout {
     
     if collectionView == tagCollectionView {
       /// 사용하려는 라벨 크기 받아서 동적으로 셀 크기 맞춰줄거임
-//      bindTagList(tag: recommendList)
-
       let label = UILabel().then {
         $0.font = .notoSansKRMediumFont(fontSize: 12)
         $0.text = tagArray[indexPath.row]

@@ -28,8 +28,6 @@ class ReportReviewPopUpViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     layout()
-    // Do any additional setup after loading the view.
-    print("###\(reviewId)")
   }
 }
 
@@ -124,44 +122,14 @@ extension ReportReviewPopUpViewController {
     }
   }
   
-//  func deleteService(categoryId: String) {
-//    CategoryService.rx.request(.deleteCategory(categoryId: categoryId))
-//      .asObservable()
-//      .subscribe(onNext: { response in
-//        if response.statusCode == 200 { /// 삭제 성공
-//          do {
-//            let myPageVC = self.presentingViewController?.children[0] as? MypageViewController
-//            self.dismiss(animated: false) {
-//              myPageVC?.viewWillAppear(true)
-//              myPageVC?.showGreenToast(message: "카테고리 삭제가 완료되었습니다.")
-//            }
-//          }
-//          catch {
-//            print(error)
-//          }
-//        }
-//        else { /// 삭제 실패
-//          do {
-//            self.showGrayToast(message: "삭제에 실패했습니다")
-//          }
-//          catch {
-//            print(error)
-//          }
-//        }
-//      }, onError: { error in
-//        print(error)
-//      }, onCompleted: {
-//      }).disposed(by: disposeBag)
-//  }
-  
   func reportService(reviewId: String) {
-    /// TODO: - 리뷰 신고 서버 연결
     reviewProvider.rx.request(.reportReivew(reviewId: reviewId))
       .asObservable()
       .subscribe(onNext: { response in
         if response.statusCode == 200 { /// 신고
           do {
-            let cafeDetailVC = CafeDetailViewController()
+            let endIndex = self.presentingViewController?.children.endIndex ?? 0
+            let cafeDetailVC = self.presentingViewController?.children[endIndex-1] as? CafeDetailViewController ?? UIViewController()
             self.dismiss(animated: false) {
               cafeDetailVC.viewWillAppear(true)
               cafeDetailVC.showGreenToast(message: "리뷰를 신고했습니다")

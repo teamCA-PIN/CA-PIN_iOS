@@ -104,7 +104,6 @@ extension LoginViewController {
               KeychainWrapper.standard.set(data.loginData!.tokenRefresh, forKey: "tokenRefresh")
 
             let cafeTI = KeychainWrapper.standard.string(forKey: "userCafeTI")
-//            let cafeTI = UserDefaults.standard.string(forKey: "userCafeTI")
             if cafeTI != nil {
               let mapVC = MapViewController()
               self.emailTextField.text = ""

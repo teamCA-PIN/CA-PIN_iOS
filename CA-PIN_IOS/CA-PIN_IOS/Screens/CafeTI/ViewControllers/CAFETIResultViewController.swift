@@ -194,9 +194,7 @@ extension CAFETIResultViewController {
     
     if let resultdata = resultData?.introduction {
       if resultdata == nil {
-        print("닐이야닐")
       } else {
-        print(resultdata)
         self.CAFETIintroLabel.setupLabel(text: resultdata, color: .subcolorBlue1, font: .notoSansKRRegularFont(fontSize: 14), align: .center)
       }
     }

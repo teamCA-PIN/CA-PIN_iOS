@@ -55,7 +55,6 @@ class EditProfileViewController: UIViewController {
   }
   
   override func viewDidLayoutSubviews() {
-    ///subview들이 자리 잡은 후 레이아웃 조정 필요할 때 (ex. radius 값)
     self.myImageView.setRounded(radius: self.myImageView.frame.width/2)
     self.nameTextField.clearButtonMode = .whileEditing
   }
@@ -134,7 +133,6 @@ extension EditProfileViewController {
         $0.leading.equalToSuperview().offset(21)
         $0.trailing.equalToSuperview().offset(-21)
         $0.height.equalTo(118)
-//        $0.centerX.equalToSuperview()
       }
     }
   }
@@ -161,8 +159,6 @@ extension EditProfileViewController {
   func layoutNameTextField() {
     self.nameTextView.add(nameTextField) {
       $0.configureTextField(textColor: .gray4, font: .notoSansKRRegularFont(fontSize: 16))
-//      $0.placeholder = self.userName
-//      $0.text = self.userName
       $0.attributedPlaceholder = NSAttributedString(string: self.userName,
                                                     attributes: [NSAttributedString.Key.font: UIFont.notoSansKRRegularFont(fontSize: 16),
                                                                  NSAttributedString.Key.foregroundColor: UIColor.gray4])
