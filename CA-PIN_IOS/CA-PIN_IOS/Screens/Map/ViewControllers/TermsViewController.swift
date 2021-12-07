@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import SwiftyColor
 import Then
+import SafariServices
 
 // MARK: - TermsViewController
 class TermsViewController: UIViewController {
@@ -22,8 +23,10 @@ class TermsViewController: UIViewController {
   let termsCellTitles = ["이용 약관",
                          "개인정보처리방침",
                          "오픈소스 라이센스",
-                         "회원 탈퇴하기"
+                         "문의하기",
+                         "버전"
                         ]
+  let secondTermsCellTitles = ["문의하기", "버전"]
   
   // MARK: - LifeCycles
   override func viewDidLoad() {
@@ -108,6 +111,10 @@ extension TermsViewController {
 
 // MARK: - termsTableView Delegate
 extension TermsViewController: UITableViewDelegate {
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return 2
+  }
+  
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 58
   }
@@ -116,36 +123,51 @@ extension TermsViewController: UITableViewDelegate {
 // MARK: - termsTableView DataSource
 extension TermsViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 6
+    if section == 0 {
+      return 5
+    }
+    else {
+      return 1
+    }
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if indexPath.row == 4 || indexPath.row == 5 {
-      guard let versionCell = tableView.dequeueReusableCell(
-              withIdentifier: TermsVersionTableViewCell.reuseIdentifier,
-              for: indexPath) as? TermsVersionTableViewCell else {
-        return UITableViewCell()
+    switch indexPath.section {
+    case 0:
+      if indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2 {
+        guard let generalCell = tableView.dequeueReusableCell(
+          withIdentifier: TermsGeneralTableViewCell.reuseIdentifier,
+          for: indexPath) as? TermsGeneralTableViewCell else { return UITableViewCell() }
+        generalCell.awakeFromNib()
+        generalCell.titleLabel.text = termsCellTitles[indexPath.row]
+        return generalCell
       }
-      versionCell.awakeFromNib()
-      if indexPath.row == 4 {
-        versionCell.titleLabel.text = "문의하기"
-        versionCell.versionLabel.text = "teamcapin@gmail.com"
+      else {
+        guard let versionCell = tableView.dequeueReusableCell(
+                withIdentifier: TermsVersionTableViewCell.reuseIdentifier,
+                for: indexPath) as? TermsVersionTableViewCell else { return UITableViewCell() }
+        versionCell.awakeFromNib()
+        versionCell.titleLabel.text = termsCellTitles[indexPath.row]
+        if indexPath.row == 3 {
+          versionCell.versionLabel.text = "teamcapin@gmail.com"
+        }
+        return versionCell
       }
-      return versionCell
-    }
-    else {
-      guard let generalCell = tableView.dequeueReusableCell(withIdentifier: TermsGeneralTableViewCell.reuseIdentifier, for: indexPath) as? TermsGeneralTableViewCell else {
-        return UITableViewCell()
-      }
-      if indexPath.row != 6 {
-        generalCell.titleText = self.termsCellTitles[indexPath.row]
-      }
+        
+    case 1:
+      guard let generalCell = tableView.dequeueReusableCell(
+        withIdentifier: TermsGeneralTableViewCell.reuseIdentifier,
+        for: indexPath) as? TermsGeneralTableViewCell else { return UITableViewCell() }
       generalCell.awakeFromNib()
-      if indexPath.row == 6 {
-        generalCell.titleLabel.text = "회원 탈퇴하기"
-        generalCell.titleLabel.textColor = .pointcolor1
-      }
+      generalCell.titleLabel.text = "회원탈퇴"
+      generalCell.titleLabel.textColor = .pointcolor1
       return generalCell
+    default:
+      return UITableViewCell()
     }
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
   }
 }

@@ -39,6 +39,7 @@
 		92AC0D38275B4C7200478555 /* ReportReviewPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AC0D37275B4C7100478555 /* ReportReviewPopUpViewController.swift */; };
 		92B20D70269E212E0013D429 /* CategoryListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B20D6F269E212E0013D429 /* CategoryListModel.swift */; };
 		92B20D72269E53B10013D429 /* CafeInCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B20D71269E53B10013D429 /* CafeInCategoryModel.swift */; };
+		92EBE9A4275F1C3A0078AA8A /* WidthDrawalPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EBE9A3275F1C3A0078AA8A /* WidthDrawalPopUpViewController.swift */; };
 		CC05D61026A210C10037C2C3 /* DetailEmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05D60F26A210C10037C2C3 /* DetailEmptyTableViewCell.swift */; };
 		CC05E029268B865400269427 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E027268B865400269427 /* UIFont+.swift */; };
 		CC05E02A268B865400269427 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05E028268B865400269427 /* UIButton+.swift */; };
@@ -197,6 +198,7 @@
 		92AC0D37275B4C7100478555 /* ReportReviewPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReviewPopUpViewController.swift; sourceTree = "<group>"; };
 		92B20D6F269E212E0013D429 /* CategoryListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListModel.swift; sourceTree = "<group>"; };
 		92B20D71269E53B10013D429 /* CafeInCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeInCategoryModel.swift; sourceTree = "<group>"; };
+		92EBE9A3275F1C3A0078AA8A /* WidthDrawalPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidthDrawalPopUpViewController.swift; sourceTree = "<group>"; };
 		B350E96FA945D43E4A64DD28 /* Pods-CA-PIN_IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CA-PIN_IOS.debug.xcconfig"; path = "Target Support Files/Pods-CA-PIN_IOS/Pods-CA-PIN_IOS.debug.xcconfig"; sourceTree = "<group>"; };
 		CC05D60F26A210C10037C2C3 /* DetailEmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEmptyTableViewCell.swift; sourceTree = "<group>"; };
 		CC05E027268B865400269427 /* UIFont+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 				CCB6C664268F044300941E92 /* PinPopupViewController.swift */,
 				CCB6C66B268F41E800941E92 /* CreateCategoryViewController.swift */,
 				CC45A1792694280800E68817 /* TermsViewController.swift */,
+				92EBE9A3275F1C3A0078AA8A /* WidthDrawalPopUpViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1270,6 +1273,7 @@
 				CCF78446268B197A005FDF1D /* UITextField+.swift in Sources */,
 				92537087269C7FAD00E2E5EA /* EditCategoryViewController.swift in Sources */,
 				CC45A17A2694280800E68817 /* TermsViewController.swift in Sources */,
+				92EBE9A4275F1C3A0078AA8A /* WidthDrawalPopUpViewController.swift in Sources */,
 				CC05E038268C595F00269427 /* CafeTIViewController.swift in Sources */,
 				CC7BB2FF269C5D820079FC4F /* CategoryService.swift in Sources */,
 				CCA85B602688F29700C9A32C /* UICollectionView+.swift in Sources */,

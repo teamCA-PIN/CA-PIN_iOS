@@ -107,10 +107,14 @@ extension LoginViewController {
 //            let cafeTI = UserDefaults.standard.string(forKey: "userCafeTI")
             if cafeTI != nil {
               let mapVC = MapViewController()
+              self.emailTextField.text = ""
+              self.passwordTextField.text = ""
               self.navigationController?.pushViewController(mapVC, animated: false)
             }
             else {
               let cafeTIVC = CafeTIViewController()
+              self.emailTextField.text = ""
+              self.passwordTextField.text = ""
               self.navigationController?.pushViewController(cafeTIVC, animated: false)
             }
 
