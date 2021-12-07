@@ -391,18 +391,18 @@ extension MapViewController {
   }
   @objc func clickedMenuButton() {
     let NewSettingVC = NewSettingViewController()
-    self.navigationController?.pushViewController(NewSettingVC, animated: false)
+    self.navigationController?.pushViewController(NewSettingVC, animated: true)
   }
   @objc func clickedMypageButton() {
     let MypageVC = MypageViewController()
-      self.navigationController?.pushViewController(MypageVC, animated: false)
+      self.navigationController?.pushViewController(MypageVC, animated: true)
   }
   @objc func clickedHashButton() {
     let tagVC = TagViewController()
     tagVC.selectedTag = self.tags
     tagVC.capinOrMyMap = self.capinOrMyMap
     tagVC.mapViewController = self
-    self.navigationController?.pushViewController(tagVC, animated: false)
+    self.navigationController?.pushViewController(tagVC, animated: true)
   }
   @objc func clickedAddCategoryButton() {
     setupCategory()

@@ -188,9 +188,8 @@ extension TermsViewController: UITableViewDataSource {
     }
     else {
       // 회원탈퇴
-      let withdrawlPopUPVC = WithDrawalPopUpViewController()
-      withdrawlPopUPVC.modalPresentationStyle = .overCurrentContext
-      self.present(withdrawlPopUPVC, animated: false, completion: nil)
+      let withdrawVC = WithdrawViewController()
+      self.navigationController?.pushViewController(withdrawVC, animated: true)
     }
   }
 }
