@@ -1,8 +1,8 @@
 //
-//  LogoutPopUpViewController.swift
+//  WidthDrawalPopUpViewController.swift
 //  CA-PIN_IOS
 //
-//  Created by 장서현 on 2021/12/04.
+//  Created by 장서현 on 2021/12/07.
 //
 
 import UIKit
@@ -11,7 +11,7 @@ import RxMoya
 import RxSwift
 import SwiftKeychainWrapper
 
-class LogoutPopUpViewController: UIViewController {
+class WithDrawalPopUpViewController: UIViewController {
   
   // MARK: - Components
   let popupView = UIView()
@@ -28,7 +28,7 @@ class LogoutPopUpViewController: UIViewController {
 }
 
 // MARK: - Extensions
-extension LogoutPopUpViewController {
+extension WithDrawalPopUpViewController {
   
   // MARK: - Layout Helpers
   func layout() {
@@ -53,7 +53,7 @@ extension LogoutPopUpViewController {
   }
   func layoutTitleLabel() {
     popupView.add(titleLabel) {
-      $0.setupLabel(text: "로그아웃",
+      $0.setupLabel(text: "회원탈퇴",
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20),
                     align: .center)
@@ -67,7 +67,7 @@ extension LogoutPopUpViewController {
   func layoutDescriptionLabel() {
     popupView.add(descriptionLabel) {
       $0.numberOfLines = 0
-      $0.setupLabel(text: "계정에 저장된 정보에 접근하려면\n다시 로그인해야 합니다. 로그아웃하시겠습니까?",
+      $0.setupLabel(text: "탈퇴 시 회원님의 계정에 저장된\n모든 정보가 삭제됩니다.",
                     color: 0x6f6f6f.color,
                     font: .notoSansKRRegularFont(fontSize: 14),
                     align: .center)
@@ -89,7 +89,7 @@ extension LogoutPopUpViewController {
   }
   func layoutCancelButton() {
     buttonContainerView.add(cancelButton) {
-      $0.setupButton(title: "취소",
+      $0.setupButton(title: "준비중",
                      color: .black,
                      font: .notoSansKRRegularFont(fontSize: 16),
                      backgroundColor: .gray2,
@@ -104,13 +104,13 @@ extension LogoutPopUpViewController {
   }
   func layoutLogoutButton() {
     buttonContainerView.add(logoutButton) {
-      $0.setupButton(title: "확인",
+      $0.setupButton(title: "임니다",
                      color: .white,
                      font: .notoSansKRRegularFont(fontSize: 16),
-                     backgroundColor: .maincolor1,
+                     backgroundColor: .pointcolor1,
                      state: .normal,
                      radius: 0)
-      $0.addTarget(self, action: #selector(self.logoutButtonClicked), for: .touchUpInside)
+      $0.addTarget(self, action: #selector(self.widthdrawalButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.buttonContainerView.snp.centerX)
         $0.trailing.top.bottom.equalToSuperview()
@@ -121,18 +121,8 @@ extension LogoutPopUpViewController {
   @objc func clickedCancelButton() {
     self.dismiss(animated: false, completion: nil)
   }
-  @objc func logoutButtonClicked() {
-    KeychainWrapper.standard.remove(forKey: "loginEmail")
-    KeychainWrapper.standard.remove(forKey: "loginPassword")
-    KeychainWrapper.standard.remove(forKey: "tokenAccess")
-    KeychainWrapper.standard.remove(forKey: "tokenRefresh")
-    
-    let loginVC = self.presentingViewController?.children[1] as? LoginViewController
-    let endIndex = self.presentingViewController?.children.endIndex ?? 0
-    let newSettingVC = self.presentingViewController?.children[endIndex-1] as? NewSettingViewController
-    self.dismiss(animated: false, completion: {
-      newSettingVC?.navigationController?.popToViewController(loginVC!, animated: true)
-    }
-    )
+  @objc func widthdrawalButtonClicked() {
+    self.dismiss(animated: false, completion: nil)
+    /// TODO: - 회원탈퇴 서버 통신 !
   }
 }

@@ -34,8 +34,8 @@ extension TabbarCollectionViewCell {
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.contentView.snp.top)
-        $0.height.equalTo(27)
-        $0.width.equalTo(22)
+        $0.height.equalTo(30)
+        $0.width.equalTo(30)
       }
     }
   }

@@ -128,6 +128,7 @@ extension MypageViewController {
             self.profileImage = data.myInfo?.profileImg ?? ""
             self.plainImage = data.myInfo?.cafeti.plainImg ?? ""
             self.nicknameLabel.text = self.userName
+            self.cafeTILabel.text = data.myInfo?.cafeti.type ?? ""
             self.profileImageView.imageFromUrl(self.profileImage, defaultImgPath: "")
           } catch {
             print(error)
@@ -223,15 +224,14 @@ extension MypageViewController {
     layoutPageCollectionView()
   }
   func layoutBackButton() {
-    self.view.add(self.backButton) {
-      $0.setImage(UIImage(named: "iconCloseBlack"), for: .normal)
-      $0.addTarget(self, action: #selector(self.backButtonClicked), for: .touchUpInside)
+    view.add(backButton) {
+      $0.setImage(UIImage(named: "iconBackBlack"), for: .normal)
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(11)
-        $0.trailing.equalTo(self.view.snp.trailing).offset(-20)
-        $0.width.equalTo(30)
-        $0.height.equalTo(30)
+        $0.top.equalTo(self.view.snp.top).offset(51)
+        $0.leading.equalTo(self.view.snp.leading).offset(20)
+        $0.width.height.equalTo(28)
       }
+      $0.addTarget(self, action: #selector(self.backButtonClicked), for: .touchUpInside)
     }
   }
   func layoutProfileImageView() {
@@ -378,7 +378,7 @@ extension MypageViewController {
     }
   }
   @objc func backButtonClicked() {
-    self.dismiss(animated: true, completion: nil)
+    self.navigationController?.popViewController(animated: true)
   }
   @objc func cafeTITestButtonClicked() {
     let cafetiVC = CafeTIViewController()
@@ -453,18 +453,18 @@ extension MypageViewController: UICollectionViewDataSource {
       tabBarCell.awakeFromNib()
       if trigger == true { /// 카테고리 탭 선택됐을 때
         if indexPath.item == 0 { /// 카테고리 아이콘 갈색
-          tabBarCell.setImage(name: "iconMapActive")
+          tabBarCell.setImage(name: "mapActiveFrame")
         }
         else { /// 리뷰 아이콘 회색
-          tabBarCell.setImage(name: "iconReviewInactive")
+          tabBarCell.setImage(name: "reviewInactiveFrame")
         }
       }
       else { /// 리뷰 탭 선택됐을 때
         if indexPath.item == 0 { /// 카테고리 아이콘 회색
-          tabBarCell.tabImageView.image = UIImage(named: "iconMapInactive")
+          tabBarCell.tabImageView.image = UIImage(named: "mapInactiveFrame")
         }
         else { /// 리뷰 아이콘 갈색
-          tabBarCell.tabImageView.image = UIImage(named: "iconReviewActive")
+          tabBarCell.tabImageView.image = UIImage(named: "reviewActiveFrame")
         }
       }
       return tabBarCell
