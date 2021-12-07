@@ -16,6 +16,8 @@ class WithdrawViewController: UIViewController {
   //MARK: - Components
   let backbutton = UIButton()
   let withdrawTitleLabel = UILabel()
+  let outCircleView = UIView()
+  let inCircleView = UIView()
   let withdrawImageView = UIImageView()
   let withdrawExplainLabel = UILabel()
   let checkbutton = UIButton()
@@ -28,6 +30,12 @@ class WithdrawViewController: UIViewController {
     self.view.backgroundColor = .white
     layout()
   }
+  
+  override func viewDidLayoutSubviews() {
+    ///subview들이 자리 잡은 후 레이아웃 조정 필요할 때 (ex. radius 값)
+    self.outCircleView.setRounded(radius: self.outCircleView.frame.width/2)
+    self.inCircleView.setRounded(radius: self.inCircleView.frame.width/2)
+  }
 }
 
 //MARK: - Extensions
@@ -37,6 +45,8 @@ extension WithdrawViewController {
   func layout() {
     layoutBackButton()
     layoutWithdrawTitleLabel()
+    layoutOutCircleView()
+    layoutInCircleView()
     layoutWithdrawImageView()
     layoutWithdrawExplainLabel()
     layoutCheckButton()
@@ -64,14 +74,33 @@ extension WithdrawViewController {
       }
     }
   }
-  func layoutWithdrawImageView() {
-    self.view.add(withdrawImageView) {
-      $0.image = UIImage(named: "iconBackBlack")
+  func layoutOutCircleView() {
+    self.view.add(outCircleView) {
+      $0.backgroundColor = .gray1
       $0.snp.makeConstraints {
+        $0.width.height.equalTo(236)
         $0.top.equalTo(self.withdrawTitleLabel.snp.bottom).offset(99)
         $0.centerX.equalToSuperview()
-        $0.width.equalTo(236)
-        $0.height.equalTo(236)
+      }
+    }
+  }
+  func layoutInCircleView() {
+    self.outCircleView.add(inCircleView) {
+      $0.backgroundColor = .gray2
+      $0.snp.makeConstraints {
+        $0.width.height.equalTo(168)
+        $0.centerX.centerY.equalToSuperview()
+      }
+    }
+  }
+  func layoutWithdrawImageView() {
+    self.inCircleView.add(withdrawImageView) {
+      $0.image = UIImage(named: "capin")
+      $0.snp.makeConstraints {
+        $0.top.equalTo(self.inCircleView.snp.top).offset(36)
+        $0.centerX.equalToSuperview()
+        $0.width.equalTo(82)
+        $0.height.equalTo(127.5)
       }
     }
   }

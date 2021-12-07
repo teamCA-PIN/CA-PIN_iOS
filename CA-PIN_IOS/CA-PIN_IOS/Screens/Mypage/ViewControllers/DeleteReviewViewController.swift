@@ -115,10 +115,11 @@ extension DeleteReviewViewController {
       .subscribe(onNext: { response in
         if response.statusCode == 200 { /// 삭제 성공
           do {
-            let mypageVC = self.presentingViewController?.children[0] as? MypageViewController
+            let endIndex = self.presentingViewController?.children.endIndex ?? 0
+            let mypageVC = self.presentingViewController?.children[endIndex-1] as? MypageViewController ?? UIViewController()
             self.dismiss(animated: false) {
-              mypageVC?.getReviewListService()
-              mypageVC?.showGreenToast(message: "리뷰 삭제가 완료되었습니다.")
+              mypageVC.viewWillAppear(true)
+              mypageVC.showGreenToast(message: "리뷰 삭제가 완료되었습니다.")
             }
           }
           catch {

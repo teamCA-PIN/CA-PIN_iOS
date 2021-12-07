@@ -88,7 +88,7 @@ extension WithdrawPopUpViewController {
   }
   func layoutCancelButton() {
     buttonContainerView.add(cancelButton) {
-      $0.setupButton(title: "취소",
+      $0.setupButton(title: "아직",
                      color: .black,
                      font: .notoSansKRRegularFont(fontSize: 16),
                      backgroundColor: .gray2,
@@ -103,7 +103,7 @@ extension WithdrawPopUpViewController {
   }
   func layoutLogoutButton() {
     buttonContainerView.add(logoutButton) {
-      $0.setupButton(title: "확인",
+      $0.setupButton(title: "준비중 ㅋㅋ",
                      color: .white,
                      font: .notoSansKRRegularFont(fontSize: 16),
                      backgroundColor: .maincolor1,
@@ -121,6 +121,7 @@ extension WithdrawPopUpViewController {
     self.dismiss(animated: false, completion: nil)
   }
   @objc func withdrawButtonClicked() {
+    self.dismiss(animated: false, completion: nil)
   }
 }
 

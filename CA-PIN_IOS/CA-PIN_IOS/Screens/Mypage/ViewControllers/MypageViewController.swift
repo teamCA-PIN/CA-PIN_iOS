@@ -78,7 +78,6 @@ class MypageViewController: UIViewController {
     loadInfoData()
     bindMyData()
     getCategoryListService()
-//    print(categoryArray)
     getReviewListService()
     self.view.backgroundColor = .white
     register()
@@ -97,7 +96,6 @@ class MypageViewController: UIViewController {
   }
   
   override func viewDidLayoutSubviews() {
-    ///subview들이 자리 잡은 후 레이아웃 조정 필요할 때 (ex. radius 값)
     self.profileImageView.setRounded(radius: self.profileImageView.frame.width/2)
   }
   
@@ -123,7 +121,6 @@ extension MypageViewController {
             let decoder = JSONDecoder()
             let data = try decoder.decode(MyInfoResponseType<MyInfo>.self,
                                           from: response.data)
-            print(data)
             self.userName = data.myInfo?.nickname ?? ""
             self.profileImage = data.myInfo?.profileImg ?? ""
             self.plainImage = data.myInfo?.cafeti.plainImg ?? ""
@@ -144,7 +141,6 @@ extension MypageViewController {
     self.profileImageView.imageFromUrl(profileImage, defaultImgPath: "")
   }
   func getCategoryListService() {
-    print(#function)
     UserServiceProvider.rx.request(.categoryList)
       .asObservable()
       .subscribe(onNext: { response in
@@ -174,7 +170,6 @@ extension MypageViewController {
       }).disposed(by: disposeBag)
   }
   func getReviewListService() {
-    print(#function)
     UserServiceProvider.rx.request(.reviews)
       .asObservable()
       .subscribe(onNext: { response in
@@ -378,7 +373,9 @@ extension MypageViewController {
     }
   }
   @objc func backButtonClicked() {
-    self.navigationController?.popViewController(animated: true)
+    let mapVC = (self.navigationController?.children[2] as? MapViewController)!
+    self.navigationController?.popToViewController(mapVC, animated: true)
+//    self.navigationController?.popViewController(animated: true)
   }
   @objc func cafeTITestButtonClicked() {
     let cafetiVC = CafeTIViewController()
@@ -417,12 +414,10 @@ extension MypageViewController: UICollectionViewDelegateFlowLayout {
       case 0:
         self.trigger = true
         self.tabbarCollectionView.reloadData()
-        print("tabbar.reload")
         self.categorySelected()
       case 1:
         self.trigger = false
         self.tabbarCollectionView.reloadData()
-        print("tabbar.reload")
         self.reviewSelected()
       default: break
       }
@@ -492,8 +487,6 @@ extension MypageViewController: UICollectionViewDataSource {
     }
   }
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    print("트리거")
-    print(#function)
     guard let tabBarCell = collectionView.dequeueReusableCell(withReuseIdentifier: TabbarCollectionViewCell.reuseIdentifier, for: indexPath) as? TabbarCollectionViewCell else { return }
     tabBarCell.awakeFromNib()
     if collectionView == tabbarCollectionView {

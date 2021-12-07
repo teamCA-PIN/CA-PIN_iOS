@@ -202,9 +202,10 @@ extension EditCategoryViewController {
           do {
             let decoder = JSONDecoder()
             let data = try decoder.decode(Response.self, from: response.data)
-            let myPageVC = self.navigationController?.children[0] as? MypageViewController
-            self.navigationController?.popToViewController(myPageVC!, animated: false)
-            myPageVC?.showGreenToast(message: "카테고리가 수정되었습니다.")
+            let endIndex = self.navigationController?.children.endIndex ?? 0
+            let myPageVC = self.navigationController?.children[endIndex-2] as? MypageViewController ?? UIViewController()
+            self.navigationController?.popToViewController(myPageVC, animated: false)
+            myPageVC.showGreenToast(message: "카테고리가 수정되었습니다.")
           }
           catch {
             print(error)

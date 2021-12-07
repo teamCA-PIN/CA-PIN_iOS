@@ -62,7 +62,6 @@ extension DeleteCategoryPopUpViewController {
                     color: .black,
                     font: .notoSansKRMediumFont(fontSize: 20),
                     align: .center)
-//      $0.letterSpacing = -1
       $0.snp.makeConstraints {
         $0.centerX.equalToSuperview()
         $0.top.equalTo(self.popupView.snp.top).offset(26)
@@ -128,10 +127,11 @@ extension DeleteCategoryPopUpViewController {
       .subscribe(onNext: { response in
         if response.statusCode == 200 { /// 삭제 성공
           do {
-            let myPageVC = self.presentingViewController?.children[0] as? MypageViewController
+            let endIndex = self.presentingViewController?.children.endIndex ?? 0
+            let myPageVC = self.presentingViewController?.children[endIndex-1] as? MypageViewController ?? UIViewController()
             self.dismiss(animated: false) {
-              myPageVC?.viewWillAppear(true)
-              myPageVC?.showGreenToast(message: "카테고리 삭제가 완료되었습니다.")
+              myPageVC.viewWillAppear(true)
+              myPageVC.showGreenToast(message: "카테고리 삭제가 완료되었습니다.")
             }
           }
           catch {
@@ -158,6 +158,5 @@ extension DeleteCategoryPopUpViewController {
   }
   @objc func clickedDeleteButton() {
     deleteService(categoryId: categoryId)
-    /// 삭제 서버 연결
   }
 }

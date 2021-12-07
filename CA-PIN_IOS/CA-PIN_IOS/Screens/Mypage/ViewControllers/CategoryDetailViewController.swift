@@ -71,11 +71,9 @@ extension CategoryDetailViewController {
   func register() {
     /// 분기처리
     /// 카테고리 내의 핀이 0개일 때: EmptyCategoryTableViewCell
-    
     self.cafeListTableView.register(EmptyCategoryTableViewCell.self, forCellReuseIdentifier: EmptyCategoryTableViewCell.reuseIdentifier)
     
     /// 핀이 1개 이상일 때: CategoryCafeListTableViewCell
-    
     self.cafeListTableView.register(CategoryCafeListTableViewCell.self, forCellReuseIdentifier: CategoryCafeListTableViewCell.reuseIdentifier)
     
   }
