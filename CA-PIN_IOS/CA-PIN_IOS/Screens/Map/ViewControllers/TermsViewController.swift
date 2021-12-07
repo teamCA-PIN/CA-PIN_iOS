@@ -139,6 +139,7 @@ extension TermsViewController: UITableViewDataSource {
           withIdentifier: TermsGeneralTableViewCell.reuseIdentifier,
           for: indexPath) as? TermsGeneralTableViewCell else { return UITableViewCell() }
         generalCell.awakeFromNib()
+        generalCell.selectionStyle = .none
         generalCell.titleLabel.text = termsCellTitles[indexPath.row]
         return generalCell
       }
@@ -147,6 +148,7 @@ extension TermsViewController: UITableViewDataSource {
                 withIdentifier: TermsVersionTableViewCell.reuseIdentifier,
                 for: indexPath) as? TermsVersionTableViewCell else { return UITableViewCell() }
         versionCell.awakeFromNib()
+        versionCell.selectionStyle = .none
         versionCell.titleLabel.text = termsCellTitles[indexPath.row]
         if indexPath.row == 3 {
           versionCell.versionLabel.text = "teamcapin@gmail.com"
@@ -159,6 +161,7 @@ extension TermsViewController: UITableViewDataSource {
         withIdentifier: TermsGeneralTableViewCell.reuseIdentifier,
         for: indexPath) as? TermsGeneralTableViewCell else { return UITableViewCell() }
       generalCell.awakeFromNib()
+      generalCell.selectionStyle = .none
       generalCell.titleLabel.text = "회원탈퇴"
       generalCell.titleLabel.textColor = .pointcolor1
       return generalCell
@@ -187,7 +190,7 @@ extension TermsViewController: UITableViewDataSource {
       // 회원탈퇴
       let withdrawlPopUPVC = WithDrawalPopUpViewController()
       withdrawlPopUPVC.modalPresentationStyle = .overCurrentContext
-      self.present(withdrawlPopUPVC, animated: true, completion: nil)
+      self.present(withdrawlPopUPVC, animated: false, completion: nil)
     }
   }
 }
