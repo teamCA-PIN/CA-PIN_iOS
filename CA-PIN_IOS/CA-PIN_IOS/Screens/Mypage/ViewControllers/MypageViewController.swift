@@ -64,7 +64,7 @@ class MypageViewController: UIViewController {
   var profileImage: String = ""
   var plainImage: String = ""
   
-  var reviewList: [Review] = [Review(id: "", cafeName: "", cafeID: "", content: "", rating: 0, createAt: "", imgs: [], recommend: [])] /// 서버에서 리뷰 받아올 배열
+  var reviewList: [Review]? /// 서버에서 리뷰 받아올 배열
   var cafeNameList: [String] = [] /// 서버에서 받아온 값 중에 카페 이름만 저장
   var ratingList: [Double] = [] /// 서버에서 별점 값만ㄴ 받아올 배열
   var cafeIdList: [String] = [] /// 서버에서 카페 어이디만 받아올 배열
@@ -182,10 +182,12 @@ extension MypageViewController {
             self.cafeNameList = []
             self.ratingList = []
             self.cafeIdList = []
-            for i in 0..<self.reviewList.count {
-              self.cafeNameList.append(self.reviewList[i].cafeName)
-              self.ratingList.append(self.reviewList[i].rating)
-              self.cafeIdList.append(self.reviewList[i].cafeID)
+            if let reviewList = self.reviewList {
+              for i in 0..<reviewList.count {
+                self.cafeNameList.append(reviewList[i].cafeName)
+                self.ratingList.append(reviewList[i].rating)
+                self.cafeIdList.append(reviewList[i].cafeID)
+              }
             }
             self.pageCollectionView.reloadData()
           } catch {
@@ -194,6 +196,7 @@ extension MypageViewController {
         }
         else if response.statusCode == 204 {
           self.reviewList = []
+          self.pageCollectionView.reloadData()
         }
         else {
           
@@ -477,7 +480,9 @@ extension MypageViewController: UICollectionViewDataSource {
       } else {
         guard let reviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.reuseIdentifier, for: indexPath) as? MyReviewCollectionViewCell else { return UICollectionViewCell() }
         reviewCell.rootViewController = self
-        reviewCell.reviewList = self.reviewList
+        if let reviewList = reviewList {
+          reviewCell.reviewList = reviewList
+        }
         reviewCell.cafeIdLIst = self.cafeIdList
         reviewCell.backgroundColor = .white
         reviewCell.awakeFromNib()
