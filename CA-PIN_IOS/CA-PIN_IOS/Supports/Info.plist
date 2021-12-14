@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -32,13 +32,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>리뷰 작성 시 카메라 접근 권한이 필요합니다.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>지도에서 내 위치를 확인하기 위해 위치 사용 권한이 필요합니다.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>지도에서 내 위치를 확인하기 위해 위치 사용 권한이 필요합니다.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>리뷰 작성 시 사진 라이브러리 접근 권한이 필요합니다.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansKR-Black.otf</string>
