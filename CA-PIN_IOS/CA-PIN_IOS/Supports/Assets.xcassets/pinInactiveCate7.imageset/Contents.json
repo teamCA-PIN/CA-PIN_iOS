@@ -2,8 +2,8 @@
   "images" : [
     {
       "scale" : "1x",
-      "filename" : "pinInactiveCate7.png",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "pinInactiveCate7.png"
     },
     {
       "scale" : "2x",
