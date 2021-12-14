@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "pinInactiveCate9.png",
       "scale" : "1x",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "pinInactiveCate9.png"
     },
     {
       "scale" : "2x",
-      "filename" : "pinInactiveCate9@2x.png",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "pinInactiveCate9@2x.png"
     },
     {
       "filename" : "pinInactiveCate9@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "idiom" : "universal"
     }
   ],
   "info" : {

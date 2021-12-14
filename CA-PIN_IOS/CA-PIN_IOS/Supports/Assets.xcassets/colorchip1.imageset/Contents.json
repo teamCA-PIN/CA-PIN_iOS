@@ -1,18 +1,18 @@
 {
   "images" : [
     {
+      "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "colorchip1.png",
-      "idiom" : "universal"
+      "filename" : "colorchip1.png"
     },
     {
-      "filename" : "colorchip1@2x.png",
       "idiom" : "universal",
+      "filename" : "colorchip1@2x.png",
       "scale" : "2x"
     },
     {
-      "scale" : "3x",
       "idiom" : "universal",
+      "scale" : "3x",
       "filename" : "colorchip1@3x.png"
     }
   ],

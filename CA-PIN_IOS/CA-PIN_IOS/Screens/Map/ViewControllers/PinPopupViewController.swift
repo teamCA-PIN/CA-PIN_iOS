@@ -212,6 +212,7 @@ extension PinPopupViewController {
               let mapVC = self.navigationController?.presentingViewController?.children[index] as? MapViewController
               self.dismiss(animated: false) {
                 mapVC?.showGreenToast(message: "카테고리에 저장되었습니다.")
+                  mapVC?.setupCafeInformation(cafeId: self.cafeId)
               }
             } catch {
               print(error)

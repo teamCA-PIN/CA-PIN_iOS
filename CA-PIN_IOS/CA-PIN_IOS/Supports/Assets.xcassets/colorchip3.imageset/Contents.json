@@ -12,8 +12,8 @@
     },
     {
       "filename" : "colorchip3@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "idiom" : "universal"
     }
   ],
   "info" : {

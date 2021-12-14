@@ -6,9 +6,9 @@
       "filename" : "pinInactiveCate4.png"
     },
     {
-      "filename" : "pinInactiveCate4@2x.png",
       "scale" : "2x",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "pinInactiveCate4@2x.png"
     },
     {
       "scale" : "3x",

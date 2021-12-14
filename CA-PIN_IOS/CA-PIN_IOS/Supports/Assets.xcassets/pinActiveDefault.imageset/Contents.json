@@ -1,19 +1,19 @@
 {
   "images" : [
     {
+      "filename" : "pinActiveDefault.png",
       "scale" : "1x",
-      "idiom" : "universal",
-      "filename" : "pinActiveDefault.png"
+      "idiom" : "universal"
     },
     {
-      "idiom" : "universal",
       "filename" : "pinActiveDefault@2x.png",
+      "idiom" : "universal",
       "scale" : "2x"
     },
     {
       "filename" : "pinActiveDefault@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "idiom" : "universal"
     }
   ],
   "info" : {

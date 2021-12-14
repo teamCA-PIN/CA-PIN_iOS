@@ -78,6 +78,9 @@
 		CC7BB2FB269C308E0079FC4F /* ReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FA269C308E0079FC4F /* ReviewService.swift */; };
 		CC7BB2FD269C57B90079FC4F /* CafeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FC269C57B90079FC4F /* CafeService.swift */; };
 		CC7BB2FF269C5D820079FC4F /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2FE269C5D820079FC4F /* CategoryService.swift */; };
+		CC83569C276863500098C97A /* CafeDetailPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83569B276863500098C97A /* CafeDetailPopupView.swift */; };
+		CC83569E2768673A0098C97A /* CafeDetailPopupTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83569D2768673A0098C97A /* CafeDetailPopupTagCollectionViewCell.swift */; };
+		CC8356A1276871E60098C97A /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8356A0276871E60098C97A /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		CC841FD526A09C1A00F7CE93 /* MapCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC841FD426A09C1A00F7CE93 /* MapCoordinates.swift */; };
 		CC9C854D269EBFA1002A3321 /* MyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */; };
 		CC9C8550269EF82E002A3321 /* ReviewDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */; };
@@ -238,6 +241,9 @@
 		CC7BB2FA269C308E0079FC4F /* ReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewService.swift; sourceTree = "<group>"; };
 		CC7BB2FC269C57B90079FC4F /* CafeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeService.swift; sourceTree = "<group>"; };
 		CC7BB2FE269C5D820079FC4F /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
+		CC83569B276863500098C97A /* CafeDetailPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailPopupView.swift; sourceTree = "<group>"; };
+		CC83569D2768673A0098C97A /* CafeDetailPopupTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailPopupTagCollectionViewCell.swift; sourceTree = "<group>"; };
+		CC8356A0276871E60098C97A /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		CC841FD426A09C1A00F7CE93 /* MapCoordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinates.swift; sourceTree = "<group>"; };
 		CC9C854C269EBFA1002A3321 /* MyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoModel.swift; sourceTree = "<group>"; };
 		CC9C854F269EF82D002A3321 /* ReviewDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailModel.swift; sourceTree = "<group>"; };
@@ -433,6 +439,7 @@
 		CC05E02B268B9D3400269427 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				CC83569A2768633F0098C97A /* Views */,
 				CCB6C666268F082600941E92 /* Cells */,
 				CC05E02C268B9D4000269427 /* ViewControllers */,
 			);
@@ -611,6 +618,22 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		CC83569A2768633F0098C97A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC83569B276863500098C97A /* CafeDetailPopupView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CC83569F276871D70098C97A /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				CC8356A0276871E60098C97A /* LeftAlignedCollectionViewFlowLayout.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
 		CC9C854B269EBF86002A3321 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -703,6 +726,7 @@
 		CCA85B252688F10800C9A32C /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				CC83569F276871D70098C97A /* Custom */,
 				E8244CD026974603007E63ED /* Models */,
 				CCA85B302688F16D00C9A32C /* Protocols */,
 				CCA85B2E2688F16200C9A32C /* Extensions */,
@@ -807,6 +831,7 @@
 				CCB6C66D268F498B00941E92 /* CategoryCollectionViewCell.swift */,
 				CC45A17B26942BEA00E68817 /* TermsGeneralTableViewCell.swift */,
 				CC45A17D26942BF400E68817 /* TermsVersionTableViewCell.swift */,
+				CC83569D2768673A0098C97A /* CafeDetailPopupTagCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1228,6 +1253,7 @@
 				92537073269893DF00E2E5EA /* MyCategoryCollectionViewCell.swift in Sources */,
 				92537075269893EB00E2E5EA /* MyReviewCollectionViewCell.swift in Sources */,
 				CCA85B5B2688F29700C9A32C /* UIViewController+.swift in Sources */,
+				CC83569E2768673A0098C97A /* CafeDetailPopupTagCollectionViewCell.swift in Sources */,
 				CC6468D42698B8A700CF848A /* ReviewListModel.swift in Sources */,
 				92413711269457C50016D18F /* MyCategoryTableViewCell.swift in Sources */,
 				CC7BB2F5269C2CA10079FC4F /* UserAuthService.swift in Sources */,
@@ -1255,6 +1281,7 @@
 				925370792698F4DD00E2E5EA /* MyEmptyCategoryTableViewCell.swift in Sources */,
 				9292FFC82696352600BCD791 /* CategoryCafeListTableViewCell.swift in Sources */,
 				9275AA4E275B9C590082BF0E /* LogoutPopUpViewController.swift in Sources */,
+				CC83569C276863500098C97A /* CafeDetailPopupView.swift in Sources */,
 				CC9C854D269EBFA1002A3321 /* MyInfoModel.swift in Sources */,
 				CCA85B592688F29700C9A32C /* UIView+.swift in Sources */,
 				CC45A1852694D14C00E68817 /* TagTableViewCell.swift in Sources */,
@@ -1312,6 +1339,7 @@
 				E8244CCB26974238007E63ED /* CafeMenuTableViewCell.swift in Sources */,
 				E8244CC6269731AA007E63ED /* CafeMenuViewController.swift in Sources */,
 				CCA85B5E2688F29700C9A32C /* UIColor+.swift in Sources */,
+				CC8356A1276871E60098C97A /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

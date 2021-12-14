@@ -1,9 +1,9 @@
 {
   "images" : [
     {
-      "scale" : "1x",
       "idiom" : "universal",
-      "filename" : "colorchip10.png"
+      "filename" : "colorchip10.png",
+      "scale" : "1x"
     },
     {
       "scale" : "2x",
@@ -11,9 +11,9 @@
       "filename" : "colorchip10@2x.png"
     },
     {
-      "filename" : "colorchip10@3x.png",
+      "scale" : "3x",
       "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "colorchip10@3x.png"
     }
   ],
   "info" : {
