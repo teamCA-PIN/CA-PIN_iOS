@@ -43,6 +43,7 @@ class LoginViewController: UIViewController {
     layout()
     setTextField()
     keyboardObserver()
+      addAction()
   }
 }
 
@@ -151,16 +152,33 @@ extension LoginViewController {
 
   func enableLoginButton() {
     if emailTextField.text?.isEmpty == false || passwordTextField.text?.isEmpty == false {
-      self.loginButton.isEnabled = true
+      self.loginButton.isUserInteractionEnabled = true
       self.loginButton.backgroundColor = .pointcolor1
     }
   }
   func disableLoginButton() {
     if emailTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true {
-      self.loginButton.isEnabled = false
+      self.loginButton.isUserInteractionEnabled = false
       self.loginButton.backgroundColor = .gray4
     }
   }
+    
+    private func addAction() {
+        let gesture = UITapGestureRecognizer()
+        gesture.addTarget(self, action: #selector(self.loginButtonClicked))
+        loginButton.addGestureRecognizer(gesture)
+    }
+    
+    private func validate() {
+        if passwordTextField.hasText && emailTextField.hasText {
+            loginButton.isUserInteractionEnabled = true
+            loginButton.backgroundColor = .pointcolor1
+        }
+        else {
+            self.loginButton.isUserInteractionEnabled = false
+            self.loginButton.backgroundColor = .gray4
+        }
+    }
   /// 뷰의 다른 곳 탭하면 키보드 내려가게
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     self.view.endEditing(true)
@@ -260,7 +278,6 @@ extension LoginViewController {
       $0.titleLabel?.letterSpacing = -0.48
       $0.titleLabel?.font = UIFont.notoSansKRRegularFont(fontSize: 16)
       $0.backgroundColor = .gray3
-      $0.addTarget(self, action: #selector(self.loginButtonClicked), for: .touchUpInside)
       $0.setRounded(radius: 24.5)
       $0.snp.makeConstraints {
         $0.top.equalTo(self.passwordBorderView.snp.bottom).offset(42)
@@ -312,6 +329,7 @@ extension LoginViewController {
 extension LoginViewController: UITextFieldDelegate {
   
   func textFieldDidEndEditing(_ textField: UITextField) {
+      validate()
   }
   
   func textFieldDidBeginEditing(_ textField: UITextField) {
