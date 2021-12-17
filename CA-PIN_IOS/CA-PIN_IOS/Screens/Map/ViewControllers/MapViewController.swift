@@ -55,6 +55,7 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
     let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
     let userProvider = MoyaProvider<UserService>()
     var selectedCafeId = ""
+    var isInit: Bool = true
     
     // MARK: - LifeCycles
     override func viewDidLoad() {
@@ -81,6 +82,19 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
         if informationRevealed == true {
             informationView.isHidden = false
             informationRevealed = false
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isInit {
+            if let x = currentLatitude, let y = currentLongitude {
+                mapView.mapView.moveCamera(
+                    NMFCameraUpdate(
+                        position: NMFCameraPosition(NMGLatLng(lat: x, lng: y), zoom: 12.0)),
+                    completion: nil)
+            }
+            isInit = false
         }
     }
 }

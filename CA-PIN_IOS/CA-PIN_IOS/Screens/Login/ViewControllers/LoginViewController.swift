@@ -312,12 +312,18 @@ extension LoginViewController {
 extension LoginViewController: UITextFieldDelegate {
   
   func textFieldDidEndEditing(_ textField: UITextField) {
-    enableLoginButton()
   }
   
   func textFieldDidBeginEditing(_ textField: UITextField) {
-    enableLoginButton()
+    
   }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == passwordTextField && passwordTextField.hasText {
+            enableLoginButton()
+        }
+        return true
+    }
   
   @objc func handleTapTextField(_ sender: UITapGestureRecognizer) {
     self.emailTextField.resignFirstResponder()
@@ -327,7 +333,7 @@ extension LoginViewController: UITextFieldDelegate {
   // 키보드 return 눌렀을 때 Action
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     if textField == emailTextField {
-      emailTextField.becomeFirstResponder()
+      passwordTextField.becomeFirstResponder()
     }
     textField.resignFirstResponder()
     return true
@@ -338,7 +344,7 @@ extension LoginViewController: UITextFieldDelegate {
       UIView.animate(withDuration: 0.3, animations: { self.view.transform = CGAffineTransform(translationX: 0, y: -50) })
     }
   }
-  @objc func keyboardWillDisappear(_ notification: NSNotification){
+  @objc func keyboardWillDisappear(_ notification: NSNotification) {
     self.view.transform = .identity
   }
 }
