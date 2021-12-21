@@ -57,11 +57,6 @@ extension EntireReviewViewController {
     layoutTitleLabel()
     layoutEntireReviewLabel()
     layoutReviewNumberLabel()
-    layoutPhotoOptionButton()
-    layoutPhotoOptionLabel()
-    layoutFilterButton()
-    layoutFilterLabel()
-    layoutSeparatorView()
     layoutReviewTableView()
   }
   func layoutTopView() {
@@ -168,7 +163,7 @@ extension EntireReviewViewController {
       $0.backgroundColor = .clear
       $0.showsVerticalScrollIndicator = false
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.separatorView.snp.bottom)
+          $0.top.equalTo(self.reviewNumberLabel.snp.bottom).offset(15)
         $0.leading.equalTo(self.view.snp.leading).offset(16)
         $0.centerX.equalToSuperview()
         $0.bottom.equalTo(self.view.snp.bottom).offset(-55)
