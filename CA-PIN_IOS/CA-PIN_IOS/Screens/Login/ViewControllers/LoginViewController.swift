@@ -176,7 +176,7 @@ extension LoginViewController {
         }
         else {
             self.loginButton.isUserInteractionEnabled = false
-            self.loginButton.backgroundColor = .gray4
+            self.loginButton.backgroundColor = .gray3
         }
     }
   /// 뷰의 다른 곳 탭하면 키보드 내려가게
