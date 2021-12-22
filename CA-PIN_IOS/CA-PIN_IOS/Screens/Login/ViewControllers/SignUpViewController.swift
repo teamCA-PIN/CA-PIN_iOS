@@ -92,6 +92,18 @@ extension SignUpViewController {
     self.passwordTextField.isSecureTextEntry = true
     self.checkPasswordTextField.isSecureTextEntry = true
   }
+  func checkPasswordSame() {
+    /// 일치 불일치
+    guard let passwordText = passwordTextField.text,
+          let checkPasswordText = checkPasswordTextField.text else { return }
+    if passwordText != checkPasswordText {
+      isSame = false
+    }
+    else {
+      isSame = true
+      enableSignupButton()
+    }
+  }
   @objc func backButtonClicked() {
     self.navigationController?.popViewController(animated: false)
   }
@@ -99,7 +111,10 @@ extension SignUpViewController {
     guard let nicknameText = userNameTextField.text,
           let emailText = emailTextField.text,
           let passwordText = passwordTextField.text else { return }
-    UserAuthProvider.rx.request(.signup(email: emailText, password: passwordText, nickname: nicknameText))
+    checkPasswordSame()
+    if isSame == true {
+      /// 회원가입 서버 연결
+      UserAuthProvider.rx.request(.signup(email: emailText, password: passwordText, nickname: nicknameText))
       .asObservable()
       .subscribe(onNext: { response in
         if self.signUpButton.isEnabled == true {
@@ -131,15 +146,19 @@ extension SignUpViewController {
         print(error)
       }, onCompleted: {
       }).disposed(by: disposeBag)
+    } else {
+      /// 일치하지 않습니다 팝업 띄우기
+      self.showGrayToast(message: "비밀번호가 일치하지 않습니다.")
+    }
   }
   func enableSignupButton() {
-    /// 텍스트필드 값이 모두 채워져있고, 비밀번호 두개가 일치할 때 enable
+    /// 텍스트필드 값이 모두 채워져있을 때 enable
     let isNameEmpty = userNameTextField.text?.isEmpty
     let isEmailEmpty = emailTextField.text?.isEmpty
     let isPasswordEmpty = passwordTextField.text?.isEmpty
     let isCheckPasswordEmpty = checkPasswordTextField.text?.isEmpty
     
-    if (isNameEmpty == false) && (isEmailEmpty == false) && (isPasswordEmpty == false) && (isCheckPasswordEmpty == false) && (isSame == true) {
+    if (isNameEmpty == false) && (isEmailEmpty == false) && (isPasswordEmpty == false) && (isCheckPasswordEmpty == false) {
       signUpButton.isEnabled = true
       self.signUpButton.backgroundColor = UIColor.pointcolor1
     }
@@ -443,17 +462,7 @@ extension SignUpViewController: UITextFieldDelegate {
       enableSignupButton()
     case checkPasswordTextField:
       NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-      guard let passwordText = passwordTextField.text,
-            let checkPasswordText = checkPasswordTextField.text else { return }
-      if passwordText != checkPasswordText {
-        isSame = false
-        self.showGrayToast(message: "비밀번호가 일치하지 않습니다.")
-        signUpButton.isEnabled = false
-      }
-      else {
-        isSame = true
-        enableSignupButton()
-      }
+      enableSignupButton()
     default: break
     }
   }
