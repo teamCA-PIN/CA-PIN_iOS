@@ -310,6 +310,7 @@ extension MapViewController {
         let detailView = CafeDetailViewController()
         detailView.cafeModel = self.cafeDetailModel
         detailView.cafeId = selectedCafeId
+        detailView.isSaved = isSaved
         self.navigationController?.pushViewController(detailView, animated: false)
     }
     @objc func clickedToggleButton(_ sender: UIButton?) {
@@ -447,6 +448,7 @@ extension MapViewController {
                 self.reloadInputViews()
             }).disposed(by: disposeBag)
     }
+    
     func setupCafeInformation(cafeId: String) {
         listProvider.rx.request(.cafeDetail(cafeId: cafeId))
             .asObservable()
@@ -458,6 +460,7 @@ extension MapViewController {
                                                       from: response.data)
                         self.cafeDetailModel = data.cafeDetail
                         self.rating = data.cafeDetail.rating ?? 0
+                        self.isSaved = data.isSaved
                         self.informationViewDataBind(model: data)
                         
                     } catch {
@@ -477,25 +480,25 @@ extension MapViewController {
     private func markerImage(colorCode: String, isActive: Int) -> String {
         if isActive == 1 {
             switch colorCode {
-            case "6492F5":
+            case "C12D62":
                 return "pinActiveCate1"
-            case "6BBC9A":
+            case "E57D3A":
                 return "pinActiveCate2"
             case "FFC24B":
                 return "pinActiveCate3"
-            case "816F7C":
+            case "8ABE56":
                 return "pinActiveCate4"
-            case "FFC2D5":
+            case "49A48F":
                 return "pinActiveCate5"
-            case "C9D776":
+            case "51BAE0":
                 return "pinActiveCate6"
-            case "B2B9E5":
+            case "1E73BE":
                 return "pinActiveCate7"
-            case "FF8E8E":
+            case "754593":
                 return "pinActiveCate8"
             case "EBEAEF":
                 return "pinActiveCate9"
-            case "9DC5E8":
+            case "A77145":
                 return "pinActiveCate10"
             default:
                 return "pinActiveDefault"
@@ -503,25 +506,25 @@ extension MapViewController {
         }
         else {
             switch colorCode {
-            case "6492F5":
+            case "C12D62":
                 return "pinInactiveCate1"
-            case "6BBC9A":
+            case "E57D3A":
                 return "pinInactiveCate2"
             case "FFC24B":
                 return "pinInactiveCate3"
-            case "816F7C":
+            case "8ABE56":
                 return "pinInactiveCate4"
-            case "FFC2D5":
+            case "49A48F":
                 return "pinInactiveCate5"
-            case "C9D776":
+            case "51BAE0":
                 return "pinInactiveCate6"
-            case "B2B9E5":
+            case "1E73BE":
                 return "pinInactiveCate7"
-            case "FF8E8E":
+            case "754593":
                 return "pinInactiveCate8"
             case "EBEAEF":
                 return "pinInactiveCate9"
-            case "9DC5E8":
+            case "A77145":
                 return "pinInactiveCate10"
             default:
                 return "pinInactiveDefault"
