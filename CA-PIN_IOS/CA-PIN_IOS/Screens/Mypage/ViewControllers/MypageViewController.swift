@@ -91,6 +91,10 @@ class MypageViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     print(#function)
+    loadInfoData()
+    print(self.cafeTI)
+    print(self.profileImage)
+    bindMyData()
     getCategoryListService()
     getReviewListService()
   }
