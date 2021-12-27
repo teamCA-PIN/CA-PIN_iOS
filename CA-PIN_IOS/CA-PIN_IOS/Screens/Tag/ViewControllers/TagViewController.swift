@@ -50,6 +50,12 @@ class TagViewController: UIViewController {
     self.tagTableView.dataSource = self
     NotificationCenter.default.addObserver(self, selector: #selector(self.pop), name: NSNotification.Name("pop"), object: nil)
   }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let gesture = self.navigationController?.interactivePopGestureRecognizer else { return }
+        self.navigationController?.view.removeGestureRecognizer(gesture)
+    }
 }
 
 // MARK: - Extensions

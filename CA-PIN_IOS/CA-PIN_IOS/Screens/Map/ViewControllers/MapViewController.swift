@@ -507,23 +507,23 @@ extension MapViewController {
         else {
             switch colorCode {
             case "C12D62":
-                return "pinInactiveCate1"
-            case "E57D3A":
                 return "pinInactiveCate2"
-            case "FFC24B":
+            case "E57D3A":
                 return "pinInactiveCate3"
-            case "8ABE56":
+            case "FFC24B":
                 return "pinInactiveCate4"
-            case "49A48F":
+            case "8ABE56":
                 return "pinInactiveCate5"
-            case "51BAE0":
+            case "49A48F":
                 return "pinInactiveCate6"
-            case "1E73BE":
+            case "51BAE0":
                 return "pinInactiveCate7"
-            case "754593":
+            case "1E73BE":
                 return "pinInactiveCate8"
-            case "EBEAEF":
+            case "754593":
                 return "pinInactiveCate9"
+            case "EBEAEF":
+                return "pinInactiveCate10"
             case "A77145":
                 return "pinInactiveCate10"
             default:

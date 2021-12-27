@@ -98,6 +98,9 @@ extension LoginViewController {
             let decoder = JSONDecoder()
             let data = try decoder.decode(ResponseType<LoginData>.self,
                                           from: response.data)
+              if let loginData = data.loginData {
+                  KeychainWrapper.standard.set(loginData.nickname, forKey: "nickname")
+              }
             KeychainWrapper.standard.set(emailText, forKey: "loginEmail")
             KeychainWrapper.standard.set(passwordText, forKey: "loginPassword")
             KeychainWrapper.standard.set(data.loginData!.tokenAccess, forKey: "tokenAccess")

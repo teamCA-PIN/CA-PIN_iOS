@@ -239,7 +239,7 @@ extension CreateCategoryViewController {
             }
             if let pinVC = self.navigationController?.children[0] as? PinPopupViewController {
               self.navigationController?.popToViewController(pinVC, animated: false)
-              pinVC.categoryTableView.reloadData()
+                pinVC.setupCategory()
               pinVC.showGreenToast(message: "카테고리가 추가되었습니다.")
             }
           

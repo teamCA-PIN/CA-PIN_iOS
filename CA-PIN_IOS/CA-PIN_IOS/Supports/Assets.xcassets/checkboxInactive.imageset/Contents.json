@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "checkboxInactive.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "checkboxInactive.png"
     },
     {
       "scale" : "2x",
@@ -11,9 +11,9 @@
       "filename" : "checkboxInactive@2x.png"
     },
     {
-      "scale" : "3x",
       "idiom" : "universal",
-      "filename" : "checkboxInactive@3x.png"
+      "filename" : "checkboxInactive@3x.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
