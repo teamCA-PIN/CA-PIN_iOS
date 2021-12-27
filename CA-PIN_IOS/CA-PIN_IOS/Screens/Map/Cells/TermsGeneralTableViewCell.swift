@@ -17,7 +17,9 @@ class TermsGeneralTableViewCell: UITableViewCell {
   // MARK: - Components
   let containerView = UIView()
   let titleLabel = UILabel()
-  let nextButton = UIButton()
+    let nextButton = UIButton().then {
+        $0.isUserInteractionEnabled = false
+    }
   
   var titleText: String?
   

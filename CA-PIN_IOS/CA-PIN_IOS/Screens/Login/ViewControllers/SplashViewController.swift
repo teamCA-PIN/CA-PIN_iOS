@@ -82,6 +82,9 @@ extension SplashViewController {
                 let decoder = JSONDecoder()
                 let data = try decoder.decode(ResponseType<LoginData>.self,
                                               from: response.data)
+                  if let loginData = data.loginData {
+                      KeychainWrapper.standard.set(loginData.nickname, forKey: "nickname")
+                  }
                 KeychainWrapper.standard.set(ID, forKey: "loginEmail")
                 KeychainWrapper.standard.set(PW, forKey: "loginPassword")
                 KeychainWrapper.standard.set(data.loginData!.tokenAccess, forKey: "tokenAccess")

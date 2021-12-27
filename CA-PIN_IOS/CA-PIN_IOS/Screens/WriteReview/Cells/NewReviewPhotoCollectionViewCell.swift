@@ -36,7 +36,7 @@ extension NewReviewPhotoCollectionViewCell {
   func layoutAddPhotoView() {
     self.contentView.add(addPhotoView) {
       $0.setRounded(radius: 5)
-      $0.backgroundColor = .pointcolor1
+      $0.backgroundColor = .maincolor1
       $0.snp.makeConstraints {
         $0.edges.equalToSuperview()
       }

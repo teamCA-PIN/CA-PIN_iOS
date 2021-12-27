@@ -29,6 +29,11 @@ class PinPopupTableViewCell: UITableViewCell {
     layout()
   }
 
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        selectbutton.isHidden = false
+    }
 }
 
 // MARK: - Extensions

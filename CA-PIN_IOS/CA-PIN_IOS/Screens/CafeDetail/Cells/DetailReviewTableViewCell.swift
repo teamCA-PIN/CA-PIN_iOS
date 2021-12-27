@@ -9,6 +9,7 @@ import UIKit
 
 import SnapKit
 import Then
+import SwiftKeychainWrapper
 
 // MARK: - DetailReviewTableViewCell
 class DetailReviewTableViewCell: UITableViewCell {
@@ -64,6 +65,7 @@ class DetailReviewTableViewCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     profileImageView.image = nil
+      reviewModel = nil
   }
 }
 
@@ -208,10 +210,57 @@ extension DetailReviewTableViewCell {
   
   // 서현이가 썼어요 ~
   @objc func editButtonClicked() {
-    let reportPopUpVC = ReportReviewPopUpViewController()
-    reportPopUpVC.modalPresentationStyle = .overCurrentContext
-    reportPopUpVC.reviewId = self.reviewId
-    self.rootViewController?.present(reportPopUpVC, animated: translatesAutoresizingMaskIntoConstraints, completion: nil)
+      if let model = reviewModel {
+          if model.writer.nickname == KeychainWrapper.standard.string(forKey: KeychainStorage.nickname) {
+              let alertController: UIAlertController
+              alertController = UIAlertController(title: "리뷰 편집", message: nil, preferredStyle: .actionSheet)
+
+              let editAction: UIAlertAction
+              editAction = UIAlertAction(title: "리뷰 수정", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
+                /// 리뷰 수정 뷰로 이동
+                let writeVC = WriteReviewViewController()
+                writeVC.titleContent = "리뷰수정하기"
+                writeVC.confirmTitle = "리뷰수정하기"
+                writeVC.content = (self.reviewModel?.content)!
+                writeVC.ratingValue = self.reviewModel!.rating
+                writeVC.reviewId = self.reviewModel!.id
+                if self.reviewModel?.imgs == [] {
+                  for imagePath in (self.reviewModel!.imgs)! {
+                    let image = UIImageView()
+                    image.setImage(from: imagePath, UIImage(named: "capinLogo")!)
+                    writeVC.canAccessImages.append((image.image)!)
+                  }
+                }
+                writeVC.recommend = self.reviewModel?.recommend ?? []
+                  self.rootViewController?.navigationController?.pushViewController(writeVC, animated: false)
+              })
+              let deleteAction: UIAlertAction
+              deleteAction = UIAlertAction(title: "리뷰 삭제", style: .destructive, handler: { (action: UIAlertAction) in
+                let deleteReviewVC = DeleteReviewViewController()
+                deleteReviewVC.modalPresentationStyle = .overCurrentContext
+                deleteReviewVC.reviewId = self.reviewModel?.id ?? ""
+                  self.rootViewController?.present(deleteReviewVC, animated: false, completion: nil)
+              })
+
+              let cancelAction: UIAlertAction
+              cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
+
+              alertController.addAction(editAction)
+              alertController.addAction(deleteAction)
+              alertController.addAction(cancelAction)
+              
+              alertController.view.tintColor = .maincolor1
+
+              self.rootViewController?.present(alertController, animated: true, completion: nil)
+            
+          }
+          else {
+              let reportPopUpVC = ReportReviewPopUpViewController()
+              reportPopUpVC.modalPresentationStyle = .overCurrentContext
+              reportPopUpVC.reviewId = self.reviewId
+              self.rootViewController?.present(reportPopUpVC, animated: translatesAutoresizingMaskIntoConstraints, completion: nil)
+          }
+      }
   }
   
   // MARK: - General Helpers
@@ -226,7 +275,11 @@ extension DetailReviewTableViewCell {
   
   func reviewDataBind(nickName: String, date: String, rating: Float, content: String, profileImg: String) {
     titleLabel.setupLabel(text: nickName, color: .black, font: .notoSansKRMediumFont(fontSize: 12))
-    dateLabel.setupLabel(text: date, color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
+      
+      let dateStringArray = date.split(separator: "T")
+      let dateString = String(dateStringArray[0])
+      let dateResult = dateString.replacingOccurrences(of: "-", with: ".")
+    dateLabel.setupLabel(text: dateResult, color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
     ratingLabel.setupLabel(text: "\(rating)",
                            color: .pointcolorYellow,
                            font: .notoSansKRRegularFont(fontSize: 12))
@@ -331,7 +384,7 @@ extension DetailReviewTableViewCell: UICollectionViewDataSource {
       photoCell.dataBind(imageName: reviewModel?.imgs?[indexPath.item], moreNumber: moreNumber)
       photoCell.awakeFromNib()
       if indexPath.item == 2 && moreNumber > 0 {
-        photoCell.photoImageView.isHidden = true
+          photoCell.alphaView.isHidden = false
         photoCell.moreLabel.isHidden = false
       }
       return photoCell

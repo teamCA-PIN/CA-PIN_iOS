@@ -28,7 +28,10 @@ class CafeDetailViewController: UIViewController {
     let cafeTitleLabel = UILabel()
     let starImageView = UIImageView()
     let starRatingLabel = UILabel()
-    let addressLabel = UILabel()
+    let addressLabel = UILabel().then {
+        $0.isUserInteractionEnabled = true
+    }
+    
     let tagCollectionView: UICollectionView = {
         let layout = CollectionViewCenteredFlowLayout()
         layout.scrollDirection = .vertical
@@ -100,6 +103,16 @@ class CafeDetailViewController: UIViewController {
         )
     }
     
+    private let emptyLabel = UILabel().then {
+        $0.setupLabel(
+            text: "아직 등록된 리뷰가 없어요.\n가장 먼저 리뷰를 작성해보세요.",
+            color: .gray4,
+            font: .notoSansKRRegularFont(fontSize: 14)
+        )
+        $0.isHidden = true
+        $0.numberOfLines = 2
+    }
+    
     let gradationBlackColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
     let gradationWhiteColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3)
     
@@ -108,7 +121,7 @@ class CafeDetailViewController: UIViewController {
     var threshold = true
     
     let disposeBag = DisposeBag()
-    let reviewProvider = MoyaProvider<ReviewService>()
+    let reviewProvider = MoyaProvider<ReviewService>(plugins: [NetworkLoggerPlugin(verbose: true)])
     let userProvider = MoyaProvider<UserService>(plugins: [NetworkLoggerPlugin(verbose: true)])
     var cafeModel: CafeServerDetail?
     var reviewModel: [ServerReview]?
@@ -127,6 +140,7 @@ class CafeDetailViewController: UIViewController {
     var count160 = 0
     var count218 = 0
     var count240 = 0
+    var isInit = true
     
     
     // MARK: - LifeCycles
@@ -153,6 +167,14 @@ class CafeDetailViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.updateViewConstraints()
         self.reviewTableView.heightConstraint?.constant = self.reviewTableView.contentSize.height
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isInit {
+            bottomView.layer.applyShadow(color: 0xC5C5C5.color, alpha: 0.1, x: 0, y: -4, blur: 4)
+            isInit = false
+        }
     }
 }
 
@@ -587,6 +609,15 @@ extension CafeDetailViewController {
         }
     }
     
+    func layoutEmptyLabel() {
+        cafeScrollContainerView.add(emptyLabel) {
+            $0.snp.makeConstraints {
+                $0.centerX.equalToSuperview()
+                $0.top.equalTo(self.reviewTitleLabel.snp.bottom).offset(63)
+            }
+        }
+    }
+    
     // MARK: - General Helpers
     func dataBind() {
         if self.cafeModel?.img == nil {
@@ -599,7 +630,7 @@ extension CafeDetailViewController {
         self.cafeTitleLabel.setupLabel(text: self.cafeModel?.name ?? "", color: .black, font: .notoSansKRMediumFont(fontSize: 26))
         self.starRatingLabel.setupLabel(text: "\(self.cafeModel?.rating ?? 0)", color: .pointcolorYellow, font: .notoSansKRMediumFont(fontSize: 20))
         self.addressLabel.setupLabel(text: self.cafeModel?.address ?? "", color: .gray4, font: .notoSansKRRegularFont(fontSize: 12))
-        self.instagramLabel.setupLabel(text: "@\(self.cafeModel?.instagram ?? "")", color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
+        self.instagramLabel.setupLabel(text: "\(self.cafeModel?.instagram ?? "")", color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
         if let model = cafeModel {
             var offdayString = ""
             if let offday = model.offday {
@@ -628,6 +659,10 @@ extension CafeDetailViewController {
                 )
             }
         }
+        validateIsSaved()
+    }
+    
+    func validateIsSaved() {
         if let isSaved = isSaved {
             if isSaved {
                 savePinView.backgroundColor = .pointcolor1
@@ -652,6 +687,10 @@ extension CafeDetailViewController {
         let reviewGesutre = UITapGestureRecognizer()
         reviewGesutre.addTarget(self, action: #selector(clickedWriteReviewButton))
         reviewView.addGestureRecognizer(reviewGesutre)
+        
+        let addressGesture = UITapGestureRecognizer()
+        addressGesture.addTarget(self, action: #selector(touchupAddressLabel))
+        addressLabel.addGestureRecognizer(addressGesture)
     }
     
     func register() {
@@ -680,13 +719,18 @@ extension CafeDetailViewController {
     }
     @objc func clickedEntireReviewButton() {
         let entireVC = EntireReviewViewController()
-        entireVC.reviewModel = self.reviewModel!
-        self.navigationController?.pushViewController(entireVC, animated: false)
+        if let reviewModel = reviewModel {
+            entireVC.reviewModel = self.reviewModel!
+            self.navigationController?.pushViewController(entireVC, animated: false)
+        }
+        else {
+            showGrayToast(message: "리뷰가 없습니다.")
+        }
     }
     @objc func clickedAddPinButton() {
         if let isSaved = isSaved {
             if isSaved {
-                showGrayToast(message: "이미 저장된 카페입니다.")
+                setupCategory()
             }
             else {
                 setupCategory()
@@ -698,6 +742,15 @@ extension CafeDetailViewController {
         writeReviewVC.cafeId = (self.cafeModel?.id)!
         self.navigationController?.pushViewController(writeReviewVC, animated: false)
     }
+    
+    @objc
+    private func touchupAddressLabel() {
+        if let text = addressLabel.text {
+            UIPasteboard.general.string = text
+            showGreenToast(message: "주소가 복사되었습니다.")
+        }
+    }
+    
     func setupReviewData(cafeId: String) {
         reviewProvider.rx.request(.reviewList(cafeId: cafeId))
             .asObservable()
@@ -714,11 +767,20 @@ extension CafeDetailViewController {
                             self.reviewIdArray.append(self.reviewModel![i].id)
                         }
                         self.layout()
+                        if let review = data.reviews {
+                            self.emptyLabel.isHidden = true
+                            self.reviewTableView.separatorStyle = .singleLine
+                        }
                         self.tagCollectionView.reloadData()
                         self.reviewTableView.reloadData()
                     } catch {
                         print(error)
                     }
+                }
+                if response.statusCode == 204 {
+                    self.emptyLabel.isHidden = false
+                    self.layoutEmptyLabel()
+                    self.reviewTableView.separatorStyle = .none
                 }
             }, onError: { error in
                 print(error)

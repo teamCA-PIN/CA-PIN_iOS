@@ -18,4 +18,8 @@ enum KeychainStorage {
   static var userCafeTI: String {
     return "userCafeTI"
   }
+    
+    static var nickname: String {
+        return "nickname"
+    }
 }

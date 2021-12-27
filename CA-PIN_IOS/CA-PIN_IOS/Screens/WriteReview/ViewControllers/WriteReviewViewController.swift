@@ -72,6 +72,7 @@ class WriteReviewViewController: UIViewController {
     $0.settings.emptyImage = UIImage(named: "starInactive")
     $0.settings.starSize = 34
     $0.settings.starMargin = 14.7
+      $0.settings.minTouchRating = 0.5
     $0.settings.starPoints = [CGPoint(x: 100, y: 91.176)]
   }
   let writereviewButton = UIButton()
@@ -83,7 +84,7 @@ class WriteReviewViewController: UIViewController {
   
   final let maxLength = 150
   var nameCount = 0
-  var ratingValue = 2.5
+    var ratingValue = 0.0
   
   var fetchResult: PHFetchResult<PHAsset>?
   var canAccessImages: [UIImage] = []
@@ -488,7 +489,7 @@ extension WriteReviewViewController {
     else {
       self.reviewTextView.textColor = .black
     }
-    self.writereviewButton.setupButton(title: confirmTitle, color: .white, font: .notoSansKRMediumFont(fontSize: 16), backgroundColor: .pointcolor1, state: .normal, radius: 24.5)
+    self.writereviewButton.setupButton(title: confirmTitle, color: .white, font: .notoSansKRMediumFont(fontSize: 16), backgroundColor: .maincolor1, state: .normal, radius: 24.5)
     self.ratingView.rating = self.ratingValue
     if self.recommend == [0] {
       self.tasteButton.isSelected = true
@@ -504,7 +505,7 @@ extension WriteReviewViewController {
   @objc func tasteButtonClicked() {
     tasteButton.isSelected.toggle()
     if tasteButton.isSelected == true {
-      tasteButton.backgroundColor = .pointcolor1
+      tasteButton.backgroundColor = .maincolor1
       tasteButton.setTitleColor(.white, for: .normal)
     }
     else {
@@ -515,7 +516,7 @@ extension WriteReviewViewController {
   @objc func feelButtonClicked() {
     feelButton.isSelected.toggle()
     if feelButton.isSelected == true {
-      feelButton.backgroundColor = .pointcolor1
+      feelButton.backgroundColor = .maincolor1
       feelButton.setTitleColor(.white, for: .normal)
       
     }
@@ -627,9 +628,11 @@ extension WriteReviewViewController {
         }
       }
       self.reviewphotoCollectionView.reloadData()
+        self.topcontainerview.isHidden = false
       picker.dismiss(animated: true, completion: nil)
     }
-    picker.modalPresentationStyle = .overCurrentContext
+    picker.modalPresentationStyle = .overFullScreen
+      self.topcontainerview.isHidden = true
     self.present(picker, animated: true, completion: nil)
   }
   
@@ -646,6 +649,7 @@ extension WriteReviewViewController {
           do {
             let index = (self.navigationController?.children.count)! - 2
             let detailVC = self.navigationController?.children[index] as? CafeDetailViewController
+              
             self.navigationController?.popViewController(animated: false) {
               detailVC?.setupReviewData(cafeId: self.cafeId)
               detailVC?.showGreenToast(message: "리뷰 등록이 완료되었습니다.")
