@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "checkboxActive.png",
       "scale" : "1x",
-      "idiom" : "universal"
-    },
-    {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "checkboxActive@2x.png"
+      "filename" : "checkboxActive.png"
     },
     {
-      "scale" : "3x",
+      "filename" : "checkboxActive@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
       "filename" : "checkboxActive@3x.png",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

@@ -137,7 +137,7 @@ extension MyCategoryCollectionViewCell {
             if data.cafeDetail?.count == 0 {
               
             }
-            parentViewController.navigationController?.pushViewController(dvc, animated: false)
+            parentViewController.navigationController?.pushViewController(dvc, animated: true)
           } catch {
             print(error)
           }
@@ -155,7 +155,7 @@ extension MyCategoryCollectionViewCell {
   @objc func plusButtonClicked() {
     let parentViewController: UIViewController = self.parentViewController!
     let dvc = CreateCategoryViewController()
-    self.parentViewController?.navigationController?.pushViewController(dvc, animated: false)
+    self.parentViewController?.navigationController?.pushViewController(dvc, animated: true)
   }
 }
 extension MyCategoryCollectionViewCell: UITableViewDelegate {

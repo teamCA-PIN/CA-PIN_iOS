@@ -165,7 +165,7 @@ extension CategoryDetailViewController {
   }
   func layoutCancleButton() {
     self.view.add(self.cancleButton) {
-      $0.setupButton(title: "취소하기", color: .white, font: .notoSansKRMediumFont(fontSize: 15), backgroundColor: .gray3, state: .normal, radius: 24.5)
+      $0.setupButton(title: "취소", color: .gray4, font: .notoSansKRMediumFont(fontSize: 15), backgroundColor: .gray2, state: .normal, radius: 24.5)
       $0.addTarget(self, action: #selector(self.cancleButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
         $0.leading.equalToSuperview().offset(110)

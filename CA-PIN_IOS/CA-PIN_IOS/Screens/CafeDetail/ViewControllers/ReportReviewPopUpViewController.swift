@@ -111,7 +111,7 @@ extension ReportReviewPopUpViewController {
       $0.setupButton(title: "신고",
                      color: .white,
                      font: .notoSansKRRegularFont(fontSize: 16),
-                     backgroundColor: .pointcolor1,
+                     backgroundColor: .maincolor1,
                      state: .normal,
                      radius: 0)
       $0.addTarget(self, action: #selector(self.reportButtonClicked), for: .touchUpInside)
