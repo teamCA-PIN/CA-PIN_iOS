@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "iconCafeMenu.png",
+      "filename" : "checkboxActive.png",
       "scale" : "1x"
     },
     {
-      "filename" : "iconCafeMenu@2x.png",
       "idiom" : "universal",
+      "filename" : "checkboxActive@2x.png",
       "scale" : "2x"
     },
     {
+      "filename" : "checkboxActive@3x.png",
       "idiom" : "universal",
-      "filename" : "iconCafeMenu@3x.png",
       "scale" : "3x"
     }
   ],

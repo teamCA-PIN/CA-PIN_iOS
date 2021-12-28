@@ -64,7 +64,7 @@ extension TermsViewController {
       $0.setBackgroundImage(UIImage(named: "iconBackBlack"), for: .normal)
       $0.addTarget(self, action: #selector(self.clickedBackButton), for: .touchUpInside)
       $0.snp.makeConstraints {
-        $0.bottom.equalTo(self.topView.snp.bottom)
+          $0.top.equalTo(self.view.snp.top).offset(51)
         $0.leading.equalTo(self.topView.snp.leading).offset(20)
         $0.width.height.equalTo(28)
       }

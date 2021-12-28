@@ -30,6 +30,7 @@ class PinPopupViewController: UIViewController {
   var selectedIndex: Int?
   var cafeId = ""
   
+    let userProvider = MoyaProvider<UserService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   let categoryProvier = MoyaProvider<CategoryService>(plugins: [NetworkLoggerPlugin(verbose: true)])
   let disposeBag = DisposeBag()
   
@@ -124,7 +125,7 @@ extension PinPopupViewController {
       $0.setupButton(title: "완료",
                      color: .white,
                      font: .notoSansKRMediumFont(fontSize: 16),
-                     backgroundColor: 0xA98E7A.color,
+                     backgroundColor: 0xA77145.color,
                      state: .normal,
                      radius: 24)
       $0.addTarget(self,
@@ -210,9 +211,13 @@ extension PinPopupViewController {
             do {
               let index = (self.navigationController?.presentingViewController?.children.count)! - 1
               let mapVC = self.navigationController?.presentingViewController?.children[index] as? MapViewController
+                let detailVC = self.navigationController?.presentingViewController?.children[index] as? CafeDetailViewController
               self.dismiss(animated: false) {
                 mapVC?.showGreenToast(message: "카테고리에 저장되었습니다.")
                   mapVC?.setupCafeInformation(cafeId: self.cafeId)
+                  detailVC?.showGreenToast(message: "카테고리에 저장되었습니다.")
+                  detailVC?.isSaved = true
+                  detailVC?.validateIsSaved()
               }
             } catch {
               print(error)
@@ -224,27 +229,55 @@ extension PinPopupViewController {
         }).disposed(by: disposeBag)
     }
   }
+    
+    func setupCategory() {
+        userProvider.rx.request(.categoryList)
+            .asObservable()
+            .subscribe(onNext: { response in
+                if response.statusCode == 200 {
+                    do {
+                        let decoder = JSONDecoder()
+                        let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
+                                                      from: response.data)
+                        if let list = data.myCategoryList {
+                            self.categoryArray = list
+                        }
+                        self.categoryTableView.reloadData()
+                    } catch {
+                        print(error)
+                    }
+                }
+                else {
+                    
+                }
+            }, onError: { error in
+                print(error)
+            }, onCompleted: {
+                
+            }).disposed(by: disposeBag)
+    }
+    
   func colorViewImage(colorCode: String) -> String {
     switch colorCode {
-    case "6492F5":
+    case "C12D62":
       return "colorchip1"
-    case "6BBC9A":
+    case "E57D3A":
       return "colorchip2"
     case "FFC24B":
       return "colorchip3"
-    case "816F7C":
+    case "8ABE56":
       return "colorchip4"
-    case "FFC2D5":
+    case "49A48F":
       return "colorchip5"
-    case "C9D776":
+    case "51BAE0":
       return "colorchip6"
-    case "B2B9E5":
+    case "1E73BE":
       return "colorchip7"
-    case "FF8E8E":
+    case "754593":
       return "colorchip8"
     case "EBEAEF":
       return "colorchip9"
-    case "9DC5E8":
+    case "A77145":
       return "colorchip10"
     default:
       return "colorchip1"
@@ -275,7 +308,7 @@ extension PinPopupViewController: UITableViewDataSource {
     }
     else {
       categoryCell.rootViewController = self
-      if (selectedIndex ?? 100) == indexPath.row {
+      if (selectedIndex ?? 100) == indexPath.row  {
         categoryCell.selectbutton.isSelected = true
       }
       else {

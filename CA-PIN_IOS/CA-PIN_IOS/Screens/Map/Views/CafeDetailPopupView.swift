@@ -222,6 +222,9 @@ extension CafeDetailPopupView {
             if !isSaved {
                 rootVC.setupCategory()
             }
+            else {
+                rootVC.setupCategory()
+            }
         }
     }
 }

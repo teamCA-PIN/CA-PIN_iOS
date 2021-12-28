@@ -17,8 +17,12 @@ class PhotoCollectionViewCell: UICollectionViewCell {
   // MARK: - Components
   let containerView = UIView()
   let photoImageView = UIImageView()
-  let alphaView = UIView()
-  let moreLabel = UILabel()
+    let alphaView = UIView().then {
+        $0.isHidden = true
+    }
+    let moreLabel = UILabel().then {
+        $0.isHidden = true
+    }
   
   var rootViewController: UIViewController?
   
@@ -28,6 +32,12 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     self.backgroundColor = .clear
     layout()
   }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        alphaView.isHidden = true
+        moreLabel.isHidden = true
+    }
   
 }
 
@@ -37,6 +47,7 @@ extension PhotoCollectionViewCell {
     contentView.backgroundColor = .clear
     layoutContainerView()
     layoutPhotoImageView()
+      layoutAlphaView()
     layoutMoreLabel()
   }
   func layoutContainerView() {
@@ -58,7 +69,6 @@ extension PhotoCollectionViewCell {
   }
   func layoutAlphaView() {
     containerView.add(alphaView) {
-      $0.isHidden = true
       $0.backgroundColor = .photoCover
       $0.setRounded(radius: 5)
       $0.snp.makeConstraints {
@@ -68,7 +78,6 @@ extension PhotoCollectionViewCell {
   }
   func layoutMoreLabel() {
     alphaView.add(moreLabel) {
-      $0.isHidden = true
       $0.snp.makeConstraints {
         $0.center.equalToSuperview()
       }
@@ -81,7 +90,7 @@ extension PhotoCollectionViewCell {
       photoImageView.imageFromUrl(image, defaultImgPath: "")
     }
     moreLabel.setupLabel(text: "+\(moreNumber)",
-                         color: .gray3,
+                         color: .white,
                          font: .notoSansKRRegularFont(fontSize: 14))
   }
   func updateLayout() {
