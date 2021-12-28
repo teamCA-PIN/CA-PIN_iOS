@@ -197,7 +197,7 @@ extension EditProfileViewController {
   func layoutCompleteButton() {
     view.add(completeButton) {
       $0.setupButton(title: "완료", color: .white,
-                     font: .notoSansKRMediumFont(fontSize: 16), backgroundColor: .pointcolor1,
+                     font: .notoSansKRMediumFont(fontSize: 16), backgroundColor: .maincolor1,
                      state: .normal, radius: 24.5)
       $0.addTarget(self, action: #selector(self.completeButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {

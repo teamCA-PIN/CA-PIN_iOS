@@ -91,6 +91,10 @@ class MypageViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     print(#function)
+    loadInfoData()
+    print(self.cafeTI)
+    print(self.profileImage)
+    bindMyData()
     getCategoryListService()
     getReviewListService()
   }
@@ -376,9 +380,9 @@ extension MypageViewController {
     }
   }
   @objc func backButtonClicked() {
-    let mapVC = (self.navigationController?.children[2] as? MapViewController)!
-    self.navigationController?.popToViewController(mapVC, animated: true)
-//    self.navigationController?.popViewController(animated: true)
+//    let mapVC = (self.navigationController?.children[2] as? MapViewController)!
+//    self.navigationController?.popToViewController(mapVC, animated: true)
+    self.navigationController?.popViewController(animated: true)
   }
   @objc func cafeTITestButtonClicked() {
     let cafetiVC = CafeTIViewController()

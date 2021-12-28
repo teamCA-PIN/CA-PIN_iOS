@@ -45,6 +45,11 @@ class LoginViewController: UIViewController {
     keyboardObserver()
       addAction()
   }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    self.emailTextField.text = ""
+    self.passwordTextField.text = ""
+  }
 }
 
 // MARK: - Extensions
@@ -87,6 +92,8 @@ extension LoginViewController {
   /// 로그인 서버 연결
   @objc func loginButtonClicked() {
     appDel.isLoginManually = true
+    
+    self.view.endEditing(true)
     
     guard let emailText = emailTextField.text,
           let passwordText = passwordTextField.text else { return }

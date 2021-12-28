@@ -141,7 +141,7 @@ extension MyCategoryTableViewCell {
       let editVC = EditCategoryViewController()
       editVC.placeholerCategoryName = self.placeholerCategoryName
       editVC.categoryId = self.categoryID
-      self.parentViewController?.navigationController?.pushViewController(editVC  , animated: false)
+      self.parentViewController?.navigationController?.pushViewController(editVC, animated: true)
     })
     let deleteAction: UIAlertAction
     deleteAction = UIAlertAction(title: "카테고리 삭제", style: .destructive, handler: { (action: UIAlertAction) in

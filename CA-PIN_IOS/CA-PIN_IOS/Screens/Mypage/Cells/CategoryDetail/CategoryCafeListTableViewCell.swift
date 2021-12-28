@@ -135,8 +135,8 @@ extension CategoryCafeListTableViewCell {
       }
       $0.addTarget(self, action: #selector(self.checkButtonClicked), for: .touchUpInside)
       $0.snp.makeConstraints {
-        $0.width.equalTo(24)
-        $0.height.equalTo(24)
+        $0.width.equalTo(32)
+        $0.height.equalTo(32)
         $0.centerY.equalTo(self.explainLabel.snp.centerY)
         $0.trailing.equalTo(self.contentView.snp.trailing).offset(-24)
       }
@@ -204,6 +204,7 @@ extension CategoryCafeListTableViewCell {
   }
   func setCheckButtonImage(bool: Bool) {
     switch self.checkButton.isSelected {
+      /// TODO: - 이미지 새로 받아서 true일 때 바꾸기
     case true: self.checkButton.setImageByName("checkboxActive")
     case false: self.checkButton.setImageByName("checkboxInactive")
     }
