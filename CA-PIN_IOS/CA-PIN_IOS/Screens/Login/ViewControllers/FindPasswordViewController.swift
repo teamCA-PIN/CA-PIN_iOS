@@ -68,6 +68,7 @@ extension FindPasswordViewController {
     findPassword(email: email)
   }
   func findPassword(email: String) {
+    self.view.endEditing(true)
     guard let emailText = emailTextField.text else { return }
     UserAuthProvider.rx.request(.emailAuth(email: emailText))
       .asObservable()

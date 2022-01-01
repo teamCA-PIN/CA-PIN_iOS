@@ -68,6 +68,12 @@ extension ChangePasswordViewController {
   @objc func changeButtonClicked() {
     print(checkPasswordFlag)
     print(certifyFlag)
+    if certifyFlag == false {
+      self.showGrayToast(message: "인증에 실패했습니다.")
+    }
+    if checkPasswordFlag == false {
+      self.showGrayToast(message: "비밀번호가 일치하지 않습니다.")
+    }
     if certifyFlag == true && checkPasswordFlag == true {
       // TODO: - 서버 통신
       changePassword(email: userEmail, password: userPassword)
@@ -88,6 +94,7 @@ extension ChangePasswordViewController {
     self.passwordCheckTextField.isSecureTextEntry = true
   }
   func certifyNumber(number: Int) {
+    self.view.endEditing(true)
     if number == certificationNumber {
       self.certifyFlag = true
       self.showGreenToast(message: "인증되었습니다.")
@@ -106,6 +113,7 @@ extension ChangePasswordViewController {
     }
   }
   func changePassword(email: String, password: String) {
+    self.view.endEditing(true)
     UserAuthProvider.rx.request(.changePassword(email: email, password: password))
       .asObservable()
       .subscribe(onNext: { response in
@@ -336,9 +344,6 @@ extension ChangePasswordViewController {
 
 extension ChangePasswordViewController: UITextFieldDelegate {
   func textFieldDidEndEditing(_ textField: UITextField) {
-    if textField == passwordCheckTextField {
-      checkPassword()
-    }
   }
   func textFieldDidBeginEditing(_ textField: UITextField) {
     self.changeButton.backgroundColor = .maincolor1

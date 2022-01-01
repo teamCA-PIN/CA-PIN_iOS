@@ -130,9 +130,12 @@ extension LogoutPopUpViewController {
     let loginVC = self.presentingViewController?.children[1] as? LoginViewController
     let endIndex = self.presentingViewController?.children.endIndex ?? 0
     let newSettingVC = self.presentingViewController?.children[endIndex-1] as? NewSettingViewController
-    self.dismiss(animated: false, completion: {
-      newSettingVC?.navigationController?.popToViewController(loginVC!, animated: true)
-    }
+    if let dvc = loginVC {
+      self.dismiss(animated: false, completion: {
+        dvc.view.endEditing(true)
+        newSettingVC?.navigationController?.popToViewController(dvc, animated: true)
+      }
     )
+    }
   }
 }
