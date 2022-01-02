@@ -55,7 +55,7 @@ class EditProfileViewController: UIViewController {
   }
   
   override func viewDidLayoutSubviews() {
-    self.myImageView.setRounded(radius: self.myImageView.frame.width/2)
+    self.myImageView.setRounded(radius: 75)
     self.nameTextField.clearButtonMode = .whileEditing
   }
 }
@@ -221,6 +221,7 @@ extension EditProfileViewController {
     chooseFromAlbumAction = UIAlertAction(title: "앨범에서 사진 선택", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
       self.imagePicker.sourceType = .photoLibrary
       self.imagePicker.allowsEditing = true
+      self.imagePicker.modalPresentationStyle = .overFullScreen
       self.present(self.imagePicker, animated: true, completion: nil)
     })
     let chooseDefaultAction: UIAlertAction
@@ -312,15 +313,29 @@ extension EditProfileViewController {
 
 extension EditProfileViewController: UIImagePickerControllerDelegate {
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-    if let image = info[UIImagePickerController.InfoKey.originalImage] {
-      myImageView.image = image as! UIImage
-      
-      myImageView.layer.cornerRadius = myImageView.frame.height / 2
-      myImageView.layer.borderWidth = 1
-      myImageView.layer.borderColor = UIColor.clear.cgColor
-      myImageView.clipsToBounds = true
+//    if let image = info[UIImagePickerController.InfoKey.originalImage] {
+//      myImageView.image = image as! UIImage
+//
+//      myImageView.layer.cornerRadius = myImageView.frame.height / 2
+//      myImageView.layer.borderWidth = 1
+//      myImageView.layer.borderColor = UIColor.clear.cgColor
+//      myImageView.clipsToBounds = true
+//    }
+    
+    var newImage: UIImage? = nil ///update할 이미지
+    
+    if let possibleImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+      newImage = possibleImage // 수정된 이미지가 있을 경우
+    } else if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+      newImage = possibleImage // 원본 이미지가 있을 경우
     }
-    dismiss(animated: true , completion: nil)
+    self.myImageView.image = newImage
+    self.myImageView.layer.cornerRadius = 75
+    self.myImageView.layer.borderWidth = 1
+    self.myImageView.layer.borderColor = UIColor.clear.cgColor
+    self.myImageView.clipsToBounds = true
+    
+    picker.dismiss(animated: true , completion: nil)
   }
 }
 
