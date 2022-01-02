@@ -104,8 +104,8 @@ class WriteReviewViewController: UIViewController {
   override func viewDidLoad() {
     self.view.backgroundColor = .white
     super.viewDidLoad()
-    dataBind(rating: ratingValue, title: titleContent, recommend: recommend, content: content, confirmTitle: confirmTitle)
     layout()
+    dataBind(rating: ratingValue, title: titleContent, recommend: recommend, content: content, confirmTitle: confirmTitle)
     register()
     self.reviewphotoCollectionView.delegate = self
     self.reviewphotoCollectionView.dataSource = self
@@ -481,7 +481,26 @@ extension WriteReviewViewController {
     self.writereviewtitleLabel.setupLabel(text: title, color: .black, font: UIFont.notoSansKRMediumFont(fontSize: 20))
     self.writereviewtitleLabel.letterSpacing = -0.7
     self.ratingContentLabel.text = "\(rating)점"
-    self.recommend = recommend ?? []
+    if let recommend = recommend {
+      if recommend == [0] {
+        self.tasteButton.isSelected = true
+        tasteButton.backgroundColor = .maincolor1
+        tasteButton.setTitleColor(.white, for: .normal)
+      }
+      if recommend == [1] {
+        self.feelButton.isSelected = true
+        feelButton.backgroundColor = .maincolor1
+        feelButton.setTitleColor(.white, for: .normal)
+      }
+      if recommend == [0,1] {
+        self.tasteButton.isSelected = true
+        self.feelButton.isSelected = true
+        tasteButton.backgroundColor = .maincolor1
+        tasteButton.setTitleColor(.white, for: .normal)
+        feelButton.backgroundColor = .maincolor1
+        feelButton.setTitleColor(.white, for: .normal)
+      }
+    }
     self.reviewTextView.text = content
     if content == "리뷰를 입력하세요." {
       self.reviewTextView.textColor = .gray3
@@ -491,16 +510,6 @@ extension WriteReviewViewController {
     }
     self.writereviewButton.setupButton(title: confirmTitle, color: .white, font: .notoSansKRMediumFont(fontSize: 16), backgroundColor: .maincolor1, state: .normal, radius: 24.5)
     self.ratingView.rating = self.ratingValue
-    if self.recommend == [0] {
-      self.tasteButton.isSelected = true
-    }
-    if self.recommend == [1] {
-      self.feelButton.isSelected = true
-    }
-    if self.recommend == [0,1] {
-      self.tasteButton.isSelected = true
-      self.feelButton.isSelected = true
-    }
   }
   @objc func tasteButtonClicked() {
     tasteButton.isSelected.toggle()
