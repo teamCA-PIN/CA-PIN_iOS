@@ -50,12 +50,20 @@ class DetailReviewTableViewCell: UITableViewCell {
   var isReviewed: Bool?
   var tagCount: Int?
   var reviewId: String = "" /// 리뷰 신고에 사용할 리뷰 아이디
+    var cafeID: String?
   
   // MARK: - LifeCycles
   override func awakeFromNib() {
     super.awakeFromNib()
     layout()
     register()
+      if let reviewModel = reviewModel {
+          reviewDataBind(nickName: reviewModel.writer.nickname,
+                              date: reviewModel.createdAt,
+                              rating: Float(reviewModel.rating),
+                              content: reviewModel.content,
+                              profileImg: reviewModel.writer.profileImg)
+      }
     tagCollectionView.delegate = self
     tagCollectionView.dataSource = self
     photoCollectionView.delegate = self
@@ -176,7 +184,7 @@ extension DetailReviewTableViewCell {
   }
   func layoutReviewContentLabel() {
     containerView.add(reviewContentLabel) {
-      $0.numberOfLines = 3
+      $0.numberOfLines = 0
       $0.snp.makeConstraints {
         $0.leading.equalTo(self.titleContainerView)
         $0.top.equalTo(self.tagCollectionView.snp.bottom).offset(10)
@@ -239,6 +247,9 @@ extension DetailReviewTableViewCell {
                 let deleteReviewVC = DeleteReviewViewController()
                 deleteReviewVC.modalPresentationStyle = .overCurrentContext
                 deleteReviewVC.reviewId = self.reviewModel?.id ?? ""
+                  deleteReviewVC.rootViewController = self.rootViewController
+                  deleteReviewVC.cafeID = self.cafeID
+                  
                   self.rootViewController?.present(deleteReviewVC, animated: false, completion: nil)
               })
 
@@ -287,6 +298,8 @@ extension DetailReviewTableViewCell {
                                   color: .black,
                                   font: .notoSansKRRegularFont(fontSize: 12))
     profileImageView.imageFromUrl(profileImg, defaultImgPath: "")
+      tagCollectionView.reloadData()
+      photoCollectionView.reloadData()
   }
   
   func updateLayout() {

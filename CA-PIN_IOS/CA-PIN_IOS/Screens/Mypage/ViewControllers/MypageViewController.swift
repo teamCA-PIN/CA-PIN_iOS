@@ -145,7 +145,7 @@ extension MypageViewController {
     self.profileImageView.imageFromUrl(profileImage, defaultImgPath: "")
   }
   func getCategoryListService() {
-    UserServiceProvider.rx.request(.categoryList)
+    UserServiceProvider.rx.request(.categoryList(cafeID: nil))
       .asObservable()
       .subscribe(onNext: { response in
         if response.statusCode == 200 {

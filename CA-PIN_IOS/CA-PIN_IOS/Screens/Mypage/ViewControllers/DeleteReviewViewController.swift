@@ -20,6 +20,8 @@ class DeleteReviewViewController: UIViewController {
   let confirmButton = UIButton()
   
   var reviewId: String = ""
+    var rootViewController: UIViewController?
+    var cafeID: String?
   
   
   let disposeBag = DisposeBag()
@@ -117,9 +119,13 @@ extension DeleteReviewViewController {
           do {
             let endIndex = self.presentingViewController?.children.endIndex ?? 0
             let mypageVC = self.presentingViewController?.children[endIndex-1] as? MypageViewController ?? UIViewController()
+              guard let detailVC = self.rootViewController as? CafeDetailViewController else { return }
+              guard let cafeID = self.cafeID else { return }
             self.dismiss(animated: false) {
               mypageVC.viewWillAppear(true)
               mypageVC.showGreenToast(message: "리뷰 삭제가 완료되었습니다.")
+                detailVC.setupReviewData(cafeId: cafeID)
+                detailVC.showGreenToast(message: "리뷰 삭제가 완료되었습니다.")
             }
           }
           catch {

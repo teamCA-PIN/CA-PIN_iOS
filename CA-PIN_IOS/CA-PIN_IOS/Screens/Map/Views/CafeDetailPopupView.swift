@@ -157,7 +157,12 @@ extension CafeDetailPopupView {
         self.rootViewController = rootViewController
         isSaved = model.isSaved
         
-        cafeImageView.imageFromUrl(model.cafeDetail.img, defaultImgPath: "")
+        if let img = model.cafeDetail.img {
+            cafeImageView.imageFromUrl(model.cafeDetail.img, defaultImgPath: "")
+        }
+        else {
+            cafeImageView.image = UIImage(named: "cafeEmptyImage")
+        }
         cafeNameLabel.setupLabel(
             text: model.cafeDetail.name,
             color: .black,

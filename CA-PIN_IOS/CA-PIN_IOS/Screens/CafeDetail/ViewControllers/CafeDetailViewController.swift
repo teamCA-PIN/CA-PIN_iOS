@@ -380,7 +380,7 @@ extension CafeDetailViewController {
             $0.snp.makeConstraints {
                 $0.top.equalTo(self.informationView.snp.top).offset(20)
                 $0.leading.equalTo(self.informationView.snp.leading).offset(19)
-                $0.height.width.equalTo(24)
+                $0.height.width.equalTo(16.9)
             }
         }
     }
@@ -399,7 +399,7 @@ extension CafeDetailViewController {
             $0.snp.makeConstraints {
                 $0.leading.equalTo(self.instagramLogoImageView)
                 $0.top.equalTo(self.instagramLogoImageView.snp.bottom).offset(18)
-                $0.height.width.equalTo(24)
+                $0.height.width.equalTo(16.9)
             }
         }
     }
@@ -419,7 +419,7 @@ extension CafeDetailViewController {
             $0.snp.makeConstraints {
                 $0.leading.equalTo(self.instagramLogoImageView.snp.leading)
                 $0.top.equalTo(self.clockLabel.snp.bottom).offset(15)
-                $0.height.width.equalTo(24)
+                $0.height.width.equalTo(16.9)
             }
         }
     }
@@ -604,7 +604,7 @@ extension CafeDetailViewController {
                 $0.trailing.equalTo(self .cafeScrollContainerView.snp.trailing).offset(-20)
                 $0.top.equalTo(self.reviewHeaderView.snp.bottom)
                 $0.bottom.equalTo(self.cafeScrollContainerView.snp.bottom).offset(-95)
-                $0.height.equalTo((self.reviewModel?.count ?? 0) * 212)
+                $0.height.equalTo((self.reviewModel?.count ?? 1) * 212)
             }
         }
     }
@@ -778,9 +778,12 @@ extension CafeDetailViewController {
                     }
                 }
                 if response.statusCode == 204 {
+                    self.reviewModel = nil
                     self.emptyLabel.isHidden = false
                     self.layoutEmptyLabel()
                     self.reviewTableView.separatorStyle = .none
+                    self.tagCollectionView.reloadData()
+                    self.reviewTableView.reloadData()
                 }
             }, onError: { error in
                 print(error)
@@ -788,7 +791,7 @@ extension CafeDetailViewController {
             }).disposed(by: disposeBag)
     }
     func setupCategory() {
-        userProvider.rx.request(.categoryList)
+        userProvider.rx.request(.categoryList(cafeID: cafeId))
             .asObservable()
             .subscribe(onNext: { response in
                 if response.statusCode == 200 {
@@ -916,6 +919,7 @@ extension CafeDetailViewController: UITableViewDataSource {
                                       profileImg: reviewModel![indexPath.row].writer.profileImg)
             detailCell.reviewId = reviewIdArray[indexPath.row]
             detailCell.rootViewController = self
+            detailCell.cafeID = self.cafeId
             detailCell.awakeFromNib()
             return detailCell
         }
