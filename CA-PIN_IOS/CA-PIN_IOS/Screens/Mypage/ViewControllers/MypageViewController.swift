@@ -382,7 +382,11 @@ extension MypageViewController {
   @objc func backButtonClicked() {
 //    let mapVC = (self.navigationController?.children[2] as? MapViewController)!
 //    self.navigationController?.popToViewController(mapVC, animated: true)
-    self.navigationController?.popViewController(animated: true)
+//    self.navigationController?.popViewController(animated: true)
+    let mapVC = self.navigationController?.children[2] as? MapViewController
+    if let vc = mapVC {
+      self.navigationController?.popToViewController(vc, animated: true)
+    }
   }
   @objc func cafeTITestButtonClicked() {
     let cafetiVC = CafeTIViewController()
