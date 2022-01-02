@@ -14,7 +14,7 @@ import SwiftKeychainWrapper
 enum UserService {
   case myInfo
   case reviews
-  case categoryList
+    case categoryList(cafeID: String?)
   case editMyInfo(nickname: String, profilImg: UIImage)
 }
 
@@ -36,7 +36,7 @@ extension UserService: TargetType {
       return "/user/myInfo"
     case .reviews:
       return "/user/reviews"
-    case .categoryList:
+    case .categoryList(cafeID: _):
       return "/user/categoryList"
     }
   }
@@ -59,9 +59,15 @@ extension UserService: TargetType {
   var task: Task {
     switch self {
     case .myInfo,
-         .reviews,
-         .categoryList:
+            .reviews:
       return .requestPlain
+    case .categoryList(cafeID: let cafeID):
+        if let cafeID = cafeID {
+            return .requestParameters(parameters: ["cafeId": cafeID], encoding: URLEncoding(destination: .queryString, arrayEncoding: .noBrackets))
+        }
+        else {
+            return .requestPlain
+        }
     case .editMyInfo(nickname: let nickname, profilImg: let profileImg):
         var multiPartFormData: [MultipartFormData] = []
       let nickname = Data(nickname.utf8)

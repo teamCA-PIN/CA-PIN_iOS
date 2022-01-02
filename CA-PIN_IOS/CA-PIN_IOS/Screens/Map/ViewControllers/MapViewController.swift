@@ -53,7 +53,7 @@ class MapViewController: UIViewController, NMFLocationManagerDelegate {
     let locationComponent = NMFLocationManager.sharedInstance()
     let disposeBag = DisposeBag()
     let listProvider = MoyaProvider<CafeService>(plugins: [NetworkLoggerPlugin(verbose: true)])
-    let userProvider = MoyaProvider<UserService>()
+    let userProvider = MoyaProvider<UserService>(plugins: [NetworkLoggerPlugin(verbose: true)])
     var selectedCafeId = ""
     var isInit: Bool = true
     
@@ -481,19 +481,19 @@ extension MapViewController {
         if isActive == 1 {
             switch colorCode {
             case "C12D62":
-                return "pinActiveCate1"
-            case "E57D3A":
                 return "pinActiveCate2"
-            case "FFC24B":
+            case "E57D3A":
                 return "pinActiveCate3"
-            case "8ABE56":
+            case "FFC24B":
                 return "pinActiveCate4"
-            case "49A48F":
+            case "8ABE56":
                 return "pinActiveCate5"
-            case "51BAE0":
+            case "49A48F":
                 return "pinActiveCate6"
-            case "1E73BE":
+            case "51BAE0":
                 return "pinActiveCate7"
+            case "1E73BE":
+                return "pinActiveDefault"
             case "754593":
                 return "pinActiveCate8"
             case "EBEAEF":
@@ -519,7 +519,7 @@ extension MapViewController {
             case "51BAE0":
                 return "pinInactiveCate7"
             case "1E73BE":
-                return "pinInactiveCate8"
+                return "pinInactiveDefault"
             case "754593":
                 return "pinInactiveCate9"
             case "EBEAEF":
@@ -533,7 +533,7 @@ extension MapViewController {
     }
     
     func setupCategory() {
-        userProvider.rx.request(.categoryList)
+        userProvider.rx.request(.categoryList(cafeID: cafeDetailModel?.id))
             .asObservable()
             .subscribe(onNext: { response in
                 if response.statusCode == 200 {
@@ -541,10 +541,18 @@ extension MapViewController {
                         let decoder = JSONDecoder()
                         let data = try decoder.decode(CategoryResponseArrayType<MyCategoryList>.self,
                                                       from: response.data)
-                        self.categoryArray = data.myCategoryList!
+                        self.categoryArray = data.myCategoryList ?? []
                         let pinNavigationController = UINavigationController()
                         let pinPopupVC = PinPopupViewController()
                         pinPopupVC.cafeId = self.selectedCafeId
+                        for i in 0..<self.categoryArray.count {
+                            if let isPin = self.categoryArray[i].isPin {
+                                if isPin {
+                                    pinPopupVC.selectedIndex = i
+                                    break
+                                }
+                            }
+                        }
                         pinPopupVC.categoryArray = self.categoryArray
                         pinNavigationController.addChild(pinPopupVC)
                         pinNavigationController.view.backgroundColor = .clear

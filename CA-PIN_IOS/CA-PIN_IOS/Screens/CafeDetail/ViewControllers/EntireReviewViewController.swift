@@ -181,6 +181,10 @@ extension EntireReviewViewController {
   func dataBind() {
     self.reviewNumberLabel.setupLabel(text: "\(self.reviewModel.count)", color: .gray4, font: .notoSansKRRegularFont(fontSize: 14))
   }
+    
+    func calculateTextHeight(text: String) -> CGFloat{
+        return CGFloat(text.count / 31 * 18)
+    }
 }
 
 // MARK: - Extensions
@@ -189,16 +193,16 @@ extension EntireReviewViewController {
 extension EntireReviewViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
       if self.reviewModel[indexPath.row].imgs == nil && self.reviewModel[indexPath.row].recommend == nil{
-        return 110
+          return 110 + calculateTextHeight(text: self.reviewModel[indexPath.row].content)
       }
       else if self.reviewModel[indexPath.row].imgs == nil {
-        return 140
+        return 140 + calculateTextHeight(text: self.reviewModel[indexPath.row].content)
       }
       else if self.reviewModel[indexPath.row].recommend == nil {
-        return 198
+        return 220 + calculateTextHeight(text: self.reviewModel[indexPath.row].content)
       }
       else {
-        return 240
+        return 220 + calculateTextHeight(text: self.reviewModel[indexPath.row].content)
       }
     }
 }
@@ -214,11 +218,6 @@ extension EntireReviewViewController: UITableViewDataSource {
       return UITableViewCell()
     }
     detailCell.reviewModel = self.reviewModel[indexPath.row]
-    detailCell.reviewDataBind(nickName: reviewModel[indexPath.row].writer.nickname,
-                        date: reviewModel[indexPath.row].createdAt,
-                        rating: Float(reviewModel[indexPath.row].rating),
-                        content: reviewModel[indexPath.row].content,
-                        profileImg: reviewModel[indexPath.row].writer.profileImg)
     detailCell.rootViewController = self
     detailCell.awakeFromNib()
     return detailCell

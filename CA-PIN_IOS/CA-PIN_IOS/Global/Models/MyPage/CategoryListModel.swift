@@ -17,10 +17,11 @@ struct CategoryListModel: Codable {
 struct MyCategoryList: Codable {
     let cafes: [String]
     let id, color, name: String
+    let isPin: Bool?
 
     enum CodingKeys: String, CodingKey {
         case cafes
         case id = "_id"
-        case color, name
+        case color, name, isPin
     }
 }

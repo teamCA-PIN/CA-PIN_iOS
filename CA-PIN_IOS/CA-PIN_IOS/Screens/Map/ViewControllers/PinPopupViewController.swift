@@ -231,7 +231,7 @@ extension PinPopupViewController {
   }
     
     func setupCategory() {
-        userProvider.rx.request(.categoryList)
+        userProvider.rx.request(.categoryList(cafeID: cafeId))
             .asObservable()
             .subscribe(onNext: { response in
                 if response.statusCode == 200 {
