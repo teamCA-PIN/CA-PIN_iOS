@@ -232,6 +232,7 @@ extension MyReviewTableViewCell {
       writeVC.content = (self.reviewModel?.content)!
       writeVC.ratingValue = self.reviewModel!.rating
       writeVC.reviewId = self.reviewModel!.id
+      writeVC.recommend = self.reviewModel!.recommend ?? []
       if self.reviewModel?.imgs == [] {
         for imagePath in (self.reviewModel!.imgs)! {
           let image = UIImageView()
