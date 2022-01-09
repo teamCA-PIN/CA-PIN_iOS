@@ -41,6 +41,7 @@ class SplashViewController: UIViewController {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 if KeychainWrapper.standard.hasValue(forKey: "loginEmail") && KeychainWrapper.standard.hasValue(forKey: "loginPassword") {
+                  KeychainWrapper.standard.set(0, forKey: "loginVCFlag")
                     if let email = KeychainWrapper.standard.string(forKey: "loginEmail"),
                        let password = KeychainWrapper.standard.string(forKey: "loginPassword") {
                         self.login(ID: email, PW: password)

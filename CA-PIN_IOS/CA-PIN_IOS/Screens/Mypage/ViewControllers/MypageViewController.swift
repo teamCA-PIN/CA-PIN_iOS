@@ -10,6 +10,7 @@ import Moya
 import RxMoya
 import RxSwift
 import SnapKit
+import SwiftKeychainWrapper
 import Then
 
 protocol PagingTabbarDelegate {
@@ -71,6 +72,8 @@ class MypageViewController: UIViewController {
   
   var categoryArray: [MyCategoryList] = [] /// 서버통신해서 카테고리 배열을 받아온다
   var categoryIdArray: [String] = [] /// 카테고리 아이디를 저장해놓는 배열 -> 카테고리 상세 페이지로 넘어갈 때 사용할 파라미터
+  
+  var loginVCFlag: Int = 2
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
@@ -380,22 +383,20 @@ extension MypageViewController {
     }
   }
   @objc func backButtonClicked() {
-    /// TODO: 자동로그인 여부 확인해서 분기처리
-//    let mapVC = (self.navigationController?.children[2] as? MapViewController)!
-//    self.navigationController?.popToViewController(mapVC, animated: true)
-//    self.navigationController?.popViewController(animated: true)
-    let mapVC = self.navigationController?.children[1] as? MapViewController
-    print("@@")
-    print(mapVC)
-    print(self.navigationController?.children)
-//    self.navigationController?.popToRootViewController(animated: true)
-    if let vc = mapVC {
-      print("~~~")
-      self.navigationController?.popToViewController(vc, animated: true)
+    var mapVC = self.navigationController?.children[1] as? MapViewController
+
+    loginVCFlag = KeychainWrapper.standard.integer(forKey: "loginVCFlag") ?? 2
+    
+    if loginVCFlag == 0 {
+      if let vc = mapVC {
+        self.navigationController?.popToViewController(vc, animated: true)
+      }
+    } else {
+      mapVC = self.navigationController?.children[2] as? MapViewController
+      if let vc = mapVC {
+        self.navigationController?.popToViewController(vc, animated: true)
+      }
     }
-//    else {
-//      self.navigationController?.popToRootViewController(animated: true)
-//    }
   }
   @objc func cafeTITestButtonClicked() {
     let cafetiVC = CafeTIViewController()
