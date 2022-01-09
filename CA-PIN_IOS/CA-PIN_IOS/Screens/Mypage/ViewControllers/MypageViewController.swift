@@ -380,13 +380,22 @@ extension MypageViewController {
     }
   }
   @objc func backButtonClicked() {
+    /// TODO: 자동로그인 여부 확인해서 분기처리
 //    let mapVC = (self.navigationController?.children[2] as? MapViewController)!
 //    self.navigationController?.popToViewController(mapVC, animated: true)
 //    self.navigationController?.popViewController(animated: true)
-    let mapVC = self.navigationController?.children[2] as? MapViewController
+    let mapVC = self.navigationController?.children[1] as? MapViewController
+    print("@@")
+    print(mapVC)
+    print(self.navigationController?.children)
+//    self.navigationController?.popToRootViewController(animated: true)
     if let vc = mapVC {
+      print("~~~")
       self.navigationController?.popToViewController(vc, animated: true)
     }
+//    else {
+//      self.navigationController?.popToRootViewController(animated: true)
+//    }
   }
   @objc func cafeTITestButtonClicked() {
     let cafetiVC = CafeTIViewController()
