@@ -127,15 +127,12 @@ extension LogoutPopUpViewController {
     KeychainWrapper.standard.remove(forKey: "tokenAccess")
     KeychainWrapper.standard.remove(forKey: "tokenRefresh")
     
+    print(self.presentingViewController?.children)
     let loginVC = self.presentingViewController?.children[1] as? LoginViewController
     let endIndex = self.presentingViewController?.children.endIndex ?? 0
     let newSettingVC = self.presentingViewController?.children[endIndex-1] as? NewSettingViewController
-    if let dvc = loginVC {
-      self.dismiss(animated: false, completion: {
-        dvc.view.endEditing(true)
-        newSettingVC?.navigationController?.popToViewController(dvc, animated: true)
-      }
-    )
-    }
+    self.dismiss(animated: false, completion: {
+      newSettingVC?.navigationController?.popToRootViewController(animated: true)
+    })
   }
 }

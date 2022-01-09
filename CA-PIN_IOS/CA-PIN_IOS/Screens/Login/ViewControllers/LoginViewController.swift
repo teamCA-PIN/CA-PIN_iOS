@@ -40,6 +40,7 @@ class LoginViewController: UIViewController {
     super.viewDidLoad()
     self.view.backgroundColor = .white
     self.navigationController?.navigationBar.isHidden = true
+    KeychainWrapper.standard.set(1, forKey: "loginVCFlag")
     layout()
     setTextField()
     keyboardObserver()
