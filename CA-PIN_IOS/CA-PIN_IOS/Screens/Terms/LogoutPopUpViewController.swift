@@ -21,6 +21,8 @@ class LogoutPopUpViewController: UIViewController {
   let cancelButton = UIButton()
   let logoutButton = UIButton()
   
+  var loginVCFlag: Int = 2
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     layout()
@@ -127,12 +129,29 @@ extension LogoutPopUpViewController {
     KeychainWrapper.standard.remove(forKey: "tokenAccess")
     KeychainWrapper.standard.remove(forKey: "tokenRefresh")
     
-    print(self.presentingViewController?.children)
-    let loginVC = self.presentingViewController?.children[1] as? LoginViewController
+    loginVCFlag = KeychainWrapper.standard.integer(forKey: "loginVCFlag") ?? 2
+    
+    var loginVC = self.presentingViewController?.children[1] as? LoginViewController
     let endIndex = self.presentingViewController?.children.endIndex ?? 0
     let newSettingVC = self.presentingViewController?.children[endIndex-1] as? NewSettingViewController
-    self.dismiss(animated: false, completion: {
-      newSettingVC?.navigationController?.popToRootViewController(animated: true)
-    })
+    print(newSettingVC?.navigationController?.children)
+    if loginVCFlag == 0 {
+      print("뷰 안뜸")
+//      loginVC = self.navigationController?.children[2] as? LoginViewController
+//      if let vc = loginVC {
+//        self.dismiss(animated: false, completion: {
+//          newSettingVC?.navigationController?.popToViewController(vc, animated: true)
+//        })
+      self.dismiss(animated: false, completion: {
+        newSettingVC?.navigationController?.popToRootViewController(animated: true)
+      })
+    } else {
+      print("뷰 뜸")
+      if let vc = loginVC {
+        self.dismiss(animated: false, completion: {
+          newSettingVC?.navigationController?.popToViewController(vc, animated: true)
+        })
+      }
+    }
   }
 }
