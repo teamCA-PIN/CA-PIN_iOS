@@ -290,11 +290,11 @@ extension MypageViewController {
   }
   func layoutCafeTITestButton() {
     self.buttonContainerView.add(self.cafeTITestButton) {
-      $0.setupButton(title: "카페TI 검사", color: .black, font: UIFont.notoSansKRRegularFont(fontSize: 12), backgroundColor: .clear, state: .normal, radius: 0)
+      $0.setupButton(title: "CAFETI 검사", color: .black, font: UIFont.notoSansKRRegularFont(fontSize: 12), backgroundColor: .clear, state: .normal, radius: 0)
       $0.titleLabel?.letterSpacing = -0.6
       let leading = (self.screenWidth - 58*4 - 3) / 4
       $0.snp.makeConstraints {
-        $0.width.equalTo(58)
+        $0.width.equalTo(60)
         $0.height.equalTo(21)
         $0.centerY.equalToSuperview()
         $0.leading.equalToSuperview().offset(leading)
