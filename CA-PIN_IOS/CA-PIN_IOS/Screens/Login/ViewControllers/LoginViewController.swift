@@ -40,6 +40,7 @@ class LoginViewController: UIViewController {
     super.viewDidLoad()
     self.view.backgroundColor = .white
     self.navigationController?.navigationBar.isHidden = true
+    KeychainWrapper.standard.set(1, forKey: "loginVCFlag")
     layout()
     setTextField()
     keyboardObserver()
@@ -49,6 +50,7 @@ class LoginViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     self.emailTextField.text = ""
     self.passwordTextField.text = ""
+    disableLoginButton()
   }
 }
 
@@ -169,7 +171,7 @@ extension LoginViewController {
   func disableLoginButton() {
     if emailTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true {
       self.loginButton.isUserInteractionEnabled = false
-      self.loginButton.backgroundColor = .gray4
+      self.loginButton.backgroundColor = .gray3
     }
   }
     

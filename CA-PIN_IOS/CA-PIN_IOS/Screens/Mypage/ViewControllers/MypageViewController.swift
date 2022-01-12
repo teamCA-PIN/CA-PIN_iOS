@@ -10,6 +10,7 @@ import Moya
 import RxMoya
 import RxSwift
 import SnapKit
+import SwiftKeychainWrapper
 import Then
 
 protocol PagingTabbarDelegate {
@@ -71,6 +72,8 @@ class MypageViewController: UIViewController {
   
   var categoryArray: [MyCategoryList] = [] /// 서버통신해서 카테고리 배열을 받아온다
   var categoryIdArray: [String] = [] /// 카테고리 아이디를 저장해놓는 배열 -> 카테고리 상세 페이지로 넘어갈 때 사용할 파라미터
+  
+  var loginVCFlag: Int = 2
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
@@ -287,11 +290,11 @@ extension MypageViewController {
   }
   func layoutCafeTITestButton() {
     self.buttonContainerView.add(self.cafeTITestButton) {
-      $0.setupButton(title: "카페TI 검사", color: .black, font: UIFont.notoSansKRRegularFont(fontSize: 12), backgroundColor: .clear, state: .normal, radius: 0)
+      $0.setupButton(title: "CAFETI 검사", color: .black, font: UIFont.notoSansKRRegularFont(fontSize: 12), backgroundColor: .clear, state: .normal, radius: 0)
       $0.titleLabel?.letterSpacing = -0.6
       let leading = (self.screenWidth - 58*4 - 3) / 4
       $0.snp.makeConstraints {
-        $0.width.equalTo(58)
+        $0.width.equalTo(60)
         $0.height.equalTo(21)
         $0.centerY.equalToSuperview()
         $0.leading.equalToSuperview().offset(leading)
@@ -380,12 +383,19 @@ extension MypageViewController {
     }
   }
   @objc func backButtonClicked() {
-//    let mapVC = (self.navigationController?.children[2] as? MapViewController)!
-//    self.navigationController?.popToViewController(mapVC, animated: true)
-//    self.navigationController?.popViewController(animated: true)
-    let mapVC = self.navigationController?.children[2] as? MapViewController
-    if let vc = mapVC {
-      self.navigationController?.popToViewController(vc, animated: true)
+    var mapVC = self.navigationController?.children[1] as? MapViewController
+
+    loginVCFlag = KeychainWrapper.standard.integer(forKey: "loginVCFlag") ?? 2
+    
+    if loginVCFlag == 0 {
+      if let vc = mapVC {
+        self.navigationController?.popToViewController(vc, animated: true)
+      }
+    } else {
+      mapVC = self.navigationController?.children[2] as? MapViewController
+      if let vc = mapVC {
+        self.navigationController?.popToViewController(vc, animated: true)
+      }
     }
   }
   @objc func cafeTITestButtonClicked() {
