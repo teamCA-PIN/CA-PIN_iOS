@@ -679,6 +679,10 @@ extension CafeDetailViewController {
         }
     }
     
+    func calculateTextHeight(text: String) -> CGFloat{
+        return CGFloat(text.count / 31 * 18)
+    }
+    
     private func addGesture() {
         let pinGesture = UITapGestureRecognizer()
         pinGesture.addTarget(self, action: #selector(clickedAddPinButton))
@@ -803,6 +807,14 @@ extension CafeDetailViewController {
                         let pinNavigationController = UINavigationController()
                         let pinPopupVC = PinPopupViewController()
                         pinPopupVC.cafeId = self.cafeModel!.id
+                        for i in 0..<self.categoryArray.count {
+                            if let isPin = self.categoryArray[i].isPin {
+                                if isPin {
+                                    pinPopupVC.selectedIndex = i + 1
+                                    break
+                                }
+                            }
+                        }
                         pinPopupVC.categoryArray = self.categoryArray
                         pinNavigationController.addChild(pinPopupVC)
                         pinNavigationController.view.backgroundColor = .clear
@@ -875,12 +887,22 @@ extension CafeDetailViewController: UICollectionViewDataSource {
 // MARK: - ReviewTableView Delegate
 extension CafeDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.reviewModel?[indexPath.row].imgs == nil {
-            return 122
+        if let reviewModel = reviewModel {
+            if reviewModel[indexPath.row].imgs == nil && reviewModel[indexPath.row].recommend == nil {
+                return 110 + calculateTextHeight(text: reviewModel[indexPath.row].content)
+            }
+            else if reviewModel[indexPath.row].imgs == nil {
+              return 140 + calculateTextHeight(text: reviewModel[indexPath.row].content)
+            }
+            else if reviewModel[indexPath.row].recommend == nil {
+              return 220 + calculateTextHeight(text: reviewModel[indexPath.row].content)
+            }
+            else {
+              return 220 + calculateTextHeight(text: reviewModel[indexPath.row].content)
+            }
         }
-        else {
-            return 212
-        }
+        return 0
+
     }
     //  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
     //    tableView.estimatedRowHeight = 500

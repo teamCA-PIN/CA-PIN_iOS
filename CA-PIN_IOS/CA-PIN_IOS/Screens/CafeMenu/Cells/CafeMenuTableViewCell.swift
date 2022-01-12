@@ -64,6 +64,7 @@ extension CafeMenuTableViewCell {
         $0.leading.equalTo(self.contentView.snp.leading)
         $0.bottom.equalTo(self.contentView.snp.bottom).offset(-8)
         $0.height.equalTo(23)
+          $0.trailing.equalToSuperview().offset(-100)
       }
     }
   }

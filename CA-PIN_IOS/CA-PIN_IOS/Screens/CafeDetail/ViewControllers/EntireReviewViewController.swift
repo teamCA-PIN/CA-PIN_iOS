@@ -192,7 +192,7 @@ extension EntireReviewViewController {
 // MARK: - ReviewTableView Delegate
 extension EntireReviewViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      if self.reviewModel[indexPath.row].imgs == nil && self.reviewModel[indexPath.row].recommend == nil{
+      if self.reviewModel[indexPath.row].imgs == nil && self.reviewModel[indexPath.row].recommend == nil {
           return 110 + calculateTextHeight(text: self.reviewModel[indexPath.row].content)
       }
       else if self.reviewModel[indexPath.row].imgs == nil {

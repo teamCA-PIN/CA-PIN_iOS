@@ -339,13 +339,21 @@ extension MapViewController {
             var colorCode = ""
             if let marker = overlay as? NMFMarker {
                 for coordinate in self.coordinates {
-                    if marker.position == coordinate.coordinates {
+                    if self.selectedMarker?.position == coordinate.coordinates {
                         self.selectedCafeId = coordinate.id
                         id = coordinate.id
                         colorCode = coordinate.colorCode
                     }
                 }
                 self.selectedMarker?.iconImage = NMFOverlayImage(name: self.markerImage(colorCode: colorCode, isActive: 0))
+                for coordinate in self.coordinates {
+                    if marker.position == coordinate.coordinates {
+                        self.selectedCafeId = coordinate.id
+                        id = coordinate.id
+                        colorCode = coordinate.colorCode
+                    }
+                }
+
                 self.selectedMarker = marker
                 marker.iconImage = NMFOverlayImage(name: self.markerImage(colorCode: colorCode, isActive: 1))
             }
@@ -548,7 +556,7 @@ extension MapViewController {
                         for i in 0..<self.categoryArray.count {
                             if let isPin = self.categoryArray[i].isPin {
                                 if isPin {
-                                    pinPopupVC.selectedIndex = i
+                                    pinPopupVC.selectedIndex = i + 1
                                     break
                                 }
                             }

@@ -63,7 +63,7 @@ extension UserService: TargetType {
       return .requestPlain
     case .categoryList(cafeID: let cafeID):
         if let cafeID = cafeID {
-            return .requestParameters(parameters: ["cafeId": cafeID], encoding: URLEncoding(destination: .queryString, arrayEncoding: .noBrackets))
+            return .requestParameters(parameters: ["cafe": cafeID], encoding: URLEncoding(destination: .queryString, arrayEncoding: .noBrackets))
         }
         else {
             return .requestPlain
