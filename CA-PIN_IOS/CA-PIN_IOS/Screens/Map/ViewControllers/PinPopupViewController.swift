@@ -213,10 +213,21 @@ extension PinPopupViewController {
               let mapVC = self.navigationController?.presentingViewController?.children[index] as? MapViewController
                 let detailVC = self.navigationController?.presentingViewController?.children[index] as? CafeDetailViewController
               self.dismiss(animated: false) {
-                mapVC?.showGreenToast(message: "카테고리에 저장되었습니다.")
+                  if categoryId == "" {
+                      mapVC?.showGreenToast(message: "카테고리에서 삭제되었습니다.")
+                  }
+                  else {
+                      mapVC?.showGreenToast(message: "카테고리에 저장되었습니다.")
+                  }
                   mapVC?.setupCafeInformation(cafeId: self.cafeId)
-                  detailVC?.showGreenToast(message: "카테고리에 저장되었습니다.")
-                  detailVC?.isSaved = true
+                  if categoryId == "" {
+                      detailVC?.showGreenToast(message: "카테고리에서 삭제되었습니다.")
+                      detailVC?.isSaved = false
+                  }
+                  else {
+                      detailVC?.showGreenToast(message: "카테고리에 저장되었습니다.")
+                      detailVC?.isSaved = true
+                  }
                   detailVC?.validateIsSaved()
               }
             } catch {

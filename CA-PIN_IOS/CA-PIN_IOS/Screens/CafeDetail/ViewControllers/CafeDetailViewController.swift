@@ -366,6 +366,7 @@ extension CafeDetailViewController {
     func layoutInformationView() {
         cafeScrollContainerView.add(informationView) {
             $0.backgroundColor = .clear
+            $0.isUserInteractionEnabled = true
             $0.snp.makeConstraints {
                 $0.top.equalTo(self.detailTitleLabel.snp.bottom).offset(5)
                 $0.leading.equalTo(self.cafeScrollContainerView.snp.leading).offset(20)
@@ -695,6 +696,10 @@ extension CafeDetailViewController {
         let addressGesture = UITapGestureRecognizer()
         addressGesture.addTarget(self, action: #selector(touchupAddressLabel))
         addressLabel.addGestureRecognizer(addressGesture)
+        
+        let instagramGesture = UITapGestureRecognizer()
+        instagramGesture.addTarget(self, action: #selector(touchupInstagramLabel))
+        instagramLabel.addGestureRecognizer(instagramGesture)
     }
     
     func register() {
@@ -752,6 +757,14 @@ extension CafeDetailViewController {
         if let text = addressLabel.text {
             UIPasteboard.general.string = text
             showGreenToast(message: "주소가 복사되었습니다.")
+        }
+    }
+    
+    @objc
+    private func touchupInstagramLabel() {
+        if let text = instagramLabel.text {
+            UIPasteboard.general.string = text
+            showGreenToast(message: "아이디가 복사되었습니다.")
         }
     }
     

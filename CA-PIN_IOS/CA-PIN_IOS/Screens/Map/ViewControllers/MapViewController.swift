@@ -300,6 +300,10 @@ extension MapViewController {
         tagVC.selectedTag = self.tags
         tagVC.capinOrMyMap = self.capinOrMyMap
         tagVC.mapViewController = self
+        informationView.isHidden = true
+        selectedMarker?.mapView = nil
+        selectedMarker = nil
+        selectedCafeId = ""
         self.navigationController?.pushViewController(tagVC, animated: true)
     }
     @objc func clickedAddCategoryButton() {
@@ -432,6 +436,10 @@ extension MapViewController {
                         let data = try decoder.decode(MyMapListResponseType<MyMapLocation>.self,
                                                       from: response.data)
                         self.coordinates.removeAll()
+                        self.selectedMarker?.mapView = nil
+                        for marker in self.currentMarkers {
+                            marker.mapView = nil
+                        }
                         let myMapListModel = data.myMapLocations
                         var colorCode = ""
                         for cafeModel in myMapListModel! {
