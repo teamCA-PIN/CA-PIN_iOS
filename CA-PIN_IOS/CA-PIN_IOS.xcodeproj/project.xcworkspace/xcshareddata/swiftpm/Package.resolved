@@ -20,6 +20,24 @@
         }
       },
       {
+        "package": "CollectionViewCenteredFlowLayout",
+        "repositoryURL": "https://github.com/Coeur/CollectionViewCenteredFlowLayout",
+        "state": {
+          "branch": null,
+          "revision": "542502cf46f12ed41303eb3ed3a072815436209d",
+          "version": "1.0.2"
+        }
+      },
+      {
+        "package": "Cosmos",
+        "repositoryURL": "https://github.com/evgenyneu/Cosmos",
+        "state": {
+          "branch": null,
+          "revision": "cce521e734d0090494bd4afab5fd2e2f2465c1af",
+          "version": "23.0.0"
+        }
+      },
+      {
         "package": "Kingfisher",
         "repositoryURL": "https://github.com/onevcat/Kingfisher",
         "state": {
@@ -83,6 +101,15 @@
         }
       },
       {
+        "package": "PryntTrimmerView",
+        "repositoryURL": "https://github.com/HHK1/PryntTrimmerView",
+        "state": {
+          "branch": null,
+          "revision": "ac1b60a22c7e6a6514de7a66d2f3d5b537c956d5",
+          "version": "4.0.2"
+        }
+      },
+      {
         "package": "Quick",
         "repositoryURL": "https://github.com/Quick/Quick.git",
         "state": {
@@ -128,6 +155,15 @@
         }
       },
       {
+        "package": "Stevia",
+        "repositoryURL": "https://github.com/freshOS/Stevia",
+        "state": {
+          "branch": null,
+          "revision": "e1e8dc40deab3a863a35a7a0aab10f7304f4b42a",
+          "version": "5.1.0"
+        }
+      },
+      {
         "package": "SwiftKeychainWrapper",
         "repositoryURL": "https://github.com/jrendel/SwiftKeychainWrapper",
         "state": {
@@ -170,6 +206,15 @@
           "branch": null,
           "revision": "9ff1cc9327586db4e0c8f46f064b6a82ec1566fa",
           "version": "4.0.6"
+        }
+      },
+      {
+        "package": "YPImagePicker",
+        "repositoryURL": "https://github.com/Yummypets/YPImagePicker",
+        "state": {
+          "branch": "spm",
+          "revision": "2285e8ab77c2237c7bda0c6531e4590bad4a028b",
+          "version": null
         }
       }
     ]

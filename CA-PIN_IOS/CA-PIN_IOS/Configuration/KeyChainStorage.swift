@@ -6,3 +6,20 @@
 //
 
 import Foundation
+
+enum KeychainStorage {
+  
+  static var tokenAccess: String {
+    return "tokenAccess"
+  }
+    static var tokenRefresh: String {
+        return "tokenRefresh"
+    }
+  static var userCafeTI: String {
+    return "userCafeTI"
+  }
+    
+    static var nickname: String {
+        return "nickname"
+    }
+}

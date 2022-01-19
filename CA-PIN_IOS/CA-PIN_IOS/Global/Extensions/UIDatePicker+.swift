@@ -9,12 +9,12 @@ import Foundation
 import UIKit
 
 extension UIDatePicker {
-	var textColor: UIColor? {
-			set {
-					setValue(newValue, forKeyPath: "textColor")
-			}
-			get {
-					return value(forKeyPath: "textColor") as? UIColor
-			}
-		}
+  var textColor: UIColor? {
+    set {
+      setValue(newValue, forKeyPath: "textColor")
+    }
+    get {
+      return value(forKeyPath: "textColor") as? UIColor
+    }
+  }
 }
