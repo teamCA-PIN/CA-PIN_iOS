@@ -388,6 +388,7 @@ extension CafeDetailViewController {
     func layoutInstagramLabel() {
         informationView.add(instagramLabel) {
             $0.letterSpacing = -0.7
+            $0.isUserInteractionEnabled = true
             $0.snp.makeConstraints {
                 $0.leading.equalTo(self.informationView.snp.leading).offset(58)
                 $0.centerY.equalTo(self.instagramLogoImageView.snp.centerY)
