@@ -1,5 +1,5 @@
 PODS:
-  - NMapsMap (3.11.0)
+  - NMapsMap (3.13.0)
 
 DEPENDENCIES:
   - NMapsMap
@@ -9,7 +9,7 @@ SPEC REPOS:
     - NMapsMap
 
 SPEC CHECKSUMS:
-  NMapsMap: e6dbea85c2c195c7532deb637a5e90fd70f94fed
+  NMapsMap: 88b5bdac7087bfa99ab058ff5cdd95fb766e0e95
 
 PODFILE CHECKSUM: 85892d76eba475ec29cbba01bd6921fbed733ca7
 
