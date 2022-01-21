@@ -30,6 +30,7 @@ class LoginViewController: UIViewController {
   let buttonContainerView = UIView()
   let findPasswordButton = UIButton()
   let signupButton = UIButton()
+let testLabel = UILabel()
   let appDel : AppDelegate = UIApplication.shared.delegate as! AppDelegate
   
   let disposeBag = DisposeBag()
@@ -78,6 +79,7 @@ extension LoginViewController {
     layoutButtonContainerView()
     layoutFindPasswordButton()
     layoutSignupButton()
+      layoutTestLabel()
   }
   func keyboardObserver(){
     NotificationCenter.default.addObserver(self,
@@ -137,7 +139,20 @@ extension LoginViewController {
           } catch {
             print(error)
           }
-        } else {
+        }
+          else if response.statusCode == 404 {
+              do {
+                  let decoder = JSONDecoder()
+                  let data = try decoder.decode(ResponseType<LoginModel>.self,
+                                                from: response.data)
+                  self.testLabel.isHidden = false
+                  self.testLabel.setupLabel(text: data.message ?? "로그인 에러", color: .red, font: .notoSansKRRegularFont(fontSize: 15))
+              }
+              catch {
+                  
+              }
+          }
+          else {
           do {
             let decoder = JSONDecoder()
             let data = try decoder.decode(ResponseType<LoginModel>.self,
@@ -208,6 +223,15 @@ extension LoginViewController {
       }
     }
   }
+    private func layoutTestLabel() {
+        self.view.add(testLabel) {
+            $0.isHidden = true
+            $0.snp.makeConstraints {
+                $0.centerX.equalToSuperview()
+                $0.top.equalTo(self.signupButton.snp.bottom).offset(15)
+            }
+        }
+    }
   func layoutEmailLabel() {
     self.view.add(self.emailLabel) {
       $0.setupLabel(text: "이메일 아이디",

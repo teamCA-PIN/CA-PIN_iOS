@@ -19,6 +19,10 @@ class SignUpViewController: UIViewController {
   
   // MARK: - Components
   let navigationBarView = UIView()
+    let containerView = UIScrollView().then {
+        $0.backgroundColor = .white
+        $0.isUserInteractionEnabled = true
+    }
   let backButton = UIButton()
   let navigationTitleLabel = UILabel()
   let userNameLabel = UILabel()
@@ -36,10 +40,16 @@ class SignUpViewController: UIViewController {
   let checkPasswordTextField = fourInsetTextField.textFieldWithInsets(insets: UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 0))
   let checkPasswordBordrView = UIView()
   let signUpButton = UIButton()
+    let termLabel = UILabel()
+    let secondTermLabel = UILabel()
   
   let disposeBag = DisposeBag()
   private let UserAuthProvider = MoyaProvider<UserAuthService>()
   var isSame: Bool = false
+    var URLList: [String] = [
+        "https://beryl-balloon-2b5.notion.site/21f17ec3a90a44779ee1ab7dae8c1110",
+        "https://beryl-balloon-2b5.notion.site/b977d86415c54446bb8fdb42fd7bed48"
+    ]
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
@@ -49,7 +59,8 @@ class SignUpViewController: UIViewController {
     layout()
     attribute()
     setTextField()
-    keyboardObserver()
+//    keyboardObserver()
+      addScrollViewGesture()
     self.signUpButton.isEnabled = false
   }
 }
@@ -59,9 +70,12 @@ extension SignUpViewController {
   
   //MARK: - Layout Helper
   func layout() {
-    layoutNavigationBarView()
+      layoutContainerView()
+      layoutNavigationBarView()
     layoutNavigationTitle()
     layoutBackButton()
+      layoutTermLabel()
+      layoutSecondTermLabel()
     layoutUserNameLabel()
     layoutUserNameTextField()
     layoutUserNameBorderView()
@@ -170,6 +184,15 @@ extension SignUpViewController {
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
   }
   
+    func layoutContainerView() {
+        self.view.add(containerView) {
+            $0.snp.makeConstraints {
+                $0.top.equalTo(self.view.safeAreaLayoutGuide)
+                $0.leading.bottom.trailing.equalTo(self.view.safeAreaLayoutGuide)
+                $0.center.equalTo(self.view.safeAreaLayoutGuide)
+            }
+        }
+    }
   func layoutNavigationBarView() {
     self.view.add(self.navigationBarView) {
       $0.backgroundColor = .clear
@@ -201,19 +224,55 @@ extension SignUpViewController {
       }
     }
   }
+    func layoutTermLabel() {
+        self.containerView.add(termLabel) {
+            let attributedText = NSMutableAttributedString(string: "가입완료 시 카핀의 서비스 이용약관과",
+                                                    attributes: [
+                                                        .font: UIFont.notoSansKRRegularFont(fontSize: 12),
+                                                        .foregroundColor: UIColor.gray4
+                                                    ]
+            )
+            attributedText.addAttribute(.foregroundColor, value: UIColor.black, range: NSRange(location: 11, length: 8))
+            $0.textAlignment = .center
+            $0.isUserInteractionEnabled = true
+            $0.attributedText = attributedText
+            $0.snp.makeConstraints {
+                $0.top.equalToSuperview().offset(70)
+                $0.centerX.equalToSuperview()
+            }
+        }
+    }
+    func layoutSecondTermLabel() {
+        self.containerView.add(secondTermLabel) {
+            let attributedText = NSMutableAttributedString(string: "개인정보처리방침에 동의한 것으로 간주됩니다.",
+                                                    attributes: [
+                                                        .font: UIFont.notoSansKRRegularFont(fontSize: 12),
+                                                        .foregroundColor: UIColor.gray4
+                                                    ]
+            )
+            attributedText.addAttribute(.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: 8))
+            $0.isUserInteractionEnabled = true
+            $0.textAlignment = .center
+            $0.attributedText = attributedText
+            $0.snp.makeConstraints {
+                $0.top.equalTo(self.termLabel.snp.bottom).offset(3)
+                $0.centerX.equalToSuperview()
+            }
+        }
+    }
   func layoutUserNameLabel() {
-    self.view.add(self.userNameLabel) {
+    self.containerView.add(self.userNameLabel) {
       $0.setupLabel(text: "사용자 이름", color: .maincolor1, font: UIFont.notoSansKRMediumFont(fontSize: 16))
       $0.letterSpacing = -0.8
       $0.snp.makeConstraints {
-        $0.top.equalTo(self.navigationBarView.snp.bottom).offset(99)
+          $0.top.equalTo(self.secondTermLabel.snp.bottom).offset(30)
         $0.leading.equalTo(self.view.snp.leading).offset(48)
         $0.height.equalTo(23)
       }
     }
   }
   func layoutUserNameTextField() {
-    self.view.add(self.userNameTextField) {
+    self.containerView.add(self.userNameTextField) {
       $0.configureTextField(textColor: .black, font: UIFont.notoSansKRRegularFont(fontSize: 16))
       $0.attributedPlaceholder = NSAttributedString(string: "사용할 이름을 입력하세요",
                                                     attributes: [NSAttributedString.Key.font: UIFont.notoSansKRRegularFont(fontSize: 16),
@@ -227,18 +286,17 @@ extension SignUpViewController {
     }
   }
   func layoutUserNameBorderView() {
-    self.view.add(self.nameBorderView) {
+    self.containerView.add(self.nameBorderView) {
       $0.backgroundColor = .pointcolor1
       $0.snp.makeConstraints {
         $0.height.equalTo(1)
         $0.top.equalTo(self.userNameTextField.snp.bottom).offset(1)
-        $0.leading.equalToSuperview().offset(48)
-        $0.trailing.equalToSuperview().offset(-48)
+          $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(48)
       }
     }
   }
   func layoutUserNameExplanationLabel() {
-    self.view.add(self.userNameExplanationLabel) {
+    self.containerView.add(self.userNameExplanationLabel) {
       $0.setupLabel(text: "2~10자 이내의 한글, 영문, 숫자 사용가능", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 12))
       $0.snp.makeConstraints {
         $0.height.equalTo(17)
@@ -248,7 +306,7 @@ extension SignUpViewController {
     }
   }
   func layoutEmailLabel() {
-    self.view.add(self.emailLabel) {
+    self.containerView.add(self.emailLabel) {
       $0.setupLabel(text: "이메일 아이디", color: .maincolor1, font: UIFont.notoSansKRMediumFont(fontSize: 16))
       $0.letterSpacing = -0.8
       $0.snp.makeConstraints {
@@ -259,7 +317,7 @@ extension SignUpViewController {
     }
   }
   func layoutEmailTextField() {
-    self.view.add(self.emailTextField) {
+    self.containerView.add(self.emailTextField) {
       $0.configureTextField(textColor: .black, font: UIFont.notoSansKRRegularFont(fontSize: 16))
       $0.attributedPlaceholder = NSAttributedString(string: "이메일을 입력하세요.",
                                                     attributes: [NSAttributedString.Key.font: UIFont.notoSansKRRegularFont(fontSize: 16),
@@ -273,31 +331,29 @@ extension SignUpViewController {
     }
   }
   func layoutEmailBorderView() {
-    self.view.add(self.emailBorderView) {
+    self.containerView.add(self.emailBorderView) {
       $0.backgroundColor = .pointcolor1
       $0.snp.makeConstraints {
         $0.height.equalTo(1)
         $0.top.equalTo(self.emailTextField.snp.bottom).offset(1)
-        $0.leading.equalToSuperview().offset(48)
-        $0.trailing.equalToSuperview().offset(-48)
+          $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(48)
       }
     }
   }
   func layoutEmailExplanationLabel() {
-    self.view.add(self.emailExplanationLabel) {
+    self.containerView.add(self.emailExplanationLabel) {
       $0.numberOfLines = 0
       $0.lineBreakMode = .byWordWrapping
       $0.sizeToFit()
       $0.setupLabel(text: "비밀번호를 잊어버렸을 때 회원가입 시 입력한 이메일로 임시 비밀번호를 보내드립니다.", color: .gray4, font: UIFont.notoSansKRRegularFont(fontSize: 12))
       $0.snp.makeConstraints {
         $0.top.equalTo(self.emailBorderView.snp.bottom).offset(8)
-        $0.leading.equalTo(self.view.snp.leading).offset(48)
-        $0.trailing.equalTo(self.view.snp.trailing).offset(-49)
+          $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(48)
       }
     }
   }
   func layoutPasswordLabel() {
-    self.view.add(self.passwordLabel) {
+    self.containerView.add(self.passwordLabel) {
       $0.setupLabel(text: "비밀번호", color: .maincolor1, font: UIFont.notoSansKRMediumFont(fontSize: 16))
       $0.letterSpacing = -0.8
       $0.snp.makeConstraints {
@@ -308,7 +364,7 @@ extension SignUpViewController {
     }
   }
   func layoutPasswordTextField() {
-    self.view.add(self.passwordTextField) {
+    self.containerView.add(self.passwordTextField) {
       $0.configureTextField(textColor: .black, font: UIFont.notoSansKRRegularFont(fontSize: 16))
       $0.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력하세요.",
                                                     attributes: [NSAttributedString.Key.font: UIFont.notoSansKRRegularFont(fontSize: 16),
@@ -322,18 +378,17 @@ extension SignUpViewController {
     }
   }
   func layoutPasswordBorderView() {
-    self.view.add(self.passwordBorderView) {
+    self.containerView.add(self.passwordBorderView) {
       $0.backgroundColor = .pointcolor1
       $0.snp.makeConstraints {
         $0.height.equalTo(1)
         $0.top.equalTo(self.passwordTextField.snp.bottom).offset(1)
-        $0.leading.equalToSuperview().offset(48)
-        $0.trailing.equalToSuperview().offset(-48)
+          $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(48)
       }
     }
   }
   func layoutCheckPasswordLabel() {
-    self.view.add(self.checkPasswordLabel) {
+    self.containerView.add(self.checkPasswordLabel) {
       $0.setupLabel(text: "비밀번호 확인", color: .maincolor1, font: UIFont.notoSansKRMediumFont(fontSize: 16))
       $0.letterSpacing = -0.8
       $0.snp.makeConstraints {
@@ -344,7 +399,7 @@ extension SignUpViewController {
     }
   }
   func layoutCheckPasswordTextField() {
-    self.view.add(self.checkPasswordTextField) {
+    self.containerView.add(self.checkPasswordTextField) {
       $0.configureTextField(textColor: .black, font: UIFont.notoSansKRRegularFont(fontSize: 16))
       $0.attributedPlaceholder = NSAttributedString(string: "비밀번호를 한번 더 입력하세요",
                                                     attributes: [NSAttributedString.Key.font: UIFont.notoSansKRRegularFont(fontSize: 16),
@@ -358,18 +413,17 @@ extension SignUpViewController {
     }
   }
   func layoutCheckPasswordBorderView() {
-    self.view.add(self.checkPasswordBordrView) {
+    self.containerView.add(self.checkPasswordBordrView) {
       $0.backgroundColor = .pointcolor1
       $0.snp.makeConstraints {
         $0.height.equalTo(1)
         $0.top.equalTo(self.checkPasswordTextField.snp.bottom).offset(1)
-        $0.leading.equalToSuperview().offset(48)
-        $0.trailing.equalToSuperview().offset(-48)
+          $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(48)
       }
     }
   }
   func layoutSignUpButton() {
-    self.view.add(self.signUpButton) {
+    self.containerView.add(self.signUpButton) {
       $0.setTitle("가입하기", for: .normal)
       $0.setTitleColor(.white, for: .normal)
       $0.setTitleColor(.white, for: .selected)
@@ -382,11 +436,51 @@ extension SignUpViewController {
         $0.centerX.equalToSuperview()
         $0.leading.equalTo(self.view.snp.leading).offset(78)
         $0.trailing.equalTo(self.view.snp.trailing).offset(-78)
+          $0.top.greaterThanOrEqualTo(self.checkPasswordBordrView.snp.bottom).offset(108)
         $0.bottom.equalTo(self.view.snp.bottom).offset(-100)
         $0.height.equalTo(49)
       }
     }
   }
+    
+    @objc
+    private func touchupContainerView() {
+        self.view.endEditing(true)
+    }
+    
+    @objc
+    private func touchupTermLabel() {
+        presentToTerms(index: 0)
+    }
+    
+    @objc
+    private func touchupSecondTermLabel() {
+        presentToTerms(index: 1)
+    }
+    
+    private func presentToTerms(index: Int) {
+        let webVC = TermsWebViewController()
+        webVC.modalPresentationStyle = .automatic
+        webVC.dataBind(address: URLList[index])
+        self.present(webVC, animated: true, completion: nil)
+    }
+    
+    private func addScrollViewGesture() {
+        let gesture = UITapGestureRecognizer()
+        gesture.numberOfTapsRequired = 1
+        gesture.isEnabled = true
+        gesture.cancelsTouchesInView = false
+        gesture.addTarget(self, action: #selector(touchupContainerView))
+        containerView.addGestureRecognizer(gesture)
+        
+        let termGesture = UITapGestureRecognizer()
+        termGesture.addTarget(self, action: #selector(touchupTermLabel))
+        termLabel.addGestureRecognizer(termGesture)
+        
+        let secondTermGesture = UITapGestureRecognizer()
+        secondTermGesture.addTarget(self, action: #selector(touchupSecondTermLabel))
+        secondTermLabel.addGestureRecognizer(secondTermGesture)
+    }
   
   /// 뷰의 다른 곳 탭하면 키보드 내려가게
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -399,7 +493,7 @@ extension SignUpViewController: UITextFieldDelegate {
     if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
       UIView.animate(withDuration: 0.3, animations: {
         self.userNameLabel.snp.updateConstraints {
-          $0.top.equalTo(self.navigationBarView.snp.bottom).offset(20)
+          $0.top.equalToSuperview().offset(20)
         }
         self.userNameTextField.snp.updateConstraints {
           $0.top.equalTo(self.userNameLabel.snp.bottom).offset(5)
@@ -427,7 +521,7 @@ extension SignUpViewController: UITextFieldDelegate {
   }
   @objc func keyboardWillDisappear(_ notification: NSNotification){
     self.userNameLabel.snp.updateConstraints {
-      $0.top.equalTo(self.navigationBarView.snp.bottom).offset(99)
+      $0.top.equalToSuperview().offset(99)
     }
     self.userNameTextField.snp.updateConstraints {
       $0.top.equalTo(self.userNameLabel.snp.bottom).offset(10)
