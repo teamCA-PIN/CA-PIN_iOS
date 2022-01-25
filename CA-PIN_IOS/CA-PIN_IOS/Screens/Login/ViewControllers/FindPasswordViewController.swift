@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 import Moya
-import RxMoya
+import Moya
 import RxSwift
 import SwiftKeychainWrapper
 import Then

@@ -59,10 +59,7 @@ extension UserAuthService: TargetType {
     switch self {
     
     case .login(email: let email, password: let password):
-      return .requestCompositeParameters(bodyParameters: ["email": email,
-                                                          "password": password],
-                                         bodyEncoding: JSONEncoding.default,
-                                         urlParameters: .init())
+        return .requestParameters(parameters: ["email": email, "password": password], encoding: JSONEncoding.default)
     case .signup(email: let email, password: let password, nickname: let nickname):
       return .requestCompositeParameters(bodyParameters: ["email": email,
                                                           "password": password,

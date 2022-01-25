@@ -11,7 +11,7 @@ import CoreLocation
 
 import Moya
 import NMapsMap
-import RxMoya
+import Moya
 import RxSwift
 import SnapKit
 import Then

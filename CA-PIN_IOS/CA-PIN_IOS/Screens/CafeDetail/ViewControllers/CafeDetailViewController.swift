@@ -9,7 +9,7 @@ import UIKit
 
 import CollectionViewCenteredFlowLayout
 import Moya
-import RxMoya
+import Moya
 import RxSwift
 import SnapKit
 import Then

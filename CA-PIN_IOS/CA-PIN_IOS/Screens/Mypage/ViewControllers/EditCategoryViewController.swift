@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import SwiftyColor
 import Moya
-import RxMoya
+import Moya
 import RxSwift
 import Then
 

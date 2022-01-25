@@ -8,7 +8,7 @@
 import UIKit
 
 import Moya
-import RxMoya
+import Moya
 import RxSwift
 import SwiftyColor
 

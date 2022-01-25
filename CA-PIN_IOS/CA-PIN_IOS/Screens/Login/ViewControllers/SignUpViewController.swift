@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import SwiftKeychainWrapper
 import Moya
-import RxMoya
+import Moya
 import RxSwift
 import Then
 

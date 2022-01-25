@@ -8,7 +8,7 @@
 import UIKit
 import Then
 import Moya
-import RxMoya
+import Moya
 import RxSwift
 
 // MARK: - EditProfileViewController

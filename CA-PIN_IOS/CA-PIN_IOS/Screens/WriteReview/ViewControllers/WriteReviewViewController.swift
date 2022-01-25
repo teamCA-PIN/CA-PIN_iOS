@@ -11,7 +11,7 @@ import UIKit
 
 import Cosmos
 import Moya
-import RxMoya
+import Moya
 import RxSwift
 import SnapKit
 import SwiftyColor

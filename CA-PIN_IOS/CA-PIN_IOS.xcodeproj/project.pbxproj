@@ -72,6 +72,7 @@
 		CC62B0E7279AD74A004F5246 /* TermsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC62B0E6279AD74A004F5246 /* TermsWebViewController.swift */; };
 		CC6468D42698B8A700CF848A /* ReviewListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6468D32698B8A600CF848A /* ReviewListModel.swift */; };
 		CC6468D62699E6F300CF848A /* EntireReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6468D52699E6F200CF848A /* EntireReviewViewController.swift */; };
+		CC72BAB527A0092D00B43F28 /* NewLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC72BAB427A0092D00B43F28 /* NewLoginViewController.swift */; };
 		CC7BB2EE269B8E800079FC4F /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = CC7BB2ED269B8E800079FC4F /* Cosmos */; };
 		CC7BB2F2269C2B790079FC4F /* MoyaNetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2F1269C2B790079FC4F /* MoyaNetworkLogger.swift */; };
 		CC7BB2F5269C2CA10079FC4F /* UserAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BB2F4269C2CA10079FC4F /* UserAuthService.swift */; };
@@ -120,9 +121,6 @@
 		CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7842C268B0797005FDF1D /* CGFloatLiteral */; };
 		CCF78430268B07C0005FDF1D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7842F268B07C0005FDF1D /* Kingfisher */; };
 		CCF78433268B07DC005FDF1D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78432268B07DC005FDF1D /* Lottie */; };
-		CCF78436268B082A005FDF1D /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78435268B082A005FDF1D /* Moya */; };
-		CCF78438268B082A005FDF1D /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78437268B082A005FDF1D /* RxMoya */; };
-		CCF7843A268B082A005FDF1D /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = CCF78439268B082A005FDF1D /* ReactiveMoya */; };
 		CCF7843D268B08C2005FDF1D /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7843C268B08C2005FDF1D /* SwiftKeychainWrapper */; };
 		CCF78440268B08E4005FDF1D /* SwiftyColor in Frameworks */ = {isa = PBXBuildFile; productRef = CCF7843F268B08E4005FDF1D /* SwiftyColor */; };
 		CCF78446268B197A005FDF1D /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF78442268B197A005FDF1D /* UITextField+.swift */; };
@@ -238,6 +236,7 @@
 		CC62B0E6279AD74A004F5246 /* TermsWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsWebViewController.swift; sourceTree = "<group>"; };
 		CC6468D32698B8A600CF848A /* ReviewListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReviewListModel.swift; path = ../ReviewListModel.swift; sourceTree = "<group>"; };
 		CC6468D52699E6F200CF848A /* EntireReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntireReviewViewController.swift; sourceTree = "<group>"; };
+		CC72BAB427A0092D00B43F28 /* NewLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLoginViewController.swift; sourceTree = "<group>"; };
 		CC7BB2F1269C2B790079FC4F /* MoyaNetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaNetworkLogger.swift; sourceTree = "<group>"; };
 		CC7BB2F4269C2CA10079FC4F /* UserAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthService.swift; sourceTree = "<group>"; };
 		CC7BB2F6269C2E190079FC4F /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -320,11 +319,8 @@
 				CCF78430268B07C0005FDF1D /* Kingfisher in Frameworks */,
 				CC62B0E5279A8A1E004F5246 /* SnapKit in Frameworks */,
 				CCF78440268B08E4005FDF1D /* SwiftyColor in Frameworks */,
-				CCF78436268B082A005FDF1D /* Moya in Frameworks */,
 				CCF78427268B0774005FDF1D /* Then in Frameworks */,
-				CCF78438268B082A005FDF1D /* RxMoya in Frameworks */,
 				CC481FFE2698A00300D7F280 /* CollectionViewCenteredFlowLayout in Frameworks */,
-				CCF7843A268B082A005FDF1D /* ReactiveMoya in Frameworks */,
 				CCF7842D268B0797005FDF1D /* CGFloatLiteral in Frameworks */,
 				E8818969269DE35C00B884FB /* YPImagePicker in Frameworks */,
 				CCF7843D268B08C2005FDF1D /* SwiftKeychainWrapper in Frameworks */,
@@ -604,6 +600,7 @@
 				924B15E6274E01950080A8B2 /* ChangePasswordViewController.swift */,
 				921FEFDF26A158AB00FEBEC9 /* SplashViewController.swift */,
 				CC62B0E6279AD74A004F5246 /* TermsWebViewController.swift */,
+				CC72BAB427A0092D00B43F28 /* NewLoginViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -977,9 +974,6 @@
 				CCF7842C268B0797005FDF1D /* CGFloatLiteral */,
 				CCF7842F268B07C0005FDF1D /* Kingfisher */,
 				CCF78432268B07DC005FDF1D /* Lottie */,
-				CCF78435268B082A005FDF1D /* Moya */,
-				CCF78437268B082A005FDF1D /* RxMoya */,
-				CCF78439268B082A005FDF1D /* ReactiveMoya */,
 				CCF7843C268B08C2005FDF1D /* SwiftKeychainWrapper */,
 				CCF7843F268B08E4005FDF1D /* SwiftyColor */,
 				CC481FFD2698A00300D7F280 /* CollectionViewCenteredFlowLayout */,
@@ -1066,7 +1060,6 @@
 				CCF7842B268B0797005FDF1D /* XCRemoteSwiftPackageReference "CGFloatLiteral" */,
 				CCF7842E268B07C0005FDF1D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				CCF78431268B07DC005FDF1D /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */,
 				CCF7843B268B08C2005FDF1D /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 				CCF7843E268B08E4005FDF1D /* XCRemoteSwiftPackageReference "SwiftyColor" */,
 				CC481FFC2698A00200D7F280 /* XCRemoteSwiftPackageReference "CollectionViewCenteredFlowLayout" */,
@@ -1306,6 +1299,7 @@
 				CC05E02A268B865400269427 /* UIButton+.swift in Sources */,
 				CCA85B622688F2F800C9A32C /* ReusableView.swift in Sources */,
 				E83045B526957824004BD355 /* CAFETITest3ViewController.swift in Sources */,
+				CC72BAB527A0092D00B43F28 /* NewLoginViewController.swift in Sources */,
 				CCF78446268B197A005FDF1D /* UITextField+.swift in Sources */,
 				92537087269C7FAD00E2E5EA /* EditCategoryViewController.swift in Sources */,
 				CC45A17A2694280800E68817 /* TermsViewController.swift in Sources */,
@@ -1449,7 +1443,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1504,7 +1498,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1527,11 +1521,11 @@
 				BASE_URL = "http://3.37.75.200:6000";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = VTJLBZ2Q3F;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "CA-PIN_IOS/Supports/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1560,11 +1554,11 @@
 				BASE_URL = "http://3.37.75.200:6000";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = VTJLBZ2Q3F;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "CA-PIN_IOS/Supports/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1766,14 +1760,6 @@
 				minimumVersion = 3.2.3;
 			};
 		};
-		CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Moya/Moya";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 14.0.1;
-			};
-		};
 		CCF7843B268B08C2005FDF1D /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
@@ -1835,21 +1821,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CCF78431268B07DC005FDF1D /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
-		};
-		CCF78435268B082A005FDF1D /* Moya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */;
-			productName = Moya;
-		};
-		CCF78437268B082A005FDF1D /* RxMoya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */;
-			productName = RxMoya;
-		};
-		CCF78439268B082A005FDF1D /* ReactiveMoya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCF78434268B082A005FDF1D /* XCRemoteSwiftPackageReference "Moya" */;
-			productName = ReactiveMoya;
 		};
 		CCF7843C268B08C2005FDF1D /* SwiftKeychainWrapper */ = {
 			isa = XCSwiftPackageProductDependency;

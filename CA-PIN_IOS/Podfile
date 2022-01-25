@@ -8,6 +8,9 @@ target 'CA-PIN_IOS' do
   use_frameworks!
   
   pod 'NMapsMap'
+  pod 'RxCocoa', '6.2.0'
+  pod 'Moya', '~> 15.0'
+  pod 'Moya/RxSwift', '~> 15.0'
   # Pods for CA-PIN_IOS
 
   target 'CA-PIN_IOSTests' do

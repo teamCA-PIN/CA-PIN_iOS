@@ -9,7 +9,7 @@ import UIKit
 
 import Kingfisher
 import Moya
-import RxMoya
+import Moya
 import RxSwift
 import SnapKit
 import SwiftyColor
