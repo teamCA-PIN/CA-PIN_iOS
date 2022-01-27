@@ -375,7 +375,12 @@ extension LoginViewController {
                             self.navigationController?.pushViewController(cafeTIVC, animated: false)
                         }
                     } catch {
-                        print(error)
+                        self.testLabel.isHidden = false
+                        self.testLabel.setupLabel(
+                            text: "디코딩 에러",
+                            color: .red,
+                            font: .notoSansKRRegularFont(fontSize: 15)
+                        )
                     }
                 }
                 else if response.statusCode == 404 {
@@ -391,7 +396,12 @@ extension LoginViewController {
                         )
                     }
                     catch {
-                        
+                        self.testLabel.isHidden = false
+                        self.testLabel.setupLabel(
+                            text: "디코딩 에러",
+                            color: .red,
+                            font: .notoSansKRRegularFont(fontSize: 15)
+                        )
                     }
                 }
                 else {
@@ -402,11 +412,22 @@ extension LoginViewController {
                         self.showGrayToast(message: data.message!)
                         
                     } catch {
-                        
+                        self.testLabel.isHidden = false
+                        self.testLabel.setupLabel(
+                            text: "디코딩 에러",
+                            color: .red,
+                            font: .notoSansKRRegularFont(fontSize: 15)
+                        )
                     }
                 }
             }, onError: { error in
                 print(error)
+                self.testLabel.isHidden = false
+                self.testLabel.setupLabel(
+                    text: error.localizedDescription,
+                    color: .red,
+                    font: .notoSansKRRegularFont(fontSize: 15)
+                )
             }, onCompleted: {
             }).disposed(by: disposeBag)
     }
