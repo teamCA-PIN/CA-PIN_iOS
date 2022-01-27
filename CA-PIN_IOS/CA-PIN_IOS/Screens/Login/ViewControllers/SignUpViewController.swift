@@ -532,28 +532,28 @@ extension SignUpViewController: UITextFieldDelegate {
     }
   }
   @objc func keyboardWillDisappear(_ notification: NSNotification){
-    self.userNameLabel.snp.updateConstraints {
-      $0.top.equalToSuperview().offset(99)
+    self.userNameLabel.snp.makeConstraints {
+      $0.top.equalTo(self.navigationBarView.snp.bottom).offset(99)
     }
-    self.userNameTextField.snp.updateConstraints {
+    self.userNameTextField.snp.makeConstraints {
       $0.top.equalTo(self.userNameLabel.snp.bottom).offset(10)
     }
-    self.emailLabel.snp.updateConstraints {
+    self.emailLabel.snp.makeConstraints {
       $0.top.equalTo(self.userNameExplanationLabel.snp.bottom).offset(32)
     }
-    self.emailTextField.snp.updateConstraints {
+    self.emailTextField.snp.makeConstraints {
       $0.top.equalTo(self.emailLabel.snp.bottom).offset(10)
     }
-    self.passwordLabel.snp.updateConstraints {
+    self.passwordLabel.snp.makeConstraints {
       $0.top.equalTo(self.emailExplanationLabel.snp.bottom).offset(32)
     }
-    self.passwordTextField.snp.updateConstraints {
+    self.passwordTextField.snp.makeConstraints {
       $0.top.equalTo(self.passwordLabel.snp.bottom).offset(10)
     }
-    self.checkPasswordLabel.snp.updateConstraints {
+    self.checkPasswordLabel.snp.makeConstraints {
       $0.top.equalTo(self.passwordBorderView.snp.bottom).offset(32)
     }
-    self.checkPasswordTextField.snp.updateConstraints {
+    self.checkPasswordTextField.snp.makeConstraints {
       $0.top.equalTo(self.checkPasswordLabel.snp.bottom).offset(10)
     }
   }
