@@ -10,6 +10,7 @@ import Moya
 import Moya
 import RxSwift
 
+
 class DeleteReviewViewController: UIViewController {
   
   // MARK: - Components
@@ -20,6 +21,12 @@ class DeleteReviewViewController: UIViewController {
   let confirmButton = UIButton()
   
   var reviewId: String = ""
+  
+  enum VC: Int {
+    case detail, myPage
+  }
+  
+  var vc: VC?
     var rootViewController: UIViewController?
     var cafeID: String?
   
@@ -111,6 +118,7 @@ extension DeleteReviewViewController {
       }
     }
   }
+  // 서버통신
   func deleteReview(reviewId: String) {
     reviewDeleteService.rx.request(.deleteReview(reviewId: reviewId))
       .asObservable()
@@ -119,13 +127,21 @@ extension DeleteReviewViewController {
           do {
             let endIndex = self.presentingViewController?.children.endIndex ?? 0
             let mypageVC = self.presentingViewController?.children[endIndex-1] as? MypageViewController ?? UIViewController()
-              guard let detailVC = self.rootViewController as? CafeDetailViewController else { return }
-              guard let cafeID = self.cafeID else { return }
-            self.dismiss(animated: false) {
+            switch self.vc {
+            case .myPage:
+              self.dismiss(animated: true) {
               mypageVC.viewWillAppear(true)
               mypageVC.showGreenToast(message: "리뷰 삭제가 완료되었습니다.")
+            }
+            case .detail:
+              guard let detailVC = self.rootViewController as? CafeDetailViewController else { return }
+              guard let cafeID = self.cafeID else { return }
+              self.dismiss(animated: true, completion: {
                 detailVC.setupReviewData(cafeId: cafeID)
                 detailVC.showGreenToast(message: "리뷰 삭제가 완료되었습니다.")
+              })
+            case .none:
+              break
             }
           }
           catch {
@@ -150,7 +166,9 @@ extension DeleteReviewViewController {
   @objc func clickedCancelButton() {
     self.dismiss(animated: false, completion: nil)
   }
+  
   @objc func clickedConfirmButton() {
+
     /// 삭제 서버 연결
     deleteReview(reviewId: reviewId)
   }
