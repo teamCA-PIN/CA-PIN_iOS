@@ -248,6 +248,7 @@ extension MyReviewTableViewCell {
       let deleteReviewVC = DeleteReviewViewController()
       deleteReviewVC.modalPresentationStyle = .overCurrentContext
       deleteReviewVC.reviewId = self.reviewModel?.id ?? ""
+      deleteReviewVC.vc = .myPage
       self.parentViewController?.present(deleteReviewVC, animated: false, completion: nil)
     })
 

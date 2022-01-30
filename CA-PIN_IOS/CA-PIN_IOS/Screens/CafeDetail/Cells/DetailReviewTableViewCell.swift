@@ -247,6 +247,7 @@ extension DetailReviewTableViewCell {
                 let deleteReviewVC = DeleteReviewViewController()
                 deleteReviewVC.modalPresentationStyle = .overCurrentContext
                 deleteReviewVC.reviewId = self.reviewModel?.id ?? ""
+                deleteReviewVC.vc = .detail
                   deleteReviewVC.rootViewController = self.rootViewController
                   deleteReviewVC.cafeID = self.cafeID
                   
