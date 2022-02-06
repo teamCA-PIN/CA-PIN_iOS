@@ -565,10 +565,10 @@ extension SignUpViewController: UITextFieldDelegate {
         case emailTextField:
             enableSignupButton()
         case passwordTextField:
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+//            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
             enableSignupButton()
         case checkPasswordTextField:
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+//            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
             enableSignupButton()
         default: break
         }
