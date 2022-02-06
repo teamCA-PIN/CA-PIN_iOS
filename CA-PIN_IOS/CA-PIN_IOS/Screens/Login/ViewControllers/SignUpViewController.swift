@@ -60,7 +60,7 @@ class SignUpViewController: UIViewController {
         layout()
         attribute()
         setTextField()
-        //    keyboardObserver()
+//            keyboardObserver()
         addScrollViewGesture()
         self.signUpButton.isEnabled = false
     }
@@ -502,62 +502,32 @@ extension SignUpViewController {
 }
 
 extension SignUpViewController: UITextFieldDelegate {
+    
     @objc func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.userNameLabel.snp.updateConstraints {
-                    $0.top.equalToSuperview().offset(20)
-                }
-                self.userNameTextField.snp.updateConstraints {
-                    $0.top.equalTo(self.userNameLabel.snp.bottom).offset(5)
-                }
-                self.emailLabel.snp.updateConstraints {
-                    $0.top.equalTo(self.userNameExplanationLabel.snp.bottom).offset(16)
-                }
-                self.emailTextField.snp.updateConstraints {
-                    $0.top.equalTo(self.emailLabel.snp.bottom).offset(5)
-                }
-                self.passwordLabel.snp.updateConstraints {
-                    $0.top.equalTo(self.emailExplanationLabel.snp.bottom).offset(16)
-                }
-                self.passwordTextField.snp.updateConstraints {
-                    $0.top.equalTo(self.passwordLabel.snp.bottom).offset(5)
-                }
-                self.checkPasswordLabel.snp.updateConstraints {
-                    $0.top.equalTo(self.passwordBorderView.snp.bottom).offset(16)
-                }
-                self.checkPasswordTextField.snp.updateConstraints {
-                    $0.top.equalTo(self.checkPasswordLabel.snp.bottom).offset(5)
-                }
-            })
+            UIView.animate(
+                withDuration: 0.3,
+                animations: { self.containerView.transform = CGAffineTransform(translationX: 0, y: -200) }
+            )
         }
     }
-    @objc func keyboardWillDisappear(_ notification: NSNotification){
-        self.userNameLabel.snp.makeConstraints {
-            $0.top.equalTo(self.navigationBarView.snp.bottom).offset(99)
-        }
-        self.userNameTextField.snp.makeConstraints {
-            $0.top.equalTo(self.userNameLabel.snp.bottom).offset(10)
-        }
-        self.emailLabel.snp.makeConstraints {
-            $0.top.equalTo(self.userNameExplanationLabel.snp.bottom).offset(32)
-        }
-        self.emailTextField.snp.makeConstraints {
-            $0.top.equalTo(self.emailLabel.snp.bottom).offset(10)
-        }
-        self.passwordLabel.snp.makeConstraints {
-            $0.top.equalTo(self.emailExplanationLabel.snp.bottom).offset(32)
-        }
-        self.passwordTextField.snp.makeConstraints {
-            $0.top.equalTo(self.passwordLabel.snp.bottom).offset(10)
-        }
-        self.checkPasswordLabel.snp.makeConstraints {
-            $0.top.equalTo(self.passwordBorderView.snp.bottom).offset(32)
-        }
-        self.checkPasswordTextField.snp.makeConstraints {
-            $0.top.equalTo(self.checkPasswordLabel.snp.bottom).offset(10)
-        }
+    
+    @objc func keyboardWillDisappear(_ notification: NSNotification) {
+        self.containerView.transform = .identity
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case checkPasswordTextField:
+            UIView.animate(
+                withDuration: 0.3,
+                animations: { self.containerView.transform = CGAffineTransform(translationX: 0, y: -200) }
+            )
+        default: break
+        }
+
+    }
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case userNameTextField:
@@ -565,10 +535,9 @@ extension SignUpViewController: UITextFieldDelegate {
         case emailTextField:
             enableSignupButton()
         case passwordTextField:
-//            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
             enableSignupButton()
         case checkPasswordTextField:
-//            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+            self.containerView.transform = .identity
             enableSignupButton()
         default: break
         }
