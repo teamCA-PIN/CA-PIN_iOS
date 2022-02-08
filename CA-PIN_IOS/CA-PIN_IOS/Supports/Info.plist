@@ -36,9 +36,9 @@
 	<key>NSCameraUsageDescription</key>
 	<string>리뷰 작성 시 카메라 접근 권한이 필요합니다.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>지도에서 내 위치를 확인하기 위해 위치 사용 권한이 필요합니다.</string>
+	<string>카핀은 유저의 현재 위치를 중심으로 주변의 지도를 보여줌으로써, 근처 카페의 지리적 위치 및 상세데이터를 제공하기 위해 위치 사용 권한이 필요합니다.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>지도에서 내 위치를 확인하기 위해 위치 사용 권한이 필요합니다.</string>
+	<string>카핀은 유저의 현재 위치를 중심으로 주변의 지도를 보여줌으로써, 근처 카페의 지리적 위치 및 상세데이터를 제공하기 위해 위치 사용 권한이 필요합니다.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>리뷰 작성 시 사진 라이브러리 접근 권한이 필요합니다.</string>
 	<key>UIAppFonts</key>
